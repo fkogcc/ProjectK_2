@@ -4,6 +4,9 @@
 
 class KinnikuIdle;
 class KinnikurouJab;
+class KinnikuMuscle;
+class KinnikuUpper;
+class KinnikuMizo;
 
 class Kinnikurou : public PlayerBase
 {
@@ -18,6 +21,10 @@ public:
 private:
 
 	KinnikuIdle* m_pIdle;
+	KinnikurouJab* m_pJab;
+	KinnikuMuscle* m_pMuscle;
+	KinnikuUpper* m_pUpper;
+	KinnikuMizo* m_pMizo;
 
 	bool m_pushBottom;
 
@@ -25,6 +32,9 @@ private:
 	int m_charHandle;// キャラクター全体
 	int m_idleHandle;// アイドル状態
 	int m_jabHandle;// ジャブ攻撃状態
+	int m_muscleHandle;// マッスル攻撃状態
+	int m_UpperHandle;// アッパー攻撃状態
+	int m_MizoHandle;// みぞおち攻撃状態
 
 	// 描画座標
 	int m_drawPosX;// X
