@@ -10,7 +10,6 @@ public:
 	void Init();
 	void End();
 	void Update(int imagePosX, int imagePosY);
-	void Draw();
 
 private:
 

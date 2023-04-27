@@ -2,7 +2,7 @@
 
 #include "../Base/PlayerBase.h"
 
-class KinnnikurouIdle;
+class KinnikuIdle;
 class KinnikurouJab;
 
 class Kinnikurou : public PlayerBase
@@ -17,7 +17,7 @@ public:
 	void Draw  ();// •`‰æ
 private:
 
-	KinnnikurouIdle* m_pIdle;
+	KinnikuIdle* m_pIdle;
 
 	bool m_pushBottom;
 
@@ -34,5 +34,8 @@ private:
 	int m_imgPosX;// X
 	int m_imgPosY;// Y
 
+	// ‰æ‘œ‚Ìˆê•Ð‚Ì’·‚³
+	int m_imgWidth;// X
+	int m_imgHeight;// Y
 };
 

@@ -1,7 +1,7 @@
 #include "Kinnikurou.h"
 #include "../../condition.h"
 #include "../../Util/DrawFunctions.h"
-#include "KinnnikuIdle.h"
+#include "KinnikuIdle.h"
 #include "KinnikurouJab.h"
 
 namespace
@@ -19,9 +19,11 @@ Kinnikurou::Kinnikurou() :
 	m_drawPosX(0),
 	m_drawPosY(0),
 	m_imgPosX(0),
-	m_imgPosY(0)
+	m_imgPosY(0),
+	m_imgWidth(0),
+	m_imgHeight(0)
 {
-	m_pIdle = new KinnikurouIdle;
+	m_pIdle = new KinnikuIdle;
 }
 
 Kinnikurou::~Kinnikurou()
@@ -61,27 +63,39 @@ void Kinnikurou::Update()
 	if (Pad::isPress(PAD_INPUT_LEFT))m_pos.x -= 10;
 
 	// アイドル状態
-	if (m_moveType == static_cast<int>(moveType::Idol)) m_pIdle->Update();
-	if (m_moveType == static_cast<int>(moveType::Idol)) m_pIdle->Update();
+	if (m_moveType == static_cast<int>(moveType::Idol)) m_pIdle->Update(m_imgPosX, m_imgPosY);
+	if (m_moveType == static_cast<int>(moveType::Attack1)) m_pIdle->Update(m_imgPosX, m_imgPosY);
+	if (m_moveType == static_cast<int>(moveType::Attack2))
+	{
 
+	}
 
 }
 
 void Kinnikurou::Draw()
 {
 	// アイドル状態
-	if (m_moveType == static_cast<int>(moveType::Idol)) m_charHandle = m_idleHandle;
+	if (m_moveType == static_cast<int>(moveType::Idol))
+	{
+		m_charHandle = m_idleHandle;
+		m_imgWidth = 18;
+		m_imgHeight = 23;
+	}
 	// ジャブ攻撃状態
-	if (m_moveType == static_cast<int>(moveType::Attack1)) m_charHandle = m_jabHandle;
+	if (m_moveType == static_cast<int>(moveType::Attack1))
+	{
+		m_charHandle = m_jabHandle;
+		m_imgWidth = 28;
+		m_imgHeight = 23;
+	}
+
+
 
 	// キャラクターの描画
-	if (m_moveType == static_cast<int>(moveType::Idol)) 
-	{
-		my::MyDrawRectRotaGraph(m_drawPosX, m_drawPosY,
-			m_imgPosX * 18, m_imgPosY * 23,
-			18, 23,
-			3.0f, 0.0f,
-			m_charHandle,
-			true, false);
-	}
+	my::MyDrawRectRotaGraph(m_drawPosX, m_drawPosY,
+		m_imgPosX * m_imgWidth, m_imgPosY * m_imgHeight,
+		18, 23,
+		3.0f, 0.0f,
+		m_charHandle,
+		true, false);
 }
