@@ -76,10 +76,11 @@ void Kinnikurou::Update()
 {
 	Pad::update();
 
-	if (!m_pushBottom) m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
-	if (Pad::isTrigger(PAD_INPUT_2)) m_pushBottom = false;
-
-	m_moveType = static_cast<int>(moveType::Attack1);// ジャブ攻撃状態
+	//if (!m_pushBottom) m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
+	if (Pad::isTrigger(PAD_INPUT_1)) m_moveType = static_cast<int>(moveType::Attack1);// ジャブ攻撃状態
+	if (Pad::isTrigger(PAD_INPUT_2)) m_moveType = static_cast<int>(moveType::Attack2);// マッスル攻撃状態
+	if (Pad::isTrigger(PAD_INPUT_3)) m_moveType = static_cast<int>(moveType::Attack3);// マッスル攻撃状態
+	if (Pad::isTrigger(PAD_INPUT_4)) m_moveType = static_cast<int>(moveType::Attack4);// マッスル攻撃状態
 
 	if (Pad::isPress(PAD_INPUT_RIGHT))m_pos.x += 10;
 	if (Pad::isPress(PAD_INPUT_LEFT))m_pos.x -= 10;
@@ -103,13 +104,33 @@ void Kinnikurou::Draw()
 		m_imgHeight = 23;
 	}
 	// ジャブ攻撃状態
-	if (m_moveType == static_cast<int>(moveType::Attack1))
+	else if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
 		m_charHandle = m_jabHandle;
 		m_imgWidth = 28;
 		m_imgHeight = 23;
 	}
-
+	// マッスル攻撃状態
+	else if (m_moveType == static_cast<int>(moveType::Attack2))
+	{
+		m_charHandle = m_muscleHandle;
+		m_imgWidth = 27;
+		m_imgHeight = 24;
+	}
+	// アッパー攻撃状態
+	else if (m_moveType == static_cast<int>(moveType::Attack3))
+	{
+		m_charHandle = m_UpperHandle;
+		m_imgWidth = 27;
+		m_imgHeight = 24;
+	}
+	// みぞおち攻撃状態
+	else if (m_moveType == static_cast<int>(moveType::Attack4))
+	{
+		m_charHandle = m_MizoHandle;
+		m_imgWidth = 27;
+		m_imgHeight = 24;
+	}
 
 
 	// キャラクターの描画

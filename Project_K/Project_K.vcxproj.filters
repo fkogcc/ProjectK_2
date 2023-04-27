@@ -114,6 +114,12 @@
     <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp">
       <Filter>Object\Player\Kinnikurou</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuUpper.cpp">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMizo.cpp">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\SceneBase.h">
@@ -192,6 +198,12 @@
       <Filter>Object\Player\Kinnikurou</Filter>
     </ClInclude>
     <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuUpper.h">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMizo.h">
       <Filter>Object\Player\Kinnikurou</Filter>
     </ClInclude>
   </ItemGroup>

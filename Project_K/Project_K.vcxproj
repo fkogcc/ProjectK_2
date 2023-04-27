@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMizo.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuUpper.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuMuscle.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\Kinnikurou.cpp" />
@@ -166,6 +168,8 @@
     <ClCompile Include="Object\Player\Witch\WitchShot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMizo.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuUpper.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuMuscle.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h" />
     <ClInclude Include="Object\Player\Kinnikurou\Kinnikurou.h" />
