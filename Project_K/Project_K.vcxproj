@@ -139,6 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Player\Dinosaur\Dinosaur.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackBite.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurStateManager.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackPounce.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackScratch.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackShot.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurIdle.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurJump.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurMove.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurStateBase.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\Kinnikurou.cpp" />
     <ClCompile Include="Object\Player\Base\MoveTypeBase.cpp" />
@@ -165,6 +175,16 @@
     <ClCompile Include="Object\Player\Witch\WitchShot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Player\Dinosaur\Dinosaur.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackBite.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurStateManager.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackPounce.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackScratch.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackShot.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurIdle.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurJump.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurMove.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurStateBase.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h" />
     <ClInclude Include="Object\Player\Kinnikurou\Kinnikurou.h" />
     <ClInclude Include="Object\Player\Base\MoveTypeBase.h" />

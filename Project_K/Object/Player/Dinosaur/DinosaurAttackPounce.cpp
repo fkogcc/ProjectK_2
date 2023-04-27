@@ -1,14 +1,10 @@
 #include "DinosaurAttackPounce.h"
 
-DinosaurAttackPounce::DinosaurAttackPounce()
-{
-}
-
 DinosaurAttackPounce::~DinosaurAttackPounce()
 {
 }
 
-DinosaurAttackBase* DinosaurAttackPounce::Update()
+DinosaurStateBase* DinosaurAttackPounce::Update()
 {
 	return nullptr;
 }

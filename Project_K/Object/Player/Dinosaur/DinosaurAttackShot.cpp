@@ -1,14 +1,10 @@
 #include "DinosaurAttackShot.h"
 
-DinosaurAttackShot::DinosaurAttackShot()
-{
-}
-
 DinosaurAttackShot::~DinosaurAttackShot()
 {
 }
 
-DinosaurAttackBase* DinosaurAttackShot::Update()
+DinosaurStateBase* DinosaurAttackShot::Update()
 {
 	return this;
 }
