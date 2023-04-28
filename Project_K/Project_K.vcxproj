@@ -139,6 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMizo.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuUpper.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMuscle.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\Kinnikurou.cpp" />
     <ClCompile Include="Object\Player\Base\MoveTypeBase.cpp" />
@@ -149,7 +152,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Player\Base\PlayerBase.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfIdol.cpp" />
-    <ClCompile Include="Object\Player\Kinnikurou\KinnnikuIdle.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuIdle.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneCharacterSelect.cpp" />
     <ClCompile Include="Scene\SceneMain.cpp" />
@@ -165,6 +168,9 @@
     <ClCompile Include="Object\Player\Witch\WitchShot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMizo.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuUpper.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMuscle.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h" />
     <ClInclude Include="Object\Player\Kinnikurou\Kinnikurou.h" />
     <ClInclude Include="Object\Player\Base\MoveTypeBase.h" />
@@ -175,7 +181,7 @@
     <ClInclude Include="Object\Player\Base\PlayerBase.h" />
     <ClInclude Include="Object\Player\Elf\ElfIdol.h" />
     <ClInclude Include="condition.h" />
-    <ClInclude Include="Object\Player\Kinnikurou\KinnnikuIdle.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuIdle.h" />
     <ClInclude Include="Scene\SceneCharacterSelect.h" />
     <ClInclude Include="Scene\SceneMapSelect.h" />
     <ClInclude Include="Scene\SceneResult.h" />

@@ -2,11 +2,11 @@
 
 #include "../Base/MoveTypeBase.h"
 
-class KinnnikuIdle : public MoveTypeBase
+class KinnikuIdle : public MoveTypeBase
 {
 public:
-	KinnnikuIdle();
-	virtual ~KinnnikuIdle();
+	KinnikuIdle();
+	virtual ~KinnikuIdle();
 
 	void Init();// ‰Šú‰»
 	void End();// I—¹
