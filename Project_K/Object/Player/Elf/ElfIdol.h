@@ -8,6 +8,7 @@ public:
 	ElfIdol() {}
 	virtual ~ElfIdol() {}
 
+
 	void Update();// XV
 };
 

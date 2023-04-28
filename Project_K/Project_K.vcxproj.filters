@@ -31,14 +31,13 @@
     <Filter Include="Object\Player\Elf">
       <UniqueIdentifier>{d784fab5-391b-466d-ab6d-ce57093cb1b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Player\Kinnikurou">
-      <UniqueIdentifier>{085c46f5-16a8-4878-a344-7c97240cd2da}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Player\Witch">
       <UniqueIdentifier>{68054d6d-bcea-4e09-9b48-828da551a3a6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Player\dinosaur">
       <UniqueIdentifier>{11b4b85a-e1b2-4070-8449-55f9553dfdac}</UniqueIdentifier>
+    <Filter Include="Object\Player\Kinnikurou">
+      <UniqueIdentifier>{de67d178-b94c-4a96-8dac-c74c9304a160}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,17 +95,32 @@
     <ClCompile Include="Scene\SceneTitle.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\Kinnikurou.cpp">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\KinnnikuIdle.cpp">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Player\Witch\Witch.cpp">
       <Filter>Object\Player\Witch</Filter>
     </ClCompile>
     <ClCompile Include="Object\Player\Witch\WitchShot.cpp">
       <Filter>Object\Player\Witch</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Stage\Stage.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuIdle.cpp">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\Kinnikurou.cpp">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMuscle.cpp">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuUpper.cpp">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMizo.cpp">
+      <Filter>Object\Player\Kinnikurou</Filter>
     </ClCompile>
     <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp">
       <Filter>ソース ファイル</Filter>
@@ -203,17 +217,32 @@
     <ClInclude Include="Scene\SceneCharacterSelect.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\Kinnikurou.h">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\KinnnikuIdle.h">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClInclude>
     <ClInclude Include="Object\Player\Witch\Witch.h">
       <Filter>Object\Player\Witch</Filter>
     </ClInclude>
     <ClInclude Include="Object\Player\Witch\WitchShot.h">
       <Filter>Object\Player\Witch</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Stage\Stage.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuIdle.h">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\Kinnikurou.h">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMuscle.h">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuUpper.h">
+      <Filter>Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMizo.h">
+      <Filter>Object\Player\Kinnikurou</Filter>
     </ClInclude>
     <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h">
       <Filter>ヘッダー ファイル</Filter>

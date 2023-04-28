@@ -1,17 +1,14 @@
 #pragma once
 #include "../Base/MoveTypeBase.h"
 
-class KinnikurouJab : public MoveTypeBase
+class KinnikuMuscle : public MoveTypeBase
 {
 public:
-	KinnikurouJab();
-	virtual ~KinnikurouJab();
+	KinnikuMuscle();
+	virtual ~KinnikuMuscle();
 
 	void Init();
 	void End();
 	void Update(int imagePosX, int imagePosY);
-
-private:
-
 };
 
