@@ -1,12 +1,15 @@
 #pragma once
-#include "DinosaurAttackBase.h"
-class DinosaurAttackScratch : public DinosaurAttackBase
+#include "DinosaurStateBase.h"
+class DinosaurAttackScratch : public DinosaurStateBase
 {
 public:
-
-	DinosaurAttackScratch();
+	DinosaurAttackScratch(Vec2 pos, Vec2 vec)
+	{
+		m_Pos = pos;
+		m_Vec = vec;
+	}
 	virtual ~DinosaurAttackScratch();
 
-	virtual DinosaurAttackBase* Update();
+	virtual DinosaurStateBase* Update() override;
 };
 

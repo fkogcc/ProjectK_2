@@ -1,10 +1,18 @@
 #include "Dinosaur.h"
 #include "../../../condition.h"
+#include "DinosaurStateManager.h"
 
-Dinosaur::Dinosaur()
+namespace
+{
+	const char* kFilename = "../../../Data/Image/Player/kyouryuu/Enemy.png";
+}
+
+Dinosaur::Dinosaur() : 
+	m_Handle(-1)
 {
 	m_hp = 150;
-
+	m_Handle = LoadGraph(kFilename);
+	m_StateManager = new DinosaurStateManager(m_Handle);
 }
 
 Dinosaur::~Dinosaur()
@@ -30,18 +38,21 @@ void Dinosaur::Update()
 	if (Pad::isPress(PAD_INPUT_UP))m_pos.y -= 10;
 	if (Pad::isPress(PAD_INPUT_DOWN))m_pos.y += 10;
 
-	if (Pad::isTrigger(PAD_INPUT_1))// XBOX A
-	{
-		m_moveType = static_cast<int>(moveType::Attack2);;// 攻撃
-	}
-	if (Pad::isTrigger(PAD_INPUT_2))// XBOX B
-	{
-		m_moveType = static_cast<int>(moveType::Attack1);;// 攻撃
-	}
-	if (Pad::isTrigger(PAD_INPUT_3) || (Pad::isTrigger(PAD_INPUT_4)))// XBOX X or Y
-	{
-		//　ジャンプ
-	}
+	//if (Pad::isTrigger(PAD_INPUT_1))// XBOX A
+	//{
+	//	m_moveType = static_cast<int>(moveType::Attack2);;// 攻撃
+	//}
+	//if (Pad::isTrigger(PAD_INPUT_2))// XBOX B
+	//{
+	//	m_moveType = static_cast<int>(moveType::Attack1);;// 攻撃
+	//}
+	//if (Pad::isTrigger(PAD_INPUT_3) || (Pad::isTrigger(PAD_INPUT_4)))// XBOX X or Y
+	//{
+	//	//　ジャンプ
+	//}
+
+	m_StateManager->Update();
+
 	if (Pad::isTrigger(XINPUT_BUTTON_LEFT_SHOULDER) || (Pad::isTrigger(PAD_INPUT_R)))// XBOX X or Y
 	{
 		//　ジャンプ
@@ -61,4 +72,5 @@ void Dinosaur::Update()
 
 void Dinosaur::Draw()
 {
+	m_StateManager->Draw();
 }

@@ -1,14 +1,10 @@
 #include "DinosaurAttackBite.h"
 
-DinosaurAttackBite::DinosaurAttackBite()
-{
-}
-
 DinosaurAttackBite::~DinosaurAttackBite()
 {
 }
 
-DinosaurAttackBase* DinosaurAttackBite::Update()
+DinosaurStateBase* DinosaurAttackBite::Update()
 {
-	return nullptr;
+	return this;
 }
