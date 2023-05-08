@@ -5,7 +5,7 @@
 class ElfAttackArrowPunch : public MoveTypeBase
 {
 public:
-	ElfAttackArrowPunch() {}
+	ElfAttackArrowPunch();
 	virtual ~ElfAttackArrowPunch() {}
 
 	void Update();// çXêV

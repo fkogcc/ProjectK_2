@@ -1,284 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Object">
-      <UniqueIdentifier>{2cde83f2-c095-4e56-9072-e7cc02765e67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{ccdb5e5f-f848-45be-a944-be0fc02b988f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Util">
-      <UniqueIdentifier>{ff88e6fa-cb06-4a1e-9010-a05f667bcf94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Player">
-      <UniqueIdentifier>{e7a6b0f6-7729-4b3f-9aac-63cff44ded27}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Player\Base">
-      <UniqueIdentifier>{876918a0-7d81-4aee-b73f-45ba3610b88e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Player\Elf">
-      <UniqueIdentifier>{d784fab5-391b-466d-ab6d-ce57093cb1b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Player\Witch">
-      <UniqueIdentifier>{68054d6d-bcea-4e09-9b48-828da551a3a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Player\dinosaur">
-      <UniqueIdentifier>{11b4b85a-e1b2-4070-8449-55f9553dfdac}</UniqueIdentifier>
-    <Filter Include="Object\Player\Kinnikurou">
-      <UniqueIdentifier>{de67d178-b94c-4a96-8dac-c74c9304a160}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Object\Player\Dinosaur\Dinosaur.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackBite.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurStateManager.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackPounce.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackScratch.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackShot.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurIdle.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurJump.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurMove.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurStateBase.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMizo.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuUpper.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMuscle.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\Kinnikurou.cpp" />
+    <ClCompile Include="Object\Player\Base\MoveTypeBase.cpp" />
+    <ClCompile Include="Object\Player\Elf\ElfAttackArrowChargeShot.cpp" />
+    <ClCompile Include="Object\Player\elf\ElfAttackArrowPunch.cpp" />
+    <ClCompile Include="Object\Player\Elf\ElfAttackArrowShot.cpp" />
+    <ClCompile Include="Object\Player\elf\Elf.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object\Player\Base\PlayerBase.cpp" />
+    <ClCompile Include="Object\Player\Elf\ElfIdle.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuIdle.cpp" />
+    <ClCompile Include="Scene\SceneBase.cpp" />
+    <ClCompile Include="Scene\SceneCharacterSelect.cpp" />
+    <ClCompile Include="Scene\SceneMain.cpp" />
+    <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Scene\SceneMapSelect.cpp" />
+    <ClCompile Include="Scene\SceneResult.cpp" />
+    <ClCompile Include="Scene\SceneTitle.cpp" />
+    <ClCompile Include="Object\Stage\Stage.cpp" />
+    <ClCompile Include="Util\DrawFunctions.cpp" />
+    <ClCompile Include="Util\Pad.cpp" />
+    <ClCompile Include="Util\Vec2.cpp" />
+    <ClCompile Include="Object\Player\Witch\Witch.cpp" />
+    <ClCompile Include="Object\Player\Witch\WitchShot.cpp" />
+    <ClCompile Include="Object\Player\Elf\ElfAttackArrowUp.cpp" />
+    <ClCompile Include="Object\Player\Elf\ElfRun.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneManager.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneMain.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneBase.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Util\Vec2.cpp">
-      <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Base\PlayerBase.cpp">
-      <Filter>Object\Player\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\elf\Elf.cpp">
-      <Filter>Object\Player\Elf</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\elf\ElfAttackArrowPunch.cpp">
-      <Filter>Object\Player\Elf</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Base\MoveTypeBase.cpp">
-      <Filter>Object\Player\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Util\DrawFunctions.cpp">
-      <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Util\Pad.cpp">
-      <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Elf\ElfIdol.cpp">
-      <Filter>Object\Player\Elf</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Elf\ElfAttackArrowShot.cpp">
-      <Filter>Object\Player\Elf</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Elf\ElfAttackArrowChargeShot.cpp">
-      <Filter>Object\Player\Elf</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneCharacterSelect.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneMapSelect.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneResult.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\SceneTitle.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Witch\Witch.cpp">
-      <Filter>Object\Player\Witch</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Witch\WitchShot.cpp">
-      <Filter>Object\Player\Witch</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Stage\Stage.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\KinnikuIdle.cpp">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\Kinnikurou.cpp">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMuscle.cpp">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\KinnikuUpper.cpp">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\KinnikuMizo.cpp">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Kinnikurou\KinnikurouJab.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Stage\Stage.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\Dinosaur.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackBite.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurStateManager.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackPounce.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackScratch.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackShot.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurIdle.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurJump.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurMove.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-    <ClCompile Include="Object\Player\Dinosaur\DinosaurStateBase.cpp">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Scene\SceneBase.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneMain.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneManager.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\Vec2.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\game.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Base\PlayerBase.h">
-      <Filter>Object\Player\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\elf\Elf.h">
-      <Filter>Object\Player\Elf</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\elf\ElfAttackArrowPunch.h">
-      <Filter>Object\Player\Elf</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Base\MoveTypeBase.h">
-      <Filter>Object\Player\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\DrawFunctions.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\Pad.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Elf\ElfIdol.h">
-      <Filter>Object\Player\Elf</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Elf\ElfAttackArrowShot.h">
-      <Filter>Object\Player\Elf</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Elf\ElfAttackArrowChargeShot.h">
-      <Filter>Object\Player\Elf</Filter>
-    </ClInclude>
-    <ClInclude Include="condition.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneTitle.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneResult.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneMapSelect.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneCharacterSelect.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Witch\Witch.h">
-      <Filter>Object\Player\Witch</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Witch\WitchShot.h">
-      <Filter>Object\Player\Witch</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Stage\Stage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\KinnikuIdle.h">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\Kinnikurou.h">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMuscle.h">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\KinnikuUpper.h">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMizo.h">
-      <Filter>Object\Player\Kinnikurou</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Stage\Stage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\Dinosaur.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackBite.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurStateManager.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackPounce.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackScratch.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackShot.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurIdle.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurJump.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurMove.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\Player\Dinosaur\DinosaurStateBase.h">
-      <Filter>Object\Player\dinosaur</Filter>
-    </ClInclude>
+    <ClInclude Include="Object\Player\Dinosaur\Dinosaur.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackBite.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurStateManager.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackPounce.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackScratch.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackShot.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurIdle.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurJump.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurMove.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurStateBase.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMizo.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuUpper.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuMuscle.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikurouJab.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\Kinnikurou.h" />
+    <ClInclude Include="Object\Player\Base\MoveTypeBase.h" />
+    <ClInclude Include="Object\Player\Elf\ElfAttackArrowChargeShot.h" />
+    <ClInclude Include="Object\Player\elf\ElfAttackArrowPunch.h" />
+    <ClInclude Include="Object\Player\Elf\ElfAttackArrowShot.h" />
+    <ClInclude Include="Object\Player\elf\Elf.h" />
+    <ClInclude Include="Object\Player\Base\PlayerBase.h" />
+    <ClInclude Include="Object\Player\Elf\ElfIdle.h" />
+    <ClInclude Include="condition.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuIdle.h" />
+    <ClInclude Include="Scene\SceneCharacterSelect.h" />
+    <ClInclude Include="Scene\SceneMapSelect.h" />
+    <ClInclude Include="Scene\SceneResult.h" />
+    <ClInclude Include="Scene\SceneTitle.h" />
+    <ClInclude Include="Object\Stage\Stage.h" />
+    <ClInclude Include="Util\DrawFunctions.h" />
+    <ClInclude Include="Util\game.h" />
+    <ClInclude Include="Scene\SceneBase.h" />
+    <ClInclude Include="Scene\SceneMain.h" />
+    <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Util\Pad.h" />
+    <ClInclude Include="Util\Vec2.h" />
+    <ClInclude Include="Object\Player\Witch\Witch.h" />
+    <ClInclude Include="Object\Player\Witch\WitchShot.h" />
+    <ClInclude Include="Object\Player\Elf\ElfAttackArrowUp.h" />
+    <ClInclude Include="Object\Player\Elf\ElfRun.h" />
   </ItemGroup>
 </Project>

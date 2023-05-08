@@ -1,4 +1,4 @@
-#include "ElfIdol.h"
+#include "ElfIdle.h"
 
 namespace// 仮のネームスペース
 {
@@ -6,7 +6,7 @@ namespace// 仮のネームスペース
 	constexpr int kAttack_Y = 0;
 }
 
-void ElfIdol::Update()
+void ElfIdle::Update()
 {
 	m_frameCount++;
 	if (m_frameCount == 3)//3フレームに一回画像描画位置を変更する
