@@ -1,27 +1,46 @@
 #pragma once
 
 #include "../Base/PlayerBase.h"
+// 必要なクラスの宣言
+class WitchIdle;
+class WitchRun;
+class WitchShotAttack;
+class WitchLongShotAttack;
+class WitchCharge;
+class Chicken;
+class KnightCat;
 
-
-class Witch : public PlayerBase
+class Witch : PlayerBase
 {
 public:
-    Witch();
-    virtual ~Witch();
+	Witch();
+	virtual ~Witch();
 
-    void Init();// 初期化
-    void End();// 終了処理
-    void Update();// 更新処理
-    void Draw();// 描画処理
+	void Init();
+	void Update();
+	void Draw();
+
 private:
-    int m_handle;// プレイヤーの画像
-    
-    int m_imgSizeX;
-    int m_imgSizeY;
+	WitchIdle* m_pIdle;
+	WitchRun* m_pRun;
+	WitchShotAttack* m_pShot;
+	WitchLongShotAttack* m_pLongShot;
+	WitchCharge* m_pCharge;
+	Chicken* m_pChicken;
+	KnightCat* m_pKnightCat;
 
-    int m_imgX;// Xのアニメーション
-    int m_imgY;// Xのアニメーション
-
-
+	int m_handle;
+	int m_animeHight;
+	int m_animeWidth;
+	bool m_reversal;
+	int m_imageX;
+	int m_imageY;
+	int m_animeLoopCount;
+	int m_LoopCount;
+	int m_animeFrame;
+	int m_animeMax;
+	int m_indexX;
+	int m_shiftX;
+	bool m_animeFlag;
 };
 
