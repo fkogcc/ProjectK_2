@@ -5,7 +5,7 @@
 class ElfAttackArrowChargeShot : public MoveTypeBase
 {
 public:
-	ElfAttackArrowChargeShot() {}
+	ElfAttackArrowChargeShot();
 	virtual ~ElfAttackArrowChargeShot() {}
 
 	void Update();// çXêV

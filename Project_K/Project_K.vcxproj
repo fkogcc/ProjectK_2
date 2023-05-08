@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Player\Elf\ElfRun.cpp" />
+    <ClCompile Include="Object\Player\Elf\ElfAttackArrowUp.cpp" />
     <ClCompile Include="Object\Player\Dinosaur\Dinosaur.cpp" />
     <ClCompile Include="Object\Player\Dinosaur\DinosaurAttackBite.cpp" />
     <ClCompile Include="Object\Player\Dinosaur\DinosaurStateManager.cpp" />
@@ -161,7 +163,7 @@
     <ClCompile Include="Object\Player\elf\Elf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Player\Base\PlayerBase.cpp" />
-    <ClCompile Include="Object\Player\Elf\ElfIdol.cpp" />
+    <ClCompile Include="Object\Player\Elf\ElfIdle.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuIdle.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneCharacterSelect.cpp" />
@@ -178,6 +180,8 @@
     <ClCompile Include="Object\Player\Witch\WitchShot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Player\Elf\ElfRun.h" />
+    <ClInclude Include="Object\Player\Elf\ElfAttackArrowUp.h" />
     <ClInclude Include="Object\Player\Dinosaur\Dinosaur.h" />
     <ClInclude Include="Object\Player\Dinosaur\DinosaurAttackBite.h" />
     <ClInclude Include="Object\Player\Dinosaur\DinosaurStateManager.h" />
@@ -199,7 +203,7 @@
     <ClInclude Include="Object\Player\Elf\ElfAttackArrowShot.h" />
     <ClInclude Include="Object\Player\elf\Elf.h" />
     <ClInclude Include="Object\Player\Base\PlayerBase.h" />
-    <ClInclude Include="Object\Player\Elf\ElfIdol.h" />
+    <ClInclude Include="Object\Player\Elf\ElfIdle.h" />
     <ClInclude Include="condition.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuIdle.h" />
     <ClInclude Include="Scene\SceneCharacterSelect.h" />

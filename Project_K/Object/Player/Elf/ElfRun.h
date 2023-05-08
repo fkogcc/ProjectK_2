@@ -2,12 +2,11 @@
 
 #include "../Base/MoveTypeBase.h"
 
-class ElfIdol : public MoveTypeBase
+class ElfRun : public MoveTypeBase
 {
 public:
-	ElfIdol() {}
-	virtual ~ElfIdol() {}
-
+	ElfRun();
+	virtual ~ElfRun() {}
 
 	void Update();// çXêV
 };
