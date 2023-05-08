@@ -1,20 +1,20 @@
-#include "ElfAttackArrowPunch.h"
+#include "ElfRun.h"
+
 namespace// 仮のネームスペース
 {
 	constexpr int kAttack_X = 9;
-	constexpr int kAttack_Y = 10;
+	constexpr int kAttack_Y = 1;
 }
 
-ElfAttackArrowPunch::ElfAttackArrowPunch()
+ElfRun::ElfRun()
 {
 	m_isMove = true;
 }
 
-void ElfAttackArrowPunch::Update()
+void ElfRun::Update()
 {
-
 	m_frameCount++;
-	if (m_frameCount == 2)//3フレームに一回画像描画位置を変更する
+	if (m_frameCount == 3)//3フレームに一回画像描画位置を変更する
 	{
 		m_frameCount = 0;
 		if (m_imagePosX < 288 * kAttack_X)//画像が右に続いていたら右にずらす
