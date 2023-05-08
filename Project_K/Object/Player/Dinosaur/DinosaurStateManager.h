@@ -1,6 +1,7 @@
 #pragma once
 
 #include"DinosaurStateBase.h"
+#include"../../Util/Vec2.h"
 
 class DinosaurStateManager
 {
@@ -16,8 +17,13 @@ public:
 	// 描画
 	void Draw();
 
+	bool GetshotFlag(); // ショットを撃つとき
+
+	Vec2 GetPos();
+
 private:
 	int m_Handle;
+
 	// シーンベースポインタ
 	DinosaurStateBase* m_pState;
 };

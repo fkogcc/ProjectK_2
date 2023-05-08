@@ -7,6 +7,8 @@ public:
 	{
 		m_Pos = pos;
 		m_Vec = vec;
+		m_imagePosX = 0;
+		m_imagePosY = 5;
 	}
 	virtual ~DinosaurAttackBite();
 

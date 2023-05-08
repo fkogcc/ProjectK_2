@@ -163,6 +163,8 @@
     <ClCompile Include="Object\Player\Base\PlayerBase.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfIdol.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuIdle.cpp" />
+    <ClCompile Include="Object\Shot\Shot.cpp" />
+    <ClCompile Include="Object\Shot\ShotBase.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneCharacterSelect.cpp" />
     <ClCompile Include="Scene\SceneMain.cpp" />
@@ -202,6 +204,8 @@
     <ClInclude Include="Object\Player\Elf\ElfIdol.h" />
     <ClInclude Include="condition.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuIdle.h" />
+    <ClInclude Include="Object\Shot\Shot.h" />
+    <ClInclude Include="Object\Shot\ShotBase.h" />
     <ClInclude Include="Scene\SceneCharacterSelect.h" />
     <ClInclude Include="Scene\SceneMapSelect.h" />
     <ClInclude Include="Scene\SceneResult.h" />
