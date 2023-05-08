@@ -1,25 +1,9 @@
 #include "KinnikuIdle.h"
 
-KinnikuIdle::KinnikuIdle()
-{
-}
-
-KinnikuIdle::~KinnikuIdle()
-{
-}
-
-void KinnikuIdle::Init()
-{
-}
-
-void KinnikuIdle::End()
-{
-}
-
-void KinnikuIdle::Update(int imagePosX, int imagePosY)
+void KinnikuIdle::Update(int& imagePosX, int& imagePosY)
 {
 	m_frameCount++;
-	if (m_frameCount == 3)
+	if (m_frameCount == 50)
 	{
 		imagePosX++;
 		m_frameCount = 0;

@@ -1,6 +1,6 @@
-#include "KinnikuMuscle.h"
+#include "KinnikuRun.h"
 
-void KinnikuMuscle::Update(int& imagePosX, int& imagePosY)
+void KinnikuRun::Update(int& imagePosX, int& imagePosY)
 {
 	m_frameCount++;
 	if (m_frameCount == 10)
@@ -9,12 +9,12 @@ void KinnikuMuscle::Update(int& imagePosX, int& imagePosY)
 		m_frameCount = 0;
 
 	}
-	if (imagePosX >= 4)
+	if (imagePosX >= 3)
 	{
 		imagePosX = 0;
 		imagePosY++;
 	}
-	if (imagePosX >= 3 && imagePosY >= 1)
+	if (imagePosX >= 2 && imagePosY >= 2)
 	{
 		imagePosX = 0;
 		imagePosY = 0;

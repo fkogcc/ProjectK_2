@@ -1,25 +1,9 @@
 #include "KinnikuMizo.h"
 
-KinnikuMizo::KinnikuMizo()
-{
-}
-
-KinnikuMizo::~KinnikuMizo()
-{
-}
-
-void KinnikuMizo::Init()
-{
-}
-
-void KinnikuMizo::End()
-{
-}
-
-void KinnikuMizo::Update(int imagePosX, int imagePosY)
+void KinnikuMizo::Update(int& imagePosX, int& imagePosY)
 {
 	m_frameCount++;
-	if (m_frameCount == 4)
+	if (m_frameCount == 10)
 	{
 		imagePosX++;
 		m_frameCount = 0;

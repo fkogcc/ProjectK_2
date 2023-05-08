@@ -1,39 +1,22 @@
 #include "KinnikurouJab.h"
 
-KinnikurouJab::KinnikurouJab()
-{
-}
-
-KinnikurouJab::~KinnikurouJab()
-{
-}
-
-void KinnikurouJab::Init()
-{
-}
-
-void KinnikurouJab::End()
-{
-}
-
-void KinnikurouJab::Update(int imagePosX, int imagePosY)
+void KinnikurouJab::Update(int& imagePosX, int& imagePosY)
 {
 	m_frameCount++;
-	if (m_frameCount == 3)
+	if (m_frameCount == 10)
 	{
 		imagePosX++;
 		m_frameCount = 0;
-		
+
 	}
 	if (imagePosX >= 2)
 	{
 		imagePosX = 0;
 		imagePosY++;
 	}
-	if (imagePosX >= 2 || imagePosY >= 2)
+	if (imagePosX >= 1 && imagePosY >= 1)
 	{
 		imagePosX = 0;
 		imagePosY = 0;
 	}
-
 }

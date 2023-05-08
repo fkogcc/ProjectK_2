@@ -7,6 +7,7 @@ class KinnikurouJab;
 class KinnikuMuscle;
 class KinnikuUpper;
 class KinnikuMizo;
+class KinnikuRun;
 
 class Kinnikurou : public PlayerBase
 {
@@ -18,6 +19,9 @@ public:
 	void End   ();// 終了処理
 	void Update();// 更新
 	void Draw  ();// 描画
+
+	void ImgposInit();
+
 private:
 
 	KinnikuIdle* m_pIdle;
@@ -25,6 +29,7 @@ private:
 	KinnikuMuscle* m_pMuscle;
 	KinnikuUpper* m_pUpper;
 	KinnikuMizo* m_pMizo;
+	KinnikuRun* m_pRun;
 
 	bool m_pushBottom;
 
@@ -35,6 +40,7 @@ private:
 	int m_muscleHandle;// マッスル攻撃状態
 	int m_UpperHandle;// アッパー攻撃状態
 	int m_MizoHandle;// みぞおち攻撃状態
+	int m_RunHandle;//移動状態
 
 	// 描画座標
 	int m_drawPosX;// X
@@ -47,5 +53,17 @@ private:
 	// 画像の一片の長さ
 	int m_imgWidth;// X
 	int m_imgHeight;// Y
+
+	// モーション終わりのカウント
+	int m_motionCount;
+
+	// 初期化回数
+	int m_initCount;
+
+	// キャラの向き
+	bool m_charDirection;
+
+	// キャラが移動状態かどうか
+	bool m_charRun;
 };
 

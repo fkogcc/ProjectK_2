@@ -4,14 +4,6 @@
 class KinnikurouJab : public MoveTypeBase
 {
 public:
-	KinnikurouJab();
-	virtual ~KinnikurouJab();
-
-	void Init();
-	void End();
-	void Update(int imagePosX, int imagePosY);
-
-private:
-
+	void Update(int& imagePosX, int& imagePosY);// XV
 };
 
