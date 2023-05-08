@@ -1,10 +1,12 @@
 #include "Dinosaur.h"
 #include "../../../condition.h"
 #include "DinosaurStateManager.h"
+#include"../../Shot/ShotBase.h"
+#include"../../Shot/Shot.h"
 
 namespace
 {
-	const char* kFilename = "../../../Data/Image/Player/kyouryuu/Enemy.png";
+	const char* kFilename = "Data/Image/Player/kyouryuu/Enemy.png";
 }
 
 Dinosaur::Dinosaur() : 
@@ -13,6 +15,8 @@ Dinosaur::Dinosaur() :
 	m_hp = 150;
 	m_Handle = LoadGraph(kFilename);
 	m_StateManager = new DinosaurStateManager(m_Handle);
+	m_StateManager->Init();
+	m_Shot.push_back(new Shot(m_pos, { 10,0 }));
 }
 
 Dinosaur::~Dinosaur()
@@ -31,46 +35,27 @@ void Dinosaur::Update()
 {
 	Pad::update();
 
-	m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
-
-	if (Pad::isPress(PAD_INPUT_RIGHT))m_pos.x += 10;
-	if (Pad::isPress(PAD_INPUT_LEFT))m_pos.x -= 10;
-	if (Pad::isPress(PAD_INPUT_UP))m_pos.y -= 10;
-	if (Pad::isPress(PAD_INPUT_DOWN))m_pos.y += 10;
-
-	//if (Pad::isTrigger(PAD_INPUT_1))// XBOX A
-	//{
-	//	m_moveType = static_cast<int>(moveType::Attack2);;// 攻撃
-	//}
-	//if (Pad::isTrigger(PAD_INPUT_2))// XBOX B
-	//{
-	//	m_moveType = static_cast<int>(moveType::Attack1);;// 攻撃
-	//}
-	//if (Pad::isTrigger(PAD_INPUT_3) || (Pad::isTrigger(PAD_INPUT_4)))// XBOX X or Y
-	//{
-	//	//　ジャンプ
-	//}
-
 	m_StateManager->Update();
 
-	if (Pad::isTrigger(XINPUT_BUTTON_LEFT_SHOULDER) || (Pad::isTrigger(PAD_INPUT_R)))// XBOX X or Y
+	m_pos = m_StateManager->GetPos();
+
+	for (auto& pShot : m_Shot)
 	{
-		//　ジャンプ
-		printfDx("aaaa");
-	}
-	if (Pad::isTrigger(PAD_INPUT_1) && (Pad::isTrigger(PAD_INPUT_RIGHT)) ||// XBOX A && RIGHT
-		Pad::isTrigger(PAD_INPUT_1) && (Pad::isTrigger(PAD_INPUT_LEFT)))   // XBOX A && LEFT
-	{
-		m_moveType = static_cast<int>(moveType::Attack3);;// 攻撃
+		pShot->Update();
 	}
 
-	m_posLeft = m_pos.x - 50;// プレイヤーのサイズ
-	m_posTop = m_pos.y + 90;
-	m_posRight = m_posLeft + 100;
-	m_posBottom = m_posTop + 195;
+	if (m_StateManager->GetshotFlag())
+	{
+		m_Shot.push_back(new Shot(m_pos, {10,0}));
+	}
 }
 
 void Dinosaur::Draw()
 {
 	m_StateManager->Draw();
+
+	for (auto& pShot : m_Shot)
+	{
+		pShot->Draw();
+	}
 }

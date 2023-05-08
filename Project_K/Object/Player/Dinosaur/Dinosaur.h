@@ -1,5 +1,8 @@
 #pragma once
 #include "../Base/PlayerBase.h"
+#include<vector>
+
+class ShotBase;
 
 class DinosaurStateManager;
 class Dinosaur : public PlayerBase
@@ -15,5 +18,7 @@ public:
 private:
 	int m_Handle;
 	DinosaurStateManager* m_StateManager;
+
+	std::vector<ShotBase*> m_Shot;
 };
 

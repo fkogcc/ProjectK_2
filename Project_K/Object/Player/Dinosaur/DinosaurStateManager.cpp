@@ -17,7 +17,7 @@ DinosaurStateManager::DinosaurStateManager(int Handle) :
 // ‰Šú‰»
 void DinosaurStateManager::Init()
 {
-	m_pState = new DinosaurIdle({ 0,0 }, { 0,0 });
+	m_pState = new DinosaurIdle({ 500,500 }, { 0,0 });
 }
 // I—¹
 void DinosaurStateManager::End()
@@ -36,12 +36,12 @@ void DinosaurStateManager::Update()
 
 	DinosaurStateBase* pState = m_pState->Update();// AttackBase‚Ìupdateˆ—ŒÄ‚Ño‚µ
 
-	if (m_pState != m_pState)
+	if (pState != m_pState)
 	{
 	//	m_pState->End();// I—¹ˆ—
 		delete m_pState;
 
-		m_pState = m_pState;
+		m_pState = pState;
 		m_pState->Init(m_Handle);// ‰Šú‰»
 	}
 }
@@ -50,5 +50,15 @@ void DinosaurStateManager::Draw()
 {
 	assert(m_pState);
 	if (!m_pState)	return;
-	m_pState->Draw();// •`‰æ
+	m_pState->Draw(m_Handle);// •`‰æ
+}
+
+bool DinosaurStateManager::GetshotFlag()
+{
+	return m_pState->GetshotFlag();
+}
+
+Vec2 DinosaurStateManager::GetPos()
+{
+	return m_pState->GetPos();
 }

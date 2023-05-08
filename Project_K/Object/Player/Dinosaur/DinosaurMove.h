@@ -7,8 +7,11 @@ public:
 	{
 		m_Pos = pos;
 		m_Vec = vec;
+		m_imagePosY = 7;
 	}
 	virtual ~DinosaurMove();
+
+	void IsMove();
 
 	virtual DinosaurStateBase* Update() override;
 };
