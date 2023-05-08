@@ -1,25 +1,9 @@
 #include "KinnikuUpper.h"
 
-KinnikuUpper::KinnikuUpper()
-{
-}
-
-KinnikuUpper::~KinnikuUpper()
-{
-}
-
-void KinnikuUpper::Init()
-{
-}
-
-void KinnikuUpper::End()
-{
-}
-
-void KinnikuUpper::Update(int imagePosX, int imagePosY)
+void KinnikuUpper::Update(int& imagePosX, int& imagePosY)
 {
 	m_frameCount++;
-	if (m_frameCount == 4)
+	if (m_frameCount == 10)
 	{
 		imagePosX++;
 		m_frameCount = 0;

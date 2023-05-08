@@ -6,6 +6,7 @@
 #include "KinnikuMuscle.h"
 #include "KinnikuUpper.h"
 #include "KinnikuMizo.h"
+#include "KinnikuRun.h"
 
 namespace
 {
@@ -14,6 +15,7 @@ namespace
 	const char* const kMuscle = "Data/Image/Player/Kinnikurou/AttackSide.png";
 	const char* const kUpper = "Data/Image/Player/Kinnikurou/AttackUp.png";
 	const char* const kMizo = "Data/Image/Player/Kinnikurou/AttackDown.png";
+	const char* const kRun = "Data/Image/Player/Kinnikurou/Run.png";
 }
 
 Kinnikurou::Kinnikurou() :
@@ -36,6 +38,7 @@ Kinnikurou::Kinnikurou() :
 	m_pMuscle = new KinnikuMuscle;
 	m_pUpper = new KinnikuUpper;
 	m_pMizo = new KinnikuMizo;
+	m_pRun = new KinnikuRun;
 }
 
 Kinnikurou::~Kinnikurou()
@@ -50,6 +53,8 @@ Kinnikurou::~Kinnikurou()
 	m_pUpper = nullptr;
 	delete m_pMizo;
 	m_pMizo = nullptr;
+	delete m_pRun;
+	m_pRun = nullptr;
 }
 
 void Kinnikurou::Init()
@@ -57,9 +62,12 @@ void Kinnikurou::Init()
 	m_idleHandle = my::MyLoadGraph(kIdle);
 	m_jabHandle = my::MyLoadGraph(kJab);
 	m_muscleHandle = my::MyLoadGraph(kMuscle);
+	m_UpperHandle = my::MyLoadGraph(kUpper);
+	m_MizoHandle = my::MyLoadGraph(kMizo);
+	m_RunHandle = my::MyLoadGraph(kRun);
 
 	m_drawPosX = 200;
-	m_drawPosY = 900;
+	m_drawPosY = 600;
 
 	m_imgPosX = 0;
 	m_imgPosY = 0;
@@ -70,27 +78,125 @@ void Kinnikurou::End()
 	my::MyDeleteGraph(m_idleHandle);
 	my::MyDeleteGraph(m_jabHandle);
 	my::MyDeleteGraph(m_muscleHandle);
+	my::MyDeleteGraph(m_UpperHandle);
+	my::MyDeleteGraph(m_MizoHandle);
+	my::MyDeleteGraph(m_RunHandle);
 }
 
 void Kinnikurou::Update()
 {
 	Pad::update();
 
-	//if (!m_pushBottom) m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
-	if (Pad::isTrigger(PAD_INPUT_1)) m_moveType = static_cast<int>(moveType::Attack1);// ジャブ攻撃状態
-	if (Pad::isTrigger(PAD_INPUT_2)) m_moveType = static_cast<int>(moveType::Attack2);// マッスル攻撃状態
-	if (Pad::isTrigger(PAD_INPUT_3)) m_moveType = static_cast<int>(moveType::Attack3);// マッスル攻撃状態
-	if (Pad::isTrigger(PAD_INPUT_4)) m_moveType = static_cast<int>(moveType::Attack4);// マッスル攻撃状態
+	if (m_motionCount != 0)
+	{
+		m_motionCount--;
+		if (m_motionCount <= 0) m_motionCount = 0;
+	}
 
-	if (Pad::isPress(PAD_INPUT_RIGHT))m_pos.x += 10;
-	if (Pad::isPress(PAD_INPUT_LEFT))m_pos.x -= 10;
+	if (m_motionCount == 0 && !m_charRun)
+	{
+
+		m_moveType = 0;
+	}
+
+	if (m_moveType == 0)
+	{
+		if (m_initCount <= 0)
+		{
+			ImgposInit();
+			m_initCount++;
+		}
+	}
+
+	if (m_motionCount == 0)
+	{
+		if (Pad::isPress(PAD_INPUT_RIGHT))
+		{
+			m_moveType = 1;
+			//ImgposInit();
+			m_drawPosX += 10;
+			m_charDirection = false;
+			m_charRun = true;
+		}
+		if (Pad::isPress(PAD_INPUT_LEFT))
+		{
+			m_moveType = 1;
+			//ImgposInit();
+			m_drawPosX -= 10;
+			m_charDirection = true;
+			m_charRun = true;
+		}
+		if (Pad::isTrigger(PAD_INPUT_1))
+		{
+			m_moveType = 3;// ジャブ攻撃状態
+			ImgposInit();
+			m_motionCount = 30;
+		}
+		if (Pad::isTrigger(PAD_INPUT_2))
+		{
+			m_moveType = 4;// マッスル攻撃状態
+			ImgposInit();
+			m_motionCount = 70;
+		}
+		if (Pad::isTrigger(PAD_INPUT_3))
+		{
+			m_moveType = 5;// マッスル攻撃状態
+			ImgposInit();
+			m_motionCount = 40;
+		}
+		if (Pad::isTrigger(PAD_INPUT_4))
+		{
+			m_moveType = 6;// マッスル攻撃状態
+			ImgposInit();
+			m_motionCount = 40;
+		}
+
+	}
+
+	if (!Pad::isPress(PAD_INPUT_RIGHT) || !Pad::isPress(PAD_INPUT_LEFT))
+	{
+		m_charRun = false;
+		//m_initCount = 0;
+	}
+
+	if ((Pad::isRelase(PAD_INPUT_RIGHT) || Pad::isRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
+	{
+		ImgposInit();
+	}
+
+	if (m_charRun) printfDx("移動状態\n");
 
 	// アイドル状態
-	if (m_moveType == static_cast<int>(moveType::Idol)) m_pIdle->Update(m_imgPosX, m_imgPosY);
-	if (m_moveType == static_cast<int>(moveType::Attack1)) m_pJab->Update(m_imgPosX, m_imgPosY);
-	if (m_moveType == static_cast<int>(moveType::Attack2)) m_pMuscle->Update(m_imgPosX, m_imgPosY);
-	if (m_moveType == static_cast<int>(moveType::Attack3)) m_pUpper->Update(m_imgPosX, m_imgPosY);
-	if (m_moveType == static_cast<int>(moveType::Attack4)) m_pMizo->Update(m_imgPosX, m_imgPosY);
+	if (m_moveType == static_cast<int>(moveType::Idol))
+	{
+		m_pIdle->Update(m_imgPosX, m_imgPosY);
+		printfDx("アイドル状態\n");
+	}
+	if (m_moveType == static_cast<int>(moveType::Attack1))
+	{
+		m_pJab->Update(m_imgPosX, m_imgPosY);
+		printfDx("攻撃１\n");
+	}
+	if (m_moveType == static_cast<int>(moveType::Attack2))
+	{
+		m_pMuscle->Update(m_imgPosX, m_imgPosY);
+		printfDx("攻撃２\n");
+	}
+	if (m_moveType == static_cast<int>(moveType::Attack3))
+	{
+		m_pUpper->Update(m_imgPosX, m_imgPosY);
+		printfDx("攻撃３\n");
+	}
+	if (m_moveType == static_cast<int>(moveType::Attack4))
+	{
+		m_pMizo->Update(m_imgPosX, m_imgPosY);
+		printfDx("攻撃４\n");
+	}
+	if (m_moveType == static_cast<int>(moveType::Run))
+	{
+		m_pRun->Update(m_imgPosX, m_imgPosY);
+		printfDx("移動\n");
+	}
 
 }
 
@@ -107,7 +213,7 @@ void Kinnikurou::Draw()
 	else if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
 		m_charHandle = m_jabHandle;
-		m_imgWidth = 28;
+		m_imgWidth = 56 / 2;
 		m_imgHeight = 23;
 	}
 	// マッスル攻撃状態
@@ -131,13 +237,26 @@ void Kinnikurou::Draw()
 		m_imgWidth = 27;
 		m_imgHeight = 24;
 	}
+	// 移動状態
+	else if (m_moveType == static_cast<int>(moveType::Run))
+	{
+		m_charHandle = m_RunHandle;
+		m_imgWidth = 54 / 3;
+		m_imgHeight = 72 / 3;
+	}
 
 
 	// キャラクターの描画
 	my::MyDrawRectRotaGraph(m_drawPosX, m_drawPosY,
 		m_imgPosX * m_imgWidth, m_imgPosY * m_imgHeight,
-		18, 23,
-		3.0f, 0.0f,
+		m_imgWidth, m_imgHeight,
+		5.0f, 0.0f,
 		m_charHandle,
-		true, false);
+		true, m_charDirection);
+}
+
+void Kinnikurou::ImgposInit()
+{
+	m_imgPosX = 0;
+	m_imgPosY = 0;
 }
