@@ -17,7 +17,6 @@ namespace
 Elf::Elf() :
 	m_handle(0),
 	m_imageX(0), m_imageY(0),
-	m_isAttack(false),
 	m_isDirection(false),
 	m_pIdle(nullptr),
 	m_pChargeShot(nullptr),
@@ -58,7 +57,7 @@ void Elf::Update()
 		!m_pPunch->IsSetMove() ||
 		!m_pUp->IsSetMove())
 	{
-		m_isAttack = false;
+		m_attackFlag = false;
 
 		m_pChargeShot->SetMoveTime(true);
 		m_pShot->SetMoveTime(true);
@@ -66,7 +65,7 @@ void Elf::Update()
 		m_pUp->SetMoveTime(true);
 	}
 
-	if (!m_isAttack)// UŒ‚ƒ‚[ƒVƒ‡ƒ“‚É“ü‚Á‚½‚ç“®‚¯‚È‚­‚È‚é
+	if (!m_attackFlag)// UŒ‚ƒ‚[ƒVƒ‡ƒ“‚É“ü‚Á‚½‚ç“®‚¯‚È‚­‚È‚é
 	{
 		m_moveType = static_cast<int>(moveType::Idol);// ƒAƒCƒhƒ‹ó‘Ô
 
@@ -91,12 +90,22 @@ void Elf::Update()
 		if (Pad::isTrigger(PAD_INPUT_1))// XBOX A
 		{
 			m_moveType = static_cast<int>(moveType::Attack1);// UŒ‚
-			m_isAttack = true;
+			m_attackFlag = true;
+
+			m_attackSizeLeft = 0;
+			m_attackSizeTop = 0;
+			m_attackSizeRight = 0;
+			m_attackSizeBottom = 0;
 		}
 		if (Pad::isTrigger(PAD_INPUT_2))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);// UŒ‚
-			m_isAttack = true;
+			m_attackFlag = true;
+
+			m_attackSizeLeft = 0;
+			m_attackSizeTop = 0;
+			m_attackSizeRight = 0;
+			m_attackSizeBottom = 0;
 		}
 		if (Pad::isTrigger(PAD_INPUT_3) || (Pad::isTrigger(PAD_INPUT_4)))// XBOX X or Y
 		{
@@ -112,13 +121,23 @@ void Elf::Update()
 			Pad::isTrigger(PAD_INPUT_2) && (Pad::isTrigger(PAD_INPUT_LEFT)))   // XBOX A && LEFT
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);;// UŒ‚
-			m_isAttack = true;
+			m_attackFlag = true;
+
+			m_attackSizeLeft = 0;
+			m_attackSizeTop = 0;
+			m_attackSizeRight = 0;
+			m_attackSizeBottom = 0;
 		}
 		if (Pad::isTrigger(PAD_INPUT_2) && (Pad::isTrigger(PAD_INPUT_UP)) ||
 			Pad::isTrigger(PAD_INPUT_3))// XBOX A && UP
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// UŒ‚
-			m_isAttack = true;
+			m_attackFlag = true;
+
+			m_attackSizeLeft = 0;
+			m_attackSizeTop = 0;
+			m_attackSizeRight = 0;
+			m_attackSizeBottom = 0;
 		}
 	}
 

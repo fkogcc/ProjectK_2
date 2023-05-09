@@ -21,6 +21,13 @@ public:
 
 	Vec2 GetPos();
 
+	bool GetAttackFlag();
+
+	int GetAttackSizeLeft();
+	int GetAttackSizeTop();
+	int GetAttackSizeRight();
+	int GetAttackSizeBottom();
+
 private:
 	int m_Handle;
 

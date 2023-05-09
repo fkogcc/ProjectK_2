@@ -62,3 +62,28 @@ Vec2 DinosaurStateManager::GetPos()
 {
 	return m_pState->GetPos();
 }
+
+bool DinosaurStateManager::GetAttackFlag()
+{
+	return m_pState->GetAttackFlag();
+}
+
+int DinosaurStateManager::GetAttackSizeLeft()
+{
+	return m_pState->GetAttackSizeLeft();
+}
+
+int DinosaurStateManager::GetAttackSizeTop()
+{
+	return m_pState->GetAttackSizeTop();
+}
+
+int DinosaurStateManager::GetAttackSizeRight()
+{
+	return m_pState->GetAttackSizeRight();
+}
+
+int DinosaurStateManager::GetAttackSizeBottom()
+{
+	return m_pState->GetAttackSizeBottom();
+}

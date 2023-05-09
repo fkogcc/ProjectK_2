@@ -15,6 +15,7 @@ DinosaurJump::DinosaurJump(Vec2 pos, Vec2 vec)
 	m_imagePosX = 0;
 	m_imagePosY = 4;
 	m_JumpPower = kJumpPower;
+	m_attackFlag = false;
 }
 
 DinosaurJump::~DinosaurJump()

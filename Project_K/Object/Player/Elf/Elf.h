@@ -27,8 +27,6 @@ private:
 
 	int m_imageX, m_imageY;
 
-	bool m_isAttack;
-
 	bool m_isDirection;
 
 	ElfIdle* m_pIdle;// ‘Ò‹@
