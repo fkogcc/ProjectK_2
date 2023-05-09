@@ -63,7 +63,7 @@ void KnightCat::Draw()
 			32 * m_animeWidth, 32 * m_animeHight,			//Ø‚èæ‚è¶ã
 			32, 32,							//•A‚‚³
 			3.0f, 0.0f,						//Šg‘å—¦A‰ñ“]Šp“x
-			m_handle, true, false);
+			m_handle, true, m_reversal);
 	}
 }
 

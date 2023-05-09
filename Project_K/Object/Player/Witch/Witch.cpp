@@ -85,7 +85,11 @@ void Witch::Update()
         {
             m_indexX = 1;
             m_animeFlag = false;
-            m_pos.x += -m_shiftX;
+            if (m_reversal)
+            {
+               m_shiftX *= -1;
+            }
+            m_pos.x += m_shiftX;
             m_shiftX = 0;
             m_LoopCount = 0;
             m_animeLoopCount = 1;
@@ -184,11 +188,13 @@ void Witch::Update()
         }
         if (m_moveType == static_cast<int>(moveType::Attack2))
         {
+            m_pLongShot->Update();
             m_animeWidth = m_pLongShot->IndexX();
             m_animeHight = m_pLongShot->IndexY();
             m_indexX = m_pLongShot->SizeX();
             m_shiftX = m_pLongShot->ShiftX();
             m_animeMax = m_pLongShot->AnimeMax();
+            m_pLongShot->SetReversal(m_reversal);
         }
         if (m_moveType == static_cast<int>(moveType::Attack3))
         {
@@ -231,14 +237,13 @@ void Witch::Update()
 
 void Witch::Draw()
 {
-    DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x00a000, true);
-
     my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x),
         static_cast<int>(m_pos.y),			//•\Ž¦À•W
         48 * m_animeWidth, 48 * m_animeHight,			//Ø‚èŽæ‚è¶ã
         48 * m_indexX, 48,							//•A‚‚³
         3.0f, 0.0f,						//Šg‘å—¦A‰ñ“]Šp“x
         m_handle, true, m_reversal);
+    DrawFormatString(0,0,0x00ff00,"%f",m_pos.x);
 
     m_pChicken->Draw();
     m_pKnightCat->Draw();

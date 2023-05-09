@@ -16,6 +16,7 @@ public:
 	bool IsExist() { return m_exist; }
 private:
 	int m_handle;
+	int m_movePos;
 	bool m_reversal;
 	Vec2 m_pos;
 	int m_animeFrame;
