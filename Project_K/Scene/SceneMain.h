@@ -6,16 +6,17 @@
 #include <string>
 #include <vector>
 
+class Dinosaur;
 class Elf;
-
 class Kinnikurou;
+class Witch;
 
 class Stage;
 
 class SceneMain : public SceneBase
 {
 public:
-	SceneMain(bool player1, bool player2, bool player3, bool player4);
+	SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch);
 	virtual ~SceneMain();
 
 	virtual void Init();
@@ -25,7 +26,15 @@ public:
 	virtual void Draw();
 
 private:
-	Elf* m_pElf;
+	Dinosaur*	m_pDino;
+	Elf*		m_pElf;
+	Kinnikurou* m_pKin;
+	Witch*		m_pWitch;
+
+	bool m_isDino;
+	bool m_isElf;
+	bool m_isKin;
+	bool m_isWitch;
 };
 
 
