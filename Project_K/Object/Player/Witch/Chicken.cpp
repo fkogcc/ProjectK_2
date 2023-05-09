@@ -4,9 +4,11 @@
 namespace
 {
 	const char* const kFilmName = "Data/Image/Player/Witch/Niwatori.png";
+	float kMovePos = 45.0f;
 }
 Chicken::Chicken() :
 	m_handle(0),
+	m_movePos(45),
 	m_reversal(false),
 	m_pos(),
 	m_animeFrame(0),
@@ -36,20 +38,28 @@ void Chicken::Update()
 	if (m_exist)
 	{
 		m_animeFrame++;
+		if (m_reversal && m_movePos == 45)
+		{
+			m_movePos *= -1;
+		}
 		if (m_animeFrame > 7)
 		{
 			m_animeHight++;
-			m_pos.x += 45;
+			m_pos.x += m_movePos;
 			m_animeFrame = 0;
 		}
 		if (m_animeHight >= m_animeMax)
 		{
 			m_animeHight = 0;
 		}
-		if (m_pos.x >= Game::kScreenWidth)
+		if (m_pos.x >= Game::kScreenWidth  ||  m_pos.x <= 0)
 		{
 			m_exist = false;
 		}
+	}
+	else
+	{
+		m_movePos = 45;
 	}
 }
 
