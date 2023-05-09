@@ -10,6 +10,7 @@ public:
 		m_Vec = vec;
 		m_imagePosX = 0;
 		m_imagePosY = 2;
+		m_attackFlag = false;
 	}
 	virtual ~DinosaurAttackShot();
 

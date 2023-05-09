@@ -8,6 +8,7 @@ public:
 		m_Pos = pos;
 		m_Vec = vec;
 		m_imagePosY = 7;
+		m_attackFlag = false;
 	}
 	virtual ~DinosaurMove();
 
