@@ -3,7 +3,7 @@
 #include "../../Util/DrawFunctions.h"
 namespace
 {
-	const char* const kFilmName = "../Data/Niwatori.png";
+	const char* const kFilmName = "Data/Image/Player/Witch/Niwatori.png";
 }
 Chicken::Chicken() :
 	m_handle(0),
