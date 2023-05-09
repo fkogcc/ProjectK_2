@@ -9,6 +9,11 @@ public:
 		m_Vec = vec;
 		m_imagePosX = 0;
 		m_imagePosY = 5;
+		m_attackFlag = true;
+		m_attackSizeLeft = 100;
+		m_attackSizeTop = 100;
+		m_attackSizeRight = 100;
+		m_attackSizeBottom = 100;
 	}
 	virtual ~DinosaurAttackBite();
 
