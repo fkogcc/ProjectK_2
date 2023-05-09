@@ -14,7 +14,7 @@ SceneMain::SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch) :
 	m_pElf(nullptr),
 	m_pKin(nullptr),
 	m_pWitch(nullptr),
-	m_isDino(true),
+	m_isDino(false),
 	m_isElf(false),
 	m_isKin(false),
 	m_isWitch(false)

@@ -10,7 +10,7 @@
 
 namespace
 {
-	const char* const kIdle = "Data/Image/Player/Kinnikurou/Idle";
+	const char* const kIdle = "Data/Image/Player/Kinnikurou/Idle.png";
 	const char* const kJab = "Data/Image/Player/Kinnikurou/AttackNeutral.png";
 	const char* const kMuscle = "Data/Image/Player/Kinnikurou/AttackSide.png";
 	const char* const kUpper = "Data/Image/Player/Kinnikurou/AttackUp.png";

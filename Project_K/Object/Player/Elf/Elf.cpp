@@ -10,7 +10,7 @@
 
 namespace
 {
-	const char* const kFilmName = "../../Data/Image/Player/Elf/Elf.png";
+	const char* const kFilmName = "Data/Image/Player/Elf/Elf.png";
 	constexpr float kSpeed = 10.0f;
 }
 

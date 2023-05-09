@@ -2,7 +2,7 @@
 #include "../../Util/DrawFunctions.h"
 namespace
 {
-	const char* const kFilmName = "../Data/nekochan.png";
+	const char* const kFilmName = "Data/Image/Player/Witch/Nekochan.png";
 }
 KnightCat::KnightCat() :
 	m_handle(0),
