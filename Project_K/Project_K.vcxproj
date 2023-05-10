@@ -190,6 +190,7 @@
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Util\common.h" />
     <ClInclude Include="Object\Player\Elf\ElfAttackArrowUp.h" />
     <ClInclude Include="Object\Player\Elf\ElfIdle.h" />
     <ClInclude Include="Object\Player\Elf\ElfRun.h" />

@@ -295,6 +295,9 @@
     <ClInclude Include="Object\Shot\ShotBase.h">
       <Filter>hファイル\Object\Shot</Filter>
     </ClInclude>
+    <ClInclude Include="Util\common.h">
+      <Filter>hファイル\Util</Filter>
+    </ClInclude>
     <ClInclude Include="Util\Pad2.h" />
   </ItemGroup>
   <ItemGroup>
