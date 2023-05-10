@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneBase.h"
+#include "../Util/common.h"
 
 class SceneTitle : public SceneBase
 {
@@ -12,5 +13,9 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
+
+private:
+	bool m_isFadeOut;// フェードアウトして言るかどうか
+
 };
 

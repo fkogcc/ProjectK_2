@@ -3,6 +3,7 @@
 #include "SceneMain.h"
 #include "SceneTitle.h"
 #include "SceneCharacterSelect.h"
+#include "SceneMapSelect.h"
 
 SceneManager::SceneManager():
 	m_pScene(nullptr)
@@ -12,6 +13,7 @@ SceneManager::SceneManager():
 void SceneManager::Init()
 {
 	m_pScene = new SceneCharacterSelect;
+
 	m_pScene->Init();
 }
 // I—¹
