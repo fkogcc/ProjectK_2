@@ -37,6 +37,8 @@ void Dinosaur::Update()
 
 	m_StateManager->Update();
 
+	GetAttackSize();
+
 	m_pos = m_StateManager->GetPos();
 
 	for (auto& pShot : m_Shot)
@@ -58,4 +60,12 @@ void Dinosaur::Draw()
 	{
 		pShot->Draw();
 	}
+}
+
+void Dinosaur::GetAttackSize()
+{
+	m_attackSizeLeft = m_StateManager->GetAttackSizeLeft();
+	m_attackSizeTop = m_StateManager->GetAttackSizeTop();
+	m_attackSizeRight = m_StateManager->GetAttackSizeRight();
+	m_attackSizeBottom = m_StateManager->GetAttackSizeBottom();
 }

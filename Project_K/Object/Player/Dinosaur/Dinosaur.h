@@ -15,6 +15,8 @@ public:
 	void End();// I—¹ˆ—
 	void Update();// XV
 	void Draw();// •`‰æ
+
+	void GetAttackSize();
 private:
 	int m_Handle;
 	DinosaurStateManager* m_StateManager;

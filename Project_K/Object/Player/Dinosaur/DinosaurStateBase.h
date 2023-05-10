@@ -21,15 +21,22 @@ public:
 
 	virtual bool GetshotFlag() { return m_shotFlag; }
 
+	virtual bool GetAttackFlag() { return m_attackFlag; }
+
+	int GetAttackSizeLeft() { return m_attackSizeLeft; }
+	int GetAttackSizeTop() { return m_attackSizeTop; }
+	int GetAttackSizeRight() { return m_attackSizeRight; }
+	int GetAttackSizeBottom() { return m_attackSizeBottom; }
+
 protected:
 	int m_Handle;
 
 	bool m_shotFlag = false;
 	
-	int m_posAttackLeft = 0;// プレイヤーの攻撃範囲
-	int m_posAttackTop = 0;
-	int m_posAttackRight = 0;
-	int m_posAttackBottom = 0;
+	int m_attackSizeLeft = 0;
+	int m_attackSizeTop = 0;
+	int m_attackSizeRight = 0;
+	int m_attackSizeBottom = 0;
 
 	int m_frameCount = 0;// アニメーションを再生させる用フレームカウント
 
@@ -39,6 +46,7 @@ protected:
 	int m_gapTime = 0; // 後隙
 
 	int m_attackDamage = 0;// プレイヤーがエネミーに与えるダメージ量
+	bool m_attackFlag = false;
 	bool m_isMove = false;
 	Vec2 m_Pos = { 0.0f,0.0f };// 現在位置
 	Vec2 m_Vec = { 0.0f,0.0f };// 運動量
