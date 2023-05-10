@@ -1,7 +1,17 @@
 #include "SceneCharacterSelect.h"
 #include "SceneMain.h"
+#include "../Util/Pad.h"
+#include "../Util/Pad2.h"
 
-SceneCharacterSelect::SceneCharacterSelect()
+SceneCharacterSelect::SceneCharacterSelect():
+	m_isDino(false),
+	m_isElf(false),
+	m_isKin(false),
+	m_isWitch(false),
+	m_isDino2(false),
+	m_isElf2(false),
+	m_isKin2(false),
+	m_isWitch2(false)
 {
 }
 
@@ -20,15 +30,128 @@ void SceneCharacterSelect::End()
 SceneBase* SceneCharacterSelect::Update()
 {
 
-#if true// SceneMainコンストラクタ引数あり
-	// m_pSceneMain = new SceneMain(true);
+	User1();
+	User2();
+
+	if (User1() && User2())
+	{
+		if(m_isDino2)m_isDino = m_isDino2;
+		if(m_isElf2)m_isElf = m_isElf2;
+		if(m_isKin2)m_isKin = m_isKin2;
+		if(m_isWitch2)m_isWitch = m_isWitch2;
+		
+		return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ステージ切り替え
+	}
+
 	return(new SceneMain(true, true, true, true));// 1ステージ切り替え
-#else	// SceneMainコンストラクタ引数なし
-	return(new SceneMain);// 1ステージ切り替え
-#endif
 	return this;
 }
 
 void SceneCharacterSelect::Draw()
 {
+
+}
+
+bool SceneCharacterSelect::User1()
+{
+	Pad::update();
+	// だいなそー選択
+	if (Pad::isTrigger(PAD_INPUT_1))// XBOX A
+	{
+		m_isDino = true;
+
+		m_isElf = false;
+		m_isKin = false;
+		m_isWitch = false;
+
+	}
+	// エルフ選択
+	if (Pad::isTrigger(PAD_INPUT_2))// XBOX 
+	{
+		m_isElf = true;
+
+		m_isDino = false;
+		m_isKin = false;
+		m_isWitch = false;
+	}
+	// きんにくろう選択
+	if (Pad::isTrigger(PAD_INPUT_3))// XBOX A
+	{
+		m_isKin = true;
+
+		m_isDino = false;
+		m_isElf = false;
+		m_isWitch = false;
+	}
+	// 魔女選択
+	if (Pad::isTrigger(PAD_INPUT_4))// XBOX A
+	{
+		m_isWitch = true;
+
+		m_isDino = false;
+		m_isElf = false;
+		m_isKin = false;
+	}
+
+	if (m_isDino||
+		m_isElf ||
+		m_isKin ||
+		m_isWitch)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool SceneCharacterSelect::User2()
+{
+	Pad2::update();
+	// だいなそー選択
+	if (Pad2::isTrigger(PAD_INPUT_1))// XBOX A
+	{
+		m_isDino2 = true;
+
+		m_isElf2 = false;
+		m_isKin2 = false;
+		m_isWitch2 = false;
+
+	}
+	// エルフ選択
+	if (Pad2::isTrigger(PAD_INPUT_2))// XBOX 
+	{
+		m_isElf2 = true;
+
+		m_isDino2 = false;
+		m_isKin2 = false;
+		m_isWitch2 = false;
+	}
+	// きんにくろう選択
+	if (Pad2::isTrigger(PAD_INPUT_3))// XBOX A
+	{
+		m_isKin2 = true;
+
+		m_isDino2 = false;
+		m_isElf2 = false;
+		m_isWitch2 = false;
+	}
+	// 魔女選択
+	if (Pad2::isTrigger(PAD_INPUT_4))// XBOX A
+	{
+		m_isWitch2 = true;
+
+		m_isDino2 = false;
+		m_isElf2 = false;
+		m_isKin2 = false;
+	}
+
+	if (m_isDino2 ||
+		m_isElf2  ||
+		m_isKin2  ||
+		m_isWitch2)
+	{
+		return true;
+	}
+
+	return false;
 }
