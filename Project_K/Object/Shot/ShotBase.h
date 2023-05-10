@@ -17,7 +17,6 @@ protected:
 	{
 		Vec2 Pos;
 		Vec2 Vec;
-
 	};
 
 	Data m_Shot;

@@ -39,6 +39,8 @@ void Dinosaur::Update()
 
 	GetAttackSize();
 
+	m_attackFlag = m_StateManager->GetAttackFlag();
+
 	m_pos = m_StateManager->GetPos();
 
 	for (auto& pShot : m_Shot)
@@ -59,6 +61,13 @@ void Dinosaur::Draw()
 	for (auto& pShot : m_Shot)
 	{
 		pShot->Draw();
+	}
+
+	if (m_attackFlag)
+	{
+		DrawBox(m_pos.x + m_attackSizeLeft, m_pos.y + m_attackSizeTop,
+			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
+			0xff0000, false);
 	}
 }
 

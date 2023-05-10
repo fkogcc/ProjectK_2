@@ -42,10 +42,6 @@ private:
 	int m_MizoHandle;// ‚İ‚¼‚¨‚¿UŒ‚ó‘Ô
 	int m_RunHandle;//ˆÚ“®ó‘Ô
 
-	// •`‰æÀ•W
-	int m_drawPosX;// X
-	int m_drawPosY;// Y
-
 	// ‰æ‘œ‚ÌÀ•W
 	int m_imgPosX;// X
 	int m_imgPosY;// Y
