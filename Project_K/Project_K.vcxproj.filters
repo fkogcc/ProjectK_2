@@ -145,6 +145,7 @@
     <ClCompile Include="Object\Shot\ShotBase.cpp">
       <Filter>cppファイル\Object\Shot</Filter>
     </ClCompile>
+    <ClCompile Include="Util\Pad2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -294,6 +295,7 @@
     <ClInclude Include="Object\Shot\ShotBase.h">
       <Filter>hファイル\Object\Shot</Filter>
     </ClInclude>
+    <ClInclude Include="Util\Pad2.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cppファイル">
