@@ -24,19 +24,6 @@ public:
 	virtual void Update() {};// 更新
 	virtual void Draw  () {};// 描画
 
-
-	// プレイヤーのサイズ取得
-	int GetAttackSizeLeft() { return m_sizeLeft; }
-	int GetAttackSizeTop() { return m_sizeTop; }
-	int GetAttackSizeRight() { return m_sizeRight; }
-	int GetAttackSizeBottom() { return m_sizeBottom; }
-	
-	// プレイヤーの攻撃判定取得取得
-	int GetSizeAttackLeft() { return m_sizeLeftAttack; }
-	int GetSizeAttackTop() { return m_sizeTopAttack; }
-	int GetSizeAttackRight() { return m_sizeRightAttack; }
-	int GetSizeAttackBottom() { return m_sizeBottomAttack; }
-
 	// プレイヤーのサイズの当たり判定
 	int GetSizeLeft() { return m_sizeLeft; }
 	int GetSizeTop() { return m_sizeTop; }
