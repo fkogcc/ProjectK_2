@@ -19,8 +19,8 @@ DinosaurAttackPounce::DinosaurAttackPounce(Vec2 pos, Vec2 vec)
 		m_imagePosY = 4;
 		m_JumpPower = kJumpPower;
 		m_attackFlag = true;
-		m_attackSizeLeft = 100;
-		m_attackSizeTop = 100;
+		m_attackSizeLeft = -100;
+		m_attackSizeTop = 0;
 		m_attackSizeRight = 100;
 		m_attackSizeBottom = 100;
 	}

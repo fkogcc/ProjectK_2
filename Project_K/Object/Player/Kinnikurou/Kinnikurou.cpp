@@ -26,8 +26,6 @@ Kinnikurou::Kinnikurou() :
 	m_muscleHandle(-1),
 	m_UpperHandle(-1),
 	m_MizoHandle(-1),
-	m_drawPosX(0),
-	m_drawPosY(0),
 	m_imgPosX(0),
 	m_imgPosY(0),
 	m_imgWidth(0),
@@ -66,8 +64,8 @@ void Kinnikurou::Init()
 	m_MizoHandle = my::MyLoadGraph(kMizo);
 	m_RunHandle = my::MyLoadGraph(kRun);
 
-	m_drawPosX = 200;
-	m_drawPosY = 600;
+	m_pos.x = 200;
+	m_pos.y = 600;
 
 	m_imgPosX = 0;
 	m_imgPosY = 0;
@@ -114,7 +112,7 @@ void Kinnikurou::Update()
 		{
 			m_moveType = 1;
 			//ImgposInit();
-			m_drawPosX += 10;
+			m_pos.x += 10;
 			m_charDirection = false;
 			m_charRun = true;
 		}
@@ -122,7 +120,7 @@ void Kinnikurou::Update()
 		{
 			m_moveType = 1;
 			//ImgposInit();
-			m_drawPosX -= 10;
+			m_pos.x -= 10;
 			m_charDirection = true;
 			m_charRun = true;
 		}
@@ -155,12 +153,14 @@ void Kinnikurou::Update()
 
 	if (!Pad::isPress(PAD_INPUT_RIGHT) || !Pad::isPress(PAD_INPUT_LEFT))
 	{
+		m_attackFlag = false;
 		m_charRun = false;
 		//m_initCount = 0;
 	}
 
 	if ((Pad::isRelase(PAD_INPUT_RIGHT) || Pad::isRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
 	{
+		m_attackFlag = false;
 		ImgposInit();
 	}
 
@@ -169,31 +169,66 @@ void Kinnikurou::Update()
 	// ÉAÉCÉhÉãèÛë‘
 	if (m_moveType == static_cast<int>(moveType::Idol))
 	{
+		m_attackFlag = false;
+
 		m_pIdle->Update(m_imgPosX, m_imgPosY);
 		printfDx("ÉAÉCÉhÉãèÛë‘\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
+		m_attackFlag = true;
+
+		// ìñÇΩÇËîªíË
+		m_attackSizeLeft = -100;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 100;
+		m_attackSizeBottom = 100;
+
 		m_pJab->Update(m_imgPosX, m_imgPosY);
 		printfDx("çUåÇÇP\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack2))
 	{
+		m_attackFlag = true;
+
+		// ìñÇΩÇËîªíË
+		m_attackSizeLeft = -100;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 100;
+		m_attackSizeBottom = 100;
+
 		m_pMuscle->Update(m_imgPosX, m_imgPosY);
 		printfDx("çUåÇÇQ\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack3))
 	{
+		m_attackFlag = true;
+
+		// ìñÇΩÇËîªíË
+		m_attackSizeLeft = -100;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 100;
+		m_attackSizeBottom = 100;
+
 		m_pUpper->Update(m_imgPosX, m_imgPosY);
 		printfDx("çUåÇÇR\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack4))
 	{
+		m_attackFlag = true;
+
+		// ìñÇΩÇËîªíË
+		m_attackSizeLeft = -100;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 100;
+		m_attackSizeBottom = 100;
+
 		m_pMizo->Update(m_imgPosX, m_imgPosY);
 		printfDx("çUåÇÇS\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Run))
 	{
+		m_attackFlag = false;
 		m_pRun->Update(m_imgPosX, m_imgPosY);
 		printfDx("à⁄ìÆ\n");
 	}
@@ -247,12 +282,19 @@ void Kinnikurou::Draw()
 
 
 	// ÉLÉÉÉâÉNÉ^Å[ÇÃï`âÊ
-	my::MyDrawRectRotaGraph(m_drawPosX, m_drawPosY,
+	my::MyDrawRectRotaGraph(m_pos.x, m_pos.y,
 		m_imgPosX * m_imgWidth, m_imgPosY * m_imgHeight,
 		m_imgWidth, m_imgHeight,
 		5.0f, 0.0f,
 		m_charHandle,
 		true, m_charDirection);
+
+	if (m_attackFlag)
+	{
+		DrawBox(m_pos.x + m_attackSizeLeft, m_pos.y + m_attackSizeTop,
+			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
+			0xff0000, false);
+	}
 }
 
 void Kinnikurou::ImgposInit()
