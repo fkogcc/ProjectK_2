@@ -137,7 +137,7 @@ void Kinnikurou::Update()
 		{
 			m_moveType = 3;// ジャブ攻撃状態
 			ImgposInit();
-			m_motionCount = 30;
+			m_motionCount = 3 * 3;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_2))
 		{
@@ -147,13 +147,13 @@ void Kinnikurou::Update()
 		}
 		if (Pad::IsTrigger(PAD_INPUT_3))
 		{
-			m_moveType = 5;// マッスル攻撃状態
+			m_moveType = 5;// アッパー攻撃状態
 			ImgposInit();
 			m_motionCount = 40;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_4))
 		{
-			m_moveType = 6;// マッスル攻撃状態
+			m_moveType = 6;// みぞおち攻撃状態
 			ImgposInit();
 			m_motionCount = 40;
 		}
@@ -164,7 +164,6 @@ void Kinnikurou::Update()
 	{
 		m_attackFlag = false;
 		m_charRun = false;
-		//m_initCount = 0;
 	}
 
 	if ((Pad::IsRelase(PAD_INPUT_RIGHT) || Pad::IsRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
