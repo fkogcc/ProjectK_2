@@ -2,11 +2,21 @@
 #include <DxLib.h>
 #include "../../Util/Pad.h"
 #include "../../Util/Vec2.h"
+#include<array>
+
+class ShotBase;
+class ShotNull;
+
+namespace
+{
+	constexpr int kShotMax = 4;	// ショット数最大
+}
 
 class PlayerBase //プレイヤーの基底クラス
 {
 public:
-	PlayerBase() {};
+	PlayerBase();
+	
 	virtual ~PlayerBase() {};
 
 	virtual void Init  () {};// 初期化
@@ -39,5 +49,7 @@ protected:
 
 	Vec2 m_pos = { 0.0f,0.0f };// 位置
 	Vec2 m_vec = { 0.0f,0.0f };// 運動量
+
+	std::array<ShotBase*, kShotMax> m_Shot;
 };
 

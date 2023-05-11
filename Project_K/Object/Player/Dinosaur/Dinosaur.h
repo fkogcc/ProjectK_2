@@ -1,10 +1,10 @@
 #pragma once
 #include "../Base/PlayerBase.h"
-#include<vector>
+#include<array>
 
 class ShotBase;
-
 class DinosaurStateManager;
+
 class Dinosaur : public PlayerBase
 {
 public:
@@ -17,10 +17,10 @@ public:
 	void Draw();// •`‰æ
 
 	void GetAttackSize();
+
+	ShotBase* GetShot(int i);
 private:
 	int m_Handle;
 	DinosaurStateManager* m_StateManager;
-
-	std::vector<ShotBase*> m_Shot;
 };
 

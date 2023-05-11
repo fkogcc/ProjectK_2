@@ -6,6 +6,7 @@
 #include "../Util/DrawFunctions.h"
 #include "../condition.h"
 #include <assert.h>
+#include"../Object/Shot/ShotBase.h"
 
 #include <iostream>
 
@@ -15,7 +16,7 @@ SceneMain::SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch) :
 	m_pKin(nullptr),
 	m_pWitch(nullptr),
 	m_isDino(false),
-	m_isElf(false),
+	m_isElf(true),
 	m_isKin(false),
 	m_isWitch(false)
 {

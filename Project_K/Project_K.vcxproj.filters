@@ -139,10 +139,13 @@
     <ClCompile Include="Object\Player\Witch\WitchShotAttack.cpp">
       <Filter>cppファイル\Object\Player\Witch</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Shot\Shot.cpp">
+    <ClCompile Include="Object\Shot\DinoShot.cpp">
       <Filter>cppファイル\Object\Shot</Filter>
     </ClCompile>
     <ClCompile Include="Object\Shot\ShotBase.cpp">
+      <Filter>cppファイル\Object\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Shot\NullShot.cpp">
       <Filter>cppファイル\Object\Shot</Filter>
     </ClCompile>
   </ItemGroup>
@@ -288,10 +291,13 @@
     <ClInclude Include="Object\Player\Witch\WitchShotAttack.h">
       <Filter>hファイル\Object\Player\Witch</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Shot\Shot.h">
+    <ClInclude Include="Object\Shot\DinoShot.h">
       <Filter>hファイル\Object\Shot</Filter>
     </ClInclude>
     <ClInclude Include="Object\Shot\ShotBase.h">
+      <Filter>hファイル\Object\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Shot\NullShot.h">
       <Filter>hファイル\Object\Shot</Filter>
     </ClInclude>
   </ItemGroup>

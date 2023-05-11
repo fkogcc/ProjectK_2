@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Shot\NullShot.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfAttackArrowUp.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfIdle.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfRun.cpp" />
@@ -173,7 +174,7 @@
     <ClCompile Include="Object\Player\Witch\WitchLongShotAttack.cpp" />
     <ClCompile Include="Object\Player\Witch\WitchRun.cpp" />
     <ClCompile Include="Object\Player\Witch\WitchShotAttack.cpp" />
-    <ClCompile Include="Object\Shot\Shot.cpp" />
+    <ClCompile Include="Object\Shot\DinoShot.cpp" />
     <ClCompile Include="Object\Shot\ShotBase.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneCharacterSelect.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Shot\NullShot.h" />
     <ClInclude Include="Object\Player\Elf\ElfAttackArrowUp.h" />
     <ClInclude Include="Object\Player\Elf\ElfIdle.h" />
     <ClInclude Include="Object\Player\Elf\ElfRun.h" />
@@ -223,7 +225,7 @@
     <ClInclude Include="Object\Player\Witch\WitchLongShotAttack.h" />
     <ClInclude Include="Object\Player\Witch\WitchRun.h" />
     <ClInclude Include="Object\Player\Witch\WitchShotAttack.h" />
-    <ClInclude Include="Object\Shot\Shot.h" />
+    <ClInclude Include="Object\Shot\DinoShot.h" />
     <ClInclude Include="Object\Shot\ShotBase.h" />
     <ClInclude Include="Scene\SceneCharacterSelect.h" />
     <ClInclude Include="Scene\SceneMapSelect.h" />
