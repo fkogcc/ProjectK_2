@@ -27,8 +27,6 @@ Kinnikurou::Kinnikurou() :
 	m_UpperHandle(-1),
 	m_MizoHandle(-1),
 	m_RunHandle(-1),
-	m_drawPosX(0),
-	m_drawPosY(0),
 	m_imgPosX(0),
 	m_imgPosY(0),
 	m_imgWidth(0),
@@ -76,6 +74,11 @@ void Kinnikurou::Init()
 
 	m_imgPosX = 0;
 	m_imgPosY = 0;
+
+	m_sizeLeft = -50;
+	m_sizeTop = -50;
+	m_sizeRight = 50;
+	m_sizeBottom = 50;
 }
 
 void Kinnikurou::End()
@@ -170,7 +173,6 @@ void Kinnikurou::Update()
 		ImgposInit();
 	}
 
-	if (m_charRun) printfDx("移動状態\n");
 
 	// アイドル状態
 	if (m_moveType == static_cast<int>(moveType::Idol))
@@ -178,65 +180,105 @@ void Kinnikurou::Update()
 		m_attackFlag = false;
 
 		m_pIdle->Update(m_imgPosX, m_imgPosY);
-		printfDx("アイドル状態\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
 		m_attackFlag = true;
 
-		// 当たり判定
-		m_sizeLeftAttack = -100;
-		m_sizeTopAttack = 0;
-		m_sizeRightAttack = 100;
-		m_sizeBottomAttack = 100;
+		if (!m_charDirection)
+		{
+			// 当たり判定
+			m_sizeLeftAttack = 30;
+			m_sizeTopAttack = -30;
+			m_sizeRightAttack = 90;
+			m_sizeBottomAttack = 10;
+		}
+		else if (m_charDirection)
+		{
+			// 当たり判定
+			m_sizeLeftAttack = -30;
+			m_sizeTopAttack = -30;
+			m_sizeRightAttack = -90;
+			m_sizeBottomAttack = 10;
+		}
 
 		m_pJab->Update(m_imgPosX, m_imgPosY);
-		printfDx("攻撃１\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack2))
 	{
 		m_attackFlag = true;
 
-		// 当たり判定
-		m_sizeLeftAttack = -100;
-		m_sizeTopAttack = 0;
-		m_sizeRightAttack = 100;
-		m_sizeBottomAttack = 100;
+		if (!m_charDirection)
+		{
+			// 当たり判定
+			m_sizeLeftAttack = -200;
+			m_sizeTopAttack = -200;
+			m_sizeRightAttack = 200;
+			m_sizeBottomAttack = 200;
+		}
+		else if (m_charDirection)
+		{
+			m_sizeLeftAttack = -200;
+			m_sizeTopAttack = -200;
+			m_sizeRightAttack = 200;
+			m_sizeBottomAttack = 200;
+		}
+		
 
 		m_pMuscle->Update(m_imgPosX, m_imgPosY);
-		printfDx("攻撃２\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack3))
 	{
 		m_attackFlag = true;
 
-		// 当たり判定
-		m_sizeLeftAttack = -100;
-		m_sizeTopAttack = 0;
-		m_sizeRightAttack = 100;
-		m_sizeBottomAttack = 100;
+		if (!m_charDirection)
+		{
+			// 当たり判定
+			m_sizeLeftAttack = 30;
+			m_sizeTopAttack = -80;
+			m_sizeRightAttack = 100;
+			m_sizeBottomAttack = 80;
+		}
+		else if (m_charDirection)
+		{
+			m_sizeLeftAttack = -30;
+			m_sizeTopAttack = -80;
+			m_sizeRightAttack = -100;
+			m_sizeBottomAttack = 80;
+		}
+
+		
 
 		m_pUpper->Update(m_imgPosX, m_imgPosY);
-		printfDx("攻撃３\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack4))
 	{
 		m_attackFlag = true;
 
-		// 当たり判定
-		m_sizeLeftAttack = -100;
-		m_sizeTopAttack = 0;
-		m_sizeRightAttack = 100;
-		m_sizeBottomAttack = 100;
+		if (!m_charDirection)
+		{
+			// 当たり判定
+			m_sizeLeftAttack = 30;
+			m_sizeTopAttack = -10;
+			m_sizeRightAttack = 80;
+			m_sizeBottomAttack = 10;
+		}
+		else if (m_charDirection)
+		{
+			m_sizeLeftAttack = -30;
+			m_sizeTopAttack = -10;
+			m_sizeRightAttack = -80;
+			m_sizeBottomAttack = 10;
+		}
+
+		
 
 		m_pMizo->Update(m_imgPosX, m_imgPosY);
-		printfDx("攻撃４\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Run))
 	{
 		m_attackFlag = false;
 		m_pRun->Update(m_imgPosX, m_imgPosY);
-		printfDx("移動\n");
 	}
 
 }
@@ -301,6 +343,10 @@ void Kinnikurou::Draw()
 			m_pos.x + m_sizeRightAttack, m_pos.y + m_sizeBottomAttack,
 			0xff0000, false);
 	}
+
+	DrawBox(m_pos.x + m_sizeLeft, m_pos.y + m_sizeTop,
+		m_pos.x + m_sizeRight, m_pos.y + m_sizeBottom,
+		0xffffff, false);
 }
 
 void Kinnikurou::ImgposInit()

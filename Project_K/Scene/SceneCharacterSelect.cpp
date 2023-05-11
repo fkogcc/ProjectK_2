@@ -43,7 +43,7 @@ SceneBase* SceneCharacterSelect::Update()
 		return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ステージ切り替え
 	}
 
-	return(new SceneMain(true, true, true, true));// 1ステージ切り替え
+	return(new SceneMain(false, false, true, false));// 1ステージ切り替え
 	return this;
 }
 
