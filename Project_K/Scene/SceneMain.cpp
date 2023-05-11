@@ -7,6 +7,7 @@
 #include "../Util/DrawFunctions.h"
 #include "../condition.h"
 #include <assert.h>
+#include"../Object/Shot/ShotBase.h"
 
 #include <iostream>
 
@@ -19,6 +20,7 @@ SceneMain::SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch) :
 	m_isElf(isElf),
 	m_isKin(isKin),
 	m_isWitch(isWitch)
+	
 {
 	m_pDino = new Dinosaur;
 	m_pElf = new Elf;
