@@ -179,10 +179,10 @@ void Kinnikurou::Update()
 		m_attackFlag = true;
 
 		// ìñÇΩÇËîªíË
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		m_sizeLeftAttack = -100;
+		m_sizeTopAttack = 0;
+		m_sizeRightAttack = 100;
+		m_sizeBottomAttack = 100;
 
 		m_pJab->Update(m_imgPosX, m_imgPosY);
 		printfDx("çUåÇÇP\n");
@@ -192,10 +192,10 @@ void Kinnikurou::Update()
 		m_attackFlag = true;
 
 		// ìñÇΩÇËîªíË
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		m_sizeLeftAttack = -100;
+		m_sizeTopAttack = 0;
+		m_sizeRightAttack = 100;
+		m_sizeBottomAttack = 100;
 
 		m_pMuscle->Update(m_imgPosX, m_imgPosY);
 		printfDx("çUåÇÇQ\n");
@@ -205,10 +205,10 @@ void Kinnikurou::Update()
 		m_attackFlag = true;
 
 		// ìñÇΩÇËîªíË
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		m_sizeLeftAttack = -100;
+		m_sizeTopAttack = 0;
+		m_sizeRightAttack = 100;
+		m_sizeBottomAttack = 100;
 
 		m_pUpper->Update(m_imgPosX, m_imgPosY);
 		printfDx("çUåÇÇR\n");
@@ -218,10 +218,10 @@ void Kinnikurou::Update()
 		m_attackFlag = true;
 
 		// ìñÇΩÇËîªíË
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		m_sizeLeftAttack = -100;
+		m_sizeTopAttack = 0;
+		m_sizeRightAttack = 100;
+		m_sizeBottomAttack = 100;
 
 		m_pMizo->Update(m_imgPosX, m_imgPosY);
 		printfDx("çUåÇÇS\n");
@@ -291,8 +291,8 @@ void Kinnikurou::Draw()
 
 	if (m_attackFlag)
 	{
-		DrawBox(m_pos.x + m_attackSizeLeft, m_pos.y + m_attackSizeTop,
-			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
+		DrawBox(m_pos.x + m_sizeLeftAttack, m_pos.y + m_sizeTopAttack,
+			m_pos.x + m_sizeRightAttack, m_pos.y + m_sizeBottomAttack,
 			0xff0000, false);
 	}
 }
