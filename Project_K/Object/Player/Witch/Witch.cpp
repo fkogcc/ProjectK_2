@@ -13,7 +13,8 @@
 
 namespace
 {
-	const char* const kFilmName = "Data/Image/Player/Witch/Witch.png";
+    const char* const kFilmName = "Data/Image/Player/Witch/Witch.png";
+    const int kShiftX = 100;
 }
 
 Witch::Witch() :
@@ -87,7 +88,7 @@ void Witch::Update()
             m_animeFlag = false;
             if (m_reversal)
             {
-               m_shiftX *= -1;
+                m_shiftX *= -1;
             }
             m_pos.x += m_shiftX;
             m_shiftX = 0;
@@ -118,18 +119,6 @@ void Witch::Update()
 
     if (!m_animeFlag)
     {
-        if (Pad::isPress(PAD_INPUT_RIGHT))
-        {
-            m_pos.x += 10;
-            m_reversal = false;
-            m_moveType = static_cast<int>(moveType::Run);// 走り状態
-        }
-        if (Pad::isPress(PAD_INPUT_LEFT))
-        {
-            m_pos.x -= 10;
-            m_reversal = true;
-            m_moveType = static_cast<int>(moveType::Run);// 走り状態
-        }
         if (Pad::isPress(PAD_INPUT_UP))
         {
             m_pos.y -= 10;
@@ -138,7 +127,22 @@ void Witch::Update()
         {
             m_pos.y += 10;
         }
-
+        if (Pad::isPress(PAD_INPUT_RIGHT))
+        {
+            m_pos.x += 10;
+            m_reversal = false;
+            m_moveType = static_cast<int>(moveType::Run);// 走り状態
+        }
+        else if (Pad::isPress(PAD_INPUT_LEFT))
+        {
+            m_pos.x -= 10;
+            m_reversal = true;
+            m_moveType = static_cast<int>(moveType::Run);// 走り状態
+        }
+        else
+        {
+            m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
+        }
         //小攻撃
         if (Pad::isTrigger(PAD_INPUT_1))
         {
@@ -150,7 +154,15 @@ void Witch::Update()
         {
             m_moveType = static_cast<int>(moveType::Attack2);// 攻撃2状態
             m_animeFlag = true;
-            m_pos.x += 100;
+            m_pLongShot->SetReversal(m_reversal);
+            if (m_reversal)
+            {
+                m_pos.x -= kShiftX;
+            }
+            else
+            {
+                m_pos.x += kShiftX;
+            }
         }
         else if (Pad::isTrigger(PAD_INPUT_3))
         {
@@ -163,10 +175,6 @@ void Witch::Update()
             m_moveType = static_cast<int>(moveType::Attack4);// 攻撃4状態
             m_animeFlag = true;
             m_animeLoopCount = 3;
-        }
-        else
-        {
-            m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
         }
 
 
@@ -194,7 +202,6 @@ void Witch::Update()
             m_indexX = m_pLongShot->SizeX();
             m_shiftX = m_pLongShot->ShiftX();
             m_animeMax = m_pLongShot->AnimeMax();
-            m_pLongShot->SetReversal(m_reversal);
         }
         if (m_moveType == static_cast<int>(moveType::Attack3))
         {
@@ -210,13 +217,6 @@ void Witch::Update()
         }
 
     }
-    ////走り
-    //if (Pad::isTrigger(PAD_INPUT_1))
-    //{
-    //    m_animeWidth = 1;
-    //    m_animeHight = 0;
-    //    m_animeMax = 6;
-    //}
     ////ダメージ
     //if (Pad::isTrigger(PAD_INPUT_2))
     //{
@@ -243,12 +243,8 @@ void Witch::Draw()
         48 * m_indexX, 48,							//幅、高さ
         3.0f, 0.0f,						//拡大率、回転角度
         m_handle, true, m_reversal);
-    DrawFormatString(0,0,0x00ff00,"%f",m_pos.x);
+    DrawFormatString(0, 0, 0x00ff00, "%f", m_pos.x);
 
     m_pChicken->Draw();
     m_pKnightCat->Draw();
-
-    DrawBox(m_attackSizeLeft, m_attackSizeTop,
-        m_attackSizeRight, m_attackSizeBottom,
-        0xff0000, false);
 }
