@@ -11,7 +11,7 @@ namespace
 namespace Pad2
 {
 	// パッドの入力状態取得
-	void update()
+	void Update()
 	{
 		// 現在のパッドの状態を取得
 		int padState = GetJoypadInputState(DX_INPUT_PAD2);
@@ -26,19 +26,19 @@ namespace Pad2
 	}
 
 	// 押し下げ判定
-	bool isPress(int button)
+	bool IsPress(int button)
 	{
 		return (padLog[0] & button);
 	}
 	// トリガー判定
-	bool isTrigger(int button)
+	bool IsTrigger(int button)
 	{
 		bool isNow = (padLog[0] & button);	// 現在の状態
 		bool isLast = (padLog[1] & button);	// １フレーム前の状態
 		return (isNow && !isLast);
 	}
 	// 離した判定
-	bool isRelase(int button)
+	bool IsRelase(int button)
 	{
 		bool isNow = (padLog[0] & button);	// 現在の状態
 		bool isLast = (padLog[1] & button);	// １フレーム前の状態

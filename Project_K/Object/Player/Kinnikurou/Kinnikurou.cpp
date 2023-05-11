@@ -26,10 +26,15 @@ Kinnikurou::Kinnikurou() :
 	m_muscleHandle(-1),
 	m_UpperHandle(-1),
 	m_MizoHandle(-1),
+	m_RunHandle(-1),
 	m_imgPosX(0),
 	m_imgPosY(0),
 	m_imgWidth(0),
-	m_imgHeight(0)
+	m_imgHeight(0),
+	m_motionCount(0),
+	m_initCount(0),
+	m_charDirection(false),
+	m_charRun(false)
 {
 	m_pIdle = new KinnikuIdle;
 	m_pJab = new KinnikurouJab;
@@ -69,6 +74,11 @@ void Kinnikurou::Init()
 
 	m_imgPosX = 0;
 	m_imgPosY = 0;
+
+	m_sizeLeft = -50;
+	m_sizeTop = -50;
+	m_sizeRight = 50;
+	m_sizeBottom = 50;
 }
 
 void Kinnikurou::End()
@@ -83,7 +93,6 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
-	Pad::update();
 
 	if (m_motionCount != 0)
 	{
@@ -108,7 +117,7 @@ void Kinnikurou::Update()
 
 	if (m_motionCount == 0)
 	{
-		if (Pad::isPress(PAD_INPUT_RIGHT))
+		if (Pad::IsPress(PAD_INPUT_RIGHT))
 		{
 			m_moveType = 1;
 			//ImgposInit();
@@ -116,7 +125,7 @@ void Kinnikurou::Update()
 			m_charDirection = false;
 			m_charRun = true;
 		}
-		if (Pad::isPress(PAD_INPUT_LEFT))
+		if (Pad::IsPress(PAD_INPUT_LEFT))
 		{
 			m_moveType = 1;
 			//ImgposInit();
@@ -124,155 +133,193 @@ void Kinnikurou::Update()
 			m_charDirection = true;
 			m_charRun = true;
 		}
-		if (Pad::isTrigger(PAD_INPUT_1))
+		if (Pad::IsTrigger(PAD_INPUT_1))
 		{
-			m_moveType = 3;// ƒWƒƒƒuUŒ‚ó‘Ô
+			m_moveType = 3;// ã‚¸ãƒ£ãƒ–æ”»æ’ƒçŠ¶æ…‹
 			ImgposInit();
-			m_motionCount = 30;
+			m_motionCount = 3 * 3;
 		}
-		if (Pad::isTrigger(PAD_INPUT_2))
+		if (Pad::IsTrigger(PAD_INPUT_2))
 		{
-			m_moveType = 4;// ƒ}ƒbƒXƒ‹UŒ‚ó‘Ô
+			m_moveType = 4;// ãƒãƒƒã‚¹ãƒ«æ”»æ’ƒçŠ¶æ…‹
 			ImgposInit();
 			m_motionCount = 70;
 		}
-		if (Pad::isTrigger(PAD_INPUT_3))
+		if (Pad::IsTrigger(PAD_INPUT_3))
 		{
-			m_moveType = 5;// ƒ}ƒbƒXƒ‹UŒ‚ó‘Ô
+			m_moveType = 5;// ã‚¢ãƒƒãƒ‘ãƒ¼æ”»æ’ƒçŠ¶æ…‹
 			ImgposInit();
 			m_motionCount = 40;
 		}
-		if (Pad::isTrigger(PAD_INPUT_4))
+		if (Pad::IsTrigger(PAD_INPUT_4))
 		{
-			m_moveType = 6;// ƒ}ƒbƒXƒ‹UŒ‚ó‘Ô
+			m_moveType = 6;// ã¿ããŠã¡æ”»æ’ƒçŠ¶æ…‹
 			ImgposInit();
 			m_motionCount = 40;
 		}
 
 	}
 
-	if (!Pad::isPress(PAD_INPUT_RIGHT) || !Pad::isPress(PAD_INPUT_LEFT))
+	if (!Pad::IsPress(PAD_INPUT_RIGHT) || !Pad::IsPress(PAD_INPUT_LEFT))
 	{
 		m_attackFlag = false;
 		m_charRun = false;
-		//m_initCount = 0;
 	}
 
-	if ((Pad::isRelase(PAD_INPUT_RIGHT) || Pad::isRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
+	if ((Pad::IsRelase(PAD_INPUT_RIGHT) || Pad::IsRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
 	{
 		m_attackFlag = false;
 		ImgposInit();
 	}
 
-	if (m_charRun) printfDx("ˆÚ“®ó‘Ô\n");
 
-	// ƒAƒCƒhƒ‹ó‘Ô
+	// ã‚¢ã‚¤ãƒ‰ãƒ«çŠ¶æ…‹
 	if (m_moveType == static_cast<int>(moveType::Idol))
 	{
 		m_attackFlag = false;
 
 		m_pIdle->Update(m_imgPosX, m_imgPosY);
-		printfDx("ƒAƒCƒhƒ‹ó‘Ô\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
 		m_attackFlag = true;
 
-		// “–‚½‚è”»’è
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		if (!m_charDirection)
+		{
+			// å½“ãŸã‚Šåˆ¤å®š
+			m_sizeLeftAttack = 30;
+			m_sizeTopAttack = -30;
+			m_sizeRightAttack = 90;
+			m_sizeBottomAttack = 10;
+		}
+		else if (m_charDirection)
+		{
+			// å½“ãŸã‚Šåˆ¤å®š
+			m_sizeLeftAttack = -30;
+			m_sizeTopAttack = -30;
+			m_sizeRightAttack = -90;
+			m_sizeBottomAttack = 10;
+		}
 
 		m_pJab->Update(m_imgPosX, m_imgPosY);
-		printfDx("UŒ‚‚P\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack2))
 	{
 		m_attackFlag = true;
 
-		// “–‚½‚è”»’è
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		if (!m_charDirection)
+		{
+			// å½“ãŸã‚Šåˆ¤å®š
+			m_sizeLeftAttack = -200;
+			m_sizeTopAttack = -200;
+			m_sizeRightAttack = 200;
+			m_sizeBottomAttack = 200;
+		}
+		else if (m_charDirection)
+		{
+			m_sizeLeftAttack = -200;
+			m_sizeTopAttack = -200;
+			m_sizeRightAttack = 200;
+			m_sizeBottomAttack = 200;
+		}
+		
 
 		m_pMuscle->Update(m_imgPosX, m_imgPosY);
-		printfDx("UŒ‚‚Q\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack3))
 	{
 		m_attackFlag = true;
 
-		// “–‚½‚è”»’è
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		if (!m_charDirection)
+		{
+			// å½“ãŸã‚Šåˆ¤å®š
+			m_sizeLeftAttack = 30;
+			m_sizeTopAttack = -80;
+			m_sizeRightAttack = 100;
+			m_sizeBottomAttack = 80;
+		}
+		else if (m_charDirection)
+		{
+			m_sizeLeftAttack = -30;
+			m_sizeTopAttack = -80;
+			m_sizeRightAttack = -100;
+			m_sizeBottomAttack = 80;
+		}
+
+		
 
 		m_pUpper->Update(m_imgPosX, m_imgPosY);
-		printfDx("UŒ‚‚R\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Attack4))
 	{
 		m_attackFlag = true;
 
-		// “–‚½‚è”»’è
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		if (!m_charDirection)
+		{
+			// å½“ãŸã‚Šåˆ¤å®š
+			m_sizeLeftAttack = 30;
+			m_sizeTopAttack = -10;
+			m_sizeRightAttack = 80;
+			m_sizeBottomAttack = 10;
+		}
+		else if (m_charDirection)
+		{
+			m_sizeLeftAttack = -30;
+			m_sizeTopAttack = -10;
+			m_sizeRightAttack = -80;
+			m_sizeBottomAttack = 10;
+		}
+
+		
 
 		m_pMizo->Update(m_imgPosX, m_imgPosY);
-		printfDx("UŒ‚‚S\n");
 	}
 	if (m_moveType == static_cast<int>(moveType::Run))
 	{
 		m_attackFlag = false;
 		m_pRun->Update(m_imgPosX, m_imgPosY);
-		printfDx("ˆÚ“®\n");
 	}
 
 }
 
 void Kinnikurou::Draw()
 {
-	// ƒAƒCƒhƒ‹ó‘Ô
+	// ã‚¢ã‚¤ãƒ‰ãƒ«çŠ¶æ…‹
 	if (m_moveType == static_cast<int>(moveType::Idol))
 	{
 		m_charHandle = m_idleHandle;
 		m_imgWidth = 18;
 		m_imgHeight = 23;
 	}
-	// ƒWƒƒƒuUŒ‚ó‘Ô
+	// ã‚¸ãƒ£ãƒ–æ”»æ’ƒçŠ¶æ…‹
 	else if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
 		m_charHandle = m_jabHandle;
 		m_imgWidth = 56 / 2;
 		m_imgHeight = 23;
 	}
-	// ƒ}ƒbƒXƒ‹UŒ‚ó‘Ô
+	// ãƒãƒƒã‚¹ãƒ«æ”»æ’ƒçŠ¶æ…‹
 	else if (m_moveType == static_cast<int>(moveType::Attack2))
 	{
 		m_charHandle = m_muscleHandle;
 		m_imgWidth = 27;
 		m_imgHeight = 24;
 	}
-	// ƒAƒbƒp[UŒ‚ó‘Ô
+	// ã‚¢ãƒƒãƒ‘ãƒ¼æ”»æ’ƒçŠ¶æ…‹
 	else if (m_moveType == static_cast<int>(moveType::Attack3))
 	{
 		m_charHandle = m_UpperHandle;
 		m_imgWidth = 27;
 		m_imgHeight = 24;
 	}
-	// ‚İ‚¼‚¨‚¿UŒ‚ó‘Ô
+	// ã¿ããŠã¡æ”»æ’ƒçŠ¶æ…‹
 	else if (m_moveType == static_cast<int>(moveType::Attack4))
 	{
 		m_charHandle = m_MizoHandle;
 		m_imgWidth = 27;
 		m_imgHeight = 24;
 	}
-	// ˆÚ“®ó‘Ô
+	// ç§»å‹•çŠ¶æ…‹
 	else if (m_moveType == static_cast<int>(moveType::Run))
 	{
 		m_charHandle = m_RunHandle;
@@ -281,7 +328,7 @@ void Kinnikurou::Draw()
 	}
 
 
-	// ƒLƒƒƒ‰ƒNƒ^[‚Ì•`‰æ
+	// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®æç”»
 	my::MyDrawRectRotaGraph(m_pos.x, m_pos.y,
 		m_imgPosX * m_imgWidth, m_imgPosY * m_imgHeight,
 		m_imgWidth, m_imgHeight,
@@ -291,10 +338,14 @@ void Kinnikurou::Draw()
 
 	if (m_attackFlag)
 	{
-		DrawBox(m_pos.x + m_attackSizeLeft, m_pos.y + m_attackSizeTop,
-			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
+		DrawBox(m_pos.x + m_sizeLeftAttack, m_pos.y + m_sizeTopAttack,
+			m_pos.x + m_sizeRightAttack, m_pos.y + m_sizeBottomAttack,
 			0xff0000, false);
 	}
+
+	DrawBox(m_pos.x + m_sizeLeft, m_pos.y + m_sizeTop,
+		m_pos.x + m_sizeRight, m_pos.y + m_sizeBottom,
+		0xffffff, false);
 }
 
 void Kinnikurou::ImgposInit()

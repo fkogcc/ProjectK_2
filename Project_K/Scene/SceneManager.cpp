@@ -4,6 +4,8 @@
 #include "SceneTitle.h"
 #include "SceneCharacterSelect.h"
 #include "SceneMapSelect.h"
+#include "../Util/Pad.h"
+#include "../Util/Pad2.h"
 
 SceneManager::SceneManager():
 	m_pScene(nullptr)
@@ -28,6 +30,9 @@ void SceneManager::End()
 // 毎フレームの処理
 void SceneManager::Update()
 {
+	Pad::Update();
+	Pad2::Update();
+
 	assert(m_pScene);// 確認処理
 	if (!m_pScene)	return;
 

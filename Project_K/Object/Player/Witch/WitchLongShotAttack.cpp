@@ -2,7 +2,7 @@
 
 namespace
 {
-	int kShift = 100;
+	int kShift = -100;
 }
 
 WitchLongShotAttack::WitchLongShotAttack() :
@@ -26,13 +26,5 @@ void WitchLongShotAttack::Init()
 
 void WitchLongShotAttack::Update()
 {
-	if (!m_reversal)
-	{
-		kShift = -100;
-	}
-	else if (m_reversal)
-	{
-		kShift = -200;
-	}
 	m_shiftX = kShift;
 }

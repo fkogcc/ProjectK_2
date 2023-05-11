@@ -13,7 +13,8 @@
 
 namespace
 {
-	const char* const kFilmName = "Data/Image/Player/Witch/Witch.png";
+    const char* const kFilmName = "Data/Image/Player/Witch/Witch.png";
+    const int kShiftX = 100;
 }
 
 Witch::Witch() :
@@ -68,7 +69,7 @@ void Witch::Init()
 
 void Witch::Update()
 {
-    Pad::update();
+    Pad::Update();
     m_pChicken->Update();
     m_pKnightCat->Update();
     m_animeFrame++;
@@ -87,7 +88,7 @@ void Witch::Update()
             m_animeFlag = false;
             if (m_reversal)
             {
-               m_shiftX *= -1;
+                m_shiftX *= -1;
             }
             m_pos.x += m_shiftX;
             m_shiftX = 0;
@@ -118,55 +119,66 @@ void Witch::Update()
 
     if (!m_animeFlag)
     {
-        if (Pad::isPress(PAD_INPUT_RIGHT))
-        {
-            m_pos.x += 10;
-            m_reversal = false;
-            m_moveType = static_cast<int>(moveType::Run);// ëñÇËèÛë‘
-        }
-        if (Pad::isPress(PAD_INPUT_LEFT))
-        {
-            m_pos.x -= 10;
-            m_reversal = true;
-            m_moveType = static_cast<int>(moveType::Run);// ëñÇËèÛë‘
-        }
-        if (Pad::isPress(PAD_INPUT_UP))
+        if (Pad::IsPress(PAD_INPUT_UP))
         {
             m_pos.y -= 10;
         }
-        if (Pad::isPress(PAD_INPUT_DOWN))
+        if (Pad::IsPress(PAD_INPUT_DOWN))
         {
             m_pos.y += 10;
         }
-
-        //è¨çUåÇ
-        if (Pad::isTrigger(PAD_INPUT_1))
+        if (Pad::IsPress(PAD_INPUT_RIGHT))
         {
-            m_moveType = static_cast<int>(moveType::Attack1);// çUåÇ1èÛë‘
+            m_pos.x += 10;
+            m_reversal = false;
+            m_moveType = static_cast<int>(moveType::Run);// Ëµ∞„ÇäÁä∂ÊÖã
+        }
+        else if (Pad::IsPress(PAD_INPUT_LEFT))
+        {
+            m_pos.x -= 10;
+            m_reversal = true;
+            m_moveType = static_cast<int>(moveType::Run);// Ëµ∞„ÇäÁä∂ÊÖã
+        }
+        if (Pad::IsPress(PAD_INPUT_UP))
+        {
+            m_pos.y -= 10;
+        }
+        if (Pad::IsPress(PAD_INPUT_DOWN))
+        {
+            m_moveType = static_cast<int>(moveType::Idol);// „Ç¢„Ç§„Éâ„É´Áä∂ÊÖã
+        }
+        //Â∞èÊîªÊíÉ
+        if (Pad::IsTrigger(PAD_INPUT_1))
+        {
+            m_moveType = static_cast<int>(moveType::Attack1);// ÊîªÊíÉ1Áä∂ÊÖã
             m_animeFlag = true;
         }
-        //íÜçUåÇ
-        else if (Pad::isTrigger(PAD_INPUT_2))
+        //‰∏≠ÊîªÊíÉ
+        else if (Pad::IsTrigger(PAD_INPUT_2))
         {
-            m_moveType = static_cast<int>(moveType::Attack2);// çUåÇ2èÛë‘
+            m_moveType = static_cast<int>(moveType::Attack2);// ÊîªÊíÉ2Áä∂ÊÖã
             m_animeFlag = true;
-            m_pos.x += 100;
+            m_pLongShot->SetReversal(m_reversal);
+            if (m_reversal)
+            {
+                m_pos.x -= kShiftX;
+            }
+            else
+            {
+                m_pos.x += kShiftX;
+            }
         }
-        else if (Pad::isTrigger(PAD_INPUT_3))
+        else if (Pad::IsTrigger(PAD_INPUT_3))
         {
-            m_moveType = static_cast<int>(moveType::Attack3);// çUåÇ3èÛë‘
+            m_moveType = static_cast<int>(moveType::Attack3);// ÊîªÊíÉ3Áä∂ÊÖã
             m_animeFlag = true;
             m_animeLoopCount = 2;
         }
-        else if (Pad::isTrigger(PAD_INPUT_4))
+        else if (Pad::IsTrigger(PAD_INPUT_4))
         {
-            m_moveType = static_cast<int>(moveType::Attack4);// çUåÇ4èÛë‘
+            m_moveType = static_cast<int>(moveType::Attack4);// ÊîªÊíÉ4Áä∂ÊÖã
             m_animeFlag = true;
             m_animeLoopCount = 3;
-        }
-        else
-        {
-            m_moveType = static_cast<int>(moveType::Idol);// ÉAÉCÉhÉãèÛë‘
         }
 
 
@@ -194,7 +206,6 @@ void Witch::Update()
             m_indexX = m_pLongShot->SizeX();
             m_shiftX = m_pLongShot->ShiftX();
             m_animeMax = m_pLongShot->AnimeMax();
-            m_pLongShot->SetReversal(m_reversal);
         }
         if (m_moveType == static_cast<int>(moveType::Attack3))
         {
@@ -210,14 +221,7 @@ void Witch::Update()
         }
 
     }
-    ////ëñÇË
-    //if (Pad::isTrigger(PAD_INPUT_1))
-    //{
-    //    m_animeWidth = 1;
-    //    m_animeHight = 0;
-    //    m_animeMax = 6;
-    //}
-    ////É_ÉÅÅ[ÉW
+    ////„ÉÄ„É°„Éº„Ç∏
     //if (Pad::isTrigger(PAD_INPUT_2))
     //{
     //    //animeNum = 0;
@@ -225,7 +229,7 @@ void Witch::Update()
     //    m_animeHight = 0;
     //    m_animeMax = 3;
     //}
-    ////éÄñS
+    ////Ê≠ª‰∫°
     //if (Pad::isTrigger(PAD_INPUT_3))
     //{
     //    m_animeWidth = 3;
@@ -238,17 +242,19 @@ void Witch::Update()
 void Witch::Draw()
 {
     my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x),
-        static_cast<int>(m_pos.y),			//ï\é¶ç¿ïW
-        48 * m_animeWidth, 48 * m_animeHight,			//êÿÇËéÊÇËç∂è„
-        48 * m_indexX, 48,							//ïùÅAçÇÇ≥
-        3.0f, 0.0f,						//ägëÂó¶ÅAâÒì]äpìx
+        static_cast<int>(m_pos.y),			//Ë°®Á§∫Â∫ßÊ®ô
+        48 * m_animeWidth, 48 * m_animeHight,			//Âàá„ÇäÂèñ„ÇäÂ∑¶‰∏ä
+        48 * m_indexX, 48,							//ÂπÖ„ÄÅÈ´ò„Åï
+        3.0f, 0.0f,						//Êã°Â§ßÁéá„ÄÅÂõûËª¢ËßíÂ∫¶
         m_handle, true, m_reversal);
-    DrawFormatString(0,0,0x00ff00,"%f",m_pos.x);
+    DrawFormatString(0, 0, 0x00ff00, "%f", m_pos.x);
 
     m_pChicken->Draw();
     m_pKnightCat->Draw();
 
-    DrawBox(m_attackSizeLeft, m_attackSizeTop,
-        m_attackSizeRight, m_attackSizeBottom,
+
+    DrawBox(m_sizeLeftAttack, m_sizeTopAttack,
+        m_sizeRightAttack, m_sizeBottomAttack,
         0xff0000, false);
+
 }

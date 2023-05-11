@@ -3,6 +3,7 @@
 #include "../Object/Player/Elf/Elf.h"
 #include "../Object/Player/Kinnikurou/Kinnikurou.h"
 #include "../Object/Player/Witch/Witch.h"
+#include "../Object/Stage/Stage.h"
 #include "../Util/DrawFunctions.h"
 #include "../condition.h"
 #include <assert.h>
@@ -15,15 +16,17 @@ SceneMain::SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch) :
 	m_pElf(nullptr),
 	m_pKin(nullptr),
 	m_pWitch(nullptr),
-	m_isDino(false),
-	m_isElf(true),
-	m_isKin(false),
-	m_isWitch(false)
+	m_isDino(isDino),
+	m_isElf(isElf),
+	m_isKin(isKin),
+	m_isWitch(isWitch)
+	
 {
 	m_pDino = new Dinosaur;
 	m_pElf = new Elf;
 	m_pKin = new Kinnikurou;
 	m_pWitch = new Witch;
+	m_pStage = new Stage;
 }
 
 SceneMain::~SceneMain()
@@ -32,6 +35,7 @@ SceneMain::~SceneMain()
 	delete m_pElf;
 	delete m_pKin;
 	delete m_pWitch;
+	delete m_pStage;
 }
 
 void SceneMain::Init()
@@ -40,6 +44,8 @@ void SceneMain::Init()
 	if (m_isElf) m_pElf->Init();
 	if (m_isKin) m_pKin->Init();
 	if (m_isWitch) m_pWitch->Init();
+
+	m_pStage->Init();
 }
 
 void SceneMain::End()
@@ -57,6 +63,8 @@ SceneBase* SceneMain::Update()
 	if (m_isKin) m_pKin->Update();
 	if (m_isWitch) m_pWitch->Update();
 
+	m_pStage->Update();
+
 	return this;
 }
 
@@ -66,4 +74,6 @@ void SceneMain::Draw()
 	if (m_isElf) m_pElf->Draw();
 	if (m_isKin) m_pKin->Draw();
 	if (m_isWitch) m_pWitch->Draw();
+
+	m_pStage->Draw();
 }

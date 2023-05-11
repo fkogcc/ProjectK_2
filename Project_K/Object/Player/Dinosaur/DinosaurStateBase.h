@@ -23,7 +23,7 @@ public:
 
 	virtual bool GetAttackFlag() { return m_attackFlag; }
 
-	int GetAttackSizeLeft() { return m_attackSizeLeft; }
+	int GetAttackSizeLeft() { return m_sizeAttackLeft; }
 	int GetAttackSizeTop() { return m_attackSizeTop; }
 	int GetAttackSizeRight() { return m_attackSizeRight; }
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
@@ -33,7 +33,7 @@ protected:
 
 	bool m_shotFlag = false;
 	
-	int m_attackSizeLeft = 0;
+	int m_sizeAttackLeft = 0;
 	int m_attackSizeTop = 0;
 	int m_attackSizeRight = 0;
 	int m_attackSizeBottom = 0;

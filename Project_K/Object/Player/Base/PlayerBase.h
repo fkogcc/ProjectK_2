@@ -9,60 +9,71 @@ class ShotNull;
 
 namespace
 {
-	constexpr int kShotMax = 4;	// ƒVƒ‡ƒbƒg”Å‘å
+	constexpr int kShotMax = 4;	// ã‚·ãƒ§ãƒƒãƒˆæ•°æœ€å¤§
 }
 
-class PlayerBase //ƒvƒŒƒCƒ„[‚ÌŠî’êƒNƒ‰ƒX
+class PlayerBase //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åŸºåº•ã‚¯ãƒ©ã‚¹
 {
 public:
 	PlayerBase();
 	
 	virtual ~PlayerBase() {};
 
-	virtual void Init  () {};// ‰Šú‰»
-	virtual void End   () {};// I—¹ˆ—
-	virtual void Update() {};// XV
-	virtual void Draw  () {};// •`‰æ
+	virtual void Init  () {};// åˆæœŸåŒ–
+	virtual void End   () {};// çµ‚äº†å‡¦ç†
+	virtual void Update() {};// æ›´æ–°
+	virtual void Draw  () {};// æç”»
 
-	// ƒvƒŒƒCƒ„[‚ÌƒTƒCƒY‚Ì“–‚½‚è”»’è
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚µã‚¤ã‚ºã®å½“ãŸã‚Šåˆ¤å®š
 	int GetSizeLeft() { return m_sizeLeft; }
 	int GetSizeTop() { return m_sizeTop; }
 	int GetSizeRight() { return m_sizeRight; }
 	int GetSizeBottom() { return m_sizeBottom; }
 	
-	// ƒvƒŒƒCƒ„[‚ÌUŒ‚‚Ì“–‚½‚è”»’è
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒã®å½“ãŸã‚Šåˆ¤å®š
 	int GetAttackSizeLeft() { return m_attackSizeLeft; }
 	int GetAttackSizeTop() { return m_attackSizeTop; }
 	int GetAttackSizeRight() { return m_attackSizeRight; }
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
 
-	int SetMove() { return m_moveType; }// SceneMain‚É‚Ç‚ÌUŒ‚‚ğ‚µ‚Ä‚¢‚é‚©‚ğ“n‚·
-	void GetMove(int check) { m_moveType = check; }// SceneMain‚©‚çUŒ‚ó‘Ô‚ğó‚¯æ‚é
-	void GetDamage(int damage) { m_damage = damage; }// SceneMain‚©‚çƒvƒŒƒCƒ„[‚ªó‚¯‚éƒ_ƒ[ƒW‚ğó‚¯æ‚é
+
+	int SetMove() { return m_moveType; }// SceneMainã«ã©ã®æ”»æ’ƒã‚’ã—ã¦ã„ã‚‹ã‹ã‚’æ¸¡ã™
+	void GetMove(int check) { m_moveType = check; }// SceneMainã‹ã‚‰æ”»æ’ƒçŠ¶æ…‹ã‚’å—ã‘å–ã‚‹
+	void GetDamage(int damage) { m_damage = damage; }// SceneMainã‹ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå—ã‘ã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘å–ã‚‹
 
 	Vec2 SetPos() { return m_pos; }
 
 protected:
-	// ƒvƒŒƒCƒ„[‚ÌƒTƒCƒY
+
+
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚µã‚¤ã‚º
+
 	int m_sizeLeft = 0;
 	int m_sizeTop = 0;
 	int m_sizeRight = 0;
 	int m_sizeBottom = 0;
 
-	// UŒ‚‚Ì”»’è
+
+	int m_sizeLeftAttack = 0;
+	int m_sizeTopAttack = 0;
+	int m_sizeRightAttack = 0;
+	int m_sizeBottomAttack = 0;
+
+	// æ”»æ’ƒã®åˆ¤å®š
 	int m_attackSizeLeft = 0;
 	int m_attackSizeTop = 0;
 	int m_attackSizeRight = 0;
 	int m_attackSizeBottom = 0;
 
+
 	int m_moveType = 0;
-	int m_hp     = 100;// ƒvƒŒƒCƒ„[‚Ì‘Ì—Í—Ê(100‚ª•W€)
-	int m_damage = 10; // ƒvƒŒƒCƒ„[‚ªó‚¯‚éƒ_ƒ[ƒW
+	int m_hp     = 100;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½“åŠ›é‡(100ãŒæ¨™æº–)
+	int m_damage = 10; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå—ã‘ã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸
 
-	bool m_attackFlag = false;// UŒ‚’†‚©‚Ç‚¤‚©
+	bool m_attackFlag = false;// æ”»æ’ƒä¸­ã‹ã©ã†ã‹
 
-	Vec2 m_pos = { 0.0f,0.0f };// ˆÊ’u
-	Vec2 m_vec = { 0.0f,0.0f };// ‰^“®—Ê
+	Vec2 m_pos = { 0.0f,0.0f };// ä½ç½®
+	Vec2 m_vec = { 0.0f,0.0f };// é‹å‹•é‡
 
 	std::array<ShotBase*, kShotMax> m_Shot;
 };
