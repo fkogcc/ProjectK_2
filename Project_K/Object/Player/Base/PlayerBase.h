@@ -23,7 +23,14 @@ public:
 	virtual void End   () {};// 終了処理
 	virtual void Update() {};// 更新
 	virtual void Draw  () {};// 描画
+
+	// プレイヤーのサイズの当たり判定
+	int GetSizeLeft() { return m_sizeLeft; }
+	int GetSizeTop() { return m_sizeTop; }
+	int GetSizeRight() { return m_sizeRight; }
+	int GetSizeBottom() { return m_sizeBottom; }
 	
+	// プレイヤーの攻撃の当たり判定
 	int GetAttackSizeLeft() { return m_attackSizeLeft; }
 	int GetAttackSizeTop() { return m_attackSizeTop; }
 	int GetAttackSizeRight() { return m_attackSizeRight; }
@@ -36,6 +43,13 @@ public:
 	Vec2 SetPos() { return m_pos; }
 
 protected:
+	// プレイヤーのサイズ
+	int m_sizeLeft = 0;
+	int m_sizeTop = 0;
+	int m_sizeRight = 0;
+	int m_sizeBottom = 0;
+
+	// 攻撃の判定
 	int m_attackSizeLeft = 0;
 	int m_attackSizeTop = 0;
 	int m_attackSizeRight = 0;
