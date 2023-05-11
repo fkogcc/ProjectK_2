@@ -248,7 +248,7 @@ void Witch::Draw()
     m_pChicken->Draw();
     m_pKnightCat->Draw();
 
-    DrawBox(m_attackSizeLeft, m_attackSizeTop,
-        m_attackSizeRight, m_attackSizeBottom,
+    DrawBox(m_sizeLeftAttack, m_sizeTopAttack,
+        m_sizeRightAttack, m_sizeBottomAttack,
         0xff0000, false);
 }
