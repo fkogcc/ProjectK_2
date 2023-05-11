@@ -54,9 +54,8 @@ void SceneCharacterSelect::Draw()
 
 bool SceneCharacterSelect::User1()
 {
-	Pad::update();
 	// だいなそー選択
-	if (Pad::isTrigger(PAD_INPUT_1))// XBOX A
+	if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
 	{
 		m_isDino = true;
 
@@ -66,7 +65,7 @@ bool SceneCharacterSelect::User1()
 
 	}
 	// エルフ選択
-	if (Pad::isTrigger(PAD_INPUT_2))// XBOX 
+	if (Pad::IsTrigger(PAD_INPUT_2))// XBOX 
 	{
 		m_isElf = true;
 
@@ -75,7 +74,7 @@ bool SceneCharacterSelect::User1()
 		m_isWitch = false;
 	}
 	// きんにくろう選択
-	if (Pad::isTrigger(PAD_INPUT_3))// XBOX A
+	if (Pad::IsTrigger(PAD_INPUT_3))// XBOX A
 	{
 		m_isKin = true;
 
@@ -84,7 +83,7 @@ bool SceneCharacterSelect::User1()
 		m_isWitch = false;
 	}
 	// 魔女選択
-	if (Pad::isTrigger(PAD_INPUT_4))// XBOX A
+	if (Pad::IsTrigger(PAD_INPUT_4))// XBOX A
 	{
 		m_isWitch = true;
 
@@ -106,9 +105,8 @@ bool SceneCharacterSelect::User1()
 
 bool SceneCharacterSelect::User2()
 {
-	Pad2::update();
 	// だいなそー選択
-	if (Pad2::isTrigger(PAD_INPUT_1))// XBOX A
+	if (Pad2::IsTrigger(PAD_INPUT_1))// XBOX A
 	{
 		m_isDino2 = true;
 
@@ -118,7 +116,7 @@ bool SceneCharacterSelect::User2()
 
 	}
 	// エルフ選択
-	if (Pad2::isTrigger(PAD_INPUT_2))// XBOX 
+	if (Pad2::IsTrigger(PAD_INPUT_2))// XBOX 
 	{
 		m_isElf2 = true;
 
@@ -127,7 +125,7 @@ bool SceneCharacterSelect::User2()
 		m_isWitch2 = false;
 	}
 	// きんにくろう選択
-	if (Pad2::isTrigger(PAD_INPUT_3))// XBOX A
+	if (Pad2::IsTrigger(PAD_INPUT_3))// XBOX A
 	{
 		m_isKin2 = true;
 
@@ -136,7 +134,7 @@ bool SceneCharacterSelect::User2()
 		m_isWitch2 = false;
 	}
 	// 魔女選択
-	if (Pad2::isTrigger(PAD_INPUT_4))// XBOX A
+	if (Pad2::IsTrigger(PAD_INPUT_4))// XBOX A
 	{
 		m_isWitch2 = true;
 

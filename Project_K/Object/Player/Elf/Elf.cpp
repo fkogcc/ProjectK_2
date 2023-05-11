@@ -50,7 +50,6 @@ void Elf::End()
 
 void Elf::Update()
 {
-	Pad::update();
 
 	if (!m_pChargeShot->IsSetMove() ||
 		!m_pShot->IsSetMove() ||
@@ -69,13 +68,13 @@ void Elf::Update()
 	{
 		m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
 
-		if (Pad::isPress(PAD_INPUT_RIGHT))
+		if (Pad::IsPress(PAD_INPUT_RIGHT))
 		{
 			m_moveType = static_cast<int>(moveType::Run);// 走る
 			m_pos.x += kSpeed;
 			m_isDirection = false;
 		}
-		else if (Pad::isPress(PAD_INPUT_LEFT))
+		else if (Pad::IsPress(PAD_INPUT_LEFT))
 		{
 			m_moveType = static_cast<int>(moveType::Run);// 走る
 			m_pos.x -= kSpeed;
@@ -87,7 +86,7 @@ void Elf::Update()
 			//	m_isAttack = false;
 		}
 
-		if (Pad::isTrigger(PAD_INPUT_1))// XBOX A
+		if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
 		{
 			m_moveType = static_cast<int>(moveType::Attack1);// 攻撃
 			m_attackFlag = true;
@@ -97,7 +96,7 @@ void Elf::Update()
 			m_attackSizeRight = 0;
 			m_attackSizeBottom = 0;
 		}
-		if (Pad::isTrigger(PAD_INPUT_2))// XBOX B
+		if (Pad::IsTrigger(PAD_INPUT_2))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);// 攻撃
 			m_attackFlag = true;
@@ -107,18 +106,18 @@ void Elf::Update()
 			m_attackSizeRight = 0;
 			m_attackSizeBottom = 0;
 		}
-		if (Pad::isTrigger(PAD_INPUT_3) || (Pad::isTrigger(PAD_INPUT_4)))// XBOX X or Y
+		if (Pad::IsTrigger(PAD_INPUT_3) || (Pad::IsTrigger(PAD_INPUT_4)))// XBOX X or Y
 		{
 			//　ジャンプ
 		//	m_moveType = static_cast<int>(moveType::Jump);
 		}
-		if (Pad::isTrigger(XINPUT_BUTTON_LEFT_SHOULDER) || (Pad::isTrigger(PAD_INPUT_R)))// XBOX X or Y
+		if (Pad::IsTrigger(XINPUT_BUTTON_LEFT_SHOULDER) || (Pad::IsTrigger(PAD_INPUT_R)))// XBOX X or Y
 		{
 			//　ジャンプ
 
 		}
-		if (Pad::isTrigger(PAD_INPUT_2) && (Pad::isTrigger(PAD_INPUT_RIGHT)) ||// XBOX A && RIGHT
-			Pad::isTrigger(PAD_INPUT_2) && (Pad::isTrigger(PAD_INPUT_LEFT)))   // XBOX A && LEFT
+		if (Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_RIGHT)) ||// XBOX A && RIGHT
+			Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_LEFT)))   // XBOX A && LEFT
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);;// 攻撃
 			m_attackFlag = true;
@@ -128,8 +127,8 @@ void Elf::Update()
 			m_attackSizeRight = 0;
 			m_attackSizeBottom = 0;
 		}
-		if (Pad::isTrigger(PAD_INPUT_2) && (Pad::isTrigger(PAD_INPUT_UP)) ||
-			Pad::isTrigger(PAD_INPUT_3))// XBOX A && UP
+		if (Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_UP)) ||
+			Pad::IsTrigger(PAD_INPUT_3))// XBOX A && UP
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
 			m_attackFlag = true;

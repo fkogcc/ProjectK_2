@@ -26,12 +26,17 @@ Kinnikurou::Kinnikurou() :
 	m_muscleHandle(-1),
 	m_UpperHandle(-1),
 	m_MizoHandle(-1),
+	m_RunHandle(-1),
 	m_drawPosX(0),
 	m_drawPosY(0),
 	m_imgPosX(0),
 	m_imgPosY(0),
 	m_imgWidth(0),
-	m_imgHeight(0)
+	m_imgHeight(0),
+	m_motionCount(0),
+	m_initCount(0),
+	m_charDirection(false),
+	m_charRun(false)
 {
 	m_pIdle = new KinnikuIdle;
 	m_pJab = new KinnikurouJab;
@@ -85,7 +90,6 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
-	Pad::update();
 
 	if (m_motionCount != 0)
 	{
@@ -110,7 +114,7 @@ void Kinnikurou::Update()
 
 	if (m_motionCount == 0)
 	{
-		if (Pad::isPress(PAD_INPUT_RIGHT))
+		if (Pad::IsPress(PAD_INPUT_RIGHT))
 		{
 			m_moveType = 1;
 			//ImgposInit();
@@ -118,7 +122,7 @@ void Kinnikurou::Update()
 			m_charDirection = false;
 			m_charRun = true;
 		}
-		if (Pad::isPress(PAD_INPUT_LEFT))
+		if (Pad::IsPress(PAD_INPUT_LEFT))
 		{
 			m_moveType = 1;
 			//ImgposInit();
@@ -126,25 +130,25 @@ void Kinnikurou::Update()
 			m_charDirection = true;
 			m_charRun = true;
 		}
-		if (Pad::isTrigger(PAD_INPUT_1))
+		if (Pad::IsTrigger(PAD_INPUT_1))
 		{
 			m_moveType = 3;// ジャブ攻撃状態
 			ImgposInit();
 			m_motionCount = 30;
 		}
-		if (Pad::isTrigger(PAD_INPUT_2))
+		if (Pad::IsTrigger(PAD_INPUT_2))
 		{
 			m_moveType = 4;// マッスル攻撃状態
 			ImgposInit();
 			m_motionCount = 70;
 		}
-		if (Pad::isTrigger(PAD_INPUT_3))
+		if (Pad::IsTrigger(PAD_INPUT_3))
 		{
 			m_moveType = 5;// マッスル攻撃状態
 			ImgposInit();
 			m_motionCount = 40;
 		}
-		if (Pad::isTrigger(PAD_INPUT_4))
+		if (Pad::IsTrigger(PAD_INPUT_4))
 		{
 			m_moveType = 6;// マッスル攻撃状態
 			ImgposInit();
@@ -153,13 +157,13 @@ void Kinnikurou::Update()
 
 	}
 
-	if (!Pad::isPress(PAD_INPUT_RIGHT) || !Pad::isPress(PAD_INPUT_LEFT))
+	if (!Pad::IsPress(PAD_INPUT_RIGHT) || !Pad::IsPress(PAD_INPUT_LEFT))
 	{
 		m_charRun = false;
 		//m_initCount = 0;
 	}
 
-	if ((Pad::isRelase(PAD_INPUT_RIGHT) || Pad::isRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
+	if ((Pad::IsRelase(PAD_INPUT_RIGHT) || Pad::IsRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
 	{
 		ImgposInit();
 	}
