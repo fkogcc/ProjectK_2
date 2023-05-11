@@ -52,7 +52,7 @@ void Chicken::Update()
 		{
 			m_animeHight = 0;
 		}
-		if (m_pos.x >= Game::kScreenWidth  ||  m_pos.x <= 0)
+		if (m_pos.x >= Game::kScreenWidth || m_pos.x <= 0)
 		{
 			m_exist = false;
 		}
