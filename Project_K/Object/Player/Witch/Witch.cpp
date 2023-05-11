@@ -73,6 +73,13 @@ void Witch::Update()
     m_pChicken->Update();
     m_pKnightCat->Update();
     m_animeFrame++;
+
+    //あたりはんてい
+    m_sizeLeft = m_pos.x - 30 + m_shiftX;
+    m_sizeTop = m_pos.y - 40;
+    m_sizeRight = m_pos.x + 30 + m_shiftX;
+    m_sizeBottom = m_pos.y + 40;
+
     if (m_animeFrame > 10)
     {
         m_animeHight++;
@@ -247,11 +254,12 @@ void Witch::Draw()
         48 * m_indexX, 48,							//幅、高さ
         3.0f, 0.0f,						//拡大率、回転角度
         m_handle, true, m_reversal);
-    DrawFormatString(0, 0, 0x00ff00, "%f", m_pos.x);
+
 
     m_pChicken->Draw();
     m_pKnightCat->Draw();
 
+    DrawBox(m_sizeLeft, m_sizeTop, m_sizeRight, m_sizeBottom, 0x00ff00, false);
 
     DrawBox(m_sizeLeftAttack, m_sizeTopAttack,
         m_sizeRightAttack, m_sizeBottomAttack,
