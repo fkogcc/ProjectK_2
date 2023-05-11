@@ -19,6 +19,7 @@ Elf::Elf() :
 	m_imageX(0), m_imageY(0),
 	m_isAttack(false),
 	m_isDirection(false),
+	m_isCollPos(false),
 	m_pIdle(nullptr),
 	m_pChargeShot(nullptr),
 	m_pShot(nullptr),
@@ -126,6 +127,27 @@ void Elf::Update()
 	//m_posRight  = m_posLeft + 100;
 	//m_posBottom = m_posTop  + 195; 
 
+	m_sizeLeft   = static_cast<int>(m_pos.x) - 30;
+	m_sizeTop    = static_cast<int>(m_pos.y) + 75;
+	m_sizeRight  = m_sizeLeft + 60;
+	m_sizeBottom = m_sizeTop + 176;
+
+	//int left   = m_sizeLeft;
+	//int top    = m_sizeTop;
+	//int right  = m_sizeRight;
+	//int bottom = m_sizeBottom;
+
+	//if (m_isCollPos)
+	//{
+	//	if (m_sizeLeft > left + 100)m_sizeLeft++;
+	//	//m_sizeLeft += 100;
+	//	m_sizeRight = m_sizeLeft + 100;
+	//}
+	//else
+	//{
+	//	m_sizeLeft = static_cast<int>(m_pos.x) - 30;
+	//}
+
 	AnimationSwitch();
 
 }
@@ -138,12 +160,17 @@ void Elf::Draw()
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
 		m_imageX, m_imageY,// 画像の右上
 		288, 128,
-		6,
+		4,
 		DX_PI_F * 2,
 		m_handle,
 		true,
 		m_isDirection
 	);
+
+	DrawBox(m_sizeLeft, m_sizeTop, m_sizeRight, m_sizeBottom,0xffffff,false);
+
+	if(m_isAttack)DrawBox(m_attackSizeLeft, m_attackSizeTop, m_attackSizeRight, m_attackSizeBottom, 0xff0000, false);
+					
 }
 
 void Elf::AnimationSwitch()
@@ -164,6 +191,10 @@ void Elf::AnimationSwitch()
 		m_pPunch->Update();
 		m_imageX = m_pPunch->SetPosImageX();
 		m_imageY = m_pPunch->SetPosImageY();
+		m_attackSizeLeft = static_cast<int>(m_pos.x) + 90;
+		m_attackSizeTop = static_cast<int>(m_pos.y) + 100;
+		m_attackSizeRight = m_attackSizeLeft + 230;
+		m_attackSizeBottom = m_attackSizeTop + 50;
 		break;
 	case static_cast<int>(moveType::Attack2):// 攻撃
 		m_pShot->Update();
