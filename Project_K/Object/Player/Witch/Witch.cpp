@@ -69,7 +69,7 @@ void Witch::Init()
 
 void Witch::Update()
 {
-    Pad::update();
+    Pad::Update();
     m_pChicken->Update();
     m_pKnightCat->Update();
     m_animeFrame++;
@@ -119,38 +119,42 @@ void Witch::Update()
 
     if (!m_animeFlag)
     {
-        if (Pad::isPress(PAD_INPUT_UP))
+        if (Pad::IsPress(PAD_INPUT_UP))
         {
             m_pos.y -= 10;
         }
-        if (Pad::isPress(PAD_INPUT_DOWN))
+        if (Pad::IsPress(PAD_INPUT_DOWN))
         {
             m_pos.y += 10;
         }
-        if (Pad::isPress(PAD_INPUT_RIGHT))
+        if (Pad::IsPress(PAD_INPUT_RIGHT))
         {
             m_pos.x += 10;
             m_reversal = false;
             m_moveType = static_cast<int>(moveType::Run);// 走り状態
         }
-        else if (Pad::isPress(PAD_INPUT_LEFT))
+        else if (Pad::IsPress(PAD_INPUT_LEFT))
         {
             m_pos.x -= 10;
             m_reversal = true;
             m_moveType = static_cast<int>(moveType::Run);// 走り状態
         }
-        else
+        if (Pad::IsPress(PAD_INPUT_UP))
+        {
+            m_pos.y -= 10;
+        }
+        if (Pad::IsPress(PAD_INPUT_DOWN))
         {
             m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
         }
         //小攻撃
-        if (Pad::isTrigger(PAD_INPUT_1))
+        if (Pad::IsTrigger(PAD_INPUT_1))
         {
             m_moveType = static_cast<int>(moveType::Attack1);// 攻撃1状態
             m_animeFlag = true;
         }
         //中攻撃
-        else if (Pad::isTrigger(PAD_INPUT_2))
+        else if (Pad::IsTrigger(PAD_INPUT_2))
         {
             m_moveType = static_cast<int>(moveType::Attack2);// 攻撃2状態
             m_animeFlag = true;
@@ -164,13 +168,13 @@ void Witch::Update()
                 m_pos.x += kShiftX;
             }
         }
-        else if (Pad::isTrigger(PAD_INPUT_3))
+        else if (Pad::IsTrigger(PAD_INPUT_3))
         {
             m_moveType = static_cast<int>(moveType::Attack3);// 攻撃3状態
             m_animeFlag = true;
             m_animeLoopCount = 2;
         }
-        else if (Pad::isTrigger(PAD_INPUT_4))
+        else if (Pad::IsTrigger(PAD_INPUT_4))
         {
             m_moveType = static_cast<int>(moveType::Attack4);// 攻撃4状態
             m_animeFlag = true;

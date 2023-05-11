@@ -33,7 +33,6 @@ void Dinosaur::End()
 
 void Dinosaur::Update()
 {
-	Pad::update();
 
 	m_StateManager->Update();
 
