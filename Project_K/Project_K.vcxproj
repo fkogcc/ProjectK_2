@@ -186,11 +186,16 @@
     <ClCompile Include="Object\Stage\Stage.cpp" />
     <ClCompile Include="Util\DrawFunctions.cpp" />
     <ClCompile Include="Util\Pad.cpp" />
+    <ClCompile Include="Util\Pad2.cpp" />
     <ClCompile Include="Util\Vec2.cpp" />
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
+
     <ClInclude Include="Object\Shot\NullShot.h" />
+
+    <ClInclude Include="Util\common.h" />
+
     <ClInclude Include="Object\Player\Elf\ElfAttackArrowUp.h" />
     <ClInclude Include="Object\Player\Elf\ElfIdle.h" />
     <ClInclude Include="Object\Player\Elf\ElfRun.h" />
@@ -238,6 +243,7 @@
     <ClInclude Include="Scene\SceneMain.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Util\Pad.h" />
+    <ClInclude Include="Util\Pad2.h" />
     <ClInclude Include="Util\Vec2.h" />
     <ClInclude Include="Object\Player\Witch\Witch.h" />
   </ItemGroup>
