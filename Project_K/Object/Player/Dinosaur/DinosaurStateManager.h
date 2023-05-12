@@ -1,7 +1,8 @@
 #pragma once
-
+#include <DxLib.h>
 #include"DinosaurStateBase.h"
 #include"../../Util/Vec2.h"
+#include "../../Util/Pad.h"
 
 class DinosaurStateManager
 {
@@ -28,8 +29,12 @@ public:
 	int GetAttackSizeRight();
 	int GetAttackSizeBottom();
 
+	bool GetLookLeft() { return m_lookLeft; }
+
 private:
 	int m_Handle;
+
+	bool m_lookLeft; // 左を向いているかどうか
 
 	// シーンベースポインタ
 	DinosaurStateBase* m_pState;

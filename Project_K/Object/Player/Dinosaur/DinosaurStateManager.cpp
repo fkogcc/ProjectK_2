@@ -9,6 +9,7 @@
 #include "DinosaurMove.h"
 #include "DinosaurIdle.h"
 
+
 DinosaurStateManager::DinosaurStateManager(int Handle) :
 	m_Handle(Handle),
 	m_pState(nullptr)
@@ -31,9 +32,19 @@ void DinosaurStateManager::End()
 // 毎フレームの処理
 void DinosaurStateManager::Update()
 {
+	if (Pad::isPress(PAD_INPUT_LEFT) && !m_pState->GetAttackFlag())// XBOX X or Y
+	{
+		m_lookLeft = true;
+	}
+
+	if (Pad::isPress(PAD_INPUT_RIGHT) && !m_pState->GetAttackFlag())// XBOX X or Y
+	{
+		m_lookLeft = false;
+	}
 	assert(m_pState);// 確認処理
 	if (!m_pState)	return;
 
+	m_pState->SetLookFlag(m_lookLeft);
 	DinosaurStateBase* pState = m_pState->Update();// AttackBaseのupdate処理呼び出し
 
 	if (pState != m_pState)
@@ -50,7 +61,7 @@ void DinosaurStateManager::Draw()
 {
 	assert(m_pState);
 	if (!m_pState)	return;
-	m_pState->Draw(m_Handle);// 描画
+	m_pState->Draw(m_Handle , m_lookLeft);// 描画
 }
 
 bool DinosaurStateManager::GetshotFlag()
@@ -70,7 +81,8 @@ bool DinosaurStateManager::GetAttackFlag()
 
 int DinosaurStateManager::GetAttackSizeLeft()
 {
-	return m_pState->GetAttackSizeLeft();
+	
+	return ((m_lookLeft) ? m_pState->GetAttackSizeLeft() : -m_pState->GetAttackSizeLeft());
 }
 
 int DinosaurStateManager::GetAttackSizeTop()
@@ -80,7 +92,7 @@ int DinosaurStateManager::GetAttackSizeTop()
 
 int DinosaurStateManager::GetAttackSizeRight()
 {
-	return m_pState->GetAttackSizeRight();
+	return ((m_lookLeft) ? m_pState->GetAttackSizeRight() : -m_pState->GetAttackSizeRight());
 }
 
 int DinosaurStateManager::GetAttackSizeBottom()

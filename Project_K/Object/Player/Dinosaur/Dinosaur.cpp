@@ -34,7 +34,6 @@ void Dinosaur::End()
 void Dinosaur::Update()
 {
 	Pad::update();
-
 	m_StateManager->Update();
 
 	GetAttackSize();
@@ -80,7 +79,14 @@ void Dinosaur::Update()
 			// ショットが存在しないとき
 			if (!m_Shot[i]->GetExist())
 			{
-				m_Shot[i] = new DinoShot(m_pos, { 10,0 });
+				if (m_StateManager->GetLookLeft())
+				{
+					m_Shot[i] = new DinoShot(m_pos, { -15,0 });
+				}
+				else
+				{
+					m_Shot[i] = new DinoShot(m_pos, { 15,0 });
+				}
 				break; //ループ抜ける
 			}
 		}

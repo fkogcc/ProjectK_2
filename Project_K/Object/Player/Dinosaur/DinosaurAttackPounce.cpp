@@ -19,10 +19,10 @@ DinosaurAttackPounce::DinosaurAttackPounce(Vec2 pos, Vec2 vec)
 		m_imagePosY = 4;
 		m_JumpPower = kJumpPower;
 		m_attackFlag = true;
-		m_attackSizeLeft = -100;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		m_attackSizeLeft = -130;
+		m_attackSizeTop = 10;
+		m_attackSizeRight = 0;
+		m_attackSizeBottom = 80;
 	}
 }
 
@@ -49,7 +49,15 @@ DinosaurStateBase* DinosaurAttackPounce::Update()
 		m_Pos.y += m_JumpPower;
 		m_JumpPower += kGravity;
 
-		m_Pos.x += kMoveSpeed;
+		if (m_lookLeft)
+		{
+			m_Pos.x -= kMoveSpeed;
+		}
+
+		else
+		{
+			m_Pos.x += kMoveSpeed;
+		}
 	}
 
 	if (m_gapTime > 15)

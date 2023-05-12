@@ -13,12 +13,10 @@ void DinosaurStateBase::Init(int Handle)
 	m_Handle = Handle;
 }
 
-void DinosaurStateBase::Draw(int handle)
+void DinosaurStateBase::Draw(int handle , bool lookRight)
 {
 	my::MyDrawRectRotaGraph(m_Pos.x, m_Pos.y, 640 * m_imagePosX, 220 * m_imagePosY,
-		640, 220, 1, 0, handle, true, false);
-
-	DrawBox(m_Pos.x, m_Pos.y, m_Pos.x + 50, m_Pos.y + 50, 0xffffff, true);
+		640, 220, 1, 0, handle, true, lookRight);
 }
 
 void DinosaurStateBase::ChangeGraph(int ChangeSpeed, int GraphNum, bool ChangeY)

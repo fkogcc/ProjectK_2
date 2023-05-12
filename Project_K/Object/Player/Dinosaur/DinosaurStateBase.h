@@ -12,7 +12,7 @@ public:
 
 	virtual DinosaurStateBase* Update() { return this; }
 
-	virtual void Draw(int handle);
+	virtual void Draw(int handle, bool lookRight);
 
 	virtual void ChangeGraph(int ChangeSpeed, int GraphNum , bool ChangeY);
 
@@ -23,6 +23,8 @@ public:
 
 	virtual bool GetAttackFlag() { return m_attackFlag; }
 
+	virtual void SetLookFlag(bool RightFlag) { m_lookLeft = RightFlag; }
+
 	int GetAttackSizeLeft() { return m_attackSizeLeft; }
 	int GetAttackSizeTop() { return m_attackSizeTop; }
 	int GetAttackSizeRight() { return m_attackSizeRight; }
@@ -32,6 +34,7 @@ protected:
 	int m_Handle;
 
 	bool m_shotFlag = false;
+	bool m_lookLeft;	// ç∂Çå¸Ç¢ÇƒÇ¢ÇÈÇ©
 	
 	int m_attackSizeLeft = 0;
 	int m_attackSizeTop = 0;
