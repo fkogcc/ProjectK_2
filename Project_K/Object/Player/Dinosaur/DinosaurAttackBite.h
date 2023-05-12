@@ -10,10 +10,12 @@ public:
 		m_imagePosX = 0;
 		m_imagePosY = 5;
 		m_attackFlag = true;
-		m_sizeAttackLeft = -100;
+
+		m_attackSizeLeft = -130;
+
 		m_attackSizeTop = 0;
-		m_attackSizeRight = 100;
-		m_attackSizeBottom = 100;
+		m_attackSizeRight = 0;
+		m_attackSizeBottom = 80;
 	}
 	virtual ~DinosaurAttackBite();
 

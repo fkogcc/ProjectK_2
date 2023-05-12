@@ -12,7 +12,7 @@ public:
 
 	virtual DinosaurStateBase* Update() { return this; }
 
-	virtual void Draw(int handle);
+	virtual void Draw(int handle, bool lookRight);
 
 	virtual void ChangeGraph(int ChangeSpeed, int GraphNum , bool ChangeY);
 
@@ -23,7 +23,11 @@ public:
 
 	virtual bool GetAttackFlag() { return m_attackFlag; }
 
-	int GetAttackSizeLeft() { return m_sizeAttackLeft; }
+
+	virtual void SetLookFlag(bool RightFlag) { m_lookLeft = RightFlag; }
+
+	int GetAttackSizeLeft() { return m_attackSizeLeft; }
+
 	int GetAttackSizeTop() { return m_attackSizeTop; }
 	int GetAttackSizeRight() { return m_attackSizeRight; }
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
@@ -32,23 +36,24 @@ protected:
 	int m_Handle;
 
 	bool m_shotFlag = false;
+	bool m_lookLeft;	// å·¦ã‚’å‘ã„ã¦ã„ã‚‹ã‹
 	
 	int m_sizeAttackLeft = 0;
 	int m_attackSizeTop = 0;
 	int m_attackSizeRight = 0;
 	int m_attackSizeBottom = 0;
 
-	int m_frameCount = 0;// ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶‚³‚¹‚é—pƒtƒŒ[ƒ€ƒJƒEƒ“ƒg
+	int m_frameCount = 0;// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿã•ã›ã‚‹ç”¨ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆ
 
-	int m_imagePosX = 0;// ‰æ‘œ‚Ì•`‰æˆÊ’u
+	int m_imagePosX = 0;// ç”»åƒã®æç”»ä½ç½®
 	int m_imagePosY = 0;
 
-	int m_gapTime = 0; // ŒãŒ„
+	int m_gapTime = 0; // å¾Œéš™
 
-	int m_attackDamage = 0;// ƒvƒŒƒCƒ„[‚ªƒGƒlƒ~[‚É—^‚¦‚éƒ_ƒ[ƒW—Ê
+	int m_attackDamage = 0;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚¨ãƒãƒŸãƒ¼ã«ä¸ãˆã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸é‡
 	bool m_attackFlag = false;
 	bool m_isMove = false;
-	Vec2 m_Pos = { 0.0f,0.0f };// Œ»İˆÊ’u
-	Vec2 m_Vec = { 0.0f,0.0f };// ‰^“®—Ê
+	Vec2 m_Pos = { 0.0f,0.0f };// ç¾åœ¨ä½ç½®
+	Vec2 m_Vec = { 0.0f,0.0f };// é‹å‹•é‡
 };
 

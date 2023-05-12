@@ -33,7 +33,6 @@ void Dinosaur::End()
 
 void Dinosaur::Update()
 {
-
 	m_StateManager->Update();
 
 	GetAttackSize();
@@ -44,7 +43,7 @@ void Dinosaur::Update()
 
 	for (int i = 0; i < kShotMax; i++)
 	{
-		// ÉVÉáÉbÉgÇÃë∂ç›Ç™è¡Ç¶ÅANullShotÇ≈ÇÕÇ»Ç¢Ç∆Ç´m_ShotÇ…NullShotÇì¸ÇÍÇÈ
+		// „Ç∑„Éß„ÉÉ„Éà„ÅÆÂ≠òÂú®„ÅåÊ∂à„Åà„ÄÅNullShot„Åß„ÅØ„Å™„ÅÑ„Å®„Åçm_Shot„Å´NullShot„ÇíÂÖ•„Çå„Çã
 		if (!m_Shot[i]->GetExist() && !m_Shot[i]->GetNullShot())
 		{
 			m_Shot[i] = new NullShot();
@@ -56,31 +55,38 @@ void Dinosaur::Update()
 		m_Shot[i]->Update();
 	}
 
-	////Ç¢Ç»Ç≠Ç»Ç¡ÇΩìGÇÕè¡Ç¶ÇƒÇ‡ÇÁÇ§
-	////è¡Ç∑ñΩóﬂÇÃÇ≠ÇπÇ…ÅAé¿ç€Ç…ÇÕåàÇµÇƒÇ»Ç≠ÇƒÅAå„ÇÎÇ…ÇÊÇØÇƒÇÈÇæÇØ
-	//auto rmIt = std::remove_if(//èåèÇ…çáívÇµÇΩÇ‡ÇÃÇè¡Ç∑
-	//	m_Shot.begin(),	//ëŒè€ÇÕm_EnemyÇÃç≈èâÇ©ÇÁ
-	//	m_Shot.end(),		//ç≈å„Ç‹Ç≈
-	//	//è¡Ç¶ÇƒÇ‡ÇÁÇ§èåèÇï\Ç∑ÉâÉÄÉ_éÆ
-	//	//trueÇæÇ∆è¡Ç¶ÇÈÅBfalseÇæÇ∆è¡Ç¶Ç»Ç¢
+	////„ÅÑ„Å™„Åè„Å™„Å£„ÅüÊïµ„ÅØÊ∂à„Åà„Å¶„ÇÇ„Çâ„ÅÜ
+	////Ê∂à„ÅôÂëΩ‰ª§„ÅÆ„Åè„Åõ„Å´„ÄÅÂÆüÈöõ„Å´„ÅØÊ±∫„Åó„Å¶„Å™„Åè„Å¶„ÄÅÂæå„Çç„Å´„Çà„Åë„Å¶„Çã„Å†„Åë
+	//auto rmIt = std::remove_if(//Êù°‰ª∂„Å´ÂêàËá¥„Åó„Åü„ÇÇ„ÅÆ„ÇíÊ∂à„Åô
+	//	m_Shot.begin(),	//ÂØæË±°„ÅØm_Enemy„ÅÆÊúÄÂàù„Åã„Çâ
+	//	m_Shot.end(),		//ÊúÄÂæå„Åæ„Åß
+	//	//Ê∂à„Åà„Å¶„ÇÇ„Çâ„ÅÜÊù°‰ª∂„ÇíË°®„Åô„É©„É†„ÉÄÂºè
+	//	//true„Å†„Å®Ê∂à„Åà„Çã„ÄÇfalse„Å†„Å®Ê∂à„Åà„Å™„ÅÑ
 	//	[](ShotBase* &pShot) {
 	//		return !pShot->IsExist();
 	//	});
 
-	////é¿ç€Ç…îÕàÕÇéwíËÇµÇƒè¡Ç∑
+	////ÂÆüÈöõ„Å´ÁØÑÂõ≤„ÇíÊåáÂÆö„Åó„Å¶Ê∂à„Åô
 	//m_Shot.erase(rmIt, m_Shot.end());
-	////Ç±Ç±Ç‹Ç≈Ç‚ÇÁÇ»Ç¢Ç∆é¿ç€Ç…ÇÕè¡Ç¶Ç»Ç¢ÇÃÇ≈íçà”
+	////„Åì„Åì„Åæ„Åß„ÇÑ„Çâ„Å™„ÅÑ„Å®ÂÆüÈöõ„Å´„ÅØÊ∂à„Åà„Å™„ÅÑ„ÅÆ„ÅßÊ≥®ÊÑè
 
-	// ÉVÉáÉbÉgÇÃÉtÉâÉOÇΩÇΩÇ¡ÇΩÇ∆Ç´
+	// „Ç∑„Éß„ÉÉ„Éà„ÅÆ„Éï„É©„Ç∞„Åü„Åü„Å£„Åü„Å®„Åç
 	if (m_StateManager->GetshotFlag())
 	{
 		for (int i = 0; i < kShotMax; i++)
 		{
-			// ÉVÉáÉbÉgÇ™ë∂ç›ÇµÇ»Ç¢Ç∆Ç´
+			// „Ç∑„Éß„ÉÉ„Éà„ÅåÂ≠òÂú®„Åó„Å™„ÅÑ„Å®„Åç
 			if (!m_Shot[i]->GetExist())
 			{
-				m_Shot[i] = new DinoShot(m_pos, { 10,0 });
-				break; //ÉãÅ[Évî≤ÇØÇÈ
+				if (m_StateManager->GetLookLeft())
+				{
+					m_Shot[i] = new DinoShot(m_pos, { -15,0 });
+				}
+				else
+				{
+					m_Shot[i] = new DinoShot(m_pos, { 15,0 });
+				}
+				break; //„É´„Éº„ÉóÊäú„Åë„Çã
 			}
 		}
 	}
