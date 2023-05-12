@@ -6,12 +6,13 @@
 #include <string>
 #include <vector>
 
-class Dinosaur;
-class Elf;
-class Kinnikurou;
-class Witch;
+// ポインタ
+class Dinosaur;		// 爬虫類
+class Elf;			// エルフ
+class Kinnikurou;	// 筋肉
+class Witch;		// 魔女
 
-class Stage;
+class Stage;		// ステージ
 
 class SceneMain : public SceneBase
 {
@@ -30,6 +31,7 @@ private:
 	Elf*		m_pElf;
 	Kinnikurou* m_pKin;
 	Witch*		m_pWitch;
+	Stage*		m_pStage;
 
 	bool m_isDino;
 	bool m_isElf;

@@ -4,12 +4,12 @@
 namespace Pad
 {
 	// パッドの入力状態取得
-	void update();
+	void Update();
 
 	// 押し下げ判定
-	bool isPress(int button);
+	bool IsPress(int button);
 	// トリガー判定
-	bool isTrigger(int button);
+	bool IsTrigger(int button);
 	// 離した判定
-	bool isRelase(int button);
+	bool IsRelase(int button);
 }

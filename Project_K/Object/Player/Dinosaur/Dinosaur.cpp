@@ -33,7 +33,6 @@ void Dinosaur::End()
 
 void Dinosaur::Update()
 {
-	Pad::update();
 	m_StateManager->Update();
 
 	GetAttackSize();
@@ -44,7 +43,7 @@ void Dinosaur::Update()
 
 	for (int i = 0; i < kShotMax; i++)
 	{
-		// ƒVƒ‡ƒbƒg‚Ì‘¶Ý‚ªÁ‚¦ANullShot‚Å‚Í‚È‚¢‚Æ‚«m_Shot‚ÉNullShot‚ð“ü‚ê‚é
+		// ã‚·ãƒ§ãƒƒãƒˆã®å­˜åœ¨ãŒæ¶ˆãˆã€NullShotã§ã¯ãªã„ã¨ãm_Shotã«NullShotã‚’å…¥ã‚Œã‚‹
 		if (!m_Shot[i]->GetExist() && !m_Shot[i]->GetNullShot())
 		{
 			m_Shot[i] = new NullShot();
@@ -56,27 +55,27 @@ void Dinosaur::Update()
 		m_Shot[i]->Update();
 	}
 
-	////‚¢‚È‚­‚È‚Á‚½“G‚ÍÁ‚¦‚Ä‚à‚ç‚¤
-	////Á‚·–½—ß‚Ì‚­‚¹‚ÉAŽÀÛ‚É‚ÍŒˆ‚µ‚Ä‚È‚­‚ÄAŒã‚ë‚É‚æ‚¯‚Ä‚é‚¾‚¯
-	//auto rmIt = std::remove_if(//ðŒ‚É‡’v‚µ‚½‚à‚Ì‚ðÁ‚·
-	//	m_Shot.begin(),	//‘ÎÛ‚Ím_Enemy‚ÌÅ‰‚©‚ç
-	//	m_Shot.end(),		//ÅŒã‚Ü‚Å
-	//	//Á‚¦‚Ä‚à‚ç‚¤ðŒ‚ð•\‚·ƒ‰ƒ€ƒ_Ž®
-	//	//true‚¾‚ÆÁ‚¦‚éBfalse‚¾‚ÆÁ‚¦‚È‚¢
+	////ã„ãªããªã£ãŸæ•µã¯æ¶ˆãˆã¦ã‚‚ã‚‰ã†
+	////æ¶ˆã™å‘½ä»¤ã®ãã›ã«ã€å®Ÿéš›ã«ã¯æ±ºã—ã¦ãªãã¦ã€å¾Œã‚ã«ã‚ˆã‘ã¦ã‚‹ã ã‘
+	//auto rmIt = std::remove_if(//æ¡ä»¶ã«åˆè‡´ã—ãŸã‚‚ã®ã‚’æ¶ˆã™
+	//	m_Shot.begin(),	//å¯¾è±¡ã¯m_Enemyã®æœ€åˆã‹ã‚‰
+	//	m_Shot.end(),		//æœ€å¾Œã¾ã§
+	//	//æ¶ˆãˆã¦ã‚‚ã‚‰ã†æ¡ä»¶ã‚’è¡¨ã™ãƒ©ãƒ ãƒ€å¼
+	//	//trueã ã¨æ¶ˆãˆã‚‹ã€‚falseã ã¨æ¶ˆãˆãªã„
 	//	[](ShotBase* &pShot) {
 	//		return !pShot->IsExist();
 	//	});
 
-	////ŽÀÛ‚É”ÍˆÍ‚ðŽw’è‚µ‚ÄÁ‚·
+	////å®Ÿéš›ã«ç¯„å›²ã‚’æŒ‡å®šã—ã¦æ¶ˆã™
 	//m_Shot.erase(rmIt, m_Shot.end());
-	////‚±‚±‚Ü‚Å‚â‚ç‚È‚¢‚ÆŽÀÛ‚É‚ÍÁ‚¦‚È‚¢‚Ì‚Å’ˆÓ
+	////ã“ã“ã¾ã§ã‚„ã‚‰ãªã„ã¨å®Ÿéš›ã«ã¯æ¶ˆãˆãªã„ã®ã§æ³¨æ„
 
-	// ƒVƒ‡ƒbƒg‚Ìƒtƒ‰ƒO‚½‚½‚Á‚½‚Æ‚«
+	// ã‚·ãƒ§ãƒƒãƒˆã®ãƒ•ãƒ©ã‚°ãŸãŸã£ãŸã¨ã
 	if (m_StateManager->GetshotFlag())
 	{
 		for (int i = 0; i < kShotMax; i++)
 		{
-			// ƒVƒ‡ƒbƒg‚ª‘¶Ý‚µ‚È‚¢‚Æ‚«
+			// ã‚·ãƒ§ãƒƒãƒˆãŒå­˜åœ¨ã—ãªã„ã¨ã
 			if (!m_Shot[i]->GetExist())
 			{
 				if (m_StateManager->GetLookLeft())
@@ -87,7 +86,7 @@ void Dinosaur::Update()
 				{
 					m_Shot[i] = new DinoShot(m_pos, { 15,0 });
 				}
-				break; //ƒ‹[ƒv”²‚¯‚é
+				break; //ãƒ«ãƒ¼ãƒ—æŠœã‘ã‚‹
 			}
 		}
 	}
@@ -107,18 +106,18 @@ void Dinosaur::Draw()
 
 	if (m_attackFlag)
 	{
-		DrawBox(m_pos.x + m_attackSizeLeft, m_pos.y + m_attackSizeTop,
-			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
+		DrawBox(m_pos.x + m_sizeLeftAttack, m_pos.y + m_sizeTopAttack,
+			m_pos.x + m_sizeRightAttack, m_pos.y + m_sizeBottomAttack,
 			0xff0000, false);
 	}
 }
 
 void Dinosaur::GetAttackSize()
 {
-	m_attackSizeLeft = m_StateManager->GetAttackSizeLeft();
-	m_attackSizeTop = m_StateManager->GetAttackSizeTop();
-	m_attackSizeRight = m_StateManager->GetAttackSizeRight();
-	m_attackSizeBottom = m_StateManager->GetAttackSizeBottom();
+	m_sizeLeftAttack = m_StateManager->GetAttackSizeLeft();
+	m_sizeTopAttack = m_StateManager->GetAttackSizeTop();
+	m_sizeRightAttack = m_StateManager->GetAttackSizeRight();
+	m_sizeBottomAttack = m_StateManager->GetAttackSizeBottom();
 }
 
 ShotBase* Dinosaur::GetShot(int i)

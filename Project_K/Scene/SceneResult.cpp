@@ -23,4 +23,5 @@ SceneBase* SceneResult::Update()
 
 void SceneResult::Draw()
 {
+	DrawString(0, 0, "MapSelect", Color::kWhite);
 }
