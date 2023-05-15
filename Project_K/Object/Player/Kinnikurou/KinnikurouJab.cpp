@@ -3,7 +3,7 @@
 void KinnikurouJab::Update(int& imagePosX, int& imagePosY)
 {
 	m_frameCount++;
-	if (m_frameCount == 10)
+	if (m_frameCount == 3)
 	{
 		imagePosX++;
 		m_frameCount = 0;

@@ -23,13 +23,17 @@ public:
 	void AnimationSwitch();
 
 private:
-	int m_handle;
+	int m_handle;// 画像ハンドル
 
-	int m_imageX, m_imageY;
+	int m_imageX, m_imageY;// 画像描画位置
 
-	bool m_isAttack;
+//	int m_temp
 
-	bool m_isDirection;
+	bool m_isAttack;// 
+
+	bool m_isDirection;// 
+
+	bool m_isCollPos;
 
 	ElfIdle* m_pIdle;// 待機
 	ElfRun* m_pRun; // 走り
