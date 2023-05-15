@@ -1,4 +1,4 @@
-#include "Kinnikurou.h"
+﻿#include "Kinnikurou.h"
 #include "../../condition.h"
 #include "../../Util/DrawFunctions.h"
 #include "KinnikuIdle.h"
@@ -329,7 +329,7 @@ void Kinnikurou::Draw()
 
 
 	// キャラクターの描画
-	my::MyDrawRectRotaGraph(m_pos.x, m_pos.y,
+	my::MyDrawRectRotaGraph(static_cast<int> (m_pos.x), static_cast<int> (m_pos.y),
 		m_imgPosX * m_imgWidth, m_imgPosY * m_imgHeight,
 		m_imgWidth, m_imgHeight,
 		5.0f, 0.0f,
@@ -338,13 +338,17 @@ void Kinnikurou::Draw()
 
 	if (m_attackFlag)
 	{
-		DrawBox(m_pos.x + m_sizeLeftAttack, m_pos.y + m_sizeTopAttack,
-			m_pos.x + m_sizeRightAttack, m_pos.y + m_sizeBottomAttack,
+		DrawBox(static_cast<int> (m_pos.x) + m_sizeLeftAttack, 
+			static_cast<int> (m_pos.y) + m_sizeTopAttack,
+			static_cast<int> (m_pos.x) + m_sizeRightAttack, 
+			static_cast<int> (m_pos.y) + m_sizeBottomAttack,
 			0xff0000, false);
 	}
 
-	DrawBox(m_pos.x + m_sizeLeft, m_pos.y + m_sizeTop,
-		m_pos.x + m_sizeRight, m_pos.y + m_sizeBottom,
+	DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft, 
+		static_cast<int> (m_pos.y) + m_sizeTop,
+		static_cast<int> (m_pos.x) + m_sizeRight, 
+		static_cast<int> (m_pos.y) + m_sizeBottom,
 		0xffffff, false);
 }
 
