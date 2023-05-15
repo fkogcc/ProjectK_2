@@ -33,7 +33,7 @@ void Dinosaur::End()
 
 void Dinosaur::Update()
 {
-	Pad::update();
+//	Pad::update();
 	m_StateManager->Update();
 
 	GetAttackSize();
