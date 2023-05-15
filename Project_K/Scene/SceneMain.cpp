@@ -8,6 +8,7 @@
 #include "../condition.h"
 #include <assert.h>
 #include"../Object/Shot/ShotBase.h"
+#include"../Util/Collision.h"
 
 #include <iostream>
 
@@ -31,6 +32,7 @@ SceneMain::SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch) :
 
 	m_Player[0] = new Dinosaur;
 	m_Player[1] = new Kinnikurou;
+	m_Coll = new Collision(m_Player[0], m_Player[1]);
 }
 
 SceneMain::~SceneMain()
@@ -80,6 +82,16 @@ SceneBase* SceneMain::Update()
 	m_Player[0]->Update();
 	m_Player[1]->Update();
 
+	if (m_Coll->IsColl1())
+	{
+		m_Player[0]->OnDamage(1);
+	}
+
+	else if (m_Coll->IsColl2())
+	{
+		m_Player[1]->OnDamage(1);
+	}
+
 	m_pStage->Update();
 
 	return this;
@@ -91,6 +103,9 @@ void SceneMain::Draw()
 	if (m_isElf) m_pElf->Draw();
 	if (m_isKin) m_pKin->Draw();
 	if (m_isWitch) m_pWitch->Draw();*/
+
+	printfDx("Dino:%d\n", m_Player[0]->GetHp());
+	printfDx("Kin:%d\n", m_Player[1]->GetHp());
 
 	m_Player[0]->Draw();
 	m_Player[1]->Draw();

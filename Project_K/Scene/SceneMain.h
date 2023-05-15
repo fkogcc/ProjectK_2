@@ -37,6 +37,8 @@ private:
 
 	PlayerBase* m_Player[2];
 
+	Collision* m_Coll;
+
 	bool m_isDino;
 	bool m_isElf;
 	bool m_isKin;

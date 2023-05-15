@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <DxLib.h>
 #include "../../Util/Pad.h"
 #include "../../Util/Pad2.h"
@@ -37,10 +37,17 @@ public:
 	int GetAttackSizeRight() { return m_attackSizeRight; }
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
 
+	bool GetAttackFlag() { return m_attackFlag; }
+
 
 	int SetMove() { return m_moveType; }// SceneMainにどの攻撃をしているかを渡す
 	void GetMove(int check) { m_moveType = check; }// SceneMainから攻撃状態を受け取る
 	void GetDamage(int damage) { m_damage = damage; }// SceneMainからプレイヤーが受けるダメージを受け取る
+	void OnDamage(int damage) { m_hp -= damage; }
+
+	int GetHp() { return m_hp; }
+
+
 
 	Vec2 SetPos() { return m_pos; }
 
