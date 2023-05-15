@@ -1,6 +1,7 @@
 #pragma once
 #include <DxLib.h>
 #include "../../Util/Pad.h"
+#include "../../Util/Pad2.h"
 #include "../../Util/Vec2.h"
 #include<array>
 

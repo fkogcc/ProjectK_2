@@ -117,7 +117,7 @@ void Kinnikurou::Update()
 
 	if (m_motionCount == 0)
 	{
-		if (Pad::IsPress(PAD_INPUT_RIGHT))
+		if (Pad2::IsPress(PAD_INPUT_RIGHT))
 		{
 			m_moveType = 1;
 			//ImgposInit();
@@ -125,7 +125,7 @@ void Kinnikurou::Update()
 			m_charDirection = false;
 			m_charRun = true;
 		}
-		if (Pad::IsPress(PAD_INPUT_LEFT))
+		if (Pad2::IsPress(PAD_INPUT_LEFT))
 		{
 			m_moveType = 1;
 			//ImgposInit();
@@ -133,25 +133,25 @@ void Kinnikurou::Update()
 			m_charDirection = true;
 			m_charRun = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_1))
+		if (Pad2::IsTrigger(PAD_INPUT_1))
 		{
 			m_moveType = 3;// ジャブ攻撃状態
 			ImgposInit();
 			m_motionCount = 3 * 3;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_2))
+		if (Pad2::IsTrigger(PAD_INPUT_2))
 		{
 			m_moveType = 4;// マッスル攻撃状態
 			ImgposInit();
 			m_motionCount = 70;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_3))
+		if (Pad2::IsTrigger(PAD_INPUT_3))
 		{
 			m_moveType = 5;// アッパー攻撃状態
 			ImgposInit();
 			m_motionCount = 40;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_4))
+		if (Pad2::IsTrigger(PAD_INPUT_4))
 		{
 			m_moveType = 6;// みぞおち攻撃状態
 			ImgposInit();
@@ -160,13 +160,13 @@ void Kinnikurou::Update()
 
 	}
 
-	if (!Pad::IsPress(PAD_INPUT_RIGHT) || !Pad::IsPress(PAD_INPUT_LEFT))
+	if (!Pad2::IsPress(PAD_INPUT_RIGHT) || !Pad2::IsPress(PAD_INPUT_LEFT))
 	{
 		m_attackFlag = false;
 		m_charRun = false;
 	}
 
-	if ((Pad::IsRelase(PAD_INPUT_RIGHT) || Pad::IsRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
+	if ((Pad2::IsRelase(PAD_INPUT_RIGHT) || Pad2::IsRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
 	{
 		m_attackFlag = false;
 		ImgposInit();
