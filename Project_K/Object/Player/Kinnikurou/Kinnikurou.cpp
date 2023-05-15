@@ -1,4 +1,4 @@
-#include "Kinnikurou.h"
+﻿#include "Kinnikurou.h"
 #include "../../condition.h"
 #include "../../Util/DrawFunctions.h"
 #include "KinnikuIdle.h"
