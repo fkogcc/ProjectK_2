@@ -2,12 +2,16 @@
 
 #include "../Base/PlayerBase.h"
 
+#include <vector>
+
 class ElfIdle;
 class ElfRun;
 class ElfAttackArrowChargeShot;
 class ElfAttackArrowShot;
 class ElfAttackArrowPunch;
 class ElfAttackArrowUp;
+
+//class ShotBase;
 
 class Elf : public PlayerBase
 {

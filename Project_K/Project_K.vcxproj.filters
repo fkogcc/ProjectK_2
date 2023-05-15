@@ -145,13 +145,11 @@
     <ClCompile Include="Object\Shot\ShotBase.cpp">
       <Filter>cppファイル\Object\Shot</Filter>
     </ClCompile>
-
     <ClCompile Include="Object\Shot\NullShot.cpp">
       <Filter>cppファイル\Object\Shot</Filter>
     </ClCompile>
-
     <ClCompile Include="Util\Pad2.cpp" />
-
+    <ClCompile Include="Object\Shot\ElfShot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -301,16 +299,14 @@
     <ClInclude Include="Object\Shot\ShotBase.h">
       <Filter>hファイル\Object\Shot</Filter>
     </ClInclude>
-
     <ClInclude Include="Object\Shot\NullShot.h">
       <Filter>hファイル\Object\Shot</Filter>
     </ClInclude>
-
     <ClInclude Include="Util\common.h">
       <Filter>hファイル\Util</Filter>
     </ClInclude>
     <ClInclude Include="Util\Pad2.h" />
-
+    <ClInclude Include="Object\Shot\ElfShot.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cppファイル">
