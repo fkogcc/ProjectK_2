@@ -26,7 +26,7 @@ public:
 
 	virtual void SetLookFlag(bool RightFlag) { m_lookLeft = RightFlag; }
 
-	int GetAttackSizeLeft() { return m_attackSizeLeft; }
+	int GetAttackSizeLeft() { return m_attakSizeLeft; }
 
 	int GetAttackSizeTop() { return m_attackSizeTop; }
 	int GetAttackSizeRight() { return m_attackSizeRight; }
@@ -38,7 +38,7 @@ protected:
 	bool m_shotFlag = false;
 	bool m_lookLeft;	// 左を向いているか
 	
-	int m_sizeAttackLeft = 0;
+	int m_attakSizeLeft = 0;
 	int m_attackSizeTop = 0;
 	int m_attackSizeRight = 0;
 	int m_attackSizeBottom = 0;
