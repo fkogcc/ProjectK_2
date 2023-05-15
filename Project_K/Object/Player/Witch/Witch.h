@@ -20,6 +20,12 @@ public:
 	void Update();
 	void Draw();
 
+	void UpdateInputKey();
+	void UpdatePlayerState();
+	void UpdatePlayerJudge();
+	void UpdateAttackJudge();
+	void UpdateAnim();
+
 private:
 	WitchIdle* m_pIdle;
 	WitchRun* m_pRun;
@@ -40,7 +46,7 @@ private:
 	int m_animeFrame;
 	int m_animeMax;
 	int m_indexX;
+	int m_playerjudge;
 	int m_shiftX;
 	bool m_animeFlag;
 };
-
