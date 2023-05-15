@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../../../condition.h"
 #include"../../Util/Vec2.h"
 #include "../../Util/Pad.h"

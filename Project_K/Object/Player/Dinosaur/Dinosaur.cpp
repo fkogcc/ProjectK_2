@@ -1,4 +1,4 @@
-#include "Dinosaur.h"
+﻿#include "Dinosaur.h"
 #include "../../../condition.h"
 #include "DinosaurStateManager.h"
 #include"../../Shot/ShotBase.h"

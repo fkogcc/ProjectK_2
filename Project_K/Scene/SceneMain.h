@@ -7,10 +7,12 @@
 #include <vector>
 
 // ポインタ
-class Dinosaur;		// 爬虫類
-class Elf;			// エルフ
-class Kinnikurou;	// 筋肉
-class Witch;		// 魔女
+//class Dinosaur;		// 爬虫類
+//class Elf;			// エルフ
+//class Kinnikurou;	// 筋肉
+//class Witch;		// 魔女
+class PlayerBase;
+class Collision;
 
 class Stage;		// ステージ
 
@@ -27,11 +29,15 @@ public:
 	virtual void Draw();
 
 private:
-	Dinosaur*	m_pDino;
+	/*Dinosaur*	m_pDino;
 	Elf*		m_pElf;
 	Kinnikurou* m_pKin;
-	Witch*		m_pWitch;
+	Witch*		m_pWitch;*/
 	Stage*		m_pStage;
+
+	PlayerBase* m_Player[2];
+
+	Collision* m_Coll;
 
 	bool m_isDino;
 	bool m_isElf;

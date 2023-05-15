@@ -28,6 +28,6 @@ public:
 private:
 	Vec2 m_pos;
 
-
+	int m_handle;
 };
 
