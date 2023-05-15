@@ -20,7 +20,7 @@ DinosaurAttackPounce::DinosaurAttackPounce(Vec2 pos, Vec2 vec)
 		m_JumpPower = kJumpPower;
 		m_attackFlag = true;
 
-		m_attackSizeLeft = -130;
+		m_attakSizeLeft = -130;
 		m_attackSizeTop = 10;
 		m_attackSizeRight = 0;
 		m_attackSizeBottom = 80;

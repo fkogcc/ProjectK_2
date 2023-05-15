@@ -11,7 +11,7 @@ public:
 		m_imagePosY = 5;
 		m_attackFlag = true;
 
-		m_attackSizeLeft = -130;
+		m_attakSizeLeft = -130;
 
 		m_attackSizeTop = 0;
 		m_attackSizeRight = 0;
