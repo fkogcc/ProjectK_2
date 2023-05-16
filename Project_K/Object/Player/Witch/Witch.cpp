@@ -117,8 +117,8 @@ void Witch::Draw()
 
     if (m_attackFlag)
     {
-        DrawBox(m_sizeLeftAttack, m_sizeTopAttack,
-            m_sizeRightAttack, m_sizeBottomAttack,
+        DrawBox(m_attackSizeLeft, m_attackSizeTop,
+            m_attackSizeRight, m_attackSizeBottom,
             0xff0000, false);
     }
 }
@@ -239,10 +239,10 @@ void Witch::UpdatePlayerJudge()
 
 void Witch::UpdateAttackJudge()
 {
-    m_sizeLeftAttack = m_pos.x - 30 + m_shiftX + m_playerjudge + 10;
-    m_sizeTopAttack = m_pos.y - 40 + 10;
-    m_sizeRightAttack = m_pos.x + 30 + m_shiftX + m_playerjudge - 10;
-    m_sizeBottomAttack = m_pos.y + 40 - 10;
+    m_attackSizeLeft = m_pos.x - 30 + m_shiftX + m_playerjudge + 10;
+    m_attackSizeTop = m_pos.y - 40 + 10;
+    m_attackSizeRight = m_pos.x + 30 + m_shiftX + m_playerjudge - 10;
+    m_attackSizeBottom = m_pos.y + 40 - 10;
 }
 
 void Witch::UpdateAnim()
