@@ -25,10 +25,10 @@ Dinosaur::~Dinosaur()
 
 void Dinosaur::Init()
 {
-	m_sizeLeft = -50;
+	m_sizeLeft = -80;
 	m_sizeTop = -50;
-	m_sizeRight = 50;
-	m_sizeBottom = 50;
+	m_sizeRight = 80;
+	m_sizeBottom = 110;
 }
 
 void Dinosaur::End()
@@ -114,6 +114,10 @@ void Dinosaur::Draw()
 			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
 			0xff0000, false);
 	}
+
+	DrawBox(m_pos.x + m_sizeLeft, m_pos.y + m_sizeTop,
+		m_pos.x + m_sizeRight, m_pos.y + m_sizeBottom,
+		0xff0000, false);
 }
 
 void Dinosaur::GetAttackSize()
