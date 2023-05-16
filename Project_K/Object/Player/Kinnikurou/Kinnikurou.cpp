@@ -187,18 +187,18 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_sizeLeftAttack = 30;
-			m_sizeTopAttack = -30;
-			m_sizeRightAttack = 90;
-			m_sizeBottomAttack = 10;
+			m_attackSizeLeft = 30;
+			m_attackSizeTop= -30;
+			m_attackSizeRight = 90;
+			m_attackSizeBottom= 10;
 		}
 		else if (m_charDirection)
 		{
 			// 当たり判定
-			m_sizeLeftAttack = -30;
-			m_sizeTopAttack = -30;
-			m_sizeRightAttack = -90;
-			m_sizeBottomAttack = 10;
+			m_attackSizeLeft = -30;
+			m_attackSizeTop = -30;
+			m_attackSizeRight = -90;
+			m_attackSizeBottom = 10;
 		}
 
 		m_pJab->Update(m_imgPosX, m_imgPosY);
@@ -210,17 +210,17 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_sizeLeftAttack = -200;
-			m_sizeTopAttack = -200;
-			m_sizeRightAttack = 200;
-			m_sizeBottomAttack = 200;
+			m_attackSizeLeft = -200;
+			m_attackSizeTop = -200;
+			m_attackSizeRight = 200;
+			m_attackSizeBottom = 200;
 		}
 		else if (m_charDirection)
 		{
-			m_sizeLeftAttack = -200;
-			m_sizeTopAttack = -200;
-			m_sizeRightAttack = 200;
-			m_sizeBottomAttack = 200;
+			m_attackSizeLeft = -200;
+			m_attackSizeTop = -200;
+			m_attackSizeRight = 200;
+			m_attackSizeBottom = 200;
 		}
 		
 
@@ -233,17 +233,17 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_sizeLeftAttack = 30;
-			m_sizeTopAttack = -80;
-			m_sizeRightAttack = 100;
-			m_sizeBottomAttack = 80;
+			m_attackSizeLeft = 30;
+			m_attackSizeTop = -80;
+			m_attackSizeRight = 100;
+			m_attackSizeBottom = 80;
 		}
 		else if (m_charDirection)
 		{
-			m_sizeLeftAttack = -30;
-			m_sizeTopAttack = -80;
-			m_sizeRightAttack = -100;
-			m_sizeBottomAttack = 80;
+			m_attackSizeLeft = -30;
+			m_attackSizeTop = -80;
+			m_attackSizeRight = -100;
+			m_attackSizeBottom = 80;
 		}
 
 		
@@ -257,17 +257,17 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_sizeLeftAttack = 30;
-			m_sizeTopAttack = -10;
-			m_sizeRightAttack = 80;
-			m_sizeBottomAttack = 10;
+			m_attackSizeLeft = 30;
+			m_attackSizeTop = -10;
+			m_attackSizeRight = 80;
+			m_attackSizeBottom = 10;
 		}
 		else if (m_charDirection)
 		{
-			m_sizeLeftAttack = -30;
-			m_sizeTopAttack = -10;
-			m_sizeRightAttack = -80;
-			m_sizeBottomAttack = 10;
+			m_attackSizeLeft = -30;
+			m_attackSizeTop = -10;
+			m_attackSizeRight = -80;
+			m_attackSizeBottom = 10;
 		}
 
 		
@@ -338,10 +338,10 @@ void Kinnikurou::Draw()
 
 	if (m_attackFlag)
 	{
-		DrawBox(static_cast<int> (m_pos.x) + m_sizeLeftAttack, 
-			static_cast<int> (m_pos.y) + m_sizeTopAttack,
-			static_cast<int> (m_pos.x) + m_sizeRightAttack, 
-			static_cast<int> (m_pos.y) + m_sizeBottomAttack,
+		DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft, 
+			static_cast<int> (m_pos.y) + m_attackSizeTop,
+			static_cast<int> (m_pos.x) + m_attackSizeRight,
+			static_cast<int> (m_pos.y) + m_attackSizeBottom,
 			0xff0000, false);
 	}
 
