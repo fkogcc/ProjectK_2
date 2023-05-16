@@ -46,7 +46,14 @@ private:
 	int m_animeFrame;
 	int m_animeMax;
 	int m_indexX;
-	int m_playerjudge;
+	float m_playerjudge;
 	int m_shiftX;
 	bool m_animeFlag;
+
+	float m_emptyAttackLeft;
+	float m_emptyAttackTop;
+	float m_emptyAttackRight;
+	float m_emptyAttackBottom;
+
+	bool m_testemptyFlag = false;
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include "../Base/MoveTypeBase.h"
 class Chicken :
-    public MoveTypeBase
+	public MoveTypeBase
 {
 public:
 	Chicken();
@@ -11,9 +11,10 @@ public:
 	void Draw();
 
 	void SetReversal(bool reversal) { m_reversal = reversal; }
-	void SetPos(Vec2 pos);
+	void SetPos(Vec2 pos) { m_pos = pos; }
 	void SetFlag(bool flag) { m_exist = flag; }
 	bool IsExist() { return m_exist; }
+	Vec2 ReturnPos() { return m_pos; }
 private:
 	int m_handle;
 	int m_movePos;
