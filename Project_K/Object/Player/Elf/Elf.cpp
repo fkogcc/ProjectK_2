@@ -8,6 +8,9 @@
 #include "ElfAttackArrowPunch.h"
 #include "ElfAttackArrowUp.h"
 
+#include "../../Shot/ShotBase.h"
+//#include <memory>
+
 namespace
 {
 	const char* const kFilmName = "Data/Image/Player/Elf/Elf.png";
@@ -34,6 +37,7 @@ Elf::Elf() :
 	m_pShot = new ElfAttackArrowShot;       // çUåÇ
 	m_pPunch = new ElfAttackArrowPunch;	  // çUåÇ
 	m_pUp = new ElfAttackArrowUp;	      // çUåÇ
+
 }
 
 Elf::~Elf()
@@ -43,6 +47,7 @@ Elf::~Elf()
 void Elf::Init()
 {
 	m_handle = my::MyLoadGraph(kFilmName);
+	m_pos = { 0.0f, 1080.0f / 2.0f };
 }
 
 void Elf::End()
@@ -96,6 +101,8 @@ void Elf::Update()
 		if (Pad::IsTrigger(PAD_INPUT_2))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);// çUåÇ
+			
+			//m_pShoot[i] = new EkfShot(m_pos, { -15,0 });
 			m_isAttack = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_3) || (Pad::IsTrigger(PAD_INPUT_4)))// XBOX X or Y
@@ -122,31 +129,10 @@ void Elf::Update()
 		}
 	}
 
-	//m_posLeft   = m_pos.x   - 50;// ÉvÉåÉCÉÑÅ[ÇÃÉTÉCÉY
-	//m_posTop    = m_pos.y   + 90; 
-	//m_posRight  = m_posLeft + 100;
-	//m_posBottom = m_posTop  + 195; 
-
 	m_sizeLeft   = static_cast<int>(m_pos.x) - 30;
 	m_sizeTop    = static_cast<int>(m_pos.y) + 75;
 	m_sizeRight  = m_sizeLeft + 60;
 	m_sizeBottom = m_sizeTop + 176;
-
-	//int left   = m_sizeLeft;
-	//int top    = m_sizeTop;
-	//int right  = m_sizeRight;
-	//int bottom = m_sizeBottom;
-
-	//if (m_isCollPos)
-	//{
-	//	if (m_sizeLeft > left + 100)m_sizeLeft++;
-	//	//m_sizeLeft += 100;
-	//	m_sizeRight = m_sizeLeft + 100;
-	//}
-	//else
-	//{
-	//	m_sizeLeft = static_cast<int>(m_pos.x) - 30;
-	//}
 
 	AnimationSwitch();
 
@@ -170,7 +156,7 @@ void Elf::Draw()
 	DrawBox(m_sizeLeft, m_sizeTop, m_sizeRight, m_sizeBottom,0xffffff,false);
 
 	if(m_isAttack)DrawBox(m_attackSizeLeft, m_attackSizeTop, m_attackSizeRight, m_attackSizeBottom, 0xff0000, false);
-					
+	
 }
 
 void Elf::AnimationSwitch()
@@ -181,6 +167,10 @@ void Elf::AnimationSwitch()
 		m_pIdle->Update();
 		m_imageX = m_pIdle->SetPosImageX();
 		m_imageY = m_pIdle->SetPosImageY();
+		m_attackSizeLeft   = 0;
+		m_attackSizeTop    = 0;
+		m_attackSizeRight  = 0;
+		m_attackSizeBottom = 0;
 		break;
 	case static_cast<int>(moveType::Run):// ëñÇË
 		m_pRun->Update();
@@ -191,30 +181,43 @@ void Elf::AnimationSwitch()
 		m_pPunch->Update();
 		m_imageX = m_pPunch->SetPosImageX();
 		m_imageY = m_pPunch->SetPosImageY();
-		m_attackSizeLeft = static_cast<int>(m_pos.x) + 90;
-		m_attackSizeTop = static_cast<int>(m_pos.y) + 100;
-		m_attackSizeRight = m_attackSizeLeft + 230;
-		m_attackSizeBottom = m_attackSizeTop + 50;
+		m_attackSizeLeft   = static_cast<int>(m_pos.x) + 90;
+		m_attackSizeTop    = static_cast<int>(m_pos.y) + 100;
+		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 230;
+		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
 		break;
 	case static_cast<int>(moveType::Attack2):// çUåÇ
 		m_pShot->Update();
 		m_imageX = m_pShot->SetPosImageX();
 		m_imageY = m_pShot->SetPosImageY();
+		// ÉVÉáÉbÉg
 		break;
 	case static_cast<int>(moveType::Attack3):// çUåÇ
 		m_pChargeShot->Update();
 		m_imageX = m_pChargeShot->SetPosImageX();
 		m_imageY = m_pChargeShot->SetPosImageY();
+		m_attackSizeLeft = static_cast<int>(m_pos.x) + 10;
+		m_attackSizeTop = static_cast<int>(m_pos.y)  + 100;
+		m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 580;
+		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
 		break;
 	case static_cast<int>(moveType::Attack4):// çUåÇ
 		m_pUp->Update();
 		m_imageX = m_pUp->SetPosImageX();
 		m_imageY = m_pUp->SetPosImageY();
+		m_attackSizeLeft   = static_cast<int>(m_pos.x) - 130;
+		m_attackSizeTop    = static_cast<int>(m_pos.y) - 130;
+		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 280;
+		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
 		break;
 	default:// ë“ã@
 		m_pIdle->Update();
 		m_imageX = m_pIdle->SetPosImageX();
 		m_imageY = m_pIdle->SetPosImageY();
+		m_attackSizeLeft   = 0;
+		m_attackSizeTop    = 0;
+		m_attackSizeRight  = 0;
+		m_attackSizeBottom = 0;
 		break;
 	}
 }
