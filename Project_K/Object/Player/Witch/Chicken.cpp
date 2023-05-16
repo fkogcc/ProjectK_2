@@ -8,7 +8,7 @@ namespace
 }
 Chicken::Chicken() :
 	m_handle(0),
-	m_movePos(45),
+	m_movePos(75),
 	m_reversal(false),
 	m_pos(),
 	m_animeFrame(0),
@@ -74,10 +74,4 @@ void Chicken::Draw()
 			3.0f, 0.0f,						//ägëÂó¶ÅAâÒì]äpìx
 			m_handle, true, m_reversal);
 	}
-}
-
-void Chicken::SetPos(Vec2 pos)
-{
-	m_pos.x = pos.x;
-	m_pos.y = pos.y;
 }

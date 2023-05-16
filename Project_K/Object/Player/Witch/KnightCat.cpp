@@ -66,9 +66,3 @@ void KnightCat::Draw()
 			m_handle, true, m_reversal);
 	}
 }
-
-void KnightCat::SetPos(Vec2 pos)
-{
-	m_pos.x = pos.x;
-	m_pos.y = pos.y;
-}
