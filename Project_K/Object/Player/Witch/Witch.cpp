@@ -34,7 +34,8 @@ Witch::Witch() :
     m_emptyAttackLeft(0),
     m_emptyAttackTop(0),
     m_emptyAttackRight(0),
-    m_emptyAttackBottom(0)
+    m_emptyAttackBottom(0),
+    m_jumpFlag(false)
 
 
 {
@@ -79,11 +80,14 @@ void Witch::Update()
     m_pChicken->Update();
     m_pKnightCat->Update();
 
-
     UpdatePlayerJudge();
     UpdateAnim();
     UpdateAttackJudge();
-    if (!m_animeFlag)
+    if (m_jumpFlag)
+    {
+        UpdateJump();
+    }
+    if (!m_animeFlag && !m_jumpFlag)
     {
         UpdateInputKey();
         UpdatePlayerState();
@@ -127,9 +131,16 @@ void Witch::UpdateInputKey()
         m_reversal = true;
         m_moveType = static_cast<int>(moveType::Run);// 走り状態
     }
-    if (Pad::IsPress(PAD_INPUT_DOWN))
+    if (Pad::IsPress(PAD_INPUT_UP))
     {
-        m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
+        m_empty = m_pos.y - 150;
+        m_jumpFlag = true;
+    }
+    if (Pad::IsPress(PAD_INPUT_UP) && Pad::IsPress(PAD_INPUT_LEFT))
+    {
+        m_empty = m_pos.y - 150;
+        m_vec.y = m_pos.x - 100;
+        m_jumpFlag = true;
     }
     //小攻撃
     if (Pad::IsTrigger(PAD_INPUT_1))
@@ -191,10 +202,12 @@ void Witch::UpdateInputKey()
         m_animeFlag = true;
         m_animeLoopCount = 3;
     }
+
 }
 
 void Witch::UpdatePlayerState()
 {
+
     if (m_moveType == static_cast<int>(moveType::Idol))
     {
         m_animeWidth = m_pIdle->IndexX();
@@ -319,5 +332,25 @@ void Witch::UpdateAnim()
         m_emptyAttackTop = m_pKnightCat->ReturnPos().y;
         m_emptyAttackRight = m_pKnightCat->ReturnPos().x - 20;
         m_emptyAttackBottom = m_pKnightCat->ReturnPos().y + 60;
+    }
+}
+
+void Witch::UpdateJump()
+{
+    m_pos.y -= m_jumpPower;
+    //m_pos.x -= 10;
+    if (m_pos.y < (m_empty))
+    {
+        m_jumpPower = -7;
+    }
+
+    if (m_pos.x < m_vec.y)
+    {
+
+    }
+    if (m_pos.y > m_empty + 150)
+    {
+        m_jumpFlag = false;
+        m_jumpPower = 5;
     }
 }
