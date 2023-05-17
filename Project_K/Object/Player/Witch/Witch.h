@@ -25,7 +25,7 @@ public:
 	void UpdatePlayerJudge();
 	void UpdateAttackJudge();
 	void UpdateAnim();
-
+	void UpdateJump();
 private:
 	WitchIdle* m_pIdle;
 	WitchRun* m_pRun;
@@ -55,5 +55,9 @@ private:
 	float m_emptyAttackRight;
 	float m_emptyAttackBottom;
 
+	float m_empty;
+	Vec2 m_vec;
+	bool m_jumpFlag;
+	int m_jumpPower = 5;
 	bool m_testemptyFlag = false;
 };
