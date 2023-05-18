@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "Util/game.h"
 #include "Scene/SceneManager.h"
+#include "Util/Sound.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
@@ -17,6 +18,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	}
 
 	SetDrawScreen(DX_SCREEN_BACK);// ダブルバッファモード
+
+	// サウンド読み込み
+	Sound::load();
 
 	SceneManager scene;
 	scene.Init();// シーンの初期化
@@ -38,6 +42,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	}
 
 	scene.End();// シーンの終了処理
+
+	Sound::unload();
 
 	DxLib_End();// ＤＸライブラリ使用の終了処理
 
