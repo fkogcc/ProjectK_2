@@ -22,6 +22,9 @@ public:
 
 	void ImgposInit();
 
+	void Jump();
+
+
 private:
 
 	KinnikuIdle* m_pIdle;
@@ -41,6 +44,7 @@ private:
 	int m_UpperHandle;// アッパー攻撃状態
 	int m_MizoHandle;// みぞおち攻撃状態
 	int m_RunHandle;//移動状態
+	int m_JumpHandle;
 
 	// 画像の座標
 	int m_imgPosX;// X
@@ -60,6 +64,13 @@ private:
 	bool m_charDirection;
 
 	// キャラが移動状態かどうか
-	bool m_charRun;
+	bool m_isRun;
+
+	// キャラが空中状態かどうか
+	bool m_isJump;
+
+	// キャラの加速度
+	int m_jumpAcc;
+
 };
 

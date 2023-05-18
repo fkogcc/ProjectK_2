@@ -10,12 +10,19 @@
 
 namespace
 {
+	// 画像
 	const char* const kIdle = "Data/Image/Player/Kinnikurou/Idle.png";
 	const char* const kJab = "Data/Image/Player/Kinnikurou/AttackNeutral.png";
 	const char* const kMuscle = "Data/Image/Player/Kinnikurou/AttackSide.png";
 	const char* const kUpper = "Data/Image/Player/Kinnikurou/AttackUp.png";
 	const char* const kMizo = "Data/Image/Player/Kinnikurou/AttackDown.png";
 	const char* const kRun = "Data/Image/Player/Kinnikurou/Run.png";
+	const char* const kJump = "Data/Image/Player/Kinnikurou/Run.png";
+
+	// ジャンプ力
+	constexpr int kJumpPower = 20;
+	// 重力
+	constexpr int kGravity = 1;
 }
 
 Kinnikurou::Kinnikurou() :
@@ -27,6 +34,7 @@ Kinnikurou::Kinnikurou() :
 	m_UpperHandle(-1),
 	m_MizoHandle(-1),
 	m_RunHandle(-1),
+	m_JumpHandle(-1),
 	m_imgPosX(0),
 	m_imgPosY(0),
 	m_imgWidth(0),
@@ -34,7 +42,9 @@ Kinnikurou::Kinnikurou() :
 	m_motionCount(0),
 	m_initCount(0),
 	m_charDirection(false),
-	m_charRun(false)
+	m_isRun(false),
+	m_isJump(false),
+	m_jumpAcc(0)
 {
 	m_pIdle = new KinnikuIdle;
 	m_pJab = new KinnikurouJab;
@@ -68,6 +78,7 @@ void Kinnikurou::Init()
 	m_UpperHandle = my::MyLoadGraph(kUpper);
 	m_MizoHandle = my::MyLoadGraph(kMizo);
 	m_RunHandle = my::MyLoadGraph(kRun);
+	m_JumpHandle = my::MyLoadGraph(kJump);
 
 	m_pos.x = 200;
 	m_pos.y = 600;
@@ -89,6 +100,7 @@ void Kinnikurou::End()
 	my::MyDeleteGraph(m_UpperHandle);
 	my::MyDeleteGraph(m_MizoHandle);
 	my::MyDeleteGraph(m_RunHandle);
+	my::MyDeleteGraph(m_JumpHandle);
 }
 
 void Kinnikurou::Update()
@@ -100,7 +112,7 @@ void Kinnikurou::Update()
 		if (m_motionCount <= 0) m_motionCount = 0;
 	}
 
-	if (m_motionCount == 0 && !m_charRun)
+	if (m_motionCount == 0 && !m_isRun)
 	{
 
 		m_moveType = 0;
@@ -117,21 +129,20 @@ void Kinnikurou::Update()
 
 	if (m_motionCount == 0)
 	{
+		Jump();
 		if (Pad2::IsPress(PAD_INPUT_RIGHT))
 		{
 			m_moveType = 1;
-			//ImgposInit();
 			m_pos.x += 10;
 			m_charDirection = false;
-			m_charRun = true;
+			m_isRun = true;
 		}
 		if (Pad2::IsPress(PAD_INPUT_LEFT))
 		{
 			m_moveType = 1;
-			//ImgposInit();
 			m_pos.x -= 10;
 			m_charDirection = true;
-			m_charRun = true;
+			m_isRun = true;
 		}
 		if (Pad2::IsTrigger(PAD_INPUT_1))
 		{
@@ -157,13 +168,12 @@ void Kinnikurou::Update()
 			ImgposInit();
 			m_motionCount = 40;
 		}
-
 	}
 
 	if (!Pad2::IsPress(PAD_INPUT_RIGHT) || !Pad2::IsPress(PAD_INPUT_LEFT))
 	{
 		m_attackFlag = false;
-		m_charRun = false;
+		m_isRun = false;
 	}
 
 	if ((Pad2::IsRelase(PAD_INPUT_RIGHT) || Pad2::IsRelase(PAD_INPUT_LEFT)) && m_motionCount == 0)
@@ -280,6 +290,7 @@ void Kinnikurou::Update()
 		m_pRun->Update(m_imgPosX, m_imgPosY);
 	}
 
+
 }
 
 void Kinnikurou::Draw()
@@ -357,3 +368,24 @@ void Kinnikurou::ImgposInit()
 	m_imgPosX = 0;
 	m_imgPosY = 0;
 }
+
+void Kinnikurou::Jump()
+{
+	m_isJump = true;
+	m_jumpAcc += kGravity;
+	m_imgPosY += m_jumpAcc;
+	if (m_imgPosY >= 700)
+	{
+		m_imgPosY = 700;
+		m_jumpAcc = 0;
+		m_isJump = false;
+	}
+	if (!m_isJump)
+	{
+		if (Pad2::IsTrigger(PAD_INPUT_6))
+		{
+			m_jumpAcc = kJumpPower;
+		}
+	}
+}
+
