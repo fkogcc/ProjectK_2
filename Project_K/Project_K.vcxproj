@@ -141,6 +141,10 @@
   <ItemGroup>
 
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
+    <ClCompile Include="Util\Sound.cpp" />
+
+
+    <ClCompile Include="Object\Shot\ElfShot.cpp" />
 
     <ClCompile Include="Util\Collision.cpp" />
 
@@ -197,6 +201,10 @@
   </ItemGroup>
   <ItemGroup>
 
+    <ClInclude Include="Object\Shot\ElfShot.h" />
+    <ClInclude Include="Util\Sound.h" />
+
+    
     <ClInclude Include="Object\Shot\ElfShot.h" />
 
     <ClInclude Include="Util\Collision.h" />

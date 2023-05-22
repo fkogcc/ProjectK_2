@@ -156,6 +156,10 @@
       <Filter>cppファイル\Util</Filter>
     </ClCompile>
 
+    <ClCompile Include="Util\Sound.cpp" />
+
+  
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -317,6 +321,11 @@
 
     <ClInclude Include="Util\Collision.h">
       <Filter>hファイル\Util</Filter>
+    </ClInclude>
+
+    <ClInclude Include="Util\Sound.h" />
+
+    
     </ClInclude>
 
   </ItemGroup>

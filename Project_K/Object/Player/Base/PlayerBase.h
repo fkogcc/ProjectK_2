@@ -49,7 +49,7 @@ public:
 
 
 
-	Vec2 SetPos() { return m_pos; }
+	Vec2 GetPos() { return m_pos; }
 
 protected:
 

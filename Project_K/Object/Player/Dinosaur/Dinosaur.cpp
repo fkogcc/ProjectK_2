@@ -25,6 +25,10 @@ Dinosaur::~Dinosaur()
 
 void Dinosaur::Init()
 {
+	m_sizeLeft = -80;
+	m_sizeTop = -50;
+	m_sizeRight = 80;
+	m_sizeBottom = 110;
 }
 
 void Dinosaur::End()
@@ -106,18 +110,22 @@ void Dinosaur::Draw()
 
 	if (m_attackFlag)
 	{
-		DrawBox(m_pos.x + m_sizeLeftAttack, m_pos.y + m_sizeTopAttack,
-			m_pos.x + m_sizeRightAttack, m_pos.y + m_sizeBottomAttack,
+		DrawBox(m_pos.x + m_attackSizeLeft, m_pos.y + m_attackSizeTop,
+			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
 			0xff0000, false);
 	}
+
+	DrawBox(m_pos.x + m_sizeLeft, m_pos.y + m_sizeTop,
+		m_pos.x + m_sizeRight, m_pos.y + m_sizeBottom,
+		0xff0000, false);
 }
 
 void Dinosaur::GetAttackSize()
 {
-	m_sizeLeftAttack = m_StateManager->GetAttackSizeLeft();
-	m_sizeTopAttack = m_StateManager->GetAttackSizeTop();
-	m_sizeRightAttack = m_StateManager->GetAttackSizeRight();
-	m_sizeBottomAttack = m_StateManager->GetAttackSizeBottom();
+	m_attackSizeLeft = m_StateManager->GetAttackSizeLeft();
+	m_attackSizeTop = m_StateManager->GetAttackSizeTop();
+	m_attackSizeRight = m_StateManager->GetAttackSizeRight();
+	m_attackSizeBottom = m_StateManager->GetAttackSizeBottom();
 }
 
 ShotBase* Dinosaur::GetShot(int i)

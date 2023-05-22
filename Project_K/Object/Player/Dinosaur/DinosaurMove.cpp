@@ -10,7 +10,7 @@
 
 namespace
 {
-	constexpr float kMoveSpeed = 5.0f;
+	constexpr float kMoveSpeed = 10.0f;
 }
 
 

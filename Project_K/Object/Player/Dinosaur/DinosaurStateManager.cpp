@@ -82,7 +82,7 @@ bool DinosaurStateManager::GetAttackFlag()
 int DinosaurStateManager::GetAttackSizeLeft()
 {
 	
-	return ((m_lookLeft) ? m_pState->GetAttackSizeLeft() : -m_pState->GetAttackSizeLeft());
+	return ((m_lookLeft) ? m_pState->GetAttackSizeLeft() : -m_pState->GetAttackSizeRight());
 }
 
 int DinosaurStateManager::GetAttackSizeTop()
@@ -92,7 +92,7 @@ int DinosaurStateManager::GetAttackSizeTop()
 
 int DinosaurStateManager::GetAttackSizeRight()
 {
-	return ((m_lookLeft) ? m_pState->GetAttackSizeRight() : -m_pState->GetAttackSizeRight());
+	return ((m_lookLeft) ? m_pState->GetAttackSizeRight() : -m_pState->GetAttackSizeLeft());
 }
 
 int DinosaurStateManager::GetAttackSizeBottom()
