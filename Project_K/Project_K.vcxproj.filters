@@ -153,7 +153,13 @@
     <ClCompile Include="Util\Collision.cpp">
       <Filter>cppファイル\Util</Filter>
     </ClCompile>
+
     <ClCompile Include="Util\Sound.cpp" />
+
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuJump.cpp">
+      <Filter>cppファイル\Object\Player\Kinnikurou</Filter>
+    </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -314,7 +320,13 @@
     <ClInclude Include="Util\Collision.h">
       <Filter>hファイル\Util</Filter>
     </ClInclude>
+
     <ClInclude Include="Util\Sound.h" />
+
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuJump.h">
+      <Filter>hファイル\Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cppファイル">
