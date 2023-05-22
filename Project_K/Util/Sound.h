@@ -6,15 +6,7 @@ namespace Sound
 	typedef enum SoundId
 	{
 		// BGM
-		SoundId_PlayerShot1,		// 先頭画面のBGM
-		SoundId_PlayerShot2,	    // 失敗画面のBGM
-
-		// 効果音
-		SoundId_PlayerShot,		    // プレイヤー発射音
-		SoundId_PlayerReload,		// プレイヤーリロード
-		SoundId_PlayerShot3,		// プレイヤー爆発音
-		SoundId_PlayerShot4,	    // 爆発音(長い)
-		SoundId_PlayerShot5,		// 敵の登場音
+		SoundId_PlayerBgm,		// 先頭画面のBGM
 
 		SoundId_Num
 	}SoundId;
