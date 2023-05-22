@@ -9,6 +9,8 @@
 #include "ElfAttackArrowUp.h"
 
 #include "../../Shot/ShotBase.h"
+
+#include "../../Util/Sound.h"
 //#include <memory>
 
 namespace
@@ -57,6 +59,8 @@ void Elf::End()
 
 void Elf::Update()
 {
+
+	Sound::play(Sound::SoundId_PlayerShot);
 
 	if (!m_pChargeShot->IsSetMove() ||
 		!m_pShot->IsSetMove() ||
