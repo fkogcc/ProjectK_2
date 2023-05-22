@@ -149,13 +149,13 @@
       <Filter>cppファイル\Object\Shot</Filter>
     </ClCompile>
     <ClCompile Include="Util\Pad2.cpp" />
-
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
-
     <ClCompile Include="Util\Collision.cpp">
       <Filter>cppファイル\Util</Filter>
     </ClCompile>
-
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuJump.cpp">
+      <Filter>cppファイル\Object\Player\Kinnikurou</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -312,13 +312,13 @@
       <Filter>hファイル\Util</Filter>
     </ClInclude>
     <ClInclude Include="Util\Pad2.h" />
-
     <ClInclude Include="Object\Shot\ElfShot.h" />
-
     <ClInclude Include="Util\Collision.h">
       <Filter>hファイル\Util</Filter>
     </ClInclude>
-
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuJump.h">
+      <Filter>hファイル\Object\Player\Kinnikurou</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cppファイル">
