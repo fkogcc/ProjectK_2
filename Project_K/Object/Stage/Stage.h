@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Util/Vec2.h"
 #include "../../Util/game.h"
+#include<vector>
 
 namespace
 {
@@ -29,5 +30,7 @@ private:
 	Vec2 m_pos;
 
 	int m_handle;
+
+	std::vector<int> m_data;
 };
 
