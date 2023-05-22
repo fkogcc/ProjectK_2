@@ -55,10 +55,9 @@ private:
 	float m_emptyAttackRight;
 	float m_emptyAttackBottom;
 
-	Vec2 m_empty;
+	float m_empty;
 	Vec2 m_vec;
 	bool m_jumpFlag;
-	int m_jumpPower;
-	int m_movement;
-	bool m_emptyFlag;	//ŽØ“ü—p‚Ìƒtƒ‰ƒO
+	int m_jumpPower = 5;
+	bool m_testemptyFlag = false;
 };
