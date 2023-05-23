@@ -3,7 +3,7 @@
 namespace
 {
 	// d—Í
-	constexpr float kGravity = 0.9f;
+	constexpr float kGravity = 0.5f;
 	// ƒWƒƒƒ“ƒv—Í
 	constexpr float kJumpPower = 24.0f;
 }
