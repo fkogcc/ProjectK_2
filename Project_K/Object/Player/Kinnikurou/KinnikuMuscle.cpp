@@ -2,6 +2,7 @@
 
 void KinnikuMuscle::Update(int& imagePosX, int& imagePosY)
 {
+	m_isAttackCol = false;
 	m_frameCount++;
 	if (m_frameCount == 10)
 	{
@@ -18,5 +19,9 @@ void KinnikuMuscle::Update(int& imagePosX, int& imagePosY)
 	{
 		imagePosX = 0;
 		imagePosY = 0;
+	}
+	if (imagePosX == 3 && imagePosY == 0)
+	{
+		m_isAttackCol = true;
 	}
 }

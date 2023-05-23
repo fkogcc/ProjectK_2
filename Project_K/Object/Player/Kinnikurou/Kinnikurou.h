@@ -23,6 +23,10 @@ public:
 
 	void ImgposInit();
 
+	void DrawBoxAttackCol();
+
+	void AttackCol();
+
 private:
 
 	KinnikuIdle* m_pIdle;

@@ -386,14 +386,7 @@ void Kinnikurou::Draw()
 		m_charHandle,
 		true, m_charDirection);
 
-	if (m_attackFlag)
-	{
-		DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft, 
-			static_cast<int> (m_pos.y) + m_attackSizeTop,
-			static_cast<int> (m_pos.x) + m_attackSizeRight,
-			static_cast<int> (m_pos.y) + m_attackSizeBottom,
-			0xff0000, false);
-	}
+	AttackCol();
 
 	DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft, 
 		static_cast<int> (m_pos.y) + m_sizeTop,
@@ -406,4 +399,36 @@ void Kinnikurou::ImgposInit()
 {
 	m_imgPosX = 0;
 	m_imgPosY = 0;
+}
+
+void Kinnikurou::DrawBoxAttackCol()
+{
+	DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft,
+		static_cast<int> (m_pos.y) + m_attackSizeTop,
+		static_cast<int> (m_pos.x) + m_attackSizeRight,
+		static_cast<int> (m_pos.y) + m_attackSizeBottom,
+		0xff0000, false);
+}
+
+void Kinnikurou::AttackCol()
+{
+	if (m_attackFlag)
+	{
+		if (m_pJab->IsAttackColJab())
+		{
+			DrawBoxAttackCol();
+		}
+		if (m_pMuscle->IsAttackColMuscle())
+		{
+			DrawBoxAttackCol();
+		}
+		if (m_pUpper->IsAttackColUpper())
+		{
+			DrawBoxAttackCol();
+		}
+		if (m_pMizo->IsAttackColMizo())
+		{
+			DrawBoxAttackCol();
+		}
+	}
 }
