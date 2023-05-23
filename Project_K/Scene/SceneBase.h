@@ -27,5 +27,7 @@ protected:
 	int m_fadeColor;
 	int m_fadeBright;
 	int m_fadeSpeed;
+
+	bool m_isFadeOut;// フェードアウトを行っているかどうか
 };
 

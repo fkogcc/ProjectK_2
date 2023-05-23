@@ -8,9 +8,10 @@ namespace
 }
 
 SceneBase::SceneBase() :
-	m_fadeColor(Color::kPeach),
+	m_fadeColor(Color::kBrown),
 	m_fadeBright(255),
-	m_fadeSpeed(-kFadeSpeed)
+	m_fadeSpeed(-kFadeSpeed),
+	m_isFadeOut(false)
 {
 }
 

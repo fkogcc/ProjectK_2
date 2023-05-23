@@ -1,8 +1,7 @@
 #include "SceneTitle.h"
 #include "SceneMapSelect.h"
 
-SceneTitle::SceneTitle() :
-	m_isFadeOut(false)
+SceneTitle::SceneTitle()
 {
 }
 
@@ -26,17 +25,23 @@ SceneBase* SceneTitle::Update()
 	// フェードインアウトしている
 	if (IsFading())
 	{
+		m_isFadeOut = IsFadingOut();
 		SceneBase::UpdateFade();
 		// フェードアウト終了時
-		if (!IsFading() && m_isFadeOut) return (new SceneMapSelect);
+		if (!IsFading() && m_isFadeOut)
+		{
+			return (new SceneMapSelect);
+		}
 	}
 
 	// フェードインアウトしていない
 	if (!IsFading())
 	{
 		// フェードアウト開始
-		if (Pad::IsTrigger(PAD_INPUT_2)) 
+		if (Pad::IsTrigger(PAD_INPUT_1))
+		{
 			StartFadeOut();
+		}
 	}
 	
 

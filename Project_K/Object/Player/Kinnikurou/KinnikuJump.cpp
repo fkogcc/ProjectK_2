@@ -35,7 +35,6 @@ void KinnikuJump::Update(float& jumpAcc, float& posY)
 	{
 		if (Pad::IsTrigger(PAD_INPUT_UP))
 		{
-			//m_moveType = 2;
 			jumpAcc = -kJumpPower;
 		}
 	}
