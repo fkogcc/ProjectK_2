@@ -1,5 +1,5 @@
 #pragma once
-#include<array>
+#include<DxLib.h>
 
 namespace
 {
@@ -16,6 +16,12 @@ public:
 	void Update();
 	void Draw();
 
+	int GetChackChara1() { return m_charaNumber1; }
+	int GetChackChara2() { return m_charaNumber2; }
+
+	bool GetDecision1() { return m_Decision1; }
+	bool GetDecision2() { return m_Decision2; }
+
 private:
 	void updateChara1();
 	void updateChara2();
@@ -23,6 +29,9 @@ private:
 	int m_choiceNum1;
 	int m_choiceNum2;
 
-	std::array<bool, 4> m_chackChara1;
-	std::array<bool, 4> m_chackChara2;
+	int m_charaNumber1;
+	int m_charaNumber2;
+
+	bool m_Decision1;
+	bool m_Decision2;
 };

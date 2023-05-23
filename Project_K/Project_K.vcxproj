@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
+    <ClCompile Include="System\CharaChoice.cpp" />
     <ClCompile Include="Util\Collision.cpp" />
     <ClCompile Include="Object\Shot\NullShot.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfAttackArrowUp.cpp" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Shot\ElfShot.h" />
+    <ClInclude Include="System\CharaChoice.h" />
     <ClInclude Include="Util\Collision.h" />
     <ClInclude Include="Object\Shot\NullShot.h" />
     <ClInclude Include="Util\common.h" />
