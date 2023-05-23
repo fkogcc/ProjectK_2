@@ -1,51 +1,52 @@
-#include <DxLib.h>
+ï»¿#include <DxLib.h>
 #include "Util/game.h"
 #include "Scene/SceneManager.h"
 #include "Util/Sound.h"
 
-// ƒvƒƒOƒ‰ƒ€‚Í WinMain ‚©‚çn‚Ü‚è‚Ü‚·
+// ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯ WinMain ã‹ã‚‰å§‹ã¾ã‚Šã¾ã™
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
-	ChangeWindowMode             (Game::kWindowMode                                         );// windowƒ‚[ƒhİ’è
-	SetMainWindowText            (Game::kTitleText                                          );// ƒEƒCƒ“ƒhƒE–¼İ’è
-	SetGraphMode                 (Game::kScreenWidth, Game::kScreenHeight, Game::kColorDepth);// ‰æ–ÊƒTƒCƒY‚Ìİ’è
-	SetWindowSizeChangeEnableFlag(true                                                      );// ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚ÉƒEƒCƒ“ƒhƒE‚ÌƒTƒCƒY•ÏX‚Å‚«‚é
-	SetAlwaysRunFlag			 (true                                                      );// ƒEƒCƒ“ƒhƒE‚ªƒAƒNƒeƒBƒu‚Å‚Í‚È‚¢ó‘Ô‚Å‚àˆ—‚ğ‘±s‚·‚é
+	ChangeWindowMode             (Game::kWindowMode                                         );// windowãƒ¢ãƒ¼ãƒ‰è¨­å®š
+	SetMainWindowText            (Game::kTitleText                                          );// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦åè¨­å®š
+	SetGraphMode                 (Game::kScreenWidth, Game::kScreenHeight, Game::kColorDepth);// ç”»é¢ã‚µã‚¤ã‚ºã®è¨­å®š
+	SetWindowSizeChangeEnableFlag(true                                                      );// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®æ™‚ã«ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºå¤‰æ›´ã§ãã‚‹
+	SetAlwaysRunFlag			 (true                                                      );// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§ã¯ãªã„çŠ¶æ…‹ã§ã‚‚å‡¦ç†ã‚’ç¶šè¡Œã™ã‚‹
 
-	if (DxLib_Init() == -1)// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
+	if (DxLib_Init() == -1)// ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªåˆæœŸåŒ–å‡¦ç†
 	{
-		return -1;// ƒGƒ‰[‚ª‹N‚«‚½‚ç’¼‚¿‚ÉI—¹
+		return -1;// ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸã‚‰ç›´ã¡ã«çµ‚äº†
 	}
 
-	SetDrawScreen(DX_SCREEN_BACK);// ƒ_ƒuƒ‹ƒoƒbƒtƒ@ƒ‚[ƒh
+	SetDrawScreen(DX_SCREEN_BACK);// ãƒ€ãƒ–ãƒ«ãƒãƒƒãƒ•ã‚¡ãƒ¢ãƒ¼ãƒ‰
 
-	// ƒTƒEƒ“ƒh“Ç‚İ‚İ
+	// ã‚µã‚¦ãƒ³ãƒ‰ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
 	Sound::load();
 
+
 	SceneManager scene;
-	scene.Init();// ƒV[ƒ“‚Ì‰Šú‰»
+	scene.Init();// ã‚·ãƒ¼ãƒ³ã®åˆæœŸåŒ–
 
 	while (ProcessMessage() == 0)
 	{
 		LONGLONG  time = GetNowHiPerformanceCount();
 		
-		ClearDrawScreen();// ‰æ–Ê‚ÌƒNƒŠƒA
+		ClearDrawScreen();// ç”»é¢ã®ã‚¯ãƒªã‚¢
 
-		scene.Update();// ƒV[ƒ“‚ÌXVˆ—
-		scene.Draw();// ƒV[ƒ“‚Ì•`‰æ
+		scene.Update();// ã‚·ãƒ¼ãƒ³ã®æ›´æ–°å‡¦ç†
+		scene.Draw();// ã‚·ãƒ¼ãƒ³ã®æç”»
 
-		ScreenFlip();// — ‰æ–Ê‚ğ•\‰æ–Ê‚ğ“ü‚ê‘Ö‚¦‚é
+		ScreenFlip();// è£ç”»é¢ã‚’è¡¨ç”»é¢ã‚’å…¥ã‚Œæ›¿ãˆã‚‹
 
-		if (CheckHitKey(KEY_INPUT_ESCAPE))	break;// escƒL[‚ğ‰Ÿ‚µ‚½‚çI—¹‚·‚é
+		if (CheckHitKey(KEY_INPUT_ESCAPE))	break;// escã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰çµ‚äº†ã™ã‚‹
 
-		while (GetNowHiPerformanceCount() - time < 16667) {}// fps‚ğ60‚ÉŒÅ’è
+		while (GetNowHiPerformanceCount() - time < 16667) {}// fpsã‚’60ã«å›ºå®š
 	}
 
-	scene.End();// ƒV[ƒ“‚ÌI—¹ˆ—
+	scene.End();// ã‚·ãƒ¼ãƒ³ã®çµ‚äº†å‡¦ç†
 
 	Sound::unload();
 
-	DxLib_End();// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠg—p‚ÌI—¹ˆ—
+	DxLib_End();// ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä½¿ç”¨ã®çµ‚äº†å‡¦ç†
 
-	return 0;// ƒ\ƒtƒg‚ÌI—¹ 
+	return 0;// ã‚½ãƒ•ãƒˆã®çµ‚äº† 
 }

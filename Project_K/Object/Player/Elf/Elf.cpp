@@ -59,9 +59,6 @@ void Elf::End()
 
 void Elf::Update()
 {
-
-	Sound::play(Sound::SoundId_PlayerShot);
-
 	if (!m_pChargeShot->IsSetMove() ||
 		!m_pShot->IsSetMove() ||
 		!m_pPunch->IsSetMove() ||
