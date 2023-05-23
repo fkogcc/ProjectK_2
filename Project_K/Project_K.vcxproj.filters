@@ -163,6 +163,9 @@
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuJump.cpp">
       <Filter>cppファイル\Object\Player\Kinnikurou</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Player\Elf\ElfJump.cpp">
+      <Filter>cppファイル\Object\Player\Elf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -332,6 +335,9 @@
     </ClInclude>
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuJump.h">
       <Filter>hファイル\Object\Player\Kinnikurou</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Elf\ElfJump.h">
+      <Filter>hファイル\Object\Player\Elf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

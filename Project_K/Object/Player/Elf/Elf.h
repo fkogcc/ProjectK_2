@@ -6,6 +6,7 @@
 
 class ElfIdle;
 class ElfRun;
+class ElfJump;
 class ElfAttackArrowChargeShot;
 class ElfAttackArrowShot;
 class ElfAttackArrowPunch;
@@ -41,6 +42,7 @@ private:
 
 	ElfIdle* m_pIdle;// ë“ã@
 	ElfRun* m_pRun; // ëñÇË
+	ElfJump* m_pJump;
 	ElfAttackArrowChargeShot* m_pChargeShot;// çUåÇ
 	ElfAttackArrowShot* m_pShot;      // çUåÇ
 	ElfAttackArrowPunch* m_pPunch;     // çUåÇ
