@@ -58,7 +58,7 @@ void Stage::Init()
 
 void Stage::Update()
 {
-	
+
 }
 
 void Stage::Draw()

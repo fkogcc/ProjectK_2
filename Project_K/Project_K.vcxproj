@@ -139,15 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
-    <ClCompile Include="Util\Sound.cpp" />
-
-
-    <ClCompile Include="Object\Shot\ElfShot.cpp" />
-
     <ClCompile Include="Util\Collision.cpp" />
-
     <ClCompile Include="Object\Shot\NullShot.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfAttackArrowUp.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfIdle.cpp" />
@@ -196,19 +189,13 @@
     <ClCompile Include="Util\DrawFunctions.cpp" />
     <ClCompile Include="Util\Pad.cpp" />
     <ClCompile Include="Util\Pad2.cpp" />
+    <ClCompile Include="Util\Sound.cpp" />
     <ClCompile Include="Util\Vec2.cpp" />
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
-
     <ClInclude Include="Object\Shot\ElfShot.h" />
-    <ClInclude Include="Util\Sound.h" />
-
-    
-    <ClInclude Include="Object\Shot\ElfShot.h" />
-
     <ClInclude Include="Util\Collision.h" />
-
     <ClInclude Include="Object\Shot\NullShot.h" />
     <ClInclude Include="Util\common.h" />
     <ClInclude Include="Object\Player\Elf\ElfAttackArrowUp.h" />
@@ -259,6 +246,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Util\Pad.h" />
     <ClInclude Include="Util\Pad2.h" />
+    <ClInclude Include="Util\Sound.h" />
     <ClInclude Include="Util\Vec2.h" />
     <ClInclude Include="Object\Player\Witch\Witch.h" />
   </ItemGroup>
