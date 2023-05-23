@@ -3,6 +3,7 @@
 #include "../../condition.h"
 #include "ElfIdle.h"
 #include "ElfRun.h"
+#include "ElfJump.h"
 #include "ElfAttackArrowChargeShot.h"
 #include "ElfAttackArrowShot.h"
 #include "ElfAttackArrowPunch.h"
@@ -35,6 +36,7 @@ Elf::Elf() :
 {
 	m_pIdle = new ElfIdle;// ë“ã@
 	m_pRun = new ElfRun; // ëñÇË
+	m_pJump = new ElfJump;
 	m_pChargeShot = new ElfAttackArrowChargeShot; // çUåÇ
 	m_pShot = new ElfAttackArrowShot;       // çUåÇ
 	m_pPunch = new ElfAttackArrowPunch;	  // çUåÇ
@@ -60,13 +62,16 @@ void Elf::End()
 void Elf::Update()
 {
 	if (!m_pChargeShot->IsSetMove() ||
+		!m_pJump->IsSetMove()||
 		!m_pShot->IsSetMove() ||
 		!m_pPunch->IsSetMove() ||
 		!m_pUp->IsSetMove())
+
 	{
 		m_isAttack = false;
 
 		m_pChargeShot->SetMoveTime(true);
+		m_pJump->SetMoveTime(true);
 		m_pShot->SetMoveTime(true);
 		m_pPunch->SetMoveTime(true);
 		m_pUp->SetMoveTime(true);
@@ -75,6 +80,8 @@ void Elf::Update()
 	if (!m_isAttack)// çUåÇÉÇÅ[ÉVÉáÉìÇ…ì¸Ç¡ÇΩÇÁìÆÇØÇ»Ç≠Ç»ÇÈ
 	{
 		m_moveType = static_cast<int>(moveType::Idol);// ÉAÉCÉhÉãèÛë‘
+
+		m_moveType = static_cast<int>(moveType::Jump);
 
 		if (Pad::IsPress(PAD_INPUT_RIGHT))
 		{
@@ -102,14 +109,13 @@ void Elf::Update()
 		if (Pad::IsTrigger(PAD_INPUT_2))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);// çUåÇ
-			
-			//m_pShoot[i] = new EkfShot(m_pos, { -15,0 });
 			m_isAttack = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_3) || (Pad::IsTrigger(PAD_INPUT_4)))// XBOX X or Y
+		if (Pad::IsTrigger(PAD_INPUT_3))// XBOX X or Y
 		{
 			//Å@ÉWÉÉÉìÉv
-		//	m_moveType = static_cast<int>(moveType::Jump);
+			m_moveType = static_cast<int>(moveType::Jump);
+			m_isAttack = true;
 		}
 		if (Pad::IsTrigger(XINPUT_BUTTON_LEFT_SHOULDER) || (Pad::IsTrigger(PAD_INPUT_R)))// XBOX X or Y
 		{
@@ -122,8 +128,7 @@ void Elf::Update()
 			m_moveType = static_cast<int>(moveType::Attack3);;// çUåÇ
 			m_isAttack = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_UP)) ||
-			Pad::IsTrigger(PAD_INPUT_3))// XBOX A && UP
+		if (Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_UP)))// XBOX A && UP
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// çUåÇ
 			m_isAttack = true;
@@ -210,6 +215,11 @@ void Elf::AnimationSwitch()
 		m_attackSizeTop    = static_cast<int>(m_pos.y) - 130;
 		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 280;
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
+		break;
+	case static_cast<int>(moveType::Jump):// çUåÇ
+		m_pJump->IsSetMove();
+		m_imageX = m_pJump->SetPosImageX();
+		m_imageY = m_pJump->SetPosImageY();
 		break;
 	default:// ë“ã@
 		m_pIdle->Update();
