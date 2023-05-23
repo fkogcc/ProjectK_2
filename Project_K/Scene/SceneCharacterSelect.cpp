@@ -2,6 +2,7 @@
 #include "SceneMain.h"
 #include "../Util/Pad.h"
 #include "../Util/Pad2.h"
+#include"../System/CharaChoice.h"
 
 SceneCharacterSelect::SceneCharacterSelect():
 	m_isDino(false),
@@ -13,6 +14,7 @@ SceneCharacterSelect::SceneCharacterSelect():
 	m_isKin2(false),
 	m_isWitch2(false)
 {
+	m_CharaChoice = new CharaChoice;
 }
 
 SceneCharacterSelect::~SceneCharacterSelect()
@@ -30,8 +32,19 @@ void SceneCharacterSelect::End()
 SceneBase* SceneCharacterSelect::Update()
 {
 
-	User1();
-	User2();
+	//User1();
+	//User2();
+
+
+	//if (User1() && User2())
+	//{
+	//	if(m_isDino2)m_isDino = m_isDino2;
+	//	if(m_isElf2)m_isElf = m_isElf2;
+	//	if(m_isKin2)m_isKin = m_isKin2;
+	//	if(m_isWitch2)m_isWitch = m_isWitch2;
+	//	
+	//	return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
+	//}
 
 	if (User1() && User2())
 	{
@@ -40,7 +53,7 @@ SceneBase* SceneCharacterSelect::Update()
 		if(m_isKin2)m_isKin = m_isKin2;
 		if(m_isWitch2)m_isWitch = m_isWitch2;
 		
-		return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ƒXƒe[ƒWØ‚è‘Ö‚¦
+		return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
 	}
 
 	/*if (IsFading())
@@ -62,7 +75,7 @@ SceneBase* SceneCharacterSelect::Update()
 		}
 	}*/
 
-	return(new SceneMain(false, false, true, false));// 1ƒXƒe[ƒWØ‚è‘Ö‚¦
+	return(new SceneMain(false, false, true, false));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
 	return this;
 }
 
@@ -75,7 +88,7 @@ void SceneCharacterSelect::Draw()
 
 bool SceneCharacterSelect::User1()
 {
-	// ‚¾‚¢‚È‚»[‘I‘ğ
+	// ã ã„ãªããƒ¼é¸æŠ
 	if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
 	{
 		m_isDino = true;
@@ -85,92 +98,125 @@ bool SceneCharacterSelect::User1()
 		m_isWitch = false;
 
 	}
-	// ƒGƒ‹ƒt‘I‘ğ
+	// ã‚¨ãƒ«ãƒ•é¸æŠ
 	if (Pad::IsTrigger(PAD_INPUT_2))// XBOX 
 	{
 		m_isElf = true;
 
-		m_isDino = false;
-		m_isKin = false;
-		m_isWitch = false;
-	}
-	// ‚«‚ñ‚É‚­‚ë‚¤‘I‘ğ
-	if (Pad::IsTrigger(PAD_INPUT_3))// XBOX A
+
+	m_CharaChoice->Update();
+
+
+	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision2())
 	{
-		m_isKin = true;
-
-		m_isDino = false;
-		m_isElf = false;
-		m_isWitch = false;
+		return(new SceneMain(true, true, true, true));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
 	}
-	// –‚—‘I‘ğ
-	if (Pad::IsTrigger(PAD_INPUT_4))// XBOX A
-	{
-		m_isWitch = true;
-
-		m_isDino = false;
-		m_isElf = false;
-		m_isKin = false;
-	}
-
-	if (m_isDino||
-		m_isElf ||
-		m_isKin ||
-		m_isWitch)
-	{
-		return true;
-	}
-
-	return false;
+	return this;
 }
 
-bool SceneCharacterSelect::User2()
+void SceneCharacterSelect::Draw()
 {
-	// ‚¾‚¢‚È‚»[‘I‘ğ
-	if (Pad2::IsTrigger(PAD_INPUT_1))// XBOX A
-	{
-		m_isDino2 = true;
-
-		m_isElf2 = false;
-		m_isKin2 = false;
-		m_isWitch2 = false;
-
-	}
-	// ƒGƒ‹ƒt‘I‘ğ
-	if (Pad2::IsTrigger(PAD_INPUT_2))// XBOX 
-	{
-		m_isElf2 = true;
-
-		m_isDino2 = false;
-		m_isKin2 = false;
-		m_isWitch2 = false;
-	}
-	// ‚«‚ñ‚É‚­‚ë‚¤‘I‘ğ
-	if (Pad2::IsTrigger(PAD_INPUT_3))// XBOX A
-	{
-		m_isKin2 = true;
-
-		m_isDino2 = false;
-		m_isElf2 = false;
-		m_isWitch2 = false;
-	}
-	// –‚—‘I‘ğ
-	if (Pad2::IsTrigger(PAD_INPUT_4))// XBOX A
-	{
-		m_isWitch2 = true;
-
-		m_isDino2 = false;
-		m_isElf2 = false;
-		m_isKin2 = false;
-	}
-
-	if (m_isDino2 ||
-		m_isElf2  ||
-		m_isKin2  ||
-		m_isWitch2)
-	{
-		return true;
-	}
-
-	return false;
+	m_CharaChoice->Draw();
 }
+
+//bool SceneCharacterSelect::User1()
+//{
+//	// ã ã„ãªããƒ¼é¸æŠ
+//	if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
+//	{
+//		m_isDino = true;
+//
+//		m_isElf = false;
+//		m_isKin = false;
+//		m_isWitch = false;
+//
+//	}
+//	// ã‚¨ãƒ«ãƒ•é¸æŠ
+//	if (Pad::IsTrigger(PAD_INPUT_2))// XBOX 
+//	{
+//		m_isElf = true;
+//
+//		m_isDino = false;
+//		m_isKin = false;
+//		m_isWitch = false;
+//	}
+//	// ãã‚“ã«ãã‚ã†é¸æŠ
+//	if (Pad::IsTrigger(PAD_INPUT_3))// XBOX A
+//	{
+//		m_isKin = true;
+//
+//		m_isDino = false;
+//		m_isElf = false;
+//		m_isWitch = false;
+//	}
+//	// é­”å¥³é¸æŠ
+//	if (Pad::IsTrigger(PAD_INPUT_4))// XBOX A
+//	{
+//		m_isWitch = true;
+//
+//		m_isDino = false;
+//		m_isElf = false;
+//		m_isKin = false;
+//	}
+//
+//	if (m_isDino||
+//		m_isElf ||
+//		m_isKin ||
+//		m_isWitch)
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}
+
+//bool SceneCharacterSelect::User2()
+//{
+//	// ã ã„ãªããƒ¼é¸æŠ
+//	if (Pad2::IsTrigger(PAD_INPUT_1))// XBOX A
+//	{
+//		m_isDino2 = true;
+//
+//		m_isElf2 = false;
+//		m_isKin2 = false;
+//		m_isWitch2 = false;
+//
+//	}
+//	// ã‚¨ãƒ«ãƒ•é¸æŠ
+//	if (Pad2::IsTrigger(PAD_INPUT_2))// XBOX 
+//	{
+//		m_isElf2 = true;
+//
+//		m_isDino2 = false;
+//		m_isKin2 = false;
+//		m_isWitch2 = false;
+//	}
+//	// ãã‚“ã«ãã‚ã†é¸æŠ
+//	if (Pad2::IsTrigger(PAD_INPUT_3))// XBOX A
+//	{
+//		m_isKin2 = true;
+//
+//		m_isDino2 = false;
+//		m_isElf2 = false;
+//		m_isWitch2 = false;
+//	}
+//	// é­”å¥³é¸æŠ
+//	if (Pad2::IsTrigger(PAD_INPUT_4))// XBOX A
+//	{
+//		m_isWitch2 = true;
+//
+//		m_isDino2 = false;
+//		m_isElf2 = false;
+//		m_isKin2 = false;
+//	}
+//
+//	if (m_isDino2 ||
+//		m_isElf2  ||
+//		m_isKin2  ||
+//		m_isWitch2)
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}

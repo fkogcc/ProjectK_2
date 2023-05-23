@@ -1,6 +1,8 @@
 #pragma once
 #include "SceneBase.h"
 
+class CharaChoice;
+
 class SceneCharacterSelect : public SceneBase
 {
 public:
@@ -25,5 +27,7 @@ private:
 	bool m_isElf2;// ƒGƒ‹ƒt
 	bool m_isKin2;// ‚«‚ñ‚É‚­‚ë‚¤
 	bool m_isWitch2;// –‚—
+
+	CharaChoice* m_CharaChoice;
 };
 

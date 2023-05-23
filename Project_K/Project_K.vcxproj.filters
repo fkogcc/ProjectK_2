@@ -160,11 +160,16 @@
     <ClCompile Include="Util\Sound.cpp">
       <Filter>cppファイル\Util</Filter>
     </ClCompile>
+
+    <ClCompile Include="System\CharaChoice.cpp">
+      <Filter>cppファイル\System</Filter>
+
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuJump.cpp">
       <Filter>cppファイル\Object\Player\Kinnikurou</Filter>
     </ClCompile>
     <ClCompile Include="Object\Player\Elf\ElfJump.cpp">
       <Filter>cppファイル\Object\Player\Elf</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -333,11 +338,15 @@
     <ClInclude Include="Util\Sound.h">
       <Filter>hファイル\Util</Filter>
     </ClInclude>
+    <ClInclude Include="System\CharaChoice.h">
+      <Filter>hファイル\System</Filter>
+
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuJump.h">
       <Filter>hファイル\Object\Player\Kinnikurou</Filter>
     </ClInclude>
     <ClInclude Include="Object\Player\Elf\ElfJump.h">
       <Filter>hファイル\Object\Player\Elf</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -412,6 +421,12 @@
     </Filter>
     <Filter Include="cppファイル\Object\Player\Witch">
       <UniqueIdentifier>{fcf7a7ca-984a-48bb-8afd-096df9f1505f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cppファイル\System">
+      <UniqueIdentifier>{6dea9ffa-d672-4d70-89c6-b58b25fee29d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hファイル\System">
+      <UniqueIdentifier>{a46c4951-0722-452e-b74f-83821cfcab23}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
