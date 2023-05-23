@@ -43,13 +43,34 @@ SceneBase* SceneCharacterSelect::Update()
 		return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ステージ切り替え
 	}
 
-	return(new SceneMain(true, true, true, true));// 1ステージ切り替え
+	/*if (IsFading())
+	{
+		m_isFadeOut = IsFadingOut();
+		SceneBase::UpdateFade();
+
+		if (!IsFading() && m_isFadeOut)
+		{
+			return (new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));
+		}
+	}
+
+	if (!IsFading())
+	{
+		if (Pad::IsTrigger(PAD_INPUT_1))
+		{
+			StartFadeOut();
+		}
+	}*/
+
+	return(new SceneMain(false, false, false, false));// 1ステージ切り替え
 	return this;
 }
 
 void SceneCharacterSelect::Draw()
 {
+	DrawString(0, 0, "MapSelect", Color::kWhite);
 
+	SceneBase::DrawFade();
 }
 
 bool SceneCharacterSelect::User1()

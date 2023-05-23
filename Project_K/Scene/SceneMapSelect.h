@@ -13,5 +13,7 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
+
+private:
 };
 

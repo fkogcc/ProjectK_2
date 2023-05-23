@@ -15,7 +15,7 @@ public:
 	virtual void Draw();
 
 private:
-	bool m_isFadeOut;// フェードアウトして言るかどうか
+	
 
 };
 

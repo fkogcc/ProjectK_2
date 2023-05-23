@@ -160,6 +160,9 @@
     <ClCompile Include="Util\Sound.cpp">
       <Filter>cppファイル\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuJump.cpp">
+      <Filter>cppファイル\Object\Player\Kinnikurou</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -326,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="Util\Sound.h">
       <Filter>hファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuJump.h">
+      <Filter>hファイル\Object\Player\Kinnikurou</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
