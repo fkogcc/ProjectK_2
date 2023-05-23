@@ -5,5 +5,10 @@ class KinnikuMuscle : public MoveTypeBase
 {
 public:
 	void Update(int& imagePosX, int& imagePosY);// XV
+
+	bool IsAttackColMuscle() { return m_isAttackCol; }
+
+private:
+	bool m_isAttackCol = false;
 };
 

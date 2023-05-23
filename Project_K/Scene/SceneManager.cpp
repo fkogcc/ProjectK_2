@@ -1,9 +1,10 @@
 #include <cassert>
 #include "SceneManager.h"
-#include "SceneMain.h"
 #include "SceneTitle.h"
-#include "SceneCharacterSelect.h"
 #include "SceneMapSelect.h"
+#include "SceneCharacterSelect.h"
+#include "SceneMain.h"
+#include "SceneResult.h"
 #include "../Util/Pad.h"
 #include "../Util/Pad2.h"
 

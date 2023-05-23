@@ -50,7 +50,9 @@ void Stage::Init()
 	{
 		for (int j = 0; j < kMapDataHeight; j++)
 		{
+
 			m_data.push_back(kMapData[i][j]);
+
 		}
 	}
 

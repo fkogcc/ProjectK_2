@@ -8,6 +8,7 @@ class KinnikuMuscle;
 class KinnikuUpper;
 class KinnikuMizo;
 class KinnikuRun;
+class KinnikuJump;
 
 class Kinnikurou : public PlayerBase
 {
@@ -22,6 +23,10 @@ public:
 
 	void ImgposInit();
 
+	void DrawBoxAttackCol();
+
+	void AttackCol();
+
 private:
 
 	KinnikuIdle* m_pIdle;
@@ -30,6 +35,7 @@ private:
 	KinnikuUpper* m_pUpper;
 	KinnikuMizo* m_pMizo;
 	KinnikuRun* m_pRun;
+	KinnikuJump* m_pJump;
 
 	bool m_pushBottom;
 
@@ -37,10 +43,12 @@ private:
 	int m_charHandle;// キャラクター全体
 	int m_idleHandle;// アイドル状態
 	int m_jabHandle;// ジャブ攻撃状態
-	int m_muscleHandle;// マッスル攻撃状態
+	int m_muscleHandle;// 胸筋衝撃波攻撃状態
 	int m_UpperHandle;// アッパー攻撃状態
 	int m_MizoHandle;// みぞおち攻撃状態
-	int m_RunHandle;//移動状態
+	int m_RunHandle;// 移動状態
+	int m_JumpHandle;// ジャンプ状態
+	int m_FallHandle;// 落下状態
 
 	// 画像の座標
 	int m_imgPosX;// X
@@ -56,10 +64,16 @@ private:
 	// 初期化回数
 	int m_initCount;
 
+	// ジャンプ加速度
+	float m_jumpAcc;
+
 	// キャラの向き
 	bool m_charDirection;
 
 	// キャラが移動状態かどうか
 	bool m_charRun;
+
+	// キャラがジャンプ中かどうか
+	float m_isJump;
 };
 

@@ -35,6 +35,7 @@ SceneBase* SceneCharacterSelect::Update()
 	//User1();
 	//User2();
 
+
 	//if (User1() && User2())
 	//{
 	//	if(m_isDino2)m_isDino = m_isDino2;
@@ -42,15 +43,73 @@ SceneBase* SceneCharacterSelect::Update()
 	//	if(m_isKin2)m_isKin = m_isKin2;
 	//	if(m_isWitch2)m_isWitch = m_isWitch2;
 	//	
-	//	return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ƒXƒe[ƒWØ‚è‘Ö‚¦
+	//	return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
 	//}
+
+	if (User1() && User2())
+	{
+		if(m_isDino2)m_isDino = m_isDino2;
+		if(m_isElf2)m_isElf = m_isElf2;
+		if(m_isKin2)m_isKin = m_isKin2;
+		if(m_isWitch2)m_isWitch = m_isWitch2;
+		
+		return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
+	}
+
+	/*if (IsFading())
+	{
+		m_isFadeOut = IsFadingOut();
+		SceneBase::UpdateFade();
+
+		if (!IsFading() && m_isFadeOut)
+		{
+			return (new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));
+		}
+	}
+
+	if (!IsFading())
+	{
+		if (Pad::IsTrigger(PAD_INPUT_1))
+		{
+			StartFadeOut();
+		}
+	}*/
+
+	return(new SceneMain(false, false, true, false));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
+	return this;
+}
+
+void SceneCharacterSelect::Draw()
+{
+	DrawString(0, 0, "MapSelect", Color::kWhite);
+
+	SceneBase::DrawFade();
+}
+
+bool SceneCharacterSelect::User1()
+{
+	// ã ã„ãªããƒ¼é¸æŠ
+	if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
+	{
+		m_isDino = true;
+
+		m_isElf = false;
+		m_isKin = false;
+		m_isWitch = false;
+
+	}
+	// ã‚¨ãƒ«ãƒ•é¸æŠ
+	if (Pad::IsTrigger(PAD_INPUT_2))// XBOX 
+	{
+		m_isElf = true;
+
 
 	m_CharaChoice->Update();
 
 
 	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision2())
 	{
-		return(new SceneMain(true, true, true, true));// 1ƒXƒe[ƒWØ‚è‘Ö‚¦
+		return(new SceneMain(true, true, true, true));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
 	}
 	return this;
 }
@@ -62,7 +121,7 @@ void SceneCharacterSelect::Draw()
 
 //bool SceneCharacterSelect::User1()
 //{
-//	// ‚¾‚¢‚È‚»[‘I‘ğ
+//	// ã ã„ãªããƒ¼é¸æŠ
 //	if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
 //	{
 //		m_isDino = true;
@@ -72,7 +131,7 @@ void SceneCharacterSelect::Draw()
 //		m_isWitch = false;
 //
 //	}
-//	// ƒGƒ‹ƒt‘I‘ğ
+//	// ã‚¨ãƒ«ãƒ•é¸æŠ
 //	if (Pad::IsTrigger(PAD_INPUT_2))// XBOX 
 //	{
 //		m_isElf = true;
@@ -81,7 +140,7 @@ void SceneCharacterSelect::Draw()
 //		m_isKin = false;
 //		m_isWitch = false;
 //	}
-//	// ‚«‚ñ‚É‚­‚ë‚¤‘I‘ğ
+//	// ãã‚“ã«ãã‚ã†é¸æŠ
 //	if (Pad::IsTrigger(PAD_INPUT_3))// XBOX A
 //	{
 //		m_isKin = true;
@@ -90,7 +149,7 @@ void SceneCharacterSelect::Draw()
 //		m_isElf = false;
 //		m_isWitch = false;
 //	}
-//	// –‚—‘I‘ğ
+//	// é­”å¥³é¸æŠ
 //	if (Pad::IsTrigger(PAD_INPUT_4))// XBOX A
 //	{
 //		m_isWitch = true;
@@ -113,7 +172,7 @@ void SceneCharacterSelect::Draw()
 
 //bool SceneCharacterSelect::User2()
 //{
-//	// ‚¾‚¢‚È‚»[‘I‘ğ
+//	// ã ã„ãªããƒ¼é¸æŠ
 //	if (Pad2::IsTrigger(PAD_INPUT_1))// XBOX A
 //	{
 //		m_isDino2 = true;
@@ -123,7 +182,7 @@ void SceneCharacterSelect::Draw()
 //		m_isWitch2 = false;
 //
 //	}
-//	// ƒGƒ‹ƒt‘I‘ğ
+//	// ã‚¨ãƒ«ãƒ•é¸æŠ
 //	if (Pad2::IsTrigger(PAD_INPUT_2))// XBOX 
 //	{
 //		m_isElf2 = true;
@@ -132,7 +191,7 @@ void SceneCharacterSelect::Draw()
 //		m_isKin2 = false;
 //		m_isWitch2 = false;
 //	}
-//	// ‚«‚ñ‚É‚­‚ë‚¤‘I‘ğ
+//	// ãã‚“ã«ãã‚ã†é¸æŠ
 //	if (Pad2::IsTrigger(PAD_INPUT_3))// XBOX A
 //	{
 //		m_isKin2 = true;
@@ -141,7 +200,7 @@ void SceneCharacterSelect::Draw()
 //		m_isElf2 = false;
 //		m_isWitch2 = false;
 //	}
-//	// –‚—‘I‘ğ
+//	// é­”å¥³é¸æŠ
 //	if (Pad2::IsTrigger(PAD_INPUT_4))// XBOX A
 //	{
 //		m_isWitch2 = true;
