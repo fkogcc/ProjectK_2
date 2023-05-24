@@ -13,5 +13,9 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
+
+private:
+	bool m_isTitle;
+	bool m_isRetry;
 };
 
