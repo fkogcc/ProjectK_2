@@ -91,6 +91,8 @@ SceneBase* SceneCharacterSelect::Update()
 void SceneCharacterSelect::Draw()
 {
 	DrawString(0, 0, "CharacterSelect", Color::kWhite);
+	DrawString(0, 20, "PAD_INPUT_1->SceneMain", Color::kWhite);
+
 	m_CharaChoice->Draw();
 
 	SceneBase::DrawFade();
