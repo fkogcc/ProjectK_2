@@ -65,13 +65,32 @@ SceneBase* SceneCharacterSelect::Update()
 		}
 	}*/
 
-	return(new SceneMain(false, false, false, false));// 1ステージ切り替え
+	if (IsFading())
+	{
+		m_isFadeOut = IsFadingOut();
+		SceneBase::UpdateFade();
+
+		if (!IsFading() && m_isFadeOut)
+		{
+			return(new SceneMain(false, false, false, false));// 1ステージ切り替え
+		}
+	}
+
+	if (!IsFading())
+	{
+		if (Pad::IsTrigger(PAD_INPUT_1))
+		{
+			StartFadeOut();
+		}
+	}
+
+	
 	return this;
 }
 
 void SceneCharacterSelect::Draw()
 {
-	DrawString(0, 0, "MapSelect", Color::kWhite);
+	DrawString(0, 0, "CharacterSelect", Color::kWhite);
 	m_CharaChoice->Draw();
 
 	SceneBase::DrawFade();

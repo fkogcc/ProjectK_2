@@ -1,4 +1,5 @@
 #include "SceneMain.h"
+#include "SceneResult.h"
 #include "../Object/Player/Dinosaur/Dinosaur.h"
 #include "../Object/Player/Elf/Elf.h"
 #include "../Object/Player/Kinnikurou/Kinnikurou.h"
@@ -94,6 +95,26 @@ SceneBase* SceneMain::Update()
 
 	m_pStage->Update();
 
+	// シーン遷移
+	if (IsFading())
+	{
+		m_isFadeOut = IsFadingOut();
+		SceneBase::UpdateFade();
+
+		if (!IsFading() && m_isFadeOut)
+		{
+			return(new SceneResult);// 1ステージ切り替え
+		}
+	}
+
+	if (!IsFading())
+	{
+		if (Pad::IsTrigger(PAD_INPUT_1))
+		{
+			StartFadeOut();
+		}
+	}
+
 	return this;
 }
 
@@ -111,4 +132,6 @@ void SceneMain::Draw()
 	m_Player[1]->Draw();*/
 
 	m_pStage->Draw();
+
+	SceneBase::DrawFade();
 }
