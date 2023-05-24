@@ -109,10 +109,10 @@ SceneBase* SceneMain::Update()
 
 	if (!IsFading())
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1))
+		/*if (Pad::IsTrigger(PAD_INPUT_1))
 		{
 			StartFadeOut();
-		}
+		}*/
 	}
 
 	return this;
