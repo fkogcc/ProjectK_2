@@ -238,17 +238,17 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_attackSizeLeft = -200;
-			m_attackSizeTop = -200;
-			m_attackSizeRight = 200;
-			m_attackSizeBottom = 200;
+			m_attackSizeLeft = -50;
+			m_attackSizeTop = -90;
+			m_attackSizeRight = 100;
+			m_attackSizeBottom = 90;
 		}
 		else if (m_charDirection)
 		{
-			m_attackSizeLeft = -200;
-			m_attackSizeTop = -200;
-			m_attackSizeRight = 200;
-			m_attackSizeBottom = 200;
+			m_attackSizeLeft = 50;
+			m_attackSizeTop = -90;
+			m_attackSizeRight = -100;
+			m_attackSizeBottom = 90;
 		}
 		
 
@@ -412,21 +412,14 @@ void Kinnikurou::DrawBoxAttackCol()
 
 void Kinnikurou::AttackCol()
 {
+	bool isAttack = m_pJab->IsAttackColJab() || 
+					m_pMuscle->IsAttackColMuscle() || 
+					m_pUpper->IsAttackColUpper() || 
+					m_pMizo->IsAttackColMizo();
+
 	if (m_attackFlag)
 	{
-		if (m_pJab->IsAttackColJab())
-		{
-			DrawBoxAttackCol();
-		}
-		if (m_pMuscle->IsAttackColMuscle())
-		{
-			DrawBoxAttackCol();
-		}
-		if (m_pUpper->IsAttackColUpper())
-		{
-			DrawBoxAttackCol();
-		}
-		if (m_pMizo->IsAttackColMizo())
+		if (isAttack)
 		{
 			DrawBoxAttackCol();
 		}
