@@ -174,7 +174,7 @@ void Kinnikurou::Update()
 			{
 				m_moveType = 5;// アッパー攻撃状態
 				ImgposInit();
-				m_motionCount = 40;
+				m_motionCount = 5 * 4;
 			}
 			if (Pad::IsTrigger(PAD_INPUT_4))
 			{
