@@ -96,34 +96,6 @@ void SceneCharacterSelect::Draw()
 	SceneBase::DrawFade();
 }
 
-bool SceneCharacterSelect::User1()
-{
-	// だいなそー選択
-	if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
-	{
-		m_isDino = true;
-
-		m_isElf = false;
-		m_isKin = false;
-		m_isWitch = false;
-
-	}
-	// エルフ選択
-	if (Pad::IsTrigger(PAD_INPUT_2))// XBOX 
-	{
-		m_isElf = true;
-	}
-
-	m_CharaChoice->Update();
-
-
-	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision2())
-	{
-		return(new SceneMain(true, true, true, true));// 1ステージ切り替え
-	}
-	return this;
-}
-
 //bool SceneCharacterSelect::User1()
 //{
 //	// だいなそー選択

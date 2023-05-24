@@ -15,8 +15,8 @@ public:
 	virtual SceneBase* Update() override;
 	virtual void Draw();
 private:
-	bool User1();
-	bool User2();
+	/*bool User1();
+	bool User2();*/
 private:
 	bool m_isDino;// ‚¾‚¢‚È‚»[
 	bool m_isElf;// ƒGƒ‹ƒt
