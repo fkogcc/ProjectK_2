@@ -65,7 +65,7 @@ SceneBase* SceneCharacterSelect::Update()
 		}
 	}*/
 
-	return(new SceneMain(false, false, true, false));// 1ステージ切り替え
+	return(new SceneMain(false, false, false, false));// 1ステージ切り替え
 	return this;
 }
 
