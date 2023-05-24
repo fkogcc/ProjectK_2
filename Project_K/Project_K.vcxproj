@@ -193,6 +193,7 @@
     <ClCompile Include="Util\Pad.cpp" />
     <ClCompile Include="Util\Pad2.cpp" />
     <ClCompile Include="Util\Sound.cpp" />
+    <ClCompile Include="Util\UI.cpp" />
     <ClCompile Include="Util\Vec2.cpp" />
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
   </ItemGroup>
@@ -253,6 +254,7 @@
     <ClInclude Include="Util\Pad.h" />
     <ClInclude Include="Util\Pad2.h" />
     <ClInclude Include="Util\Sound.h" />
+    <ClInclude Include="Util\UI.h" />
     <ClInclude Include="Util\Vec2.h" />
     <ClInclude Include="Object\Player\Witch\Witch.h" />
   </ItemGroup>
