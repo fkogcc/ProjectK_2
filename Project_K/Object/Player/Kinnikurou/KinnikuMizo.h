@@ -10,5 +10,7 @@ public:
 
 private:
 	bool m_isAttackCol = false;
+
+	int m_nextCount = 0;
 };
 

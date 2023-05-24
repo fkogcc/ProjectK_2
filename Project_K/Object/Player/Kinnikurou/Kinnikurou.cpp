@@ -168,7 +168,7 @@ void Kinnikurou::Update()
 			{
 				m_moveType = 4;// マッスル攻撃状態
 				ImgposInit();
-				m_motionCount = 70;
+				m_motionCount = 2 * 4 + 15 * 3;
 			}
 			if (Pad::IsTrigger(PAD_INPUT_3))
 			{
@@ -180,7 +180,7 @@ void Kinnikurou::Update()
 			{
 				m_moveType = 6;// みぞおち攻撃状態
 				ImgposInit();
-				m_motionCount = 40;
+				m_motionCount = 20 + 2 * 2 + 10;
 			}
 
 		}

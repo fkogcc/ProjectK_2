@@ -4,7 +4,17 @@ void KinnikuMuscle::Update(int& imagePosX, int& imagePosY)
 {
 	m_isAttackCol = false;
 	m_frameCount++;
-	if (m_frameCount == 10)
+
+	if (imagePosX >= 0 && imagePosY >= 1)
+	{
+		m_nextCount = 15;
+	}
+	else
+	{
+		m_nextCount = 2;
+	}
+
+	if (m_frameCount == m_nextCount)
 	{
 		imagePosX++;
 		m_frameCount = 0;
