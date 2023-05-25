@@ -58,6 +58,7 @@ private:
 	float m_empty;
 	Vec2 m_vec;
 	bool m_jumpFlag;
-	int m_jumpPower = 5;
-	bool m_testemptyFlag = false;
+	int m_jumpPower;
+	bool m_emptyCheckFlag;
+	int m_movement;
 };
