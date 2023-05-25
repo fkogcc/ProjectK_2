@@ -7,7 +7,7 @@ public:
 	
 	virtual ~DinosaurAttackPounce();
 
-	virtual DinosaurStateBase* Update() override;
+	virtual DinosaurStateBase* Update(int padNum) override;
 
 private:
 	float m_JumpPower;

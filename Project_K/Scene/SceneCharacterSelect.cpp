@@ -46,7 +46,7 @@ SceneBase* SceneCharacterSelect::Update()
 	//	return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ステージ切り替え
 	//}
 
-	if (User1() && User2())
+	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision1())
 	{
 		if(m_isDino2)m_isDino = m_isDino2;
 		if(m_isElf2)m_isElf = m_isElf2;
@@ -82,42 +82,38 @@ SceneBase* SceneCharacterSelect::Update()
 void SceneCharacterSelect::Draw()
 {
 	DrawString(0, 0, "MapSelect", Color::kWhite);
+	m_CharaChoice->Draw();
 
 	SceneBase::DrawFade();
 }
 
-bool SceneCharacterSelect::User1()
-{
-	// だいなそー選択
-	if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
-	{
-		m_isDino = true;
-
-		m_isElf = false;
-		m_isKin = false;
-		m_isWitch = false;
-
-	}
-	// エルフ選択
-	if (Pad::IsTrigger(PAD_INPUT_2))// XBOX 
-	{
-		m_isElf = true;
-
-
-	m_CharaChoice->Update();
-
-
-	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision2())
-	{
-		return(new SceneMain(true, true, true, true));// 1ステージ切り替え
-	}
-	return this;
-}
-
-void SceneCharacterSelect::Draw()
-{
-	m_CharaChoice->Draw();
-}
+//bool SceneCharacterSelect::User1()
+//{
+//	// だいなそー選択
+//	if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
+//	{
+//		m_isDino = true;
+//
+//		m_isElf = false;
+//		m_isKin = false;
+//		m_isWitch = false;
+//
+//	}
+//	// エルフ選択
+//	if (Pad::IsTrigger(PAD_INPUT_2))// XBOX 
+//	{
+//		m_isElf = true;
+//	}
+//
+//	m_CharaChoice->Update();
+//
+//
+//	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision2())
+//	{
+//		return(new SceneMain(true, true, true, true));// 1ステージ切り替え
+//	}
+//	return this;
+//}
 
 //bool SceneCharacterSelect::User1()
 //{

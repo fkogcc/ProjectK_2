@@ -30,14 +30,14 @@ void DinosaurStateManager::End()
 	//delete m_pScene;
 }
 // –ˆƒtƒŒ[ƒ€‚Ìˆ—
-void DinosaurStateManager::Update()
+void DinosaurStateManager::Update(int padNum)
 {
-	if (Pad::IsPress(PAD_INPUT_LEFT) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_LEFT,padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
 	{
 		m_lookLeft = true;
 	}
 
-	if (Pad::IsPress(PAD_INPUT_RIGHT) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_RIGHT, padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
 	{
 		m_lookLeft = false;
 	}

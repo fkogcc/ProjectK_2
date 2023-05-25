@@ -20,6 +20,6 @@ public:
 	}
 	virtual ~DinosaurAttackScratch();
 
-	virtual DinosaurStateBase* Update() override;
+	virtual DinosaurStateBase* Update(int padNum) override;
 };
 

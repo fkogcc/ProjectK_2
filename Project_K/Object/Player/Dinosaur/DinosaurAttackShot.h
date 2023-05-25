@@ -23,7 +23,7 @@ public:
 	}
 	virtual ~DinosaurAttackShot();
 
-	virtual DinosaurStateBase* Update() override;
+	virtual DinosaurStateBase* Update(int padNum) override;
 
 private:
 	bool m_pastShotFlag;
