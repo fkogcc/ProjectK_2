@@ -44,7 +44,9 @@ namespace Pad
 	{
 		if(padNum == 1) return (padLog1[0] & button);
 			
-		if(padNum == 2)return (padLog2[0] & button);
+		if(padNum == 2) return (padLog2[0] & button);
+
+		return false;
 	}
 	// ƒgƒŠƒK[”»’è
 	bool IsTrigger(int button, int padNum)

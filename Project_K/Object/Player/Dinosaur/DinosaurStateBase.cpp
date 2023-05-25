@@ -15,7 +15,7 @@ void DinosaurStateBase::Init(int Handle)
 
 void DinosaurStateBase::Draw(int handle , bool lookRight)
 {
-	my::MyDrawRectRotaGraph(m_Pos.x, m_Pos.y, 640 * m_imagePosX, 220 * m_imagePosY,
+	my::MyDrawRectRotaGraph(static_cast<int>(m_Pos.x), static_cast<int>(m_Pos.y), 640 * m_imagePosX, 220 * m_imagePosY,
 		640, 220, 1, 0, handle, true, lookRight);
 }
 
