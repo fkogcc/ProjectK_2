@@ -30,14 +30,16 @@ Witch::Witch() :
     m_indexX(0),
     m_playerjudge(0),
     m_shiftX(0),
+    m_empty(),
     m_animeFlag(false),
     m_emptyAttackLeft(0),
     m_emptyAttackTop(0),
     m_emptyAttackRight(0),
     m_emptyAttackBottom(0),
-    m_jumpFlag(false)
-
-
+    m_jumpFlag(false),
+    m_jumpPower(5),
+    m_emptyCheckFlag(false),
+    m_movement(0)
 {
     m_pIdle = new WitchIdle;
     m_pRun = new WitchRun;
@@ -63,7 +65,7 @@ Witch::~Witch()
 
 void Witch::Init()
 {
-    m_pos = { 100.0f,400.0f };
+    m_pos = { 100.0f,650.0f };
     m_handle = my::MyLoadGraph(kFilmName);
 
     m_pIdle->Init();
@@ -140,6 +142,14 @@ void Witch::UpdateInputKey()
     {
         m_empty = m_pos.y - 150;
         m_vec.y = m_pos.x - 100;
+        m_movement = -10;
+        m_jumpFlag = true;
+    }
+    if (Pad::IsPress(PAD_INPUT_UP) && Pad::IsPress(PAD_INPUT_RIGHT))
+    {
+        m_empty = m_pos.y - 150;
+        m_vec.y = m_pos.x - 100;
+        m_movement = 10;
         m_jumpFlag = true;
     }
     //小攻撃
@@ -147,7 +157,7 @@ void Witch::UpdateInputKey()
     {
         m_moveType = static_cast<int>(moveType::Attack1);// 攻撃1状態
         m_animeFlag = true;
-        m_testemptyFlag = true;
+        m_emptyCheckFlag = true;
         if (m_reversal)
         {
             m_playerjudge = 20;
@@ -170,7 +180,7 @@ void Witch::UpdateInputKey()
     {
         m_moveType = static_cast<int>(moveType::Attack2);// 攻撃2状態
         m_animeFlag = true;
-        m_testemptyFlag = true;
+        m_emptyCheckFlag = true;
         m_pLongShot->SetReversal(m_reversal);
         if (m_reversal)
         {
@@ -250,7 +260,7 @@ void Witch::UpdatePlayerState()
 void Witch::UpdatePlayerJudge()
 {
     //あたりはんてい
-    m_attackFlag = m_testemptyFlag;
+    m_attackFlag = m_emptyCheckFlag;
 
     m_sizeLeft = static_cast<int>(m_pos.x - 30 + m_shiftX + m_playerjudge);
     m_sizeTop = static_cast<int>(m_pos.y - 40);
@@ -313,7 +323,7 @@ void Witch::UpdateAnim()
                 m_pKnightCat->SetFlag(true);
             }
             m_moveType = static_cast<int>(moveType::Idol);
-            m_testemptyFlag = false;
+            m_emptyCheckFlag = false;
         }
     }
     //超力業実装だから直したいな
@@ -338,19 +348,17 @@ void Witch::UpdateAnim()
 void Witch::UpdateJump()
 {
     m_pos.y -= m_jumpPower;
-    //m_pos.x -= 10;
+    m_pos.x += m_movement;
     if (m_pos.y < (m_empty))
     {
         m_jumpPower = -7;
     }
 
-    if (m_pos.x < m_vec.y)
-    {
-
-    }
     if (m_pos.y > m_empty + 150)
     {
         m_jumpFlag = false;
+        m_pos.y = m_empty + 150;
         m_jumpPower = 5;
+        m_movement = 0;
     }
 }
