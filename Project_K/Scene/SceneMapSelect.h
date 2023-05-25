@@ -14,6 +14,9 @@ public:
 	virtual SceneBase* Update() override;
 	virtual void Draw();
 
+	// ステージが選ばれた時の処理
+	//bool IsSelected() { return };
+
 private:
 };
 

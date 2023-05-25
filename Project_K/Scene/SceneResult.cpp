@@ -2,9 +2,10 @@
 #include "SceneTitle.h"
 #include "SceneMapSelect.h"
 
-SceneResult::SceneResult() :
+SceneResult::SceneResult(bool isVictoryOrDefeat) :
 	m_isTitle(false),
-	m_isRetry(false)
+	m_isRetry(false),
+	m_isVictoryOrDefeat(isVictoryOrDefeat)
 {
 }
 
@@ -66,6 +67,16 @@ void SceneResult::Draw()
 	DrawString(0, 0, "Result", Color::kWhite);
 	DrawString(0, 20, "PAD_INPUT_1¨Title", Color::kWhite);
 	DrawString(0, 40, "PAD_INPUT_2¨MapSelect", Color::kWhite);
+
+	// ‚±‚ÌğŒ‚É1P‚©2PŸ—˜ó‹µ‚ğ‘ã“ü‚·‚é
+	if (m_isVictoryOrDefeat)
+	{
+		DrawString(100, 100, "1P:Victory", Color::kRed);
+	}
+	else
+	{
+		DrawString(100, 100, "2P:Victory", Color::kRed);
+	}
 	
 	SceneBase::DrawFade();
 }

@@ -43,6 +43,8 @@ private:
 	bool m_isElf;
 	bool m_isKin;
 	bool m_isWitch;
+
+	bool m_isVictoryOrDefeat = true;// Ÿ”s:true.1PŸ—˜,false.2PŸ—˜
 };
 
 
