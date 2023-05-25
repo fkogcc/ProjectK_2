@@ -40,7 +40,7 @@ SceneBase* SceneResult::Update()
 
 	if (!IsFading())
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1) || Pad::IsTrigger(PAD_INPUT_2))
+		if (Pad::IsTrigger(PAD_INPUT_1,1) || Pad::IsTrigger(PAD_INPUT_2,1))
 		{
 			StartFadeOut();
 		}
@@ -65,10 +65,10 @@ SceneBase* SceneResult::Update()
 void SceneResult::Draw()
 {
 	DrawString(0, 0, "Result", Color::kWhite);
-	DrawString(0, 20, "PAD_INPUT_1¨Title", Color::kWhite);
-	DrawString(0, 40, "PAD_INPUT_2¨MapSelect", Color::kWhite);
+	DrawString(0, 20, "PAD_INPUT_1â†’Title", Color::kWhite);
+	DrawString(0, 40, "PAD_INPUT_2â†’MapSelect", Color::kWhite);
 
-	// ‚±‚ÌğŒ‚É1P‚©2PŸ—˜ó‹µ‚ğ‘ã“ü‚·‚é
+	// ã“ã®æ¡ä»¶ã«1Pã‹2På‹åˆ©çŠ¶æ³ã‚’ä»£å…¥ã™ã‚‹
 	if (m_isVictoryOrDefeat)
 	{
 		DrawString(100, 100, "1P:Victory", Color::kRed);

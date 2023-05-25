@@ -7,9 +7,9 @@ namespace Pad
 	void Update();
 
 	// ‰Ÿ‚µ‰º‚°”»’è
-	bool IsPress(int button);
+	bool IsPress(int button, int padNum);
 	// ƒgƒŠƒK[”»’è
-	bool IsTrigger(int button);
+	bool IsTrigger(int button, int padNum);
 	// —£‚µ‚½”»’è
-	bool IsRelase(int button);
+	bool IsRelase(int button, int padNum);
 }

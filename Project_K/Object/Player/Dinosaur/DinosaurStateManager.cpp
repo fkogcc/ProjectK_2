@@ -30,14 +30,14 @@ void DinosaurStateManager::End()
 	//delete m_pScene;
 }
 // 毎フレームの処理
-void DinosaurStateManager::Update()
+void DinosaurStateManager::Update(int padNum)
 {
-	if (Pad::IsPress(PAD_INPUT_LEFT) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_LEFT,padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
 	{
 		m_lookLeft = true;
 	}
 
-	if (Pad::IsPress(PAD_INPUT_RIGHT) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_RIGHT, padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
 	{
 		m_lookLeft = false;
 	}
@@ -45,7 +45,7 @@ void DinosaurStateManager::Update()
 	if (!m_pState)	return;
 
 	m_pState->SetLookFlag(m_lookLeft);
-	DinosaurStateBase* pState = m_pState->Update();// AttackBaseのupdate処理呼び出し
+	DinosaurStateBase* pState = m_pState->Update(padNum);// AttackBaseのupdate処理呼び出し
 
 	if (pState != m_pState)
 	{

@@ -83,13 +83,13 @@ void Elf::Update()
 
 		m_moveType = static_cast<int>(moveType::Jump);
 
-		if (Pad::IsPress(PAD_INPUT_RIGHT))
+		if (Pad::IsPress(PAD_INPUT_RIGHT,m_padNum))
 		{
 			m_moveType = static_cast<int>(moveType::Run);// ëñÇÈ
 			m_pos.x += kSpeed;
 			m_isDirection = false;
 		}
-		else if (Pad::IsPress(PAD_INPUT_LEFT))
+		else if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 		{
 			m_moveType = static_cast<int>(moveType::Run);// ëñÇÈ
 			m_pos.x -= kSpeed;
@@ -101,34 +101,34 @@ void Elf::Update()
 			//	m_isAttack = false;
 		}
 
-		if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
+		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))// XBOX A
 		{
 			m_moveType = static_cast<int>(moveType::Attack1);// çUåÇ
 			m_isAttack = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_2))// XBOX B
+		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);// çUåÇ
 			m_isAttack = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_3))// XBOX X or Y
+		if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))// XBOX X or Y
 		{
 			//Å@ÉWÉÉÉìÉv
 			m_moveType = static_cast<int>(moveType::Jump);
 			m_isAttack = true;
 		}
-		if (Pad::IsTrigger(XINPUT_BUTTON_LEFT_SHOULDER) || (Pad::IsTrigger(PAD_INPUT_R)))// XBOX X or Y
+		if (Pad::IsTrigger(XINPUT_BUTTON_LEFT_SHOULDER, m_padNum) || (Pad::IsTrigger(PAD_INPUT_R, m_padNum)))// XBOX X or Y
 		{
 			//Å@ÉWÉÉÉìÉv
 
 		}
-		if (Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_RIGHT)) ||// XBOX A && RIGHT
-			Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_LEFT)))   // XBOX A && LEFT
+		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_RIGHT, m_padNum)) ||// XBOX A && RIGHT
+			Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_LEFT, m_padNum)))   // XBOX A && LEFT
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);;// çUåÇ
 			m_isAttack = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_UP)))// XBOX A && UP
+		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_UP, m_padNum)))// XBOX A && UP
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// çUåÇ
 			m_isAttack = true;

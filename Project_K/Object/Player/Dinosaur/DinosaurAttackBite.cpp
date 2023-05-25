@@ -5,7 +5,7 @@ DinosaurAttackBite::~DinosaurAttackBite()
 {
 }
 
-DinosaurStateBase* DinosaurAttackBite::Update()
+DinosaurStateBase* DinosaurAttackBite::Update(int padNum)
 {
 	if (m_imagePosX < 9)
 	{

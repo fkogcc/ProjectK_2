@@ -38,7 +38,7 @@ SceneBase* SceneTitle::Update()
 	if (!IsFading())
 	{
 		// フェードアウト開始
-		if (Pad::IsTrigger(PAD_INPUT_1))
+		if (Pad::IsTrigger(PAD_INPUT_1,1))
 		{
 			StartFadeOut();
 		}

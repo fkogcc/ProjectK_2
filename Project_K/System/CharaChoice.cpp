@@ -1,6 +1,5 @@
 #include "CharaChoice.h"
 #include"../Util/Pad.h"
-#include"../Util/Pad2.h"
 
 CharaChoice::CharaChoice() : 
 	m_choiceNum1(0),
@@ -35,12 +34,12 @@ void CharaChoice::updateChara1()
 {
 	if (m_Decision1) return;
 
-	if (Pad::IsTrigger(PAD_INPUT_1))
+	if (Pad::IsTrigger(PAD_INPUT_1,1))
 	{
 		m_Decision1 = true;
 		return;
 	}
-	if (Pad::IsTrigger(PAD_INPUT_RIGHT))
+	if (Pad::IsTrigger(PAD_INPUT_RIGHT,1))
 	{
 		if (m_charaNumber1 >= 4)
 		{
@@ -50,7 +49,7 @@ void CharaChoice::updateChara1()
 		m_charaNumber1++;
 	}
 
-	if (Pad::IsTrigger(PAD_INPUT_LEFT))
+	if (Pad::IsTrigger(PAD_INPUT_LEFT,1))
 	{
 		if (m_charaNumber1 <= 0)
 		{
@@ -65,12 +64,12 @@ void CharaChoice::updateChara2()
 {
 	if (m_Decision2) return;
 
-	if (Pad2::IsTrigger(PAD_INPUT_1))
+	if (Pad::IsTrigger(PAD_INPUT_1, 2))
 	{
 		m_Decision2 = true;
 		return;
 	}
-	if (Pad2::IsTrigger(PAD_INPUT_RIGHT))
+	if (Pad::IsTrigger(PAD_INPUT_RIGHT, 2))
 	{
 		if (m_charaNumber2 >= 4)
 		{
@@ -80,7 +79,7 @@ void CharaChoice::updateChara2()
 		m_charaNumber2++;
 	}
 
-	if (Pad2::IsTrigger(PAD_INPUT_LEFT))
+	if (Pad::IsTrigger(PAD_INPUT_LEFT, 2))
 	{
 		if (m_charaNumber2 <= 0)
 		{

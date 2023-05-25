@@ -47,7 +47,7 @@ public:
 
 	int GetHp() { return m_hp; }
 
-
+	void SetPadNum(int padNum) { m_padNum = padNum; }
 
 	Vec2 GetPos() { return m_pos; }
 
@@ -72,6 +72,9 @@ protected:
 	int m_attackSizeTop = 0;
 	int m_attackSizeRight = 0;
 	int m_attackSizeBottom = 0;
+
+	//パッド番号
+	int m_padNum = 0;
 
 
 	int m_moveType = 0;
