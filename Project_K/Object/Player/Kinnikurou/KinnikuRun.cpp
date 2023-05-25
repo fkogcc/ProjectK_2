@@ -3,7 +3,7 @@
 void KinnikuRun::Update(int& imagePosX, int& imagePosY)
 {
 	m_frameCount++;
-	if (m_frameCount == 10)
+	if (m_frameCount == 5)
 	{
 		imagePosX++;
 		m_frameCount = 0;

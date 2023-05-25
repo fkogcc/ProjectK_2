@@ -8,7 +8,7 @@ namespace
 }
 
 SceneBase::SceneBase() :
-	m_fadeColor(Color::kBrown),
+	m_fadeColor(Color::kBlack),
 	m_fadeBright(255),
 	m_fadeSpeed(-kFadeSpeed),
 	m_isFadeOut(false)

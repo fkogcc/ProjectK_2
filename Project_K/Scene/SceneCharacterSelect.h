@@ -14,9 +14,13 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
+
+	// プレイヤーがキャラクターを選んだ時
+	//bool IsSelected() { return };
+
 private:
-	bool User1();
-	bool User2();
+	/*bool User1();
+	bool User2();*/
 private:
 	bool m_isDino;// だいなそー
 	bool m_isElf;// エルフ
