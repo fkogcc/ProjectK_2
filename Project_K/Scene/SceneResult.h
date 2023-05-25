@@ -5,7 +5,11 @@
 class SceneResult : public SceneBase
 {
 public:
-	SceneResult();
+	/// <summary>
+	/// 勝敗フラグ付きコンストラクタ
+	/// </summary>
+	/// <param name="isVictoryOrDefeat"></param>
+	SceneResult(bool isVictoryOrDefeat);
 	virtual ~SceneResult();
 
 	virtual void Init();
@@ -19,5 +23,7 @@ private:
 	bool m_isRetry;// リトライ
 
 	bool m_isNone = false;// 条件の中身がない状態
+
+	bool m_isVictoryOrDefeat;// 勝敗:true.1P勝利,false.2P勝利
 };
 

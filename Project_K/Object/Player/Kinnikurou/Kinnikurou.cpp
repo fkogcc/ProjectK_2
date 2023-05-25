@@ -180,7 +180,7 @@ void Kinnikurou::Update()
 			{
 				m_moveType = 6;// みぞおち攻撃状態
 				ImgposInit();
-				m_motionCount = 30 + 2 * 2 + 20;
+				m_motionCount = 70 + 2 * 2 + 40;
 			}
 
 		}

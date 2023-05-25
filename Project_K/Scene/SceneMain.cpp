@@ -103,7 +103,8 @@ SceneBase* SceneMain::Update()
 
 		if (!IsFading() && m_isFadeOut)
 		{
-			return(new SceneResult);// 1ステージ切り替え
+			// m_isVectoryOrDefeat:勝敗:true.1P勝利,false.2P勝利
+			return(new SceneResult(m_isVictoryOrDefeat));// 1ステージ切り替え
 		}
 	}
 

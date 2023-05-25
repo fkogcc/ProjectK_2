@@ -7,11 +7,11 @@ void KinnikuMizo::Update(int& imagePosX, int& imagePosY)
 
 	if (imagePosX == 0 && imagePosY == 0)
 	{
-		m_nextCount = 30;
+		m_nextCount = 70;
 	}
 	else if (imagePosX == 3 && imagePosY == 0)
 	{
-		m_nextCount = 20;
+		m_nextCount = 40;
 	}
 	else
 	{
