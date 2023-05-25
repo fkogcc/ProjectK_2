@@ -169,6 +169,11 @@
     <ClCompile Include="Util\Pad2.cpp">
       <Filter>cpp\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Util\UI.cpp" />
+    <ClCompile Include="Object\Stage\StageBase.cpp">
+      <Filter>cpp\Object\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="DinoStage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -345,6 +350,11 @@
     <ClInclude Include="Util\common.h">
       <Filter>h\Util</Filter>
     </ClInclude>
+    <ClInclude Include="Util\UI.h" />
+    <ClInclude Include="Object\Stage\StageBase.h">
+      <Filter>h\Object\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="DinoStage.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cpp">

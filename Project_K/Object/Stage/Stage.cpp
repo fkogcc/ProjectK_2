@@ -1,40 +1,25 @@
+#include <Dxlib.h>
 #include<vector>
 #include<iostream>
 #include<cassert>
 #include "Stage.h"
-#include <Dxlib.h>
+#include "StageBase.h"
 #include "../../Util/game.h"
 
 namespace
 {
-	constexpr int kMapDataHeight = 17;
-	constexpr int kMapDataWidth = 30;
+	const char* kFileName = "Data/Image/Stage/WizardMap.png";
 
-	constexpr int kMapData[kMapDataHeight][kMapDataWidth] =
-	{
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,14,14,4,3,4,5,6,7,8,9,10,11,12,13,14,14},
-		{ 17,18,19,20,21,22,23,24,25,26,27,28,29,30,30,30,20,19,20,21,22,23,24,25,26,27,28,29,30,30},
-		{ 68,69,84,85,86,87,88,89,90,91,92,93,118,91,92,93,118,83,84,85,86,87,88,89,90,91,92,93,68,69},
-		{ 84,85,211,212,213,214,215,216,217,218,219,220,221,69,211,212,69,211,212,213,214,215,216,217,218,219,220,221,84,85},
-		{ 211,212,213,214,215,216,217,218,219,220,221,211,212,213,214,215,216,217,218,211,212,213,214,215,216,217,218,219,220,221},
-		{ 211,212,213,214,215,216,217,218,219,220,221,211,212,213,214,215,216,217,218,211,212,213,214,215,216,217,218,219,220,221},
+	// マップチップ一つのサイズ
+	constexpr int kMapChipSize = 64;
 
-	};
+	// マップのタテヨコのマップチップの数
+	constexpr int kMapHeight = 16;
+	constexpr int kMapWidth = 30;
 }
 
 Stage::Stage() : 
-	m_pos(0, 700),
-	m_handle(-1)
+	m_pos(0, 700)
 {
 }
 
@@ -44,27 +29,131 @@ Stage::~Stage()
 
 void Stage::Init()
 {
-	m_handle = LoadGraph("Data/Image/Stage/WizardMap.png");
-
-	for (int i = 0; i < kMapDataWidth; i++)
-	{
-		for (int j = 0; j < kMapDataHeight; j++)
-		{
-
-			m_data.push_back(kMapData[i][j]);
-
-		}
-	}
-
+	m_handle = LoadGraph(kFileName, false);
 }
 
 void Stage::Update()
 {
-
+	MapRead();
 }
 
 void Stage::Draw()
 {
-	DrawExtendGraph(kStartX, kStartY, Game::kScreenWidth, kStartY * 2, m_handle, true);
-	DrawLine(kStartX, kStartY, kEndX, kEndY, 0xffffff);
+	for (auto& data : m_data)
+	{
+		int scrX = data.m_chipNo % 16;
+		int scrY = data.m_chipNo / 16;
+		DrawRectGraph(data.m_pos.x, data.m_pos.y,
+			scrX * kMapChipSize, scrY * kMapChipSize,
+			kMapChipSize, kMapChipSize,
+			m_handle,
+			false, false);
+	}
+}
+
+int Stage::MapRead()
+{
+	 // csvファイルを読み込んで数字の配列にしたい
+
+	 FILE* fp;
+
+	 errno_t error = fopen_s(&fp, "Data/Image/Stage/WizardMap.csv","r");
+	 
+	 // 1文字ずつ読み込んで表示
+	 int chr;
+
+	 // ファイルから1文字ずつ読み込んでファイルの終わりまでループ
+	 std::vector<int> dataTbl;
+	 // 横の要素数
+	 int wNum = -1;	// 未確定
+	 // 横の要素数数えるよう
+	 int tempW = 0;
+
+	 int tempNum = 0;
+
+	 while (true)
+	 {
+		 chr = fgetc(fp);	// 1文字読み込み
+		 // 区切り文字が見つかった
+		 if (chr == ',' ||
+			 chr == '\n' ||
+			 chr == EOF)
+		 {
+			 // dataTblにデータを入れる
+			 dataTbl.push_back(tempNum);
+			 tempNum = 0;
+
+			 // ファイルの終端に来たら終了
+			 if (chr == EOF)
+			 {
+				 break;
+			 }
+			 else if (chr == ',')
+			 {
+				 tempW++;	// 要素数数える
+			 }
+			 else     // chr == '\n'
+			 {
+				 tempW++;	// 要素数数える
+				 if (wNum < 0)
+				 {
+					 wNum = tempW;		// 要素数確定
+				 }
+				 else
+				 {
+					 assert(wNum == tempW);	// 横の要素数は固定なので違ったらassert
+				 }
+				 tempW = 0;
+			 }
+
+			 // まだ終わってないので続けて読み込み
+			 continue;
+		 }
+
+		 // データは数字のみのはず
+		 assert(chr >= '0' && chr <= '9');
+
+		 // 数字なのは確定
+		 // 文字列を数値に変換したい
+
+		 tempNum = (tempNum * 10) + chr - '0';
+
+		 // データの区切りが見つかった時点でそこまでがデータのひとまとまり
+	 }
+
+	 MapInfo mapinfo;
+	 // m_dataにdataTblの中身を入れてる
+	 for (int i = 0; i < dataTbl.size(); i++)
+	 {
+		 int X = (i % kMapWidth) * kMapChipSize;
+		 int Y = (i / kMapWidth) * kMapChipSize;
+
+		 Vec2 pos = { static_cast<float>(X),static_cast<float>(Y)};
+
+		 mapinfo.m_pos = pos;
+		 mapinfo.m_chipNo = dataTbl[i];
+
+		 m_data.push_back(mapinfo);
+	 }
+
+	 // dataTblに正しく数字が入っているかチェック
+	 int count = 0;
+	 for (auto& num : dataTbl)
+	 {
+		 if (count % wNum == 0)
+		 {
+			 printf("\n");
+		 }
+		 else
+		 {
+			 printf(",");
+		 }
+		 printf("%d, ", num);
+		 count++;
+	 }
+
+	 // ファイルを閉じる
+	 fclose(fp);
+
+	 return 0;
 }
