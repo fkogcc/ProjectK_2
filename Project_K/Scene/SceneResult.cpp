@@ -48,11 +48,11 @@ SceneBase* SceneResult::Update()
 
 	if (!m_isTitle && !m_isRetry)
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1))
+		if (Pad::IsTrigger(PAD_INPUT_1,1))
 		{
 			m_isTitle = true;
 		}
-		else if (Pad::IsTrigger(PAD_INPUT_2))
+		else if (Pad::IsTrigger(PAD_INPUT_2,1))
 		{
 			m_isRetry = true;
 		}

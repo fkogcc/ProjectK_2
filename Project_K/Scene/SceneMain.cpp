@@ -13,26 +13,17 @@
 
 #include <iostream>
 
-SceneMain::SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch) :
-	m_pDino(nullptr),
-	m_pElf(nullptr),
-	m_pKin(nullptr),
-	m_pWitch(nullptr),
-	m_isDino(isDino),
-	m_isElf(isElf),
-	m_isKin(isKin),
-	m_isWitch(isWitch)
-	
+SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2)
 {
-	m_pDino = new Dinosaur;
+	/*m_pDino = new Dinosaur;
 	m_pElf = new Elf;
 	m_pKin = new Kinnikurou;
 	m_pWitch = new Witch;
 	m_pStage = new Stage;
+*/
 
-
-	m_Player[0] = new Dinosaur;
-	m_Player[1] = new Kinnikurou;
+	m_Player[0] = Player1;
+	m_Player[1] = Player2;
 	m_Coll = new Collision(m_Player[0], m_Player[1]);
 }
 
@@ -45,7 +36,7 @@ SceneMain::~SceneMain()
 	delete m_Player[0];
 	delete m_Player[1];
 
-	delete m_pStage;
+//	delete m_pStage;
 }
 
 void SceneMain::Init()
@@ -58,11 +49,11 @@ void SceneMain::Init()
 	m_Player[0]->Init();
 	m_Player[1]->Init();
 
-	m_Player[1]->SetPadNum(1);
-	m_Player[0]->SetPadNum(2);
+	m_Player[0]->SetPadNum(1);
+	m_Player[1]->SetPadNum(2);
 
 
-	m_pStage->Init();
+//	m_pStage->Init();
 }
 
 void SceneMain::End()
@@ -135,7 +126,7 @@ void SceneMain::Draw()
 	m_Player[0]->Draw();
 	m_Player[1]->Draw();
 
-	m_pStage->Draw();
+//	m_pStage->Draw();
 
 	SceneBase::DrawFade();
 }
