@@ -11,6 +11,6 @@ public:
 	}
 	virtual ~DinosaurIdle();
 
-	virtual DinosaurStateBase* Update() override;
+	virtual DinosaurStateBase* Update(int padNum) override;
 };
 

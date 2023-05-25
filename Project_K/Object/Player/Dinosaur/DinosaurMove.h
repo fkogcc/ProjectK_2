@@ -12,8 +12,8 @@ public:
 	}
 	virtual ~DinosaurMove();
 
-	void IsMove();
+	void IsMove(int padNum);
 
-	virtual DinosaurStateBase* Update() override;
+	virtual DinosaurStateBase* Update(int padNum) override;
 };
 

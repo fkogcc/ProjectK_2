@@ -10,7 +10,7 @@ public:
 
 	virtual void Init(int Handle);
 
-	virtual DinosaurStateBase* Update() { return this; }
+	virtual DinosaurStateBase* Update(int padNum) { return this; }
 
 	virtual void Draw(int handle, bool lookRight);
 

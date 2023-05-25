@@ -18,7 +18,7 @@ KinnikuJump::~KinnikuJump()
 {
 }
 
-void KinnikuJump::Update(float& jumpAcc, float& posY)
+void KinnikuJump::Update(float& jumpAcc, float& posY,int padNum)
 {
 	m_isJumping = true;
 	m_isFalling = false;
@@ -33,7 +33,7 @@ void KinnikuJump::Update(float& jumpAcc, float& posY)
 
 	if (!m_isJumping)
 	{
-		if (Pad::IsTrigger(PAD_INPUT_UP))
+		if (Pad::IsTrigger(PAD_INPUT_UP, padNum))
 		{
 			jumpAcc = -kJumpPower;
 		}

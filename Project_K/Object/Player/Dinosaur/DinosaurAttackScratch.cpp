@@ -5,7 +5,7 @@ DinosaurAttackScratch::~DinosaurAttackScratch()
 {
 }
 
-DinosaurStateBase* DinosaurAttackScratch::Update()
+DinosaurStateBase* DinosaurAttackScratch::Update(int padNum)
 {
 	if (m_imagePosX < 7)
 	{

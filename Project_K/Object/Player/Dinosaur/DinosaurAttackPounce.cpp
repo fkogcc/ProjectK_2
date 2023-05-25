@@ -33,7 +33,7 @@ DinosaurAttackPounce::~DinosaurAttackPounce()
 {
 }
 
-DinosaurStateBase* DinosaurAttackPounce::Update()
+DinosaurStateBase* DinosaurAttackPounce::Update(int padNum)
 {
 	if (m_imagePosX < 3)
 	{

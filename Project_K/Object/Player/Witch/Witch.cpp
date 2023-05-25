@@ -121,24 +121,24 @@ void Witch::Draw()
 
 void Witch::UpdateInputKey()
 {
-    if (Pad::IsPress(PAD_INPUT_RIGHT))
+    if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
     {
         m_pos.x += 10;
         m_reversal = false;
         m_moveType = static_cast<int>(moveType::Run);// 走り状態
     }
-    else if (Pad::IsPress(PAD_INPUT_LEFT))
+    else if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
     {
         m_pos.x -= 10;
         m_reversal = true;
         m_moveType = static_cast<int>(moveType::Run);// 走り状態
     }
-    if (Pad::IsPress(PAD_INPUT_UP))
+    if (Pad::IsPress(PAD_INPUT_UP, m_padNum))
     {
         m_empty = m_pos.y - 150;
         m_jumpFlag = true;
     }
-    if (Pad::IsPress(PAD_INPUT_UP) && Pad::IsPress(PAD_INPUT_LEFT))
+    if (Pad::IsPress(PAD_INPUT_UP, m_padNum) && Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
     {
         m_empty = m_pos.y - 150;
         m_vec.y = m_pos.x - 100;
@@ -153,7 +153,7 @@ void Witch::UpdateInputKey()
         m_jumpFlag = true;
     }
     //小攻撃
-    if (Pad::IsTrigger(PAD_INPUT_1))
+    if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
     {
         m_moveType = static_cast<int>(moveType::Attack1);// 攻撃1状態
         m_animeFlag = true;
@@ -176,7 +176,7 @@ void Witch::UpdateInputKey()
         }
     }
     //中攻撃
-    else if (Pad::IsTrigger(PAD_INPUT_2))
+    else if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))
     {
         m_moveType = static_cast<int>(moveType::Attack2);// 攻撃2状態
         m_animeFlag = true;
@@ -200,13 +200,13 @@ void Witch::UpdateInputKey()
             m_emptyAttackBottom = m_pos.y + 60;
         }
     }
-    else if (Pad::IsTrigger(PAD_INPUT_3))
+    else if (Pad::IsTrigger(PAD_INPUT_3,m_padNum))
     {
         m_moveType = static_cast<int>(moveType::Attack3);// 攻撃3状態
         m_animeFlag = true;
         m_animeLoopCount = 2;
     }
-    else if (Pad::IsTrigger(PAD_INPUT_4))
+    else if (Pad::IsTrigger(PAD_INPUT_4, m_padNum))
     {
         m_moveType = static_cast<int>(moveType::Attack4);// 攻撃4状態
         m_animeFlag = true;

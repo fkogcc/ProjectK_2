@@ -22,7 +22,7 @@ DinosaurJump::~DinosaurJump()
 {
 }
 
-DinosaurStateBase* DinosaurJump::Update()
+DinosaurStateBase* DinosaurJump::Update(int padNum)
 {
 	m_Pos.y += m_JumpPower;
 	m_Pos.x += m_Vec.x;

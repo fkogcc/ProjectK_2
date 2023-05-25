@@ -46,6 +46,19 @@ SceneBase* SceneCharacterSelect::Update()
 	//	return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ステージ切り替え
 	//}
 
+
+	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision1())
+	{
+		if(m_isDino2)m_isDino = m_isDino2;
+		if(m_isElf2)m_isElf = m_isElf2;
+		if(m_isKin2)m_isKin = m_isKin2;
+		if(m_isWitch2)m_isWitch = m_isWitch2;
+		
+		return(new SceneMain(m_isDino, m_isElf, m_isKin, m_isWitch));// 1ステージ切り替え
+	}
+
+
+
 	/*if (IsFading())
 	{
 		m_isFadeOut = IsFadingOut();

@@ -14,7 +14,7 @@ public:
 	// I—¹
 	void End();
 	// –ˆƒtƒŒ[ƒ€‚Ìˆ—
-	void Update();
+	void Update(int padNum);
 	// •`‰æ
 	void Draw();
 
