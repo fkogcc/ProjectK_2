@@ -8,7 +8,7 @@ public:
 	KinnikuJump();
 	virtual ~KinnikuJump();
 
-	void Update(float& jumpAcc, float& posY);
+	void Update(float& jumpAcc, float& posY, int padNum);
 
 	bool IsJump();
 	bool IsFall();

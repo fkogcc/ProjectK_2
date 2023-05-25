@@ -57,6 +57,9 @@ void SceneMain::Init()
 	m_Player[0]->Init();
 	m_Player[1]->Init();
 
+	m_Player[1]->SetPadNum(1);
+	m_Player[0]->SetPadNum(2);
+
 
 	m_pStage->Init();
 }
@@ -74,12 +77,12 @@ void SceneMain::End()
 
 SceneBase* SceneMain::Update()
 {
-	if (m_isDino) m_pDino->Update();
+	/*if (m_isDino) m_pDino->Update();
 	if (m_isElf) m_pElf->Update();
 	if (m_isKin) m_pKin->Update();
-	if (m_isWitch) m_pWitch->Update();
+	if (m_isWitch) m_pWitch->Update();*/
 
-	/*m_Player[0]->Update();
+	m_Player[0]->Update();
 	m_Player[1]->Update();
 
 	if (m_Coll->IsColl1())
@@ -90,7 +93,7 @@ SceneBase* SceneMain::Update()
 	else if (m_Coll->IsColl2())
 	{
 		m_Player[1]->OnDamage(1);
-	}*/
+	}
 
 	m_pStage->Update();
 
@@ -99,16 +102,16 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	if (m_isDino) m_pDino->Draw();
+	/*if (m_isDino) m_pDino->Draw();
 	if (m_isElf) m_pElf->Draw();
 	if (m_isKin) m_pKin->Draw();
-	if (m_isWitch) m_pWitch->Draw();
+	if (m_isWitch) m_pWitch->Draw();*/
 
-	/*printfDx("Dino:%d\n", m_Player[0]->GetHp());
+	printfDx("Dino:%d\n", m_Player[0]->GetHp());
 	printfDx("Kin:%d\n", m_Player[1]->GetHp());
 
 	m_Player[0]->Draw();
-	m_Player[1]->Draw();*/
+	m_Player[1]->Draw();
 
 	m_pStage->Draw();
 }

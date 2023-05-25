@@ -45,7 +45,7 @@ void DinosaurStateManager::Update(int padNum)
 	if (!m_pState)	return;
 
 	m_pState->SetLookFlag(m_lookLeft);
-	DinosaurStateBase* pState = m_pState->Update();// AttackBase‚Ìupdateˆ—ŒÄ‚Ño‚µ
+	DinosaurStateBase* pState = m_pState->Update(padNum);// AttackBase‚Ìupdateˆ—ŒÄ‚Ño‚µ
 
 	if (pState != m_pState)
 	{

@@ -37,7 +37,7 @@ void Dinosaur::End()
 
 void Dinosaur::Update()
 {
-	m_StateManager->Update();
+	m_StateManager->Update(m_padNum);
 
 	GetAttackSize();
 
