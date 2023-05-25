@@ -15,7 +15,9 @@ public:
 	virtual void Draw();
 
 private:
-	bool m_isTitle;
-	bool m_isRetry;
+	bool m_isTitle;// タイトルへ
+	bool m_isRetry;// リトライ
+
+	bool m_isNone = false;// 条件の中身がない状態
 };
 

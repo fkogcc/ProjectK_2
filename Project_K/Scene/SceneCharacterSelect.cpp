@@ -72,6 +72,7 @@ SceneBase* SceneCharacterSelect::Update()
 
 		if (!IsFading() && m_isFadeOut)
 		{
+			// シーン遷移(ダイナソー、エルフ、きんに君、魔女)
 			return(new SceneMain(false, false, false, false));// 1ステージ切り替え
 		}
 	}

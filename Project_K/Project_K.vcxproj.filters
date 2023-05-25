@@ -169,6 +169,9 @@
     <ClCompile Include="Util\Pad2.cpp">
       <Filter>cpp\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Util\UI.cpp">
+      <Filter>cpp\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -343,6 +346,9 @@
       <Filter>h\Object\Player\Witch</Filter>
     </ClInclude>
     <ClInclude Include="Util\common.h">
+      <Filter>h\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\UI.h">
       <Filter>h\Util</Filter>
     </ClInclude>
   </ItemGroup>

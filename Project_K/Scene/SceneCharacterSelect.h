@@ -14,6 +14,10 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
+
+	// プレイヤーがキャラクターを選んだ時
+	//bool IsSelected() { return };
+
 private:
 	/*bool User1();
 	bool User2();*/
