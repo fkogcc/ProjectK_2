@@ -145,7 +145,7 @@ void Witch::UpdateInputKey()
         m_movement = -10;
         m_jumpFlag = true;
     }
-    if (Pad::IsPress(PAD_INPUT_UP) && Pad::IsPress(PAD_INPUT_RIGHT))
+    if (Pad::IsPress(PAD_INPUT_UP, m_padNum) && Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
     {
         m_empty = m_pos.y - 150;
         m_vec.y = m_pos.x - 100;
