@@ -19,7 +19,7 @@ class Stage;		// ステージ
 class SceneMain : public SceneBase
 {
 public:
-	SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch);
+	SceneMain(PlayerBase* Player1, PlayerBase* Player2);
 	virtual ~SceneMain();
 
 	virtual void Init();

@@ -2,6 +2,7 @@
 #include "SceneBase.h"
 
 class CharaChoice;
+class PlayerBase;
 
 class SceneCharacterSelect : public SceneBase
 {
@@ -31,6 +32,8 @@ private:
 	bool m_isElf2;// ƒGƒ‹ƒt
 	bool m_isKin2;// ‚«‚ñ‚É‚­‚ë‚¤
 	bool m_isWitch2;// –‚—
+
+	PlayerBase* m_Player[2];
 
 	CharaChoice* m_CharaChoice;
 };

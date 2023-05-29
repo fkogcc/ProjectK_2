@@ -2,8 +2,8 @@
 #include"../Util/Pad.h"
 
 CharaChoice::CharaChoice() : 
-	m_choiceNum1(0),
-	m_choiceNum2(0),
+	m_charaNumber1(0),
+	m_charaNumber2(0),
 	m_Decision1(false),
 	m_Decision2(false)
 {
@@ -20,14 +20,33 @@ void CharaChoice::Init()
 
 void CharaChoice::Update()
 {
-	GetChackChara1();
-	GetChackChara2();
+	updateChara1();
+	updateChara2();
 }
 
 void CharaChoice::Draw()
 {
-	DrawString(300, 400, "%d", m_charaNumber1);
-	DrawString(600, 400, "%d", m_charaNumber2);
+	if (m_Decision1)
+	{
+		DrawFormatString(300, 400, 0xff0000,
+			"%d", m_charaNumber1);
+	}
+	else
+	{
+		DrawFormatString(300, 400, 0xffffff,
+				"%d", m_charaNumber1);
+	}
+
+	if (m_Decision2)
+	{
+		DrawFormatString(600, 400, 0xff0000,
+			"%d", m_charaNumber2);
+	}
+	else
+	{
+		DrawFormatString(600, 400, 0xffffff,
+			"%d", m_charaNumber2);
+	}
 }
 
 void CharaChoice::updateChara1()
@@ -41,9 +60,9 @@ void CharaChoice::updateChara1()
 	}
 	if (Pad::IsTrigger(PAD_INPUT_RIGHT,1))
 	{
-		if (m_charaNumber1 >= 4)
+		if (m_charaNumber1 >= 3)
 		{
-			m_charaNumber1 = 4;
+			m_charaNumber1 = 3;
 			return;
 		}
 		m_charaNumber1++;
@@ -71,9 +90,9 @@ void CharaChoice::updateChara2()
 	}
 	if (Pad::IsTrigger(PAD_INPUT_RIGHT, 2))
 	{
-		if (m_charaNumber2 >= 4)
+		if (m_charaNumber2 >= 3)
 		{
-			m_charaNumber2 = 4;
+			m_charaNumber2 = 3;
 			return;
 		}
 		m_charaNumber2++;

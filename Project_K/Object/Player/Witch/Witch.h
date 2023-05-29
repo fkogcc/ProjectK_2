@@ -10,7 +10,7 @@ class WitchCharge;
 class Chicken;
 class KnightCat;
 
-class Witch : PlayerBase
+class Witch : public PlayerBase
 {
 public:
 	Witch();
