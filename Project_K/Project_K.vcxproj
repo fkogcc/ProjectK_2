@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DinoStage.cpp" />
+    <ClCompile Include="Object\Stage\DinoStage.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfJump.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuJump.cpp" />
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
@@ -200,7 +200,7 @@
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DinoStage.h" />
+    <ClInclude Include="Object\Stage\DinoStage.h" />
     <ClInclude Include="Object\Player\Elf\ElfJump.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuJump.h" />
     <ClInclude Include="Object\Shot\ElfShot.h" />

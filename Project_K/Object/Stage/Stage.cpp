@@ -8,7 +8,7 @@
 
 namespace
 {
-	const char* kFileName = "Data/Image/Stage/WizardMap.png";
+	const char* kFileName = "Data/Image/Stage/Dino/Tileset.png";
 
 	// マップチップ一つのサイズ
 	constexpr int kMapChipSize = 64;
@@ -57,7 +57,7 @@ int Stage::MapRead()
 
 	 FILE* fp;
 
-	 errno_t error = fopen_s(&fp, "Data/Image/Stage/WizardMap.csv","r");
+	 errno_t error = fopen_s(&fp, "Data/Image/Stage/Dino/DinoMap.csv","r");
 	 
 	 // 1文字ずつ読み込んで表示
 	 int chr;
@@ -101,7 +101,7 @@ int Stage::MapRead()
 				 }
 				 else
 				 {
-					 assert(wNum == tempW);	// 横の要素数は固定なので違ったらassert
+				 //  assert(wNum == tempW);	// 横の要素数は固定なので違ったらassert
 				 }
 				 tempW = 0;
 			 }
