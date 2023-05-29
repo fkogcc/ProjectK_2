@@ -110,13 +110,13 @@ void Dinosaur::Draw()
 
 	if (m_attackFlag)
 	{
-		DrawBox(m_pos.x + m_attackSizeLeft, m_pos.y + m_attackSizeTop,
-			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
+		DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,
+			static_cast<int>(m_pos.x) + m_attackSizeRight, static_cast<int>(m_pos.y) + m_attackSizeBottom,
 			0xff0000, false);
 	}
 
-	DrawBox(m_pos.x + m_sizeLeft, m_pos.y + m_sizeTop,
-		m_pos.x + m_sizeRight, m_pos.y + m_sizeBottom,
+	DrawBox(static_cast<int>(m_pos.x) + m_sizeLeft, static_cast<int>(m_pos.y) + m_sizeTop,
+		static_cast<int>(m_pos.x) + m_sizeRight, static_cast<int>(m_pos.y) + m_sizeBottom,
 		0xff0000, false);
 }
 

@@ -22,7 +22,5 @@ public:
 private:
 	int m_Handle;
 	DinosaurStateManager* m_StateManager;
-
-	bool m_LookRight;	// ‰E‚ðŒ©‚Ä‚é‚Æ‚«
 };
 
