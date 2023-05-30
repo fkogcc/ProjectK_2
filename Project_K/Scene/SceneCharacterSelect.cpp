@@ -1,4 +1,4 @@
-#include "SceneCharacterSelect.h"
+﻿#include "SceneCharacterSelect.h"
 #include "SceneMain.h"
 #include "../Util/Pad.h"
 #include "../Util/Pad2.h"

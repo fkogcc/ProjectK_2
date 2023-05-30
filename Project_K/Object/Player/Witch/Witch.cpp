@@ -1,4 +1,4 @@
-#include "Witch.h"
+﻿#include "Witch.h"
 #include"../../Util/game.h"
 #include "../../Util/DrawFunctions.h"
 #include "../../condition.h"

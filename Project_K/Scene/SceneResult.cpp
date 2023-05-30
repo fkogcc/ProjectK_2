@@ -1,4 +1,4 @@
-#include "SceneResult.h"
+﻿#include "SceneResult.h"
 #include "SceneTitle.h"
 #include "SceneMapSelect.h"
 
