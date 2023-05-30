@@ -41,7 +41,7 @@ void SceneMain::Init()
 	m_Player[1]->SetPadNum(2);
 
 
-//	m_pStage->Init();
+	m_pStage->Init();
 }
 
 void SceneMain::End()
@@ -72,10 +72,11 @@ SceneBase* SceneMain::Update()
 	{
 		m_isFadeOut = IsFadingOut();
 		SceneBase::UpdateFade();
-
 		if (!IsFading() && m_isFadeOut)
 		{
-			// m_isVectoryOrDefeat:勝敗:true.1P勝利,false.2P勝利
+			// trueの場合
+			// m_isVictory1P = 1Pの勝利
+			// m_isVictory2P = 2Pの勝利
 			return(new SceneResult(m_isVictory1P, m_isVictory2P));// 1ステージ切り替え
 		}
 	}
