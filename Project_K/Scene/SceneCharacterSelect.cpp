@@ -1,7 +1,6 @@
 ﻿#include "SceneCharacterSelect.h"
 #include "SceneMain.h"
 #include "../Util/Pad.h"
-#include "../Util/Pad2.h"
 #include"../System/CharaChoice.h"
 #include"../Object/Player/Dinosaur/Dinosaur.h"
 #include"../Object/Player/Elf/Elf.h"

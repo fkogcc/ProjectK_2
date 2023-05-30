@@ -166,9 +166,6 @@
     <ClCompile Include="Util\Sound.cpp">
       <Filter>cpp\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Util\Pad2.cpp">
-      <Filter>cpp\Util</Filter>
-    </ClCompile>
     <ClCompile Include="Util\UI.cpp">
       <Filter>cpp\Util</Filter>
     </ClCompile>
@@ -208,9 +205,6 @@
       <Filter>h\Util</Filter>
     </ClInclude>
     <ClInclude Include="Util\Pad.h">
-      <Filter>h\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Util\Pad2.h">
       <Filter>h\Util</Filter>
     </ClInclude>
     <ClInclude Include="Util\Vec2.h">
