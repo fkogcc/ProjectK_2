@@ -1,11 +1,12 @@
-#include "SceneResult.h"
+﻿#include "SceneResult.h"
 #include "SceneTitle.h"
 #include "SceneMapSelect.h"
 
-SceneResult::SceneResult(bool isVictoryOrDefeat) :
+SceneResult::SceneResult(bool isVictory1P, bool isVictory2P) :
 	m_isTitle(false),
 	m_isRetry(false),
-	m_isVictoryOrDefeat(isVictoryOrDefeat)
+	m_isVictory1P(isVictory1P),
+	m_isVictory2P(isVictory2P)
 {
 }
 
@@ -68,12 +69,19 @@ void SceneResult::Draw()
 	DrawString(0, 20, "PAD_INPUT_1→Title", Color::kWhite);
 	DrawString(0, 40, "PAD_INPUT_2→MapSelect", Color::kWhite);
 
-	// この条件に1Pか2P勝利状況を代入する
-	if (m_isVictoryOrDefeat)
+	// 勝利状況
+	// 引き分け
+	if (m_isVictory1P && m_isVictory2P)
+	{
+		DrawString(100, 100, "Draw", Color::kRed);
+	}
+	// 1Pの勝利
+	else if (m_isVictory1P)
 	{
 		DrawString(100, 100, "1P:Victory", Color::kRed);
 	}
-	else
+	// 2Pの勝利
+	else if(m_isVictory2P)
 	{
 		DrawString(100, 100, "2P:Victory", Color::kRed);
 	}
