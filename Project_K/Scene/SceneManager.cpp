@@ -6,7 +6,6 @@
 #include "SceneMain.h"
 #include "SceneResult.h"
 #include "../Util/Pad.h"
-#include "../Util/Pad2.h"
 
 SceneManager::SceneManager():
 	m_pScene(nullptr)
@@ -32,7 +31,6 @@ void SceneManager::End()
 void SceneManager::Update()
 {
 	Pad::Update();
-	Pad2::Update();
 
 	assert(m_pScene);// Šm”Fˆ—
 	if (!m_pScene)	return;

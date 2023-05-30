@@ -80,7 +80,12 @@ SceneBase* SceneMain::Update()
 
 	if (!IsFading())
 	{
-		/*if (Pad::IsTrigger(PAD_INPUT_1))
+		// デバッグ用シーン遷移
+		/*if (Pad::IsTrigger(PAD_INPUT_1, 1))
+		{
+			StartFadeOut();
+		}
+		if (Pad::IsTrigger(PAD_INPUT_1, 2))
 		{
 			StartFadeOut();
 		}*/
