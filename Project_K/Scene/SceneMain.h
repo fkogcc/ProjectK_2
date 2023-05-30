@@ -35,7 +35,8 @@ private:
 
 	Collision* m_Coll;
 
-	bool m_isVictoryOrDefeat = true;// Ÿ”s:true.1PŸ—˜,false.2PŸ—˜
+	bool m_isVictory1P;// 1P‚ÌŸ”s
+	bool m_isVictory2P;// 2P‚ÌŸ”s
 };
 
 

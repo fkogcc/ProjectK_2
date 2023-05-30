@@ -13,7 +13,9 @@
 
 #include <iostream>
 
-SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2)
+SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
+	m_isVictory1P(false),
+	m_isVictory2P(false)
 {
 	m_pStage = new Stage;
 
@@ -24,10 +26,10 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2)
 
 SceneMain::~SceneMain()
 {
+	// メモリの開放
 	delete m_Player[0];
 	delete m_Player[1];
-
-//	delete m_pStage;
+	delete m_pStage;
 }
 
 void SceneMain::Init()
@@ -74,21 +76,29 @@ SceneBase* SceneMain::Update()
 		if (!IsFading() && m_isFadeOut)
 		{
 			// m_isVectoryOrDefeat:勝敗:true.1P勝利,false.2P勝利
-			return(new SceneResult(m_isVictoryOrDefeat));// 1ステージ切り替え
+			return(new SceneResult(m_isVictory1P, m_isVictory2P));// 1ステージ切り替え
 		}
 	}
 
+	// フェードインアウトしていない時
 	if (!IsFading())
 	{
 		// デバッグ用シーン遷移
-		/*if (Pad::IsTrigger(PAD_INPUT_1, 1))
+		if (m_Player[0]->GetHp() <= 0 || m_Player[1]->GetHp() <= 0)
 		{
 			StartFadeOut();
 		}
-		if (Pad::IsTrigger(PAD_INPUT_1, 2))
-		{
-			StartFadeOut();
-		}*/
+	}
+
+	// 1Pの勝利
+	if (m_Player[1]->GetHp() <= 0)
+	{
+		m_isVictory1P = true;
+	}
+	// 2Pの勝利
+	else if (m_Player[0]->GetHp() <= 0)
+	{
+		m_isVictory2P = true;
 	}
 
 	return this;
@@ -96,12 +106,15 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
+	// プレイヤーのHPの変数
 	printfDx("Dino:%d\n", m_Player[0]->GetHp());
 	printfDx("Kin:%d\n", m_Player[1]->GetHp());
 
+	// プレイヤーの描画
 	m_Player[0]->Draw();
 	m_Player[1]->Draw();
 
+	// ステージの描画
 	m_pStage->Draw();
 
 	SceneBase::DrawFade();
