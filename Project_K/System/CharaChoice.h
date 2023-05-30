@@ -26,9 +26,6 @@ private:
 	void updateChara1();
 	void updateChara2();
 
-	int m_choiceNum1;
-	int m_choiceNum2;
-
 	int m_charaNumber1;
 	int m_charaNumber2;
 
