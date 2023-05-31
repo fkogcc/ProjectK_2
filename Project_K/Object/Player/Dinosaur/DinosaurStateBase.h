@@ -22,6 +22,7 @@ public:
 	virtual bool GetshotFlag() { return m_shotFlag; }
 
 	virtual bool GetAttackFlag() { return m_attackFlag; }
+	virtual bool SetAttackFlag(bool attackFlag) { return m_attackFlag = attackFlag;}
 
 
 	virtual void SetLookFlag(bool RightFlag) { m_lookLeft = RightFlag; }

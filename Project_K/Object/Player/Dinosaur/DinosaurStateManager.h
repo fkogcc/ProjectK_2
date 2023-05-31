@@ -31,6 +31,8 @@ public:
 
 	bool GetLookLeft() { return m_lookLeft; }
 
+	void SetAttackFlag();
+
 private:
 	int m_Handle;
 

@@ -10,3 +10,8 @@ PlayerBase::PlayerBase()
 		}
 	};
 }
+
+void PlayerBase::attackCountUp()
+{
+	m_attackFrameCount++;
+}

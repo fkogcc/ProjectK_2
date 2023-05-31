@@ -55,12 +55,45 @@ SceneBase* SceneMain::Update()
 	m_Player[0]->Update();
 	m_Player[1]->Update();
 
-	if (m_Coll->IsColl1())
+	if (m_Coll->IsColl1() && m_Coll->IsColl2())
+	{
+		if (m_Player[0]->GetAttackFrame() < m_Player[1]->GetAttackFrame())
+		{
+			m_Player[1]->OnDamage(1);
+			m_Player[0]->SetAttackFlag(false);
+		}
+
+		if (m_Player[0]->GetAttackFrame() >= m_Player[1]->GetAttackFrame())
+		{
+			m_Player[0]->OnDamage(1);
+			m_Player[1]->SetAttackFlag(false);
+		}
+
+		/*if (m_Player[0]->GetAttackFrame() == m_Player[1]->GetAttackFrame())
+		{
+			m_Player[1]->OnDamage(1);
+		}*/
+	}
+
+	else if (m_Coll->IsColl1())
+	{
+		m_Player[0]->OnDamage(1);
+		m_Player[1]->SetAttackFlag(false);
+
+	}
+
+	else if (m_Coll->IsColl2())
+	{
+		m_Player[1]->OnDamage(1);
+		m_Player[0]->SetAttackFlag(false);
+	}
+
+	if (m_Coll->ShotColl1())
 	{
 		m_Player[0]->OnDamage(1);
 	}
 
-	else if (m_Coll->IsColl2())
+	if (m_Coll->ShotColl2())
 	{
 		m_Player[1]->OnDamage(1);
 	}
