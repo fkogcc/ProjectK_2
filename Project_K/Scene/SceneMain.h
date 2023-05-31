@@ -29,22 +29,14 @@ public:
 	virtual void Draw();
 
 private:
-	Dinosaur*	m_pDino;
-	Elf*		m_pElf;
-	Kinnikurou* m_pKin;
-	Witch*		m_pWitch;
 	Stage*		m_pStage;
 
 	PlayerBase* m_Player[2];
 
 	Collision* m_Coll;
 
-	bool m_isDino;
-	bool m_isElf;
-	bool m_isKin;
-	bool m_isWitch;
-
-	bool m_isVictoryOrDefeat = true;// Ÿ”s:true.1PŸ—˜,false.2PŸ—˜
+	bool m_isVictory1P;// 1P‚ÌŸ”s
+	bool m_isVictory2P;// 2P‚ÌŸ”s
 };
 
 

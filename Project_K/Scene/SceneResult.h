@@ -9,7 +9,7 @@ public:
 	/// 勝敗フラグ付きコンストラクタ
 	/// </summary>
 	/// <param name="isVictoryOrDefeat"></param>
-	SceneResult(bool isVictoryOrDefeat);
+	SceneResult(bool isVictory1P, bool isVictory2P);
 	virtual ~SceneResult();
 
 	virtual void Init();
@@ -24,6 +24,7 @@ private:
 
 	bool m_isNone = false;// 条件の中身がない状態
 
-	bool m_isVictoryOrDefeat;// 勝敗:true.1P勝利,false.2P勝利
+	bool m_isVictory1P;// 1Pの勝敗
+	bool m_isVictory2P;// 2Pの勝敗
 };
 

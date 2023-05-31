@@ -13,14 +13,11 @@
 
 #include <iostream>
 
-SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2)
+SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
+	m_isVictory1P(false),
+	m_isVictory2P(false)
 {
-	/*m_pDino = new Dinosaur;
-	m_pElf = new Elf;
-	m_pKin = new Kinnikurou;
-	m_pWitch = new Witch;
 	m_pStage = new Stage;
-*/
 
 	m_Player[0] = Player1;
 	m_Player[1] = Player2;
@@ -29,23 +26,14 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2)
 
 SceneMain::~SceneMain()
 {
-	delete m_pDino;
-	delete m_pElf;
-	delete m_pKin;
-	delete m_pWitch;
+	// メモリの開放
 	delete m_Player[0];
 	delete m_Player[1];
-
-//	delete m_pStage;
+	delete m_pStage;
 }
 
 void SceneMain::Init()
 {
-	if (m_isDino) m_pDino->Init();
-	if (m_isElf) m_pElf->Init();
-	if (m_isKin) m_pKin->Init();
-	if (m_isWitch) m_pWitch->Init();
-
 	m_Player[0]->Init();
 	m_Player[1]->Init();
 
@@ -53,27 +41,17 @@ void SceneMain::Init()
 	m_Player[1]->SetPadNum(2);
 
 
-//	m_pStage->Init();
+	m_pStage->Init();
 }
 
 void SceneMain::End()
 {
-	if (m_isDino) m_pDino->End();
-	if (m_isElf) m_pElf->End();
-	if (m_isKin) m_pKin->End();
-	//if (m_isWitch) m_pWitch->End();
-
 	m_Player[0]->End();
 	m_Player[1]->End();
 }
 
 SceneBase* SceneMain::Update()
 {
-	/*if (m_isDino) m_pDino->Update();
-	if (m_isElf) m_pElf->Update();
-	if (m_isKin) m_pKin->Update();
-	if (m_isWitch) m_pWitch->Update();*/
-
 	m_Player[0]->Update();
 	m_Player[1]->Update();
 
@@ -127,20 +105,34 @@ SceneBase* SceneMain::Update()
 	{
 		m_isFadeOut = IsFadingOut();
 		SceneBase::UpdateFade();
-
 		if (!IsFading() && m_isFadeOut)
 		{
-			// m_isVectoryOrDefeat:勝敗:true.1P勝利,false.2P勝利
-			return(new SceneResult(m_isVictoryOrDefeat));// 1ステージ切り替え
+			// trueの場合
+			// m_isVictory1P = 1Pの勝利
+			// m_isVictory2P = 2Pの勝利
+			return(new SceneResult(m_isVictory1P, m_isVictory2P));// 1ステージ切り替え
 		}
 	}
 
+	// フェードインアウトしていない時
 	if (!IsFading())
 	{
-		/*if (Pad::IsTrigger(PAD_INPUT_1))
+		// デバッグ用シーン遷移
+		if (m_Player[0]->GetHp() <= 0 || m_Player[1]->GetHp() <= 0)
 		{
 			StartFadeOut();
-		}*/
+		}
+	}
+
+	// 1Pの勝利
+	if (m_Player[1]->GetHp() <= 0)
+	{
+		m_isVictory1P = true;
+	}
+	// 2Pの勝利
+	else if (m_Player[0]->GetHp() <= 0)
+	{
+		m_isVictory2P = true;
 	}
 
 	return this;
@@ -148,18 +140,16 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	/*if (m_isDino) m_pDino->Draw();
-	if (m_isElf) m_pElf->Draw();
-	if (m_isKin) m_pKin->Draw();
-	if (m_isWitch) m_pWitch->Draw();*/
-
+	// プレイヤーのHPの変数
 	printfDx("Dino:%d\n", m_Player[0]->GetHp());
 	printfDx("Kin:%d\n", m_Player[1]->GetHp());
 
+	// プレイヤーの描画
 	m_Player[0]->Draw();
 	m_Player[1]->Draw();
 
-//	m_pStage->Draw();
+	// ステージの描画
+	m_pStage->Draw();
 
 	SceneBase::DrawFade();
 }
