@@ -37,4 +37,3 @@ private:
 
 	CharaChoice* m_CharaChoice;
 };
-

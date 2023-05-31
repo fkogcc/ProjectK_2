@@ -99,3 +99,8 @@ int DinosaurStateManager::GetAttackSizeBottom()
 {
 	return m_pState->GetAttackSizeBottom();
 }
+
+void DinosaurStateManager::SetAttackFlag()
+{
+	m_pState->SetAttackFlag(false);
+}

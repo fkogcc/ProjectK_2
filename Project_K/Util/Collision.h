@@ -12,6 +12,10 @@ public:
 
 	bool IsColl2();
 
+	bool ShotColl1();
+
+	bool ShotColl2();
+
 private:
 	PlayerBase* m_Player[2];
 };

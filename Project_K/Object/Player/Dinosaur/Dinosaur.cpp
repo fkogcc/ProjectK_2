@@ -8,6 +8,8 @@
 namespace
 {
 	const char* kFilename = "Data/Image/Player/kyouryuu/Enemy.png";
+
+	constexpr int kAttackDuration = 10; //攻撃持続時間
 }
 
 Dinosaur::Dinosaur() : 
@@ -42,6 +44,15 @@ void Dinosaur::Update()
 	GetAttackSize();
 
 	m_attackFlag = m_StateManager->GetAttackFlag();
+
+	if (m_attackFlag)
+	{
+		attackCountUp();
+	}
+	else
+	{
+		m_attackFrameCount = 0;
+	}
 
 	m_pos = m_StateManager->GetPos();
 
@@ -128,7 +139,13 @@ void Dinosaur::GetAttackSize()
 	m_attackSizeBottom = m_StateManager->GetAttackSizeBottom();
 }
 
-ShotBase* Dinosaur::GetShot(int i)
+void Dinosaur::SetAttackFlag(bool attackFlag)
 {
-	return m_Shot[i];
+	m_attackFlag = attackFlag;
+	m_StateManager->SetAttackFlag();
 }
+
+//ShotBase* Dinosaur::GetShot(int i)
+//{
+//	return m_Shot[i];
+//}

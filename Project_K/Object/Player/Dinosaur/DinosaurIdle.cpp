@@ -36,7 +36,7 @@ DinosaurStateBase* DinosaurIdle::Update(int padNum)
 	{
 		return new DinosaurAttackShot(m_Pos, m_Vec);
 	}
-	if (Pad::IsPress(PAD_INPUT_5, padNum))// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_1, padNum))// XBOX X or Y
 	{
 		return new DinosaurAttackPounce(m_Pos, m_Vec);
 	}

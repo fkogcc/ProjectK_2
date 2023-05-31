@@ -38,7 +38,9 @@ public:
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
 
 	bool GetAttackFlag() { return m_attackFlag; }
+	virtual void SetAttackFlag(bool attackFlag) { m_attackFlag = attackFlag; }
 
+	int GetAttackFrame() { return m_attackFrameCount; }
 
 	int SetMove() { return m_moveType; }// SceneMainにどの攻撃をしているかを渡す
 	void GetMove(int check) { m_moveType = check; }// SceneMainから攻撃状態を受け取る
@@ -51,8 +53,10 @@ public:
 
 	Vec2 GetPos() { return m_pos; }
 
-protected:
+	ShotBase* GetShot(int i) { return m_Shot[i]; }
 
+protected:
+	void attackCountUp();
 
 	// プレイヤーのサイズ
 
@@ -76,6 +80,8 @@ protected:
 	//パッド番号
 	int m_padNum = 0;
 
+	//攻撃発生から何フレーム経ったか
+	int m_attackFrameCount = 0;
 
 	int m_moveType = 0;
 	int m_hp     = 100;// プレイヤーの体力量(100が標準)

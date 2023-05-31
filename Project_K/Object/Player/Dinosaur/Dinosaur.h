@@ -18,7 +18,9 @@ public:
 
 	void GetAttackSize();
 
-	ShotBase* GetShot(int i);
+	void SetAttackFlag(bool attackFlag)override;
+
+	/*ShotBase* GetShot(int i);*/
 private:
 	int m_Handle;
 	DinosaurStateManager* m_StateManager;
