@@ -12,6 +12,7 @@
 
 DinosaurStateManager::DinosaurStateManager(int Handle) :
 	m_Handle(Handle),
+	m_lookLeft(false),
 	m_pState(nullptr)
 {
 }

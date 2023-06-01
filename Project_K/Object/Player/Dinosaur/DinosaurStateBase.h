@@ -34,10 +34,10 @@ public:
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
 
 protected:
-	int m_Handle;
+	int m_Handle = -1;
 
 	bool m_shotFlag = false;
-	bool m_lookLeft;	// 左を向いているか
+	bool m_lookLeft = false;	// 左を向いているか
 	
 	int m_attakSizeLeft = 0;
 	int m_attackSizeTop = 0;
