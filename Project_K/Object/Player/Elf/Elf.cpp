@@ -82,14 +82,6 @@ void Elf::Update()
 		m_pUp->SetMoveTime(true);
 	}
 
-#if true
-
-	if (Pad::IsPress(PAD_INPUT_DOWN))m_pos.y += 15.0f;
-//	if (Pad::IsPress(PAD_INPUT_UP)) m_pos.y -= 15.0f;
-
-#endif
-
-
 	if (!m_isAttack)// 攻撃モーションに入ったら動けなくなる
 	{
 		m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
