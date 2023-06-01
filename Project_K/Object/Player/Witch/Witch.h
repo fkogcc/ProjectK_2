@@ -9,6 +9,7 @@ class WitchLongShotAttack;
 class WitchCharge;
 class Chicken;
 class KnightCat;
+class WitchDead;
 
 class Witch : public PlayerBase
 {
@@ -25,6 +26,7 @@ public:
 	void UpdatePlayerJudge();
 	void UpdateAttackJudge();
 	void UpdateAnim();
+	void UpdateDead();
 	void UpdateJump();
 private:
 	WitchIdle* m_pIdle;
@@ -34,6 +36,7 @@ private:
 	WitchCharge* m_pCharge;
 	Chicken* m_pChicken;
 	KnightCat* m_pKnightCat;
+	WitchDead* m_pDead;
 
 	int m_handle;
 	int m_animeHight;
