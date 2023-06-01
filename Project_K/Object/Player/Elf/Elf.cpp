@@ -18,6 +18,9 @@ namespace
 {
 	const char* const kFilmName = "Data/Image/Player/Elf/Elf.png";
 	constexpr float kSpeed = 10.0f;
+
+	constexpr float kGravity = 2.0f;
+	constexpr float kJumpPower = -40.0f;
 }
 
 Elf::Elf() :
@@ -41,6 +44,8 @@ Elf::Elf() :
 	m_pShot = new ElfAttackArrowShot;       // 攻撃
 	m_pPunch = new ElfAttackArrowPunch;	  // 攻撃
 	m_pUp = new ElfAttackArrowUp;	      // 攻撃
+
+	m_pos.y = 600.0f - 176.0f;
 
 }
 
@@ -77,11 +82,19 @@ void Elf::Update()
 		m_pUp->SetMoveTime(true);
 	}
 
+#if true
+
+	if (Pad::IsPress(PAD_INPUT_DOWN))m_pos.y += 15.0f;
+//	if (Pad::IsPress(PAD_INPUT_UP)) m_pos.y -= 15.0f;
+
+#endif
+
+
 	if (!m_isAttack)// 攻撃モーションに入ったら動けなくなる
 	{
 		m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
 
-		m_moveType = static_cast<int>(moveType::Jump);
+	//	m_moveType = static_cast<int>(moveType::Jump);
 
 		if (Pad::IsPress(PAD_INPUT_RIGHT,m_padNum))
 		{
@@ -116,6 +129,8 @@ void Elf::Update()
 			//　ジャンプ
 			m_moveType = static_cast<int>(moveType::Jump);
 			m_isAttack = true;
+			m_jumpAcc = kJumpPower;
+			
 		}
 		if (Pad::IsTrigger(XINPUT_BUTTON_LEFT_SHOULDER, m_padNum) || (Pad::IsTrigger(PAD_INPUT_R, m_padNum)))// XBOX X or Y
 		{
@@ -141,6 +156,20 @@ void Elf::Update()
 	m_sizeBottom = m_sizeTop + 176;
 
 	AnimationSwitch();
+
+	float posY = 600.0f - 176.0f;
+	if (m_pos.y > posY)
+	{
+		m_pos.y = posY;
+		if (m_jumpAcc > 0.0f)
+		{
+			m_jumpAcc = 0.0f;
+		}
+	}
+	
+	// 重力
+	m_jumpAcc += kGravity;
+	m_pos.y += m_jumpAcc;
 
 }
 
@@ -171,8 +200,10 @@ void Elf::AnimationSwitch()
 	{
 	case static_cast<int>(moveType::Idol):// 待機
 		m_pIdle->Update();
+		// 画像読み込み位置
 		m_imageX = m_pIdle->SetPosImageX();
 		m_imageY = m_pIdle->SetPosImageY();
+		// 攻撃範囲を指定　アイドル状態なので位置を初期化
 		m_attackSizeLeft   = 0;
 		m_attackSizeTop    = 0;
 		m_attackSizeRight  = 0;
@@ -180,13 +211,16 @@ void Elf::AnimationSwitch()
 		break;
 	case static_cast<int>(moveType::Run):// 走り
 		m_pRun->Update();
+		// 画像読み込み位置
 		m_imageX = m_pRun->SetPosImageX();
 		m_imageY = m_pRun->SetPosImageY();
 		break;
 	case static_cast<int>(moveType::Attack1):// 攻撃
 		m_pPunch->Update();
+		// 画像読み込み位置
 		m_imageX = m_pPunch->SetPosImageX();
 		m_imageY = m_pPunch->SetPosImageY();
+		// 攻撃範囲を指定
 		m_attackSizeLeft   = static_cast<int>(m_pos.x) + 90;
 		m_attackSizeTop    = static_cast<int>(m_pos.y) + 100;
 		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 230;
@@ -194,14 +228,17 @@ void Elf::AnimationSwitch()
 		break;
 	case static_cast<int>(moveType::Attack2):// 攻撃
 		m_pShot->Update();
+		// 画像読み込み位置
 		m_imageX = m_pShot->SetPosImageX();
 		m_imageY = m_pShot->SetPosImageY();
 		// ショット
 		break;
 	case static_cast<int>(moveType::Attack3):// 攻撃
 		m_pChargeShot->Update();
+		// 画像読み込み位置
 		m_imageX = m_pChargeShot->SetPosImageX();
 		m_imageY = m_pChargeShot->SetPosImageY();
+		// 攻撃範囲を指定
 		m_attackSizeLeft = static_cast<int>(m_pos.x) + 10;
 		m_attackSizeTop = static_cast<int>(m_pos.y)  + 100;
 		m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 580;
@@ -209,22 +246,29 @@ void Elf::AnimationSwitch()
 		break;
 	case static_cast<int>(moveType::Attack4):// 攻撃
 		m_pUp->Update();
+		// 画像読み込み位置
 		m_imageX = m_pUp->SetPosImageX();
 		m_imageY = m_pUp->SetPosImageY();
+		// 攻撃範囲を指定
 		m_attackSizeLeft   = static_cast<int>(m_pos.x) - 130;
 		m_attackSizeTop    = static_cast<int>(m_pos.y) - 130;
 		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 280;
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
 		break;
 	case static_cast<int>(moveType::Jump):// 攻撃
-		m_pJump->IsSetMove();
+		m_pJump->Update();
+		// 画像読み込み位置
 		m_imageX = m_pJump->SetPosImageX();
 		m_imageY = m_pJump->SetPosImageY();
+		// 
+	//	m_pos.y -= m_pJump->Gravity();
 		break;
 	default:// 待機
 		m_pIdle->Update();
+		// 画像読み込み位置
 		m_imageX = m_pIdle->SetPosImageX();
 		m_imageY = m_pIdle->SetPosImageY();
+		// 攻撃範囲を指定　アイドル状態なので位置を初期化
 		m_attackSizeLeft   = 0;
 		m_attackSizeTop    = 0;
 		m_attackSizeRight  = 0;

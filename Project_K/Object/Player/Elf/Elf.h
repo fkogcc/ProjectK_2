@@ -32,7 +32,7 @@ private:
 
 	int m_imageX, m_imageY;// ‰æ‘œ•`‰æˆÊ’u
 
-//	int m_temp
+	float m_jumpAcc = 0.0f;
 
 	bool m_isAttack;// 
 
