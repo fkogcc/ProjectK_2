@@ -20,29 +20,29 @@ void CharaChoice::Init()
 
 void CharaChoice::Update()
 {
-	updateChara1(); //パッド1のアップデート
-	updateChara2(); //パッド2のアップデート
+	updateChara1(); // パッド1のアップデート
+	updateChara2(); // パッド2のアップデート
 }
 
 void CharaChoice::Draw()
 {
-	if (m_Decision1) //キャラクターが決定されたとき赤文字で表示
+	if (m_Decision1) // キャラクターが決定されたとき赤文字で表示
 	{
 		DrawFormatString(300, 400, 0xff0000,
 			"%d", m_charaNumber1);
 	}
-	else //決定されてないとき白文字で表示
+	else // 決定されてないとき白文字で表示
 	{
 		DrawFormatString(300, 400, 0xffffff,
 				"%d", m_charaNumber1);
 	}
 
-	if (m_Decision2)//キャラクターが決定されたとき赤文字で表示
+	if (m_Decision2)// キャラクターが決定されたとき赤文字で表示
 	{
 		DrawFormatString(600, 400, 0xff0000,
 			"%d", m_charaNumber2);
 	}
-	else //決定されてないとき白文字で表示
+	else // 決定されてないとき白文字で表示
 	{
 		DrawFormatString(600, 400, 0xffffff,
 			"%d", m_charaNumber2);
@@ -51,7 +51,7 @@ void CharaChoice::Draw()
 
 void CharaChoice::updateChara1()
 {
-	//キャラクターが決定されていてかつ2ボタンを押された場合
+	// キャラクターが決定されていてかつ2ボタンを押された場合
 	if (!m_Decision1 || !m_Decision2)
 	{
 		if (Pad::IsTrigger(PAD_INPUT_2, 1) && m_Decision1)
@@ -61,7 +61,7 @@ void CharaChoice::updateChara1()
 		}
 	}
 
-	if (m_Decision1) return; //キャラクターが決定されていたら処理をしない
+	if (m_Decision1) return; // キャラクターが決定されていたら処理をしない
 
 	if (Pad::IsTrigger(PAD_INPUT_1,1))
 	{
@@ -91,7 +91,7 @@ void CharaChoice::updateChara1()
 
 void CharaChoice::updateChara2()
 {
-	//キャラクターが決定されていてかつ2ボタンを押された場合
+	// キャラクターが決定されていてかつ2ボタンを押された場合
 	if (!m_Decision1 || !m_Decision2)
 	{
 		if (Pad::IsTrigger(PAD_INPUT_2, 2) && m_Decision2)
@@ -100,7 +100,7 @@ void CharaChoice::updateChara2()
 			return;
 		}
 	}
-	if (m_Decision2) return;//キャラクターが決定されていたら処理をしない
+	if (m_Decision2) return;// キャラクターが決定されていたら処理をしない
 
 	if (Pad::IsTrigger(PAD_INPUT_1, 2))
 	{

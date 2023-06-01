@@ -236,10 +236,6 @@ void Kinnikurou::Update()
 			{
 				InitAttackSize();
 			}
-			/*m_attackSizeLeft = 30;
-			m_attackSizeTop= -30;
-			m_attackSizeRight = 90;
-			m_attackSizeBottom= 10;*/
 		}
 		else if (m_charDirection)
 		{
@@ -257,10 +253,6 @@ void Kinnikurou::Update()
 			{
 				InitAttackSize();
 			}
-			/*m_attackSizeLeft = -30;
-			m_attackSizeTop = -30;
-			m_attackSizeRight = -90;
-			m_attackSizeBottom = 10;*/
 		}
 
 		m_pJab->Update(m_imgPosX, m_imgPosY);
@@ -275,41 +267,23 @@ void Kinnikurou::Update()
 			// 当たり判定
 			if (kIsAttack)
 			{
-				//SetAttackSize(-50, -90, 100, 90);
-
-				m_attackSizeLeft = -50;
-				m_attackSizeTop = -90;
-				m_attackSizeRight = 100;
-				m_attackSizeBottom = 90;
+				SetAttackSize(-50, -90, 100, 90);
 			}
 			else if (!kIsAttack)
 			{
 				InitAttackSize();
 			}
-			/*m_attackSizeLeft = -50;
-			m_attackSizeTop = -90;
-			m_attackSizeRight = 100;
-			m_attackSizeBottom = 90;*/
 		}
 		else if (m_charDirection)
 		{
 			if (kIsAttack)
 			{
-				//SetAttackSize(50, -90, -100, 90);
-
-				m_attackSizeLeft = 50;
-				m_attackSizeTop = -90;
-				m_attackSizeRight = -100;
-				m_attackSizeBottom = 90;
+				SetAttackSize(50, -90, -100, 90);
 			}
 			else if (!kIsAttack)
 			{
 				InitAttackSize();
 			}
-			/*m_attackSizeLeft = 50;
-			m_attackSizeTop = -90;
-			m_attackSizeRight = -100;
-			m_attackSizeBottom = 90;*/
 		}
 		
 
@@ -383,7 +357,6 @@ void Kinnikurou::Update()
 		m_attackFlag = false;
 		m_pRun->Update(m_imgPosX, m_imgPosY);
 	}
-	//UpdateJump();
 }
 
 void Kinnikurou::Draw()

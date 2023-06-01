@@ -3,7 +3,7 @@
 
 namespace
 {
-	constexpr int kCharaNum = 4; //キャラクターの数
+	constexpr int kCharaNum = 4; // キャラクターの数
 }
 
 class CharaChoice
@@ -16,16 +16,16 @@ public:
 	void Update();
 	void Draw();
 
-	//キャラナンバーを返す
+	// キャラナンバーを返す
 	int GetChackChara1() { return m_charaNumber1; }
 	int GetChackChara2() { return m_charaNumber2; }
 
-	//キャラクター決定情報を返す.
+	// キャラクター決定情報を返す.
 	bool GetDecision1() { return m_Decision1; }
 	bool GetDecision2() { return m_Decision2; }
 
 private:
-	//キャラナンバーのアップデート
+	// キャラナンバーのアップデート
 	void updateChara1();
 	void updateChara2();
 
