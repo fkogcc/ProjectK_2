@@ -52,10 +52,13 @@ void CharaChoice::Draw()
 void CharaChoice::updateChara1()
 {
 	//キャラクターが決定されていてかつ2ボタンを押された場合
-	if (Pad::IsTrigger(PAD_INPUT_2, 1)&& m_Decision1)
+	if (!m_Decision1 || !m_Decision2)
 	{
-		m_Decision1 = false;
-		return;
+		if (Pad::IsTrigger(PAD_INPUT_2, 1) && m_Decision1)
+		{
+			m_Decision1 = false;
+			return;
+		}
 	}
 
 	if (m_Decision1) return; //キャラクターが決定されていたら処理をしない
@@ -89,10 +92,13 @@ void CharaChoice::updateChara1()
 void CharaChoice::updateChara2()
 {
 	//キャラクターが決定されていてかつ2ボタンを押された場合
-	if (Pad::IsTrigger(PAD_INPUT_2, 2) && m_Decision2)
+	if (!m_Decision1 || !m_Decision2)
 	{
-		m_Decision2 = false;
-		return;
+		if (Pad::IsTrigger(PAD_INPUT_2, 2) && m_Decision2)
+		{
+			m_Decision2 = false;
+			return;
+		}
 	}
 	if (m_Decision2) return;//キャラクターが決定されていたら処理をしない
 
