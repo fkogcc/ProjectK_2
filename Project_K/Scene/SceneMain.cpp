@@ -10,6 +10,7 @@
 #include <assert.h>
 #include"../Object/Shot/ShotBase.h"
 #include"../Util/Collision.h"
+#include "../Util/UI.h"
 
 #include <iostream>
 
@@ -19,54 +20,67 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
 {
 	m_pStage = new Stage;
 
-	m_Player[0] = Player1;
-	m_Player[1] = Player2;
-	m_Coll = new Collision(m_Player[0], m_Player[1]);
+	m_pPlayer[0] = Player1;
+	m_pPlayer[1] = Player2;
+	m_pColl = new Collision(m_pPlayer[0], m_pPlayer[1]);
+	m_pUi = new UI(m_pPlayer[0]->GetHp(), m_pPlayer[1]->GetHp());
 }
 
 SceneMain::~SceneMain()
 {
 	// メモリの開放
-	delete m_Player[0];
-	delete m_Player[1];
 	delete m_pStage;
+	delete m_pPlayer[0];
+	delete m_pPlayer[1];
+	delete m_pColl;
+	delete m_pUi;
+	
 }
 
 void SceneMain::Init()
 {
-	m_Player[0]->Init();
-	m_Player[1]->Init();
+	m_pPlayer[0]->Init();
+	m_pPlayer[1]->Init();
 
-	m_Player[0]->SetPadNum(1);
-	m_Player[1]->SetPadNum(2);
+	m_pPlayer[0]->SetPadNum(1);
+	m_pPlayer[1]->SetPadNum(2);
 
 
 	m_pStage->Init();
+
+	//m_pStage->Init();
 }
 
 void SceneMain::End()
 {
-	m_Player[0]->End();
-	m_Player[1]->End();
+	m_pPlayer[0]->End();
+	m_pPlayer[1]->End();
+
+
 }
 
 SceneBase* SceneMain::Update()
 {
-	m_Player[0]->Update();
-	m_Player[1]->Update();
+	m_pPlayer[0]->Update();
+	m_pPlayer[1]->Update();
 
-	if (m_Coll->IsColl1() && m_Coll->IsColl2())
+	// UIの更新処理
+	m_pUi->Update();
+	m_pUi->GetHp1(m_pPlayer[0]->GetHp());// 1PのHPを渡す
+	m_pUi->GetHp2(m_pPlayer[1]->GetHp());// 2PのHPを渡す
+
+	if (m_pColl->IsColl1() && m_pColl->IsColl2())
 	{
-		if (m_Player[0]->GetAttackFrame() < m_Player[1]->GetAttackFrame())
+		if (m_pPlayer[0]->GetAttackFrame() < m_pPlayer[1]->GetAttackFrame())
 		{
-			m_Player[1]->OnDamage(1);
-			m_Player[0]->SetAttackFlag(false);
+			m_pPlayer[1]->OnDamage(1);
+			m_pPlayer[0]->SetAttackFlag(false);
 		}
 
-		if (m_Player[0]->GetAttackFrame() >= m_Player[1]->GetAttackFrame())
+		if (m_pPlayer[0]->GetAttackFrame() >= m_pPlayer[1]->GetAttackFrame())
 		{
-			m_Player[0]->OnDamage(1);
-			m_Player[1]->SetAttackFlag(false);
+			m_pPlayer[0]->OnDamage(1);
+			m_pPlayer[1]->SetAttackFlag(false);
 		}
 
 		/*if (m_Player[0]->GetAttackFrame() == m_Player[1]->GetAttackFrame())
@@ -75,27 +89,27 @@ SceneBase* SceneMain::Update()
 		}*/
 	}
 
-	else if (m_Coll->IsColl1())
+	else if (m_pColl->IsColl1())
 	{
-		m_Player[0]->OnDamage(1);
-		m_Player[1]->SetAttackFlag(false);
+		m_pPlayer[0]->OnDamage(1);
+		m_pPlayer[1]->SetAttackFlag(false);
 
 	}
 
-	else if (m_Coll->IsColl2())
+	else if (m_pColl->IsColl2())
 	{
-		m_Player[1]->OnDamage(1);
-		m_Player[0]->SetAttackFlag(false);
+		m_pPlayer[1]->OnDamage(1);
+		m_pPlayer[0]->SetAttackFlag(false);
 	}
 
-	if (m_Coll->ShotColl1())
+	if (m_pColl->ShotColl1())
 	{
-		m_Player[0]->OnDamage(1);
+		m_pPlayer[0]->OnDamage(1);
 	}
 
-	if (m_Coll->ShotColl2())
+	if (m_pColl->ShotColl2())
 	{
-		m_Player[1]->OnDamage(1);
+		m_pPlayer[1]->OnDamage(1);
 	}
 
 	m_pStage->Update();
@@ -118,19 +132,19 @@ SceneBase* SceneMain::Update()
 	if (!IsFading())
 	{
 		// デバッグ用シーン遷移
-		if (m_Player[0]->GetHp() <= 0 || m_Player[1]->GetHp() <= 0)
+		if (m_pPlayer[0]->GetHp() <= 0 || m_pPlayer[1]->GetHp() <= 0)
 		{
 			StartFadeOut();
 		}
 	}
 
 	// 1Pの勝利
-	if (m_Player[1]->GetHp() <= 0)
+	if (m_pPlayer[1]->GetHp() <= 0)
 	{
 		m_isVictory1P = true;
 	}
 	// 2Pの勝利
-	else if (m_Player[0]->GetHp() <= 0)
+	else if (m_pPlayer[0]->GetHp() <= 0)
 	{
 		m_isVictory2P = true;
 	}
@@ -141,15 +155,18 @@ SceneBase* SceneMain::Update()
 void SceneMain::Draw()
 {
 	// プレイヤーのHPの変数
-	printfDx("Dino:%d\n", m_Player[0]->GetHp());
-	printfDx("Kin:%d\n", m_Player[1]->GetHp());
+	printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
+	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
 	// プレイヤーの描画
-	m_Player[0]->Draw();
-	m_Player[1]->Draw();
+	m_pPlayer[0]->Draw();
+	m_pPlayer[1]->Draw();
 
 	// ステージの描画
 	m_pStage->Draw();
+
+	// UIの描画
+	m_pUi->Draw();
 
 	SceneBase::DrawFade();
 }

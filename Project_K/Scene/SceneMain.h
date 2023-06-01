@@ -6,15 +6,10 @@
 #include <string>
 #include <vector>
 
-// ポインタ
-class Dinosaur;		// 爬虫類
-class Elf;			// エルフ
-class Kinnikurou;	// 筋肉
-class Witch;		// 魔女
+class Stage;		// ステージ
 class PlayerBase;
 class Collision;
-
-class Stage;		// ステージ
+class UI;			// UI
 
 class SceneMain : public SceneBase
 {
@@ -30,10 +25,9 @@ public:
 
 private:
 	Stage*		m_pStage;
-
-	PlayerBase* m_Player[2];
-
-	Collision* m_Coll;
+	PlayerBase* m_pPlayer[2];
+	Collision* m_pColl;
+	UI* m_pUi;
 
 	bool m_isVictory1P;// 1Pの勝敗
 	bool m_isVictory2P;// 2Pの勝敗
