@@ -28,6 +28,10 @@ public:
 	void AttackCol();
 
 private:
+	void InitAttackSize();
+	void SetAttackSize(int left, int top, int right, int bottom);
+
+private:
 
 	KinnikuIdle* m_pIdle;
 	KinnikurouJab* m_pJab;
@@ -75,5 +79,7 @@ private:
 
 	// ƒLƒƒƒ‰‚ªƒWƒƒƒ“ƒv’†‚©‚Ç‚¤‚©
 	float m_isJump;
+
+	bool kIsAttack;
 };
 

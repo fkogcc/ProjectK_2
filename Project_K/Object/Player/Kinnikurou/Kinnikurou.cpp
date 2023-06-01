@@ -20,6 +20,12 @@ namespace
 	const char* const kRun = "Data/Image/Player/Kinnikurou/Run.png";
 	const char* const kJump = "Data/Image/Player/Kinnikurou/Jump.png";
 	const char* const kFall = "Data/Image/Player/Kinnikurou/Fall.png";
+
+	// 攻撃判定が出る瞬間
+	/*bool kIsAttack = m_pJab->IsAttackColJab() ||
+		m_pMuscle->IsAttackColMuscle() ||
+		m_pUpper->IsAttackColUpper() ||
+		m_pMizo->IsAttackColMizo();*/
 }
 
 Kinnikurou::Kinnikurou() :
@@ -42,7 +48,8 @@ Kinnikurou::Kinnikurou() :
 	m_jumpAcc(0),
 	m_charDirection(false),
 	m_charRun(false),
-	m_isJump(true)
+	m_isJump(true),
+	kIsAttack(false)
 {
 	m_pIdle = new KinnikuIdle;
 	m_pJab = new KinnikurouJab;
@@ -85,6 +92,8 @@ void Kinnikurou::Init()
 	m_sizeTop = -50;
 	m_sizeRight = 50;
 	m_sizeBottom = 50;
+
+	
 }
 
 void Kinnikurou::End()
@@ -101,6 +110,11 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
+
+	kIsAttack = m_pJab->IsAttackColJab() ||
+		m_pMuscle->IsAttackColMuscle() ||
+		m_pUpper->IsAttackColUpper() ||
+		m_pMizo->IsAttackColMizo();
 
 	if (m_motionCount != 0)
 	{
@@ -214,18 +228,39 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_attackSizeLeft = 30;
+			if (kIsAttack)
+			{
+				SetAttackSize(30, -30, 90, 10);
+			}
+			else if (!kIsAttack)
+			{
+				InitAttackSize();
+			}
+			/*m_attackSizeLeft = 30;
 			m_attackSizeTop= -30;
 			m_attackSizeRight = 90;
-			m_attackSizeBottom= 10;
+			m_attackSizeBottom= 10;*/
 		}
 		else if (m_charDirection)
 		{
 			// 当たり判定
-			m_attackSizeLeft = -30;
+			if (kIsAttack)
+			{
+				//SetAttackSize(-30, -30, -90, 10);
+
+				m_attackSizeLeft = -30;
+				m_attackSizeTop = -30;
+				m_attackSizeRight = -90;
+				m_attackSizeBottom = 10;
+			}
+			else if (!kIsAttack)
+			{
+				InitAttackSize();
+			}
+			/*m_attackSizeLeft = -30;
 			m_attackSizeTop = -30;
 			m_attackSizeRight = -90;
-			m_attackSizeBottom = 10;
+			m_attackSizeBottom = 10;*/
 		}
 
 		m_pJab->Update(m_imgPosX, m_imgPosY);
@@ -238,17 +273,43 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_attackSizeLeft = -50;
+			if (kIsAttack)
+			{
+				//SetAttackSize(-50, -90, 100, 90);
+
+				m_attackSizeLeft = -50;
+				m_attackSizeTop = -90;
+				m_attackSizeRight = 100;
+				m_attackSizeBottom = 90;
+			}
+			else if (!kIsAttack)
+			{
+				InitAttackSize();
+			}
+			/*m_attackSizeLeft = -50;
 			m_attackSizeTop = -90;
 			m_attackSizeRight = 100;
-			m_attackSizeBottom = 90;
+			m_attackSizeBottom = 90;*/
 		}
 		else if (m_charDirection)
 		{
-			m_attackSizeLeft = 50;
+			if (kIsAttack)
+			{
+				//SetAttackSize(50, -90, -100, 90);
+
+				m_attackSizeLeft = 50;
+				m_attackSizeTop = -90;
+				m_attackSizeRight = -100;
+				m_attackSizeBottom = 90;
+			}
+			else if (!kIsAttack)
+			{
+				InitAttackSize();
+			}
+			/*m_attackSizeLeft = 50;
 			m_attackSizeTop = -90;
 			m_attackSizeRight = -100;
-			m_attackSizeBottom = 90;
+			m_attackSizeBottom = 90;*/
 		}
 		
 
@@ -262,20 +323,26 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_attackSizeLeft = 30;
-			m_attackSizeTop = -80;
-			m_attackSizeRight = 100;
-			m_attackSizeBottom = 80;
+			if (kIsAttack)
+			{
+				SetAttackSize(30, -80, 100, 80);
+			}
+			else if (!kIsAttack)
+			{
+				InitAttackSize();
+			}
 		}
 		else if (m_charDirection)
 		{
-			m_attackSizeLeft = -30;
-			m_attackSizeTop = -80;
-			m_attackSizeRight = -100;
-			m_attackSizeBottom = 80;
+			if (kIsAttack)
+			{
+				SetAttackSize(-30, -80, -100, 80);
+			}
+			else if (!kIsAttack)
+			{
+				InitAttackSize();
+			}
 		}
-
-		
 
 		m_pUpper->Update(m_imgPosX, m_imgPosY);
 	}
@@ -287,20 +354,26 @@ void Kinnikurou::Update()
 		if (!m_charDirection)
 		{
 			// 当たり判定
-			m_attackSizeLeft = 30;
-			m_attackSizeTop = -10;
-			m_attackSizeRight = 80;
-			m_attackSizeBottom = 10;
+			if (kIsAttack)
+			{
+				SetAttackSize(30, -10, 80, 10);
+			}
+			else if (!kIsAttack)
+			{
+				InitAttackSize();
+			}
 		}
 		else if (m_charDirection)
 		{
-			m_attackSizeLeft = -30;
-			m_attackSizeTop = -10;
-			m_attackSizeRight = -80;
-			m_attackSizeBottom = 10;
+			if (kIsAttack)
+			{
+				SetAttackSize(-30, -10, -80, 10);
+			}
+			else if (!kIsAttack)
+			{
+				InitAttackSize();
+			}
 		}
-
-		
 
 		m_pMizo->Update(m_imgPosX, m_imgPosY);
 	}
@@ -311,8 +384,6 @@ void Kinnikurou::Update()
 		m_pRun->Update(m_imgPosX, m_imgPosY);
 	}
 	//UpdateJump();
-
-	
 }
 
 void Kinnikurou::Draw()
@@ -412,16 +483,27 @@ void Kinnikurou::DrawBoxAttackCol()
 
 void Kinnikurou::AttackCol()
 {
-	bool isAttack = m_pJab->IsAttackColJab() || 
-					m_pMuscle->IsAttackColMuscle() || 
-					m_pUpper->IsAttackColUpper() || 
-					m_pMizo->IsAttackColMizo();
-
 	if (m_attackFlag)
 	{
-		if (isAttack)
+		if (kIsAttack)
 		{
 			DrawBoxAttackCol();
 		}
 	}
+}
+
+void Kinnikurou::InitAttackSize()
+{
+	m_attackSizeLeft = 0;
+	m_attackSizeTop = 0;
+	m_attackSizeRight = 0;
+	m_attackSizeBottom = 0;
+}
+
+void Kinnikurou::SetAttackSize(int left, int top, int right, int bottom)
+{
+	m_attackSizeLeft = left;
+	m_attackSizeTop = top;
+	m_attackSizeRight = right;
+	m_attackSizeBottom = bottom;
 }
