@@ -4,15 +4,23 @@
 class UI
 {
 public:
-	UI();
+	UI(int Hp1, int Hp2);
 	~UI() {};
 
 	void Init() {}// 初期化
 	void Update();// 更新処理
 	void Draw();// 描画処理
 
-	void GetHp1(int hp) { UI1.m_life = hp; }// 1PのHP
-	void GetHp2(int hp) { UI2.m_life = hp; }// 2PのHP
+	void HpUpdate();
+	void HpDraw();
+
+	void FontUpdate();
+	void FontDraw();
+
+
+	void GetHp1(int hp) { m_ui1.m_temp = hp; }// 1PのHP
+	void GetHp2(int hp) { m_ui2.m_temp = hp; }// 2PのHP
+	void AttackFlag(bool flag) { m_attackFlag = flag; }
 private:
 
 	Vec2 m_boxPos;
@@ -20,13 +28,18 @@ private:
 	struct  UIData
 	{
 		Vec2 m_pos = { 0,0 };// HPバーの位置
+		int m_temp = 0;// HPをうけとる用の変数
 		int m_life = 0;// 各プレイヤーのHP
-		int m_temp = 0;// 仮で保存するHP用の変数
+		int m_lower = 0;// 仮で保存するHP用の変数
 	};
 
 	int m_countFrame;// 仮のHPを減らすタイマー
+	int m_font = 0;// フォント
+	bool m_attackFlag;// 攻撃中かどうかを調べる
+	UIData m_ui1;// 1P
+	UIData m_ui2;// 2P
 
-
-	UIData UI1;
-	UIData UI2;
+	int m_timeCount;// 時間カウント用
+	int m_time;// 表示用時間
+	const char* m_letter;// 文字
 };
