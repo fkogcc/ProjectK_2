@@ -9,5 +9,8 @@ public:
 	virtual ~ElfJump() {}
 
 	void Update();// XV
+	float Gravity();
+private:
+	float m_jumpAcc;
 };
 
