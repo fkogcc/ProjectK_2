@@ -26,7 +26,7 @@ namespace
 Elf::Elf() :
 	m_handle(0),
 	m_imageX(0), m_imageY(0),
-	m_isAttack(false),
+	m_atackFlag(false),
 	m_isDirection(false),
 	m_isCollPos(false),
 	m_pIdle(nullptr),
@@ -73,20 +73,24 @@ void Elf::Update()
 		!m_pUp->IsSetMove())
 
 	{
-		m_isAttack = false;
+		m_atackFlag = false;
 
 		m_pChargeShot->SetMoveTime(true);
 		m_pJump->SetMoveTime(true);
 		m_pShot->SetMoveTime(true);
 		m_pPunch->SetMoveTime(true);
 		m_pUp->SetMoveTime(true);
+
+		m_attackSizeLeft = 0.0f;
+		m_attackSizeTop = 0.0f;
+		m_attackSizeRight = 0.0f;
+		m_attackSizeBottom = 0.0f;
 	}
 
-	if (!m_isAttack)// 攻撃モーションに入ったら動けなくなる
+	// 攻撃モーションに入ったら動けなくなる
+	if (!m_atackFlag)
 	{
 		m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
-
-	//	m_moveType = static_cast<int>(moveType::Jump);
 
 		if (Pad::IsPress(PAD_INPUT_RIGHT,m_padNum))
 		{
@@ -100,27 +104,22 @@ void Elf::Update()
 			m_pos.x -= kSpeed;
 			m_isDirection = true;
 		}
-		else
-		{
-			//	m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
-			//	m_isAttack = false;
-		}
 
 		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))// XBOX A
 		{
 			m_moveType = static_cast<int>(moveType::Attack1);// 攻撃
-			m_isAttack = true;
+			m_atackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);// 攻撃
-			m_isAttack = true;
+			m_atackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))// XBOX X or Y
 		{
 			//　ジャンプ
 			m_moveType = static_cast<int>(moveType::Jump);
-			m_isAttack = true;
+			m_atackFlag = true;
 			m_jumpAcc = kJumpPower;
 			
 		}
@@ -133,17 +132,17 @@ void Elf::Update()
 			Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_LEFT, m_padNum)))   // XBOX A && LEFT
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);;// 攻撃
-			m_isAttack = true;
+			m_atackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_UP, m_padNum)))// XBOX A && UP
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
-			m_isAttack = true;
+			m_atackFlag = true;
 		}
 	}
 
-	m_sizeLeft   = static_cast<int>(m_pos.x) - 30;
-	m_sizeTop    = static_cast<int>(m_pos.y) + 75;
+	m_sizeLeft   = - 30;
+	m_sizeTop    =   75;
 	m_sizeRight  = m_sizeLeft + 60;
 	m_sizeBottom = m_sizeTop + 176;
 
@@ -180,9 +179,17 @@ void Elf::Draw()
 		m_isDirection
 	);
 
-	DrawBox(m_sizeLeft, m_sizeTop, m_sizeRight, m_sizeBottom,0xffffff,false);
+	DrawBox(m_sizeLeft + m_pos.x , 
+			m_sizeTop + m_pos.y,
+			m_sizeRight + m_pos.x, 
+			m_sizeBottom + m_pos.y,
+		GetColor(GetRand(255), GetRand(255), GetRand(255)), false);
 
-	if(m_isAttack)DrawBox(m_attackSizeLeft, m_attackSizeTop, m_attackSizeRight, m_attackSizeBottom, 0xff0000, false);
+	DrawBox(m_attackSizeLeft + m_pos.x,
+			m_attackSizeTop + m_pos.y,
+			m_attackSizeRight +  m_pos.x,
+			m_attackSizeBottom + m_pos.y,
+			0xff0000, false);
 	
 }
 
@@ -213,10 +220,20 @@ void Elf::AnimationSwitch()
 		m_imageX = m_pPunch->SetPosImageX();
 		m_imageY = m_pPunch->SetPosImageY();
 		// 攻撃範囲を指定
-		m_attackSizeLeft   = static_cast<int>(m_pos.x) + 90;
-		m_attackSizeTop    = static_cast<int>(m_pos.y) + 100;
-		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 230;
-		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
+		if (m_isDirection)
+		{
+			m_attackSizeLeft = - 230 - 90;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_sizeLeft) - 50;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
+		}
+		else
+		{
+			m_attackSizeLeft = 90;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 230;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
+		}
 		break;
 	case static_cast<int>(moveType::Attack2):// 攻撃
 		m_pShot->Update();
@@ -231,10 +248,20 @@ void Elf::AnimationSwitch()
 		m_imageX = m_pChargeShot->SetPosImageX();
 		m_imageY = m_pChargeShot->SetPosImageY();
 		// 攻撃範囲を指定
-		m_attackSizeLeft = static_cast<int>(m_pos.x) + 10;
-		m_attackSizeTop = static_cast<int>(m_pos.y)  + 100;
-		m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 580;
-		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+		if (m_isDirection)
+		{
+			m_attackSizeLeft =- 580 - 10;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_sizeLeft) - 80;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+		}
+		else
+		{
+			m_attackSizeLeft =10;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 580;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+		}
 		break;
 	case static_cast<int>(moveType::Attack4):// 攻撃
 		m_pUp->Update();
@@ -242,8 +269,8 @@ void Elf::AnimationSwitch()
 		m_imageX = m_pUp->SetPosImageX();
 		m_imageY = m_pUp->SetPosImageY();
 		// 攻撃範囲を指定
-		m_attackSizeLeft   = static_cast<int>(m_pos.x) - 130;
-		m_attackSizeTop    = static_cast<int>(m_pos.y) - 130;
+		m_attackSizeLeft   = - 130;
+		m_attackSizeTop    = - 130;
 		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 280;
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
 		break;
