@@ -169,6 +169,7 @@
     <ClCompile Include="Util\UI.cpp">
       <Filter>cpp\Util</Filter>
     </ClCompile>
+    <ClCompile Include="LogoRotation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -345,6 +346,7 @@
     <ClInclude Include="Util\UI.h">
       <Filter>h\Util</Filter>
     </ClInclude>
+    <ClInclude Include="LogoRotation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cpp">

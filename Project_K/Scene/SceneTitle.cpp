@@ -1,17 +1,11 @@
 #include "SceneTitle.h"
 #include "SceneMapSelect.h"
-#include "../Util/DrawFunctions.h"
+#include "../LogoRotation.h"
 
 SceneTitle::SceneTitle():
-	m_hLogo(-1),
-	m_pos(0.0, 0.0),
-	m_logoPos(0.0, 0.0)
+	m_pLogo(nullptr)
 {
-	m_pos.x = 100.0f;
-	m_pos.y = 100.0f;
-
-	m_logoPos.x = 300.0f;
-	m_logoPos.y = 300.0f;
+	m_pLogo = new LogoRotation;
 }
 
 SceneTitle::~SceneTitle()
@@ -21,24 +15,18 @@ SceneTitle::~SceneTitle()
 void SceneTitle::Init()
 {
 	m_isFadeOut = IsFadingOut();
-	m_hLogo = my::MyLoadGraph("Data/Image/Logo/logo.png");
+	m_pLogo->Init();
 }
 
 void SceneTitle::End()
 {
-	DeleteGraph(m_hLogo);
+	delete m_pLogo;
 }
 
 SceneBase* SceneTitle::Update()
 {
 
-	float trans = 0.8f;
-
-
-	m_pos.x += trans;
-
-	m_logoPos.x -= trans;
-
+	m_pLogo->Update();
 
 	// フェードインアウトしている
 	if (IsFading())
@@ -76,7 +64,7 @@ void SceneTitle::Draw()
 	DrawString(0, 0, "title", Color::kWhite, false);
 	DrawString(0, 0, "title", 0x000000, false);
 
-	my::MyDrawExtendGraph(m_pos.x, m_pos.y, m_logoPos.x, m_logoPos.y, m_hLogo, true);
+	m_pLogo->Draw();
 
 	SceneBase::DrawFade();
 }

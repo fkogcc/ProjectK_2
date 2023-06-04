@@ -3,6 +3,7 @@
 #include "../Util/common.h"
 #include "../Util/Vec2.h"
 
+class LogoRotation;
 class SceneTitle : public SceneBase
 {
 public:
@@ -16,10 +17,6 @@ public:
 	virtual void Draw();
 
 private:
-	// 
-	int m_hLogo;
-
-	Vec2 m_pos;
-	Vec2 m_logoPos;
+	LogoRotation* m_pLogo;
 };
 
