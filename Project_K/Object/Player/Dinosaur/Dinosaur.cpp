@@ -4,6 +4,7 @@
 #include"../../Shot/ShotBase.h"
 #include"../../Shot/DinoShot.h"
 #include"../../Shot/NullShot.h"
+#include<cassert>
 
 namespace
 {
@@ -12,13 +13,14 @@ namespace
 	constexpr int kAttackDuration = 10; //攻撃持続時間
 }
 
-Dinosaur::Dinosaur() : 
+Dinosaur::Dinosaur() :
 	m_Handle(-1)
 {
 	m_hp = 150;
 	m_Handle = LoadGraph(kFilename);
 	m_StateManager = new DinosaurStateManager(m_Handle);
 	m_StateManager->Init();
+	//m_pos.y = 100.0f;
 }
 
 Dinosaur::~Dinosaur()
@@ -39,21 +41,35 @@ void Dinosaur::End()
 
 void Dinosaur::Update()
 {
+	// hpが0になったらm_StateManagerのm_deadFlagをtrueに
+	if (m_hp < 0)
+	{
+		m_StateManager->SetDeadFlag();
+	}
+	// StateManagerのアップデート
 	m_StateManager->Update(m_padNum);
 
-	GetAttackSize();
+	GetAttackSize(); //攻撃のサイズ取得
 
+	// ダメージ取得
+	m_damage = m_StateManager->GetOnDamage();
+
+	// 攻撃フラグ取得
 	m_attackFlag = m_StateManager->GetAttackFlag();
 
+	// 攻撃フラグがtrueのとき
 	if (m_attackFlag)
 	{
+		// カウントを増やす
 		attackCountUp();
 	}
-	else
+	else// falseのとき
 	{
+		// カウントを0に
 		m_attackFrameCount = 0;
 	}
 
+	// m_posの値を取得
 	m_pos = m_StateManager->GetPos();
 
 	for (int i = 0; i < kShotMax; i++)
@@ -64,7 +80,8 @@ void Dinosaur::Update()
 			m_Shot[i] = new NullShot();
 		}
 	}
-	
+
+	//ショットアップデート
 	for (int i = 0; i < kShotMax; i++)
 	{
 		m_Shot[i]->Update();
@@ -109,8 +126,10 @@ void Dinosaur::Update()
 
 void Dinosaur::Draw()
 {
+	// キャラクター表示
 	m_StateManager->Draw();
 
+	//ショット表示
 	for (int i = 0; i < kShotMax; i++)
 	{
 		if (m_Shot[i] != nullptr)
@@ -119,6 +138,7 @@ void Dinosaur::Draw()
 		}
 	}
 
+	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 	if (m_attackFlag)
 	{
 		DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,

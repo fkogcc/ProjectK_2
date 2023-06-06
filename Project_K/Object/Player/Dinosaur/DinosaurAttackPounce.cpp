@@ -25,7 +25,7 @@ DinosaurAttackPounce::DinosaurAttackPounce(Vec2 pos, Vec2 vec)
 		m_attackSizeRight = 0;
 		m_attackSizeBottom = 80;
 
-	
+		m_attackDamage = 10;
 	}
 }
 
