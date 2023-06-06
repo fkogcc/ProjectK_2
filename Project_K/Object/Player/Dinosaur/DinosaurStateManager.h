@@ -31,12 +31,19 @@ public:
 
 	bool GetLookLeft() { return m_lookLeft; }
 
+	int GetOnDamage();
+
 	void SetAttackFlag();
+
+	//死んだときm_deadFlagをtrueに
+	void SetDeadFlag() { m_deadFlag = true; }
 
 private:
 	int m_Handle;
 
 	bool m_lookLeft; // 左を向いているかどうか
+
+	bool m_deadFlag = false; //死んでいるかどうか
 
 	// シーンベースポインタ
 	DinosaurStateBase* m_pState;

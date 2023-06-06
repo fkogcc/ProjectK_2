@@ -6,7 +6,7 @@
 class DinosaurStateBase
 {
 public:
-	virtual ~DinosaurStateBase(){};
+	virtual ~DinosaurStateBase() {};
 
 	virtual void Init(int Handle);
 
@@ -14,7 +14,7 @@ public:
 
 	virtual void Draw(int handle, bool lookRight);
 
-	virtual void ChangeGraph(int ChangeSpeed, int GraphNum , bool ChangeY);
+	virtual void ChangeGraph(int ChangeSpeed, int GraphNum, bool ChangeY);
 
 	virtual void SetPos(Vec2 pos) { m_Pos = pos; }
 	virtual Vec2 GetPos() { return m_Pos; }
@@ -22,8 +22,9 @@ public:
 	virtual bool GetshotFlag() { return m_shotFlag; }
 
 	virtual bool GetAttackFlag() { return m_attackFlag; }
-	virtual bool SetAttackFlag(bool attackFlag) { return m_attackFlag = attackFlag;}
+	virtual bool SetAttackFlag(bool attackFlag) { return m_attackFlag = attackFlag; }
 
+	virtual void SetDeadFlag() { m_deadFlag = true; }
 
 	virtual void SetLookFlag(bool RightFlag) { m_lookLeft = RightFlag; }
 
@@ -33,12 +34,15 @@ public:
 	int GetAttackSizeRight() { return m_attackSizeRight; }
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
 
+	int GetAttackDamage() { return m_attackDamage; }
+
 protected:
 	int m_Handle;
 
 	bool m_shotFlag = false;
 	bool m_lookLeft;	// 左を向いているか
-	
+	bool m_deadFlag = false; //死んでいるかどうか
+
 	int m_attakSizeLeft = 0;
 	int m_attackSizeTop = 0;
 	int m_attackSizeRight = 0;

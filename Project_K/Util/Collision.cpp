@@ -145,3 +145,32 @@ bool Collision::ShotColl2()
 	return false;
 }
 
+bool Collision::AttackColl()
+{
+	if (!m_Player[0]->GetAttackFlag())
+	{
+		return false;
+	}
+
+	if (!m_Player[1]->GetAttackFlag())
+	{
+		return false;
+	}
+
+	int PlayerAtkLeft1 = static_cast<int>(m_Player[0]->GetPos().x) + m_Player[0]->GetAttackSizeLeft();
+	int PlayerAtkTop1 = static_cast<int>(m_Player[0]->GetPos().y) + m_Player[0]->GetAttackSizeTop();
+	int PlayerAtkRight1 = static_cast<int>(m_Player[0]->GetPos().x) + m_Player[0]->GetAttackSizeRight();
+	int PlayerAtkBottom1 = static_cast<int>(m_Player[0]->GetPos().y) + m_Player[0]->GetAttackSizeBottom();
+
+	int PlayerAtkLeft2 = static_cast<int>(m_Player[1]->GetPos().x) + m_Player[1]->GetAttackSizeLeft();
+	int PlayerAtkTop2 = static_cast<int>(m_Player[1]->GetPos().y) + m_Player[1]->GetAttackSizeTop();
+	int PlayerAtkRight2 = static_cast<int>(m_Player[1]->GetPos().x) + m_Player[1]->GetAttackSizeRight();
+	int PlayerAtkBottom2 = static_cast<int>(m_Player[1]->GetPos().y) + m_Player[1]->GetAttackSizeBottom();
+
+	if (PlayerAtkLeft1 > PlayerAtkRight2) return false;
+	if (PlayerAtkRight1 < PlayerAtkLeft2) return false;
+	if (PlayerAtkTop1 > PlayerAtkBottom2) return false;
+	if (PlayerAtkBottom1 < PlayerAtkTop2) return false;
+
+	return true;
+}
