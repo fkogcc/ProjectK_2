@@ -62,6 +62,8 @@ public:
 
 	ShotBase* GetShot(int i) { return m_Shot[i]; }
 
+	void DebugDrawCollision();
+
 protected:
 	void attackCountUp();
 
