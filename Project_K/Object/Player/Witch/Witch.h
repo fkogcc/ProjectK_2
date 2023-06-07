@@ -17,8 +17,11 @@ public:
 	Witch();
 	virtual ~Witch();
 
+	// ‰Šú‰»
 	void Init();
+	// XVˆ—
 	void Update();
+	// •`‰æˆ—
 	void Draw();
 
 	void UpdateInputKey();
@@ -58,10 +61,12 @@ private:
 	float m_emptyAttackRight;
 	float m_emptyAttackBottom;
 
-	float m_empty;
+	float m_temp;
 	Vec2 m_vec;
 	bool m_jumpFlag;
 	int m_jumpPower;
 	bool m_emptyCheckFlag;
+	bool m_tempFlag1;
+	bool m_tempFlag2;
 	int m_movement;
 };

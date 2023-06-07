@@ -13,8 +13,8 @@
 
 namespace
 {
-    const char* const kFilmName = "Data/Image/Player/Witch/Witch.png";
-    const int kShiftX = 100;
+    const char* const kFilmName = "Data/Image/Player/Witch/Witch.png";// 画像のロード
+    const int kShiftX = 100;// 魔女の画像サイズが違うのでその分ずらすための変数
 }
 
 Witch::Witch() :
@@ -31,7 +31,7 @@ Witch::Witch() :
     m_indexX(0),
     m_playerjudge(0),
     m_shiftX(0),
-    m_empty(),
+    m_temp(),
     m_animeFlag(false),
     m_emptyAttackLeft(0),
     m_emptyAttackTop(0),
@@ -40,6 +40,8 @@ Witch::Witch() :
     m_jumpFlag(false),
     m_jumpPower(5),
     m_emptyCheckFlag(false),
+    m_tempFlag1(false),
+    m_tempFlag2(false),
     m_movement(0)
 {
     m_pIdle = new WitchIdle;
@@ -127,21 +129,32 @@ void Witch::Draw()
     m_pChicken->Draw();
     m_pKnightCat->Draw();
 
-    DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft,
-        static_cast<int> (m_pos.y) + m_sizeTop,
-        static_cast<int> (m_pos.x) + m_sizeRight,
-        static_cast<int> (m_pos.y) + m_sizeBottom,
-        0x00ff00, false);
-
+    // デバッグ描画
+#if _DEBUG
+    //DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft,
+    //    static_cast<int> (m_pos.y) + m_sizeTop,
+    //    static_cast<int> (m_pos.x) + m_sizeRight,
+    //    static_cast<int> (m_pos.y) + m_sizeBottom,
+    //    0x00ff00, false);
 
     //if (m_attackFlag)
     //{
-    //    DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft,
-    //        static_cast<int> (m_pos.y) + m_attackSizeTop,
-    //        static_cast<int> (m_pos.x) + m_attackSizeRight,
-    //        static_cast<int> (m_pos.y) + m_attackSizeBottom,
+    //    DrawBox(m_attackSizeLeft,
+    //        m_attackSizeTop,
+    //        m_attackSizeRight,
+    //        m_attackSizeBottom,
     //        0xff0000, false);
     //}
+
+    if (m_attackFlag)
+    {
+        DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft,
+            static_cast<int> (m_pos.y) + m_attackSizeTop,
+            static_cast<int> (m_pos.x) + m_attackSizeRight,
+            static_cast<int> (m_pos.y) + m_attackSizeBottom,
+            0xff0000, false);
+    }
+#endif
 }
 
 void Witch::UpdateInputKey()
@@ -160,87 +173,89 @@ void Witch::UpdateInputKey()
     }
     if (Pad::IsPress(PAD_INPUT_UP, m_padNum))
     {
-        m_empty = m_pos.y - 150;
+        m_temp = m_pos.y - 150;
         m_jumpFlag = true;
     }
     if (Pad::IsPress(PAD_INPUT_UP, m_padNum) && Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
     {
-        m_empty = m_pos.y - 150;
+        m_temp = m_pos.y - 150;
         m_vec.y = m_pos.x - 100;
         m_movement = -10;
         m_jumpFlag = true;
     }
     if (Pad::IsPress(PAD_INPUT_UP, m_padNum) && Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
     {
-        m_empty = m_pos.y - 150;
+        m_temp = m_pos.y - 150;
         m_vec.y = m_pos.x - 100;
         m_movement = 10;
         m_jumpFlag = true;
     }
-    //小攻撃
-    if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
+    if (!m_tempFlag1 && !m_tempFlag2)
     {
-        m_moveType = static_cast<int>(moveType::Attack1);// 攻撃1状態
-        m_animeFlag = true;
-        m_emptyCheckFlag = true;
-        if (m_reversal)
+        //小攻撃
+        if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
         {
-            m_playerjudge = 20;
-            m_emptyAttackLeft = (m_pos.x + 20) - 100;
-            m_emptyAttackTop = (m_pos.y - 50);
-            m_emptyAttackRight = (m_pos.x + 70) - 100;
-            m_emptyAttackBottom = m_pos.y + 60;
+            m_moveType = static_cast<int>(moveType::Attack1);// 攻撃1状態
+            m_animeFlag = true;
+            m_emptyCheckFlag = true;
+            if (m_reversal)
+            {
+                m_playerjudge = 20;
+                m_emptyAttackLeft = 20 - 100;
+                m_emptyAttackTop = -20;
+                m_emptyAttackRight = 80 - 100;
+                m_emptyAttackBottom = 60;
+            }
+            else
+            {
+                m_playerjudge = -20;
+                m_emptyAttackLeft = 20;
+                m_emptyAttackTop = -20;
+                m_emptyAttackRight = 80;
+                m_emptyAttackBottom = 60;
+            }
         }
-        else
+        //中攻撃
+        else if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))
         {
-            m_playerjudge = -20;
-            m_emptyAttackLeft = m_pos.x + 20;
-            m_emptyAttackTop = m_pos.y - 50;
-            m_emptyAttackRight = m_pos.x + 70;
-            m_emptyAttackBottom = m_pos.y + 60;
+            m_moveType = static_cast<int>(moveType::Attack2);// 攻撃2状態
+            m_animeFlag = true;
+            m_emptyCheckFlag = true;
+            m_pLongShot->SetReversal(m_reversal);
+            if (m_reversal)
+            {
+                m_pos.x -= kShiftX;
+                m_playerjudge = 100;
+                m_emptyAttackLeft = -140;
+                m_emptyAttackTop = -20;
+                m_emptyAttackRight = 50;
+                m_emptyAttackBottom = 80;
+            }
+            else
+            {
+                m_pos.x += kShiftX;
+                m_playerjudge = -100;
+                m_emptyAttackLeft = -50;
+                m_emptyAttackTop = -20;
+                m_emptyAttackRight = 140;
+                m_emptyAttackBottom = 80;
+            }
+        }
+        //中攻撃
+        else if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))
+        {
+            m_moveType = static_cast<int>(moveType::Attack3);// 攻撃3状態
+            m_animeFlag = true;
+            m_animeLoopCount = 2;
+        }
+        //強攻撃
+        else if (Pad::IsTrigger(PAD_INPUT_4, m_padNum))
+        {
+            m_moveType = static_cast<int>(moveType::Attack4);// 攻撃4状態
+            m_animeFlag = true;
+            m_animeLoopCount = 3;
         }
     }
-    //中攻撃
-    else if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))
-    {
-        m_moveType = static_cast<int>(moveType::Attack2);// 攻撃2状態
-        m_animeFlag = true;
-        m_emptyCheckFlag = true;
-        m_pLongShot->SetReversal(m_reversal);
-        if (m_reversal)
-        {
-            m_pos.x -= kShiftX;
-            m_playerjudge = 100;
-            m_emptyAttackLeft = m_pos.x - 50 - kShiftX;
-            m_emptyAttackTop = m_pos.y - 50;
-            m_emptyAttackRight = m_pos.x + 160 - kShiftX;
-            m_emptyAttackBottom = m_pos.y + 60;
-        }
-        else
-        {
-            m_pos.x += kShiftX;
-            m_playerjudge = -100;
-            m_emptyAttackLeft = m_pos.x - 40;
-            m_emptyAttackTop = m_pos.y - 50;
-            m_emptyAttackRight = m_pos.x + 160;
-            m_emptyAttackBottom = m_pos.y + 60;
-        }
-    }
-    //中攻撃
-    else if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))
-    {
-        m_moveType = static_cast<int>(moveType::Attack3);// 攻撃3状態
-        m_animeFlag = true;
-        m_animeLoopCount = 2;
-    }
-    //強攻撃
-    else if (Pad::IsTrigger(PAD_INPUT_4, m_padNum))
-    {
-        m_moveType = static_cast<int>(moveType::Attack4);// 攻撃4状態
-        m_animeFlag = true;
-        m_animeLoopCount = 3;
-    }
-
 }
 
 void Witch::UpdatePlayerState()
@@ -309,11 +324,27 @@ void Witch::UpdateAttackJudge()
 {
     //あたりはんてい
     m_attackFlag = m_emptyCheckFlag;
+    if (m_tempFlag1)
+    {
+        m_attackFlag = m_tempFlag1;
+    }
+
     DrawFormatString(200, 0, 0xffffff, "%d", m_attackSizeLeft);
-    m_attackSizeLeft = static_cast<int>(m_emptyAttackLeft);
-    m_attackSizeTop = static_cast<int>(m_emptyAttackTop);
-    m_attackSizeRight = static_cast<int>(m_emptyAttackRight);
-    m_attackSizeBottom = static_cast<int>(m_emptyAttackBottom);
+
+    if (m_attackFlag)
+    {
+        m_attackSizeLeft = static_cast<int>(m_emptyAttackLeft);
+        m_attackSizeTop = static_cast<int>(m_emptyAttackTop);
+        m_attackSizeRight = static_cast<int>(m_emptyAttackRight);
+        m_attackSizeBottom = static_cast<int>(m_emptyAttackBottom);
+    }
+    else
+    {
+        m_attackSizeLeft = 0;
+        m_attackSizeTop = 0;
+        m_attackSizeRight = 0;
+        m_attackSizeBottom = 0;
+    }
 }
 
 void Witch::UpdateAnim()
@@ -377,11 +408,13 @@ void Witch::UpdateAnim()
     else if (m_pKnightCat->IsExist())
     {
         m_attackFlag = true;
-        m_emptyAttackLeft = m_pKnightCat->ReturnPos().x + 40;
-        m_emptyAttackTop = m_pKnightCat->ReturnPos().y;
-        m_emptyAttackRight = m_pKnightCat->ReturnPos().x - 20;
-        m_emptyAttackBottom = m_pKnightCat->ReturnPos().y + 60;
+        m_emptyAttackLeft = 60;
+        m_emptyAttackTop = 0;
+        m_emptyAttackRight = 120;
+        m_emptyAttackBottom = 80;
     }
+    m_tempFlag2 = m_pChicken->IsExist();
+    m_tempFlag1 = m_pKnightCat->IsExist();
 }
 
 void Witch::UpdateDead()
@@ -402,15 +435,15 @@ void Witch::UpdateJump()
 {
     m_pos.y -= m_jumpPower;
     m_pos.x += m_movement;
-    if (m_pos.y < (m_empty))
+    if (m_pos.y < (m_temp))
     {
         m_jumpPower = -7;
     }
 
-    if (m_pos.y > m_empty + 150)
+    if (m_pos.y > m_temp + 150)
     {
         m_jumpFlag = false;
-        m_pos.y = m_empty + 150;
+        m_pos.y = m_temp + 150;
         m_jumpPower = 5;
         m_movement = 0;
     }
