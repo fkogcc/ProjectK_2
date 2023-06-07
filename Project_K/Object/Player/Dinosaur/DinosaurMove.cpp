@@ -7,6 +7,7 @@
 #include"DinosaurAttackPounce.h"
 #include"DinosaurAttackScratch.h"
 #include"DinosaurAttackShot.h"
+#include"DinosaurDead.h"
 
 namespace
 {
@@ -39,6 +40,11 @@ DinosaurStateBase* DinosaurMove::Update(int padNum)
 	IsMove(padNum);
 
 	m_Pos.x += m_Vec.x;
+
+	if (m_deadFlag)
+	{
+		return new DinosaurDead(m_Pos, m_Vec);
+	}
 
 	if (Pad::IsPress(PAD_INPUT_UP, padNum))// XBOX X or Y
 	{
