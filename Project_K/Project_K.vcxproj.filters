@@ -169,6 +169,7 @@
     <ClCompile Include="Util\UI.cpp">
       <Filter>cpp\Util</Filter>
     </ClCompile>
+    <ClCompile Include="LogoRotation.cpp" />
     <ClCompile Include="Object\Player\Witch\WitchDead.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +347,7 @@
     <ClInclude Include="Util\UI.h">
       <Filter>h\Util</Filter>
     </ClInclude>
+    <ClInclude Include="LogoRotation.h" />
     <ClInclude Include="Object\Player\Witch\WitchDead.h" />
   </ItemGroup>
   <ItemGroup>

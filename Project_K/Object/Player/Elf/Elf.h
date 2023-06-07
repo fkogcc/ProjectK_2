@@ -34,7 +34,7 @@ private:
 
 	float m_jumpAcc = 0.0f;
 
-	bool m_isAttack;// 
+	bool m_atackFlag;// 
 
 	bool m_isDirection;// 
 
