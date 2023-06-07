@@ -5,6 +5,7 @@
 SceneTitle::SceneTitle():
 	m_pLogo(nullptr)
 {
+	// ロゴ回転用だが後回しなのでまだ出来ていない。
 	m_pLogo = new LogoRotation;
 }
 
@@ -26,7 +27,7 @@ void SceneTitle::End()
 SceneBase* SceneTitle::Update()
 {
 
-	m_pLogo->Update();
+//	m_pLogo->Update();
 
 	// フェードインアウトしている
 	if (IsFading())
@@ -64,7 +65,7 @@ void SceneTitle::Draw()
 	DrawString(0, 0, "title", Color::kWhite, false);
 	DrawString(0, 0, "title", 0x000000, false);
 
-	m_pLogo->Draw();
+//	m_pLogo->Draw();
 
 	SceneBase::DrawFade();
 }

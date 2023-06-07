@@ -9,7 +9,9 @@
 #include "ElfAttackArrowPunch.h"
 #include "ElfAttackArrowUp.h"
 
-#include "../../Shot/ShotBase.h"
+#include "../../Object/Shot/ElfShot.h"
+#include "../../Object/Shot/ShotBase.h"
+#include "../../Object/Shot/NullShot.h"
 
 #include "../../Util/Sound.h"
 //#include <memory>
@@ -81,10 +83,10 @@ void Elf::Update()
 		m_pPunch->SetMoveTime(true);
 		m_pUp->SetMoveTime(true);
 
-		m_attackSizeLeft = 0.0f;
-		m_attackSizeTop = 0.0f;
-		m_attackSizeRight = 0.0f;
-		m_attackSizeBottom = 0.0f;
+		m_attackSizeLeft = 0;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 0;
+		m_attackSizeBottom = 0;
 	}
 
 	// 攻撃モーションに入ったら動けなくなる
@@ -162,12 +164,12 @@ void Elf::Update()
 	m_jumpAcc += kGravity;
 	m_pos.y += m_jumpAcc;
 
+	//m_Shot[0] = new ElfShot(m_pos, { -15,0 });
+
 }
 
 void Elf::Draw()
 {
-	//	DrawBox(m_posLeft, m_posTop, m_posRight, m_posBottom, 0xffffff, true);
-
 	my::MyDrawRectRotaGraph(
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
 		m_imageX, m_imageY,// 画像の右上
@@ -179,17 +181,20 @@ void Elf::Draw()
 		m_isDirection
 	);
 
+#if _DEBUG	
+	// プレイヤーのサイズ
 	DrawBox(m_sizeLeft + m_pos.x , 
 			m_sizeTop + m_pos.y,
 			m_sizeRight + m_pos.x, 
 			m_sizeBottom + m_pos.y,
 		GetColor(GetRand(255), GetRand(255), GetRand(255)), false);
-
+	// 攻撃範囲
 	DrawBox(m_attackSizeLeft + m_pos.x,
 			m_attackSizeTop + m_pos.y,
 			m_attackSizeRight +  m_pos.x,
 			m_attackSizeBottom + m_pos.y,
 			0xff0000, false);
+#endif
 	
 }
 
@@ -214,12 +219,14 @@ void Elf::AnimationSwitch()
 		m_imageX = m_pRun->SetPosImageX();
 		m_imageY = m_pRun->SetPosImageY();
 		break;
-	case static_cast<int>(moveType::Attack1):// 攻撃
+	case static_cast<int>(moveType::Attack1):// 攻撃 : 近接攻撃
 		m_pPunch->Update();
 		// 画像読み込み位置
 		m_imageX = m_pPunch->SetPosImageX();
 		m_imageY = m_pPunch->SetPosImageY();
+
 		// 攻撃範囲を指定
+		// 向いている方向で範囲を決定
 		if (m_isDirection)
 		{
 			m_attackSizeLeft = - 230 - 90;
@@ -235,19 +242,20 @@ void Elf::AnimationSwitch()
 			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
 		}
 		break;
-	case static_cast<int>(moveType::Attack2):// 攻撃
+	case static_cast<int>(moveType::Attack2):// 攻撃 : ノーマルショット
 		m_pShot->Update();
 		// 画像読み込み位置
 		m_imageX = m_pShot->SetPosImageX();
 		m_imageY = m_pShot->SetPosImageY();
 		// ショット
 		break;
-	case static_cast<int>(moveType::Attack3):// 攻撃
+	case static_cast<int>(moveType::Attack3):// 攻撃 : 直線に最大火力ショット
 		m_pChargeShot->Update();
 		// 画像読み込み位置
 		m_imageX = m_pChargeShot->SetPosImageX();
 		m_imageY = m_pChargeShot->SetPosImageY();
 		// 攻撃範囲を指定
+		// 向いている方向で範囲を決定
 		if (m_isDirection)
 		{
 			m_attackSizeLeft =- 580 - 10;
@@ -263,7 +271,7 @@ void Elf::AnimationSwitch()
 			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
 		}
 		break;
-	case static_cast<int>(moveType::Attack4):// 攻撃
+	case static_cast<int>(moveType::Attack4):// 攻撃 : 斜め上に近接ショット
 		m_pUp->Update();
 		// 画像読み込み位置
 		m_imageX = m_pUp->SetPosImageX();
@@ -274,13 +282,11 @@ void Elf::AnimationSwitch()
 		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 280;
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
 		break;
-	case static_cast<int>(moveType::Jump):// 攻撃
+	case static_cast<int>(moveType::Jump):// ジャンプ
 		m_pJump->Update();
 		// 画像読み込み位置
 		m_imageX = m_pJump->SetPosImageX();
 		m_imageY = m_pJump->SetPosImageY();
-		// 
-	//	m_pos.y -= m_pJump->Gravity();
 		break;
 	default:// 待機
 		m_pIdle->Update();
