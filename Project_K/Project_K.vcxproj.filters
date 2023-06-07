@@ -171,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="LogoRotation.cpp" />
     <ClCompile Include="Object\Player\Witch\WitchDead.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurDead.cpp">
+      <Filter>cpp\Object\Player\Dinosaur</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -349,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="LogoRotation.h" />
     <ClInclude Include="Object\Player\Witch\WitchDead.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurDead.h">
+      <Filter>h\Object\Player\Dinosaur</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cpp">
