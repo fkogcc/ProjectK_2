@@ -18,7 +18,8 @@ DinosaurStateManager::DinosaurStateManager(int Handle) :
 // 初期化
 void DinosaurStateManager::Init()
 {
-	m_pState = new DinosaurIdle({ 500,500 }, { 0,0 });
+	m_pState = new DinosaurIdle({ 500,600 }, { 0,0 });
+	m_deadFlag = false;
 }
 // 終了
 void DinosaurStateManager::End()
@@ -32,7 +33,11 @@ void DinosaurStateManager::End()
 // 毎フレームの処理
 void DinosaurStateManager::Update(int padNum)
 {
-	if (Pad::IsPress(PAD_INPUT_LEFT,padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (m_deadFlag)
+	{
+		m_pState->SetDeadFlag();
+	}
+	if (Pad::IsPress(PAD_INPUT_LEFT, padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
 	{
 		m_lookLeft = true;
 	}
@@ -49,7 +54,7 @@ void DinosaurStateManager::Update(int padNum)
 
 	if (pState != m_pState)
 	{
-	//	m_pState->End();// 終了処理
+		//	m_pState->End();// 終了処理
 		delete m_pState;
 
 		m_pState = pState;
@@ -61,7 +66,7 @@ void DinosaurStateManager::Draw()
 {
 	assert(m_pState);
 	if (!m_pState)	return;
-	m_pState->Draw(m_Handle , m_lookLeft);// 描画
+	m_pState->Draw(m_Handle, m_lookLeft);// 描画
 }
 
 bool DinosaurStateManager::GetshotFlag()
@@ -81,7 +86,7 @@ bool DinosaurStateManager::GetAttackFlag()
 
 int DinosaurStateManager::GetAttackSizeLeft()
 {
-	
+
 	return ((m_lookLeft) ? m_pState->GetAttackSizeLeft() : -m_pState->GetAttackSizeRight());
 }
 
@@ -98,6 +103,11 @@ int DinosaurStateManager::GetAttackSizeRight()
 int DinosaurStateManager::GetAttackSizeBottom()
 {
 	return m_pState->GetAttackSizeBottom();
+}
+
+int DinosaurStateManager::GetOnDamage()
+{
+	return m_pState->GetAttackDamage();
 }
 
 void DinosaurStateManager::SetAttackFlag()

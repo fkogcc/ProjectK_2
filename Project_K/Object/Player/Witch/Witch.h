@@ -9,6 +9,7 @@ class WitchLongShotAttack;
 class WitchCharge;
 class Chicken;
 class KnightCat;
+class WitchDead;
 
 class Witch : public PlayerBase
 {
@@ -16,8 +17,11 @@ public:
 	Witch();
 	virtual ~Witch();
 
+	// èâä˙âª
 	void Init();
+	// çXêVèàóù
 	void Update();
+	// ï`âÊèàóù
 	void Draw();
 
 	void UpdateInputKey();
@@ -25,6 +29,7 @@ public:
 	void UpdatePlayerJudge();
 	void UpdateAttackJudge();
 	void UpdateAnim();
+	void UpdateDead();
 	void UpdateJump();
 private:
 	WitchIdle* m_pIdle;
@@ -34,6 +39,7 @@ private:
 	WitchCharge* m_pCharge;
 	Chicken* m_pChicken;
 	KnightCat* m_pKnightCat;
+	WitchDead* m_pDead;
 
 	int m_handle;
 	int m_animeHight;
@@ -55,10 +61,12 @@ private:
 	float m_emptyAttackRight;
 	float m_emptyAttackBottom;
 
-	float m_empty;
+	float m_temp;
 	Vec2 m_vec;
 	bool m_jumpFlag;
 	int m_jumpPower;
 	bool m_emptyCheckFlag;
+	bool m_tempFlag1;
+	bool m_tempFlag2;
 	int m_movement;
 };

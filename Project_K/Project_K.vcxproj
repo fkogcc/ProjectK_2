@@ -142,6 +142,7 @@
     <ClCompile Include="LogoRotation.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfJump.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuJump.cpp" />
+    <ClCompile Include="Object\Player\Witch\WitchDead.cpp" />
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
     <ClCompile Include="System\CharaChoice.cpp" />
     <ClCompile Include="Util\Collision.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="LogoRotation.h" />
     <ClInclude Include="Object\Player\Elf\ElfJump.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuJump.h" />
+    <ClInclude Include="Object\Player\Witch\WitchDead.h" />
     <ClInclude Include="Object\Shot\ElfShot.h" />
     <ClInclude Include="System\CharaChoice.h" />
     <ClInclude Include="Util\Collision.h" />

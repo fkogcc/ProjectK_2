@@ -16,6 +16,8 @@ public:
 		m_attackSizeTop = 0;
 		m_attackSizeRight = 0;
 		m_attackSizeBottom = 80;
+
+		m_attackDamage = 10;
 	}
 	virtual ~DinosaurAttackBite();
 

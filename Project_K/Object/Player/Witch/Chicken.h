@@ -25,5 +25,6 @@ private:
 	int m_animeWidth;
 	int m_animeHight;
 	bool m_exist;
+	int m_countFrame;
 };
 
