@@ -42,7 +42,7 @@ void Dinosaur::End()
 void Dinosaur::Update()
 {
 	// hpが0になったらm_StateManagerのm_deadFlagをtrueに
-	if (m_hp < 0)
+	if (m_hp <= 0)
 	{
 		m_StateManager->SetDeadFlag();
 	}

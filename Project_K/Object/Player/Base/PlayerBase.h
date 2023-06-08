@@ -73,12 +73,6 @@ protected:
 	int m_sizeRight = 0;
 	int m_sizeBottom = 0;
 
-
-	int m_sizeLeftAttack = 0;
-	int m_sizeTopAttack = 0;
-	int m_sizeRightAttack = 0;
-	int m_sizeBottomAttack = 0;
-
 	// 攻撃の判定
 	int m_attackSizeLeft = 0;
 	int m_attackSizeTop = 0;

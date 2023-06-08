@@ -4,6 +4,7 @@
 #include "DinosaurAttackPounce.h"
 #include "DinosaurAttackShot.h"
 #include "DinosaurAttackBite.h"
+#include"DinosaurDead.h"
 #include"DinosaurJump.h"
 #include"DinosaurMove.h"
 
@@ -16,6 +17,11 @@ DinosaurStateBase* DinosaurIdle::Update(int padNum)
 	m_Vec.x = 0;
 
 	ChangeGraph(3, 9 , true);
+
+	if (m_deadFlag)
+	{
+		return new DinosaurDead(m_Pos,m_Vec);
+	}
 	if (Pad::IsPress(PAD_INPUT_LEFT,padNum) || (Pad::IsPress(PAD_INPUT_RIGHT, padNum)))// XBOX X or Y
 	{
 		return new DinosaurMove(m_Pos, m_Vec);
