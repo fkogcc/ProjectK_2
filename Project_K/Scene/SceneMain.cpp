@@ -69,29 +69,14 @@ SceneBase* SceneMain::Update()
 	m_pUi->GetHp1(m_pPlayer[0]->GetHp());// 1P‚ÌHP‚ð“n‚·
 	m_pUi->GetHp2(m_pPlayer[1]->GetHp());// 2P‚ÌHP‚ð“n‚·
 
-	//if (m_pColl->IsColl1() && m_pColl->IsColl2())
-	//{
-	//	if (m_pPlayer[0]->GetAttackFrame() < m_pPlayer[1]->GetAttackFrame())
-	//	{
-	//		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
-	//		m_pPlayer[0]->SetAttackFlag(false);
-	//	}
-
-	//	if (m_pPlayer[0]->GetAttackFrame() >= m_pPlayer[1]->GetAttackFrame())
-	//	{
-	//		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
-	//		m_pPlayer[1]->SetAttackFlag(false);
-	//	}
-
-	//	/*if (m_Player[0]->GetAttackFrame() == m_Player[1]->GetAttackFrame())
-	//	{
-	//		m_Player[1]->OnDamage(1);
-	//	}*/
-	//}
+	float toPlayer1 = m_pPlayer[1]->GetPos().x - m_pPlayer[0]->GetPos().x;
+	float toPlayer2 = m_pPlayer[0]->GetPos().x - m_pPlayer[1]->GetPos().x;
 
 	if (m_pColl->IsColl1())
 	{
 		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
+		m_pPlayer[0]->SetOnDamageFrame();
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
 		m_pPlayer[1]->SetAttackFlag(false);
 
 	}
@@ -99,25 +84,37 @@ SceneBase* SceneMain::Update()
 	if (m_pColl->IsColl2())
 	{
 		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
+		m_pPlayer[1]->SetOnDamageFrame();
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
 		m_pPlayer[0]->SetAttackFlag(false);
 	}
 
 	if (m_pColl->ShotColl1())
 	{
 		m_pPlayer[0]->OnDamage(1);
+		m_pPlayer[0]->SetOnDamageFrame();
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
+		m_pPlayer[1]->SetAttackFlag(false);
 	}
 
 	if (m_pColl->ShotColl2())
 	{
 		m_pPlayer[1]->OnDamage(1);
+		m_pPlayer[1]->SetOnDamageFrame();
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
+		m_pPlayer[1]->SetAttackFlag(false);
 	}
 
 	if (m_pColl->AttackColl())
 	{
 		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
+		m_pPlayer[0]->SetOnDamageFrame();
 		m_pPlayer[1]->SetAttackFlag(false);
 		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
+		m_pPlayer[1]->SetOnDamageFrame();
 		m_pPlayer[0]->SetAttackFlag(false);
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
 	}
 
 	m_pStage->Update();

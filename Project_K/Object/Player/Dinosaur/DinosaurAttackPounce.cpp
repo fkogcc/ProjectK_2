@@ -10,22 +10,27 @@ namespace
 	constexpr float kMoveSpeed = 12.0f;
 }
 
-DinosaurAttackPounce::DinosaurAttackPounce(Vec2 pos, Vec2 vec)
+DinosaurAttackPounce::DinosaurAttackPounce(Vec2 vec, bool lookLeft)
 {
+	m_Vec = vec;
+	m_imagePosX = 0;
+	m_imagePosY = 4;
+	m_Vec.y = kJumpPower;
+
+	m_attakSizeLeft = -130;
+	m_attackSizeTop = 10;
+	m_attackSizeRight = 0;
+	m_attackSizeBottom = 80;
+
+	m_attackDamage = 10;
+
+	if (lookLeft)
 	{
-		m_Pos = pos;
-		m_Vec = vec;
-		m_imagePosX = 0;
-		m_imagePosY = 4;
-		m_JumpPower = kJumpPower;
-		m_attackFlag = true;
-
-		m_attakSizeLeft = -130;
-		m_attackSizeTop = 10;
-		m_attackSizeRight = 0;
-		m_attackSizeBottom = 80;
-
-		m_attackDamage = 10;
+		m_Vec.x = -kMoveSpeed;
+	}
+	else
+	{
+		m_Vec.x = kMoveSpeed;
 	}
 }
 
@@ -41,31 +46,30 @@ DinosaurStateBase* DinosaurAttackPounce::Update(int padNum)
 	}
 	else
 	{
+		if (m_gapTime == 0)
+		{
+			m_attackFlag = true;
+		}
 		m_imagePosY = 5;
 
 		m_imagePosX = 7 + (m_gapTime / 5);
 		m_gapTime++;
 	}
 
-	if (m_JumpPower < -kJumpPower)
+	if (m_Vec.y < -kJumpPower)
 	{
-		m_Pos.y += m_JumpPower;
-		m_JumpPower += kGravity;
-
-		if (m_lookLeft)
-		{
-			m_Pos.x -= kMoveSpeed;
-		}
-
-		else
-		{
-			m_Pos.x += kMoveSpeed;
-		}
+		/*m_Vec.y += m_JumpPower;*/
+		m_Vec.y += kGravity;
+	}
+	
+	if (m_gapTime > 3)
+	{
+		m_Vec.x = 0;
 	}
 
 	if (m_gapTime > 15)
 	{
-		return new DinosaurIdle(m_Pos, m_Vec);
+		return new DinosaurIdle({0,0});
 	}
 
 	return this;

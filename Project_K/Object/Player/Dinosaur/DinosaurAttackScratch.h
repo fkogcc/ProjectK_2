@@ -3,9 +3,8 @@
 class DinosaurAttackScratch : public DinosaurStateBase
 {
 public:
-	DinosaurAttackScratch(Vec2 pos, Vec2 vec)
+	DinosaurAttackScratch(Vec2 vec)
 	{
-		m_Pos = pos;
 		m_Vec = vec;
 		m_imagePosX = 4;
 		m_imagePosY = 8;

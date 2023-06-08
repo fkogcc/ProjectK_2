@@ -21,6 +21,7 @@ Dinosaur::Dinosaur() :
 	m_StateManager = new DinosaurStateManager(m_Handle);
 	m_StateManager->Init();
 	//m_pos.y = 100.0f;
+	m_pos = { 500,600 };
 }
 
 Dinosaur::~Dinosaur()
@@ -46,6 +47,18 @@ void Dinosaur::Update()
 	{
 		m_StateManager->SetDeadFlag();
 	}
+
+	if (m_onDamageFrame > 0)
+	{
+		m_StateManager->SetondamageFlag(true);
+		m_onDamageFrame--;
+		damageMove();
+	}
+	else
+	{
+		m_StateManager->SetondamageFlag(false);
+	}
+
 	// StateManagerのアップデート
 	m_StateManager->Update(m_padNum);
 
@@ -61,7 +74,7 @@ void Dinosaur::Update()
 	if (m_attackFlag)
 	{
 		// カウントを増やす
-		attackCountUp();
+	//	attackCountUp();
 	}
 	else// falseのとき
 	{
@@ -70,7 +83,12 @@ void Dinosaur::Update()
 	}
 
 	// m_posの値を取得
-	m_pos = m_StateManager->GetPos();
+	m_pos += m_StateManager->GetVec();
+
+	if (m_pos.y > 600)
+	{
+		m_pos.y = 600;
+	}
 
 	for (int i = 0; i < kShotMax; i++)
 	{
@@ -127,7 +145,7 @@ void Dinosaur::Update()
 void Dinosaur::Draw()
 {
 	// キャラクター表示
-	m_StateManager->Draw();
+	m_StateManager->Draw(m_pos);
 
 	//ショット表示
 	for (int i = 0; i < kShotMax; i++)

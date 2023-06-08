@@ -20,31 +20,31 @@ DinosaurStateBase* DinosaurIdle::Update(int padNum)
 
 	if (m_deadFlag)
 	{
-		return new DinosaurDead(m_Pos,m_Vec);
+		return new DinosaurDead({ 0,0 });
 	}
 	if (Pad::IsPress(PAD_INPUT_LEFT,padNum) || (Pad::IsPress(PAD_INPUT_RIGHT, padNum)))// XBOX X or Y
 	{
-		return new DinosaurMove(m_Pos, m_Vec);
+		return new DinosaurMove({ 0,0 });
 	}
 	if (Pad::IsPress(PAD_INPUT_UP, padNum))// XBOX A
 	{
-		return new DinosaurJump(m_Pos,m_Vec);
+		return new DinosaurJump({ 0,0 });
 	}
 	if (Pad::IsPress(PAD_INPUT_2, padNum))// XBOX B
 	{
-		return new DinosaurAttackBite(m_Pos, m_Vec);
+		return new DinosaurAttackBite({ 0,0 });
 	}
 	if (Pad::IsPress(PAD_INPUT_3, padNum))// XBOX X or Y
 	{
-		return new DinosaurAttackScratch(m_Pos, m_Vec);
+		return new DinosaurAttackScratch({ 0,0 });
 	}
 	if (Pad::IsPress(PAD_INPUT_4, padNum))// XBOX X or Y
 	{
-		return new DinosaurAttackShot(m_Pos, m_Vec);
+		return new DinosaurAttackShot({ 0,0 });
 	}
 	if (Pad::IsPress(PAD_INPUT_1, padNum))// XBOX X or Y
 	{
-		return new DinosaurAttackPounce(m_Pos, m_Vec);
+		return new DinosaurAttackPounce({ 0,0 }, m_lookLeft);
 	}
 
 	return this;

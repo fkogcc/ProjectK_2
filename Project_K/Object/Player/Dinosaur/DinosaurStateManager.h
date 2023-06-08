@@ -16,11 +16,11 @@ public:
 	// 毎フレームの処理
 	void Update(int padNum);
 	// 描画
-	void Draw();
+	void Draw(Vec2 pos);
 
 	bool GetshotFlag(); // ショットを撃つとき
 
-	Vec2 GetPos();
+	Vec2 GetVec();
 
 	bool GetAttackFlag();
 
@@ -35,6 +35,8 @@ public:
 
 	void SetAttackFlag();
 
+	void SetondamageFlag(bool ondamageFlag) { m_ondamageFlag = ondamageFlag; }
+
 	//死んだときm_deadFlagをtrueに
 	void SetDeadFlag() { m_deadFlag = true; }
 
@@ -44,6 +46,8 @@ private:
 	bool m_lookLeft; // 左を向いているかどうか
 
 	bool m_deadFlag = false; //死んでいるかどうか
+
+	bool m_ondamageFlag = false; //攻撃を食らっているとき
 
 	// シーンベースポインタ
 	DinosaurStateBase* m_pState;
