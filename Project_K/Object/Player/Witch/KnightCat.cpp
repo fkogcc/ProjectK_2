@@ -7,7 +7,8 @@ namespace
 KnightCat::KnightCat() :
 	m_handle(0),
 	m_reversal(false),
-	m_pos(),
+	m_pos(0,0),
+	m_movePos(20),
 	m_animeFrame(0),
 	m_animeMax(0),
 	m_animeWidth(0),
@@ -35,6 +36,14 @@ void KnightCat::Update()
 {
 	if (m_exist)
 	{
+		if (m_reversal)
+		{
+			m_movePos = -50;
+		}
+		else
+		{
+			m_movePos = 20;
+		}
 		m_animeFrame++;
 		m_timeCount++;
 		if (m_animeFrame > 10)
@@ -58,7 +67,7 @@ void KnightCat::Draw()
 {
 	if (m_exist)
 	{
-		my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x) + 20,
+		my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x) + m_movePos,
 			static_cast<int>(m_pos.y),			//•\¦À•W
 			32 * m_animeWidth, 32 * m_animeHight,			//Ø‚èæ‚è¶ã
 			32, 32,							//•A‚‚³
