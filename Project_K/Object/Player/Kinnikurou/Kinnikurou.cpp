@@ -189,13 +189,13 @@ void Kinnikurou::Update()
 	
 	if (!Pad::IsPress(PAD_INPUT_RIGHT, m_padNum) || !Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 	{
-		m_attackFlag = false;
+		//m_attackFlag = false;
 		m_charRun = false;
 	}
 
 	if ((Pad::IsRelase(PAD_INPUT_RIGHT, m_padNum) || Pad::IsRelase(PAD_INPUT_LEFT, m_padNum)) && m_motionCount == 0)
 	{
-		m_attackFlag = false;
+		//m_attackFlag = false;
 		ImgposInit();
 	}
 
@@ -203,7 +203,7 @@ void Kinnikurou::Update()
 	// アイドル状態
 	if (m_moveType == static_cast<int>(moveType::Idol))
 	{
-		m_attackFlag = false;
+		//m_attackFlag = false;
 
 		m_pIdle->Update(m_imgPosX, m_imgPosY);
 	}
@@ -305,7 +305,7 @@ void Kinnikurou::Update()
 	// 走る状態
 	if (m_moveType == static_cast<int>(moveType::Run))
 	{
-		m_attackFlag = false;
+		//m_attackFlag = false;
 		m_pRun->Update(m_imgPosX, m_imgPosY);
 	}
 	//UpdateJump();
@@ -431,19 +431,19 @@ void Kinnikurou::AttackCol()
 	{
 		if (m_moveType == static_cast<int>(moveType::Attack1))
 		{
-			m_damage = 1;
+			m_damage = 10;
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack2))
 		{
-			m_damage = 1;
+			m_damage = 10;
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack3))
 		{
-			m_damage = 1;
+			m_damage = 10;
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack4))
 		{
-			m_damage = 1;
+			m_damage = 10;
 		}
 	}
 	else
