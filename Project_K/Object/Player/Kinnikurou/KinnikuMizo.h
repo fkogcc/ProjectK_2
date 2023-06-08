@@ -11,6 +11,7 @@ public:
 	bool m_isAttackCol = false;
 private:
 
+	// 次のモーションに入るフレーム
 	int m_nextCount = 0;
 };
 

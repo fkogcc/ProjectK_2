@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuDead.cpp" />
     <ClCompile Include="LogoRotation.cpp" />
     <ClCompile Include="Object\Player\Dinosaur\DinosaurDead.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfJump.cpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuDead.h" />
     <ClInclude Include="LogoRotation.h" />
     <ClInclude Include="Object\Player\Dinosaur\DinosaurDead.h" />
     <ClInclude Include="Object\Player\Elf\ElfJump.h" />
