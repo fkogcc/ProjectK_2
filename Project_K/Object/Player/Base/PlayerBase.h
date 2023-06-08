@@ -54,6 +54,9 @@ public:
 
 	void OnDamage(int damage) { m_hp -= damage; }
 
+	// 攻撃を食らったときダメージフレームに30を加える
+	void SetOnDamageFlag() { m_onDamageFrame = 30; }
+
 	int GetHp() { return m_hp; }
 
 	void SetPadNum(int padNum) { m_padNum = padNum; }
@@ -82,6 +85,11 @@ protected:
 
 	// 攻撃発生から何フレーム経ったか
 	int m_attackFrameCount = 0;
+
+	// 攻撃を食らったときに次のモーションに移行するまでの時間
+	int m_onDamageFrame = 0;
+	// 攻撃を食らったとき
+//	bool m_onDamageFlag;
 
 	int m_moveType = 0;
 	int m_hp = 100;	// プレイヤーの体力量(100が標準)
