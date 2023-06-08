@@ -69,34 +69,34 @@ SceneBase* SceneMain::Update()
 	m_pUi->GetHp1(m_pPlayer[0]->GetHp());// 1P‚ÌHP‚ð“n‚·
 	m_pUi->GetHp2(m_pPlayer[1]->GetHp());// 2P‚ÌHP‚ð“n‚·
 
-	if (m_pColl->IsColl1() && m_pColl->IsColl2())
-	{
-		if (m_pPlayer[0]->GetAttackFrame() < m_pPlayer[1]->GetAttackFrame())
-		{
-			m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
-			m_pPlayer[0]->SetAttackFlag(false);
-		}
+	//if (m_pColl->IsColl1() && m_pColl->IsColl2())
+	//{
+	//	if (m_pPlayer[0]->GetAttackFrame() < m_pPlayer[1]->GetAttackFrame())
+	//	{
+	//		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
+	//		m_pPlayer[0]->SetAttackFlag(false);
+	//	}
 
-		if (m_pPlayer[0]->GetAttackFrame() >= m_pPlayer[1]->GetAttackFrame())
-		{
-			m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
-			m_pPlayer[1]->SetAttackFlag(false);
-		}
+	//	if (m_pPlayer[0]->GetAttackFrame() >= m_pPlayer[1]->GetAttackFrame())
+	//	{
+	//		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
+	//		m_pPlayer[1]->SetAttackFlag(false);
+	//	}
 
-		/*if (m_Player[0]->GetAttackFrame() == m_Player[1]->GetAttackFrame())
-		{
-			m_Player[1]->OnDamage(1);
-		}*/
-	}
+	//	/*if (m_Player[0]->GetAttackFrame() == m_Player[1]->GetAttackFrame())
+	//	{
+	//		m_Player[1]->OnDamage(1);
+	//	}*/
+	//}
 
-	else if (m_pColl->IsColl1())
+	if (m_pColl->IsColl1())
 	{
 		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
 		m_pPlayer[1]->SetAttackFlag(false);
 
 	}
 
-	else if (m_pColl->IsColl2())
+	if (m_pColl->IsColl2())
 	{
 		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
 		m_pPlayer[0]->SetAttackFlag(false);
