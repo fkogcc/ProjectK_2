@@ -16,7 +16,7 @@ namespace
 Dinosaur::Dinosaur() :
 	m_Handle(-1)
 {
-	m_hp = 150;
+	//m_hp = 100;
 	m_Handle = LoadGraph(kFilename);
 	m_StateManager = new DinosaurStateManager(m_Handle);
 	m_StateManager->Init();
