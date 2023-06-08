@@ -13,8 +13,6 @@ namespace
 
 UI::UI(int Hp1, int Hp2) :
 	m_boxPos(kCenter, 90),	// 時間を表示するボックスの初期化
-	m_countFrame(50),// タイマーの初期化
-	m_attackFlag(false),// 攻撃中かしるためのフラグ
 	m_timeCount(99 * 60),// 時間を図るタイマー
 	m_time(0),// 表示する時間
 	m_letter("%d")// 文字
@@ -25,11 +23,15 @@ UI::UI(int Hp1, int Hp2) :
 	m_ui1.m_temp = Hp1;
 	m_ui1.m_life = m_ui1.m_temp;
 	m_ui1.m_lower = m_ui1.m_life;
+	m_ui1.m_countFrame = 50;// タイマーの初期化
+	m_ui1.m_attackFlag = false;// 攻撃中かしるためのフラグ
 	// 2Pの初期化
 	m_ui2.m_pos = { m_boxPos.x + kTimeBoxSize,80 };
 	m_ui2.m_temp = Hp2;
 	m_ui2.m_life = m_ui2.m_temp;
 	m_ui2.m_lower = m_ui2.m_life;
+	m_ui2.m_countFrame = 50;// タイマーの初期化
+	m_ui2.m_attackFlag = false;// 攻撃中かしるためのフラグ
 }
 
 void UI::Update()
@@ -46,24 +48,42 @@ void UI::Draw()
 
 void UI::HpUpdate()
 {
-	m_countFrame++;//タイマーのカウント
+	m_ui1.m_countFrame++;//タイマーのカウント
+	m_ui2.m_countFrame++;//タイマーのカウント
 	if (m_ui1.m_temp >= 0)
 	{
-		m_ui1.m_life = m_ui1.m_temp;
+		m_ui1.m_life--;// ゆっくり減らす
+		if (m_ui1.m_life < m_ui1.m_temp)
+		{
+			m_ui1.m_life = m_ui1.m_temp;
+		}
 	}
 	if (m_ui2.m_temp >= 0)
 	{
-		m_ui2.m_life = m_ui2.m_temp;
+		m_ui2.m_life--;// ゆっくり減らす
+		if (m_ui2.m_life < m_ui2.m_temp)
+		{
+			m_ui2.m_life = m_ui2.m_temp;
+		}
 	}
-	if (m_countFrame >= 40 && !m_attackFlag)
+	if (m_ui1.m_countFrame >= 40)
 	{
 		m_ui1.m_lower = m_ui1.m_life;// 仮のHPを今のHP似合わせる
-		m_ui2.m_lower = m_ui2.m_life;// 仮のHPを今のHP似合わせる
-		m_countFrame = 0;
+		m_ui1.m_countFrame = 0;
 	}
-	if (m_ui1.m_lower != m_ui1.m_life && m_ui2.m_lower != m_ui2.m_life)
+
+	if (m_ui2.m_countFrame >= 40)
 	{
-		m_countFrame = 0;
+		m_ui2.m_lower = m_ui2.m_life;// 仮のHPを今のHP似合わせる
+		m_ui2.m_countFrame = 0;
+	}
+	if (m_ui1.m_attackFlag)// 攻撃中だったらカウントを数えない
+	{
+		m_ui1.m_countFrame = 0;
+	}
+	if (m_ui2.m_attackFlag)// 攻撃中だったらカウントを数えない
+	{
+		m_ui2.m_countFrame = 0;
 	}
 	if (m_ui1.m_life <= 0)
 	{
