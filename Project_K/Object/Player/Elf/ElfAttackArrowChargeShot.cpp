@@ -25,6 +25,7 @@ void ElfAttackArrowChargeShot::Update()
 		{
 			m_imagePosX = 0;// 画像の描画させる位置を初期値に戻す
 			m_isMove = false;// 攻撃終了
+
 		}
 	}
 	m_imagePosY = 128 * kAttack_Y;// 画像の描画させる縦の位置
