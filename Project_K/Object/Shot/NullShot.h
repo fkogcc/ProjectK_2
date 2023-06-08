@@ -1,5 +1,7 @@
 #pragma once
 #include "ShotBase.h"
+
+// ショットが出ていない
 class NullShot : public ShotBase
 {
 public:

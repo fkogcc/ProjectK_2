@@ -102,7 +102,7 @@ void Dinosaur::Update()
 	//m_Shot.erase(rmIt, m_Shot.end());
 	////ここまでやらないと実際には消えないので注意
 
-	// ショットのフラグたたったとき
+	// ショットのフラグがたったとき
 	if (m_StateManager->GetshotFlag())
 	{
 		for (int i = 0; i < kShotMax; i++)

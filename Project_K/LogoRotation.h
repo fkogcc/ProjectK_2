@@ -20,6 +20,6 @@ private:
 
 	bool m_isTrans;
 
-	int width, height;
+	int width = 0, height = 0;
 };
 

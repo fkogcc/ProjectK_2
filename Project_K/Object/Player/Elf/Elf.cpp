@@ -183,16 +183,16 @@ void Elf::Draw()
 
 #if _DEBUG	
 	// プレイヤーのサイズ
-	DrawBox(m_sizeLeft + m_pos.x , 
-			m_sizeTop + m_pos.y,
-			m_sizeRight + m_pos.x, 
-			m_sizeBottom + m_pos.y,
+	DrawBox(m_sizeLeft + static_cast<int>(m_pos.x),
+			m_sizeTop + static_cast<int>(m_pos.y),
+			m_sizeRight + static_cast<int>(m_pos.x),
+			m_sizeBottom + static_cast<int>(m_pos.y),
 		GetColor(GetRand(255), GetRand(255), GetRand(255)), false);
 	// 攻撃範囲
-	DrawBox(m_attackSizeLeft + m_pos.x,
-			m_attackSizeTop + m_pos.y,
-			m_attackSizeRight +  m_pos.x,
-			m_attackSizeBottom + m_pos.y,
+	DrawBox(m_attackSizeLeft + static_cast<int>(m_pos.x),
+			m_attackSizeTop + static_cast<int>(m_pos.y),
+			m_attackSizeRight + static_cast<int>(m_pos.x),
+			m_attackSizeBottom + static_cast<int>(m_pos.y),
 			0xff0000, false);
 #endif
 	
