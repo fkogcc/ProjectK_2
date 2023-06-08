@@ -3,16 +3,16 @@ class WitchRun :
 	public MoveTypeBase
 {
 public:
-	WitchRun();
-	virtual ~WitchRun() {}
+	WitchRun();// コンストラクタ
+	virtual ~WitchRun() {}// デストラクタ
 
-	void Init();
+	void Init();// 初期化
 
-	int IndexX() { return m_animeWidth; }
-	int IndexY() { return m_animeHight; }
-	int AnimeMax() { return m_animeMax; }
+	int IndexX() { return m_animeWidth; }// アニメーションのセット用
+	int IndexY() { return m_animeHight; }// アニメーションのセット用
+	int AnimeMax() { return m_animeMax; }// アニメーションのセット用
 private:
-	int m_animeWidth;
-	int m_animeHight;
-	int m_animeMax;
+	int m_animeWidth;// 横
+	int m_animeHight;// 縦
+	int m_animeMax;//末尾
 };
