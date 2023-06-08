@@ -3,9 +3,8 @@
 class DinosaurDead : public DinosaurStateBase
 {
 public:
-	DinosaurDead(Vec2 pos, Vec2 vec)
+	DinosaurDead(Vec2 vec)
 	{
-		m_Pos = pos;
 		m_Vec = vec;
 		m_imagePosX = 0;
 		m_imagePosY = 6;

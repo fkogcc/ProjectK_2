@@ -41,10 +41,10 @@ public:
 	bool GetAttackFlag() { return m_attackFlag; }
 	virtual void SetAttackFlag(bool attackFlag) { m_attackFlag = attackFlag; }
 
-	int GetAttackFrame() { return m_attackFrameCount; }
+	const int GetAttackFrame() const { return m_attackFrameCount; }
 
 	// SceneMainにどの攻撃をしているかを渡す
-	int SetMove() { return m_moveType; }
+	const int SetMove() const { return m_moveType; }
 
 	// SceneMainから攻撃状態を受け取る
 	void GetMove(int check) { m_moveType = check; }
@@ -54,12 +54,14 @@ public:
 
 	void OnDamage(int damage) { m_hp -= damage; }
 
-	// 攻撃を食らったときダメージフレームに30を加える
-	void SetOnDamageFlag() { m_onDamageFrame = 30; }
+	// 攻撃を食らったときダメージフレームに15を加える
+	void SetOnDamageFrame() { m_onDamageFrame = 25; }
 
-	int GetHp() { return m_hp; }
+	const int GetHp() const { return m_hp; }
 
 	void SetPadNum(int padNum) { m_padNum = padNum; }
+
+	void SetKnockBack(float toPlayer);
 
 	Vec2 GetPos() { return m_pos; }
 
@@ -68,7 +70,9 @@ public:
 	void DebugDrawCollision();
 
 protected:
-	void attackCountUp();
+//	void attackCountUp();
+
+	void damageMove(); //ダメージを受けた時の移動処理
 
 	// プレイヤーのサイズ
 	int m_sizeLeft = 0;
@@ -103,5 +107,7 @@ protected:
 	Vec2 m_vec = { 0.0f,0.0f };	// 運動量
 
 	std::array<ShotBase*, kShotMax> m_Shot;
+
+	Vec2 m_knockBack;
 };
 

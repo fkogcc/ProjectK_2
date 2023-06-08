@@ -19,7 +19,7 @@ DinosaurStateBase* DinosaurAttackBite::Update(int padNum)
 
 	if (m_gapTime > 4)
 	{
-		return new DinosaurIdle(m_Pos, m_Vec);
+		return new DinosaurIdle(m_Vec);
 	}
 
 
