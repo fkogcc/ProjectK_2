@@ -68,6 +68,8 @@ SceneBase* SceneMain::Update()
 	m_pUi->Update();
 	m_pUi->GetHp1(m_pPlayer[0]->GetHp());// 1P‚ÌHP‚ð“n‚·
 	m_pUi->GetHp2(m_pPlayer[1]->GetHp());// 2P‚ÌHP‚ð“n‚·
+	m_pUi->AttackFlag1(false);// UŒ‚’†‚Ìƒtƒ‰ƒO
+	m_pUi->AttackFlag2(false);// UŒ‚’†‚Ìƒtƒ‰ƒO
 
 	//if (m_pColl->IsColl1() && m_pColl->IsColl2())
 	//{
@@ -93,23 +95,26 @@ SceneBase* SceneMain::Update()
 	{
 		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
 		m_pPlayer[1]->SetAttackFlag(false);
-
+		m_pUi->AttackFlag1(true);// UŒ‚’†‚Ìƒtƒ‰ƒO
 	}
 
 	if (m_pColl->IsColl2())
 	{
 		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
 		m_pPlayer[0]->SetAttackFlag(false);
+		m_pUi->AttackFlag2(true);// UŒ‚’†‚Ìƒtƒ‰ƒO
 	}
 
 	if (m_pColl->ShotColl1())
 	{
 		m_pPlayer[0]->OnDamage(1);
+		m_pUi->AttackFlag1(true);// UŒ‚’†‚Ìƒtƒ‰ƒO
 	}
 
 	if (m_pColl->ShotColl2())
 	{
 		m_pPlayer[1]->OnDamage(1);
+		m_pUi->AttackFlag2(true);// UŒ‚’†‚Ìƒtƒ‰ƒO
 	}
 
 	if (m_pColl->AttackColl())
