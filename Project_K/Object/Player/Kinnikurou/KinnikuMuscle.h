@@ -8,8 +8,8 @@ public:
 
 	bool IsAttackColMuscle() { return m_isAttackCol; }
 
-private:
 	bool m_isAttackCol = false;
+private:
 
 	int m_nextCount = 0;
 };

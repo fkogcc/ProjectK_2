@@ -141,9 +141,9 @@ void Dinosaur::Draw()
 	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 	if (m_attackFlag)
 	{
-		DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,
+		/*DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,
 			static_cast<int>(m_pos.x) + m_attackSizeRight, static_cast<int>(m_pos.y) + m_attackSizeBottom,
-			0xff0000, false);
+			0xff0000, false);*/
 	}
 
 	DrawBox(static_cast<int>(m_pos.x) + m_sizeLeft, static_cast<int>(m_pos.y) + m_sizeTop,

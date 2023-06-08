@@ -170,6 +170,10 @@ void SceneMain::Draw()
 	m_pPlayer[0]->Draw();
 	m_pPlayer[1]->Draw();
 
+	// デバッグ用当たり判定描画
+	m_pPlayer[0]->DebugDrawCollision();
+	m_pPlayer[1]->DebugDrawCollision();
+
 	// ステージの描画
 	m_pStage->Draw();
 
