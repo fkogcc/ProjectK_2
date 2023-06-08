@@ -28,7 +28,7 @@ namespace
 Elf::Elf() :
 	m_handle(0),
 	m_imageX(0), m_imageY(0),
-	m_atackFlag(false),
+	m_isAttack(false),
 	m_isDirection(false),
 	m_isCollPos(false),
 	m_pIdle(nullptr),
@@ -49,6 +49,8 @@ Elf::Elf() :
 
 	m_pos.y = 600.0f - 176.0f;
 
+	m_damage = 1;
+
 }
 
 Elf::~Elf()
@@ -68,60 +70,49 @@ void Elf::End()
 
 void Elf::Update()
 {
-	if (!m_pChargeShot->IsSetMove() ||
-		!m_pJump->IsSetMove()||
-		!m_pShot->IsSetMove() ||
-		!m_pPunch->IsSetMove() ||
-		!m_pUp->IsSetMove())
-
-	{
-		m_atackFlag = false;
-
-		m_pChargeShot->SetMoveTime(true);
-		m_pJump->SetMoveTime(true);
-		m_pShot->SetMoveTime(true);
-		m_pPunch->SetMoveTime(true);
-		m_pUp->SetMoveTime(true);
-
-		m_attackSizeLeft = 0;
-		m_attackSizeTop = 0;
-		m_attackSizeRight = 0;
-		m_attackSizeBottom = 0;
-	}
+	AnimStop();// アニメーション停止
 
 	// 攻撃モーションに入ったら動けなくなる
-	if (!m_atackFlag)
+	if (!m_attackFlag)
 	{
-		m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
+		// 攻撃が終わった時に待機状態に移行する
+		if (m_isAttack)
+		{
+			m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
+		}
+		m_isAttack = false;
 
+		// 走る
 		if (Pad::IsPress(PAD_INPUT_RIGHT,m_padNum))
 		{
-			m_moveType = static_cast<int>(moveType::Run);// 走る
+			m_moveType = static_cast<int>(moveType::Run);
 			m_pos.x += kSpeed;
 			m_isDirection = false;
 		}
 		else if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 		{
-			m_moveType = static_cast<int>(moveType::Run);// 走る
+			m_moveType = static_cast<int>(moveType::Run);
 			m_pos.x -= kSpeed;
 			m_isDirection = true;
 		}
 
+		// 攻撃
 		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))// XBOX A
 		{
-			m_moveType = static_cast<int>(moveType::Attack1);// 攻撃
-			m_atackFlag = true;
+			m_moveType = static_cast<int>(moveType::Attack1);
+			m_attackFlag = true;
 		}
+		// 攻撃
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))// XBOX B
 		{
-			m_moveType = static_cast<int>(moveType::Attack2);// 攻撃
-			m_atackFlag = true;
+			m_moveType = static_cast<int>(moveType::Attack2);
+			m_attackFlag = true;
 		}
+		//　ジャンプ
 		if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))// XBOX X or Y
 		{
-			//　ジャンプ
 			m_moveType = static_cast<int>(moveType::Jump);
-			m_atackFlag = true;
+			m_attackFlag = true;
 			m_jumpAcc = kJumpPower;
 			
 		}
@@ -134,22 +125,25 @@ void Elf::Update()
 			Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_LEFT, m_padNum)))   // XBOX A && LEFT
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);;// 攻撃
-			m_atackFlag = true;
+			m_attackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_UP, m_padNum)))// XBOX A && UP
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
-			m_atackFlag = true;
+			m_attackFlag = true;
 		}
 	}
 
+	// プレイヤーの当たり判定用位置
 	m_sizeLeft   = - 30;
 	m_sizeTop    =   75;
 	m_sizeRight  = m_sizeLeft + 60;
-	m_sizeBottom = m_sizeTop + 176;
+	m_sizeBottom = m_sizeTop  + 176;
 
-	AnimationSwitch();
+	// どの動きをするかを決める
+	AnimSwitch();
 
+	// 重力
 	float posY = 600.0f - 176.0f;
 	if (m_pos.y > posY)
 	{
@@ -163,8 +157,6 @@ void Elf::Update()
 	// 重力
 	m_jumpAcc += kGravity;
 	m_pos.y += m_jumpAcc;
-
-	//m_Shot[0] = new ElfShot(m_pos, { -15,0 });
 
 }
 
@@ -181,24 +173,50 @@ void Elf::Draw()
 		m_isDirection
 	);
 
-#if _DEBUG	
+#if _DEBUG
 	// プレイヤーのサイズ
 	DrawBox(m_sizeLeft + m_pos.x , 
 			m_sizeTop + m_pos.y,
 			m_sizeRight + m_pos.x, 
 			m_sizeBottom + m_pos.y,
-		GetColor(GetRand(255), GetRand(255), GetRand(255)), false);
-	// 攻撃範囲
-	DrawBox(m_attackSizeLeft + m_pos.x,
-			m_attackSizeTop + m_pos.y,
-			m_attackSizeRight +  m_pos.x,
-			m_attackSizeBottom + m_pos.y,
+			0xffffff, false);
+	// m_attackFlagがtrueのとき攻撃当たり判定を表示
+	if (m_attackFlag)
+	{
+		DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,
+			static_cast<int>(m_pos.x) + m_attackSizeRight, static_cast<int>(m_pos.y) + m_attackSizeBottom,
 			0xff0000, false);
+	}
+
 #endif
-	
 }
 
-void Elf::AnimationSwitch()
+void Elf::AnimStop()
+{
+	if (!m_pChargeShot->IsSetMove() ||
+		!m_pJump->IsSetMove() ||
+		!m_pShot->IsSetMove() ||
+		!m_pPunch->IsSetMove() ||
+		!m_pUp->IsSetMove())
+
+	{
+		m_attackFlag = false;
+		m_isAttack = true;
+
+		m_pChargeShot->SetMoveTime(true);
+		m_pJump->SetMoveTime(true);
+		m_pShot->SetMoveTime(true);
+		m_pPunch->SetMoveTime(true);
+		m_pUp->SetMoveTime(true);
+
+		m_attackSizeLeft = 0;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 0;
+		m_attackSizeBottom = 0;
+	}
+}
+
+void Elf::AnimSwitch()
 {
 	switch (m_moveType)
 	{

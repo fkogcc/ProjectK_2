@@ -25,7 +25,11 @@ public:
 	void Update();// 更新
 	void Draw();// 描画
 
-	void AnimationSwitch();
+	void AnimStop();// アニメーション停止
+
+	void AnimSwitch();// アニメ
+
+//	void AnimDamageStop(bool damageFlg) { m_isAttackStop = damageFlg; }
 
 private:
 	int m_handle;// 画像ハンドル
@@ -34,7 +38,7 @@ private:
 
 	float m_jumpAcc = 0.0f;
 
-	bool m_atackFlag;// 
+	bool m_isAttack;// 攻撃ができるかどうか
 
 	bool m_isDirection;// 
 
