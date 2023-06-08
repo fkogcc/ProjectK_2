@@ -21,10 +21,10 @@ public:
 
 	virtual ~PlayerBase() {};
 
-	virtual void Init() {};	// 初期化
-	virtual void End() {};	// 終了処理
+	virtual void Init() {};		// 初期化
+	virtual void End() {};		// 終了処理
 	virtual void Update() {};	// 更新
-	virtual void Draw() {};	// 描画
+	virtual void Draw() {};		// 描画
 
 	// プレイヤーのサイズの当たり判定
 	int GetSizeLeft() { return m_sizeLeft; }
@@ -52,16 +52,21 @@ public:
 	// SceneMainからプレイヤーが受けるダメージを受け取る
 	int GetDamage() { return m_damage; }
 
+	// プレイヤーがダメージを受ける
 	void OnDamage(int damage) { m_hp -= damage; }
 
+	// プレイヤーの体力
 	int GetHp() { return m_hp; }
 
+	// ゲームパッドの番号
 	void SetPadNum(int padNum) { m_padNum = padNum; }
 
+	// 位置
 	Vec2 GetPos() { return m_pos; }
 
 	ShotBase* GetShot(int i) { return m_Shot[i]; }
 
+	// デバッグ用当たり判定の描画(攻撃)
 	void DebugDrawCollision();
 
 protected:
@@ -79,15 +84,13 @@ protected:
 	int m_attackSizeRight = 0;
 	int m_attackSizeBottom = 0;
 
-	// パッド番号
-	int m_padNum = 0;
-
-	// 攻撃発生から何フレーム経ったか
-	int m_attackFrameCount = 0;
+	int m_padNum = 0;			// パッド番号
+	
+	int m_attackFrameCount = 0;	// 攻撃発生から何フレーム経ったか
 
 	int m_moveType = 0;
-	int m_hp = 100;	// プレイヤーの体力量(100が標準)
-	int m_damage = 0;		// プレイヤーが受けるダメージ
+	int m_hp = 100;				// プレイヤーの体力量(100が標準)
+	int m_damage = 0;			// プレイヤーが受けるダメージ
 
 	bool m_attackFlag = false;	// 攻撃中かどうか
 

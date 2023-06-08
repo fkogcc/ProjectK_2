@@ -18,11 +18,22 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
 	m_isVictory1P(false),
 	m_isVictory2P(false)
 {
-	m_pStage = new Stage;
+	m_pStage = new Stage;  // ステージ
 
-	m_pPlayer[0] = Player1;
-	m_pPlayer[1] = Player2;
+	// プレイヤー
+	m_pPlayer[0] = Player1;// 1P
+	m_pPlayer[1] = Player2;// 2P
+	/// <summary>
+	/// 当たり判定
+	/// </summary>
+	/// <param name="Player1">1P</param>
+	/// <param name="Player2">2P</param>
 	m_pColl = new Collision(m_pPlayer[0], m_pPlayer[1]);
+	/// <summary>
+	/// UI
+	/// </summary>
+	/// <param name="Player1">1Pの体力</param>
+	/// <param name="Player2">2Pの体力</param>
 	m_pUi = new UI(m_pPlayer[0]->GetHp(), m_pPlayer[1]->GetHp());
 }
 
@@ -162,9 +173,11 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	// プレイヤーのHPの変数
-	printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
-	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
+	// ステージの描画
+	m_pStage->Draw();
+
+	// UIの描画
+	m_pUi->Draw();
 
 	// プレイヤーの描画
 	m_pPlayer[0]->Draw();
@@ -174,11 +187,7 @@ void SceneMain::Draw()
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
 
-	// ステージの描画
-	m_pStage->Draw();
-
-	// UIの描画
-	m_pUi->Draw();
+	
 
 	SceneBase::DrawFade();
 }
