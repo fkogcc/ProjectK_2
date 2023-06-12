@@ -18,7 +18,7 @@ DinosaurStateManager::DinosaurStateManager(int Handle) :
 // ‰Šú‰»
 void DinosaurStateManager::Init()
 {
-	m_pState = new DinosaurIdle({ 500,600 }, { 0,0 });
+	m_pState = new DinosaurIdle({ 0,0 });
 	m_deadFlag = false;
 }
 // I—¹
@@ -52,6 +52,11 @@ void DinosaurStateManager::Update(int padNum)
 	m_pState->SetLookFlag(m_lookLeft);
 	DinosaurStateBase* pState = m_pState->Update(padNum);// AttackBase‚Ìupdateˆ—ŒÄ‚Ño‚µ
 
+	if (m_ondamageFlag)
+	{
+		pState = new DinosaurIdle({ 0,0 });
+	}
+
 	if (pState != m_pState)
 	{
 		//	m_pState->End();// I—¹ˆ—
@@ -62,11 +67,11 @@ void DinosaurStateManager::Update(int padNum)
 	}
 }
 // •`‰æ
-void DinosaurStateManager::Draw()
+void DinosaurStateManager::Draw(Vec2 pos)
 {
 	assert(m_pState);
 	if (!m_pState)	return;
-	m_pState->Draw(m_Handle, m_lookLeft);// •`‰æ
+	m_pState->Draw(m_Handle, m_lookLeft, pos);// •`‰æ
 }
 
 bool DinosaurStateManager::GetshotFlag()
@@ -74,9 +79,9 @@ bool DinosaurStateManager::GetshotFlag()
 	return m_pState->GetshotFlag();
 }
 
-Vec2 DinosaurStateManager::GetPos()
+Vec2 DinosaurStateManager::GetVec()
 {
-	return m_pState->GetPos();
+	return m_pState->GetVec();
 }
 
 bool DinosaurStateManager::GetAttackFlag()

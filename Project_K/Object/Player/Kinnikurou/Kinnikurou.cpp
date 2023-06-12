@@ -142,6 +142,7 @@ void Kinnikurou::Update()
 	}
 	else
 	{
+		// 攻撃していないとき
 		if (m_motionCount == 0)
 		{
 			if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
@@ -188,13 +189,13 @@ void Kinnikurou::Update()
 	
 	if (!Pad::IsPress(PAD_INPUT_RIGHT, m_padNum) || !Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 	{
-		m_attackFlag = false;
+		//m_attackFlag = false;
 		m_charRun = false;
 	}
 
 	if ((Pad::IsRelase(PAD_INPUT_RIGHT, m_padNum) || Pad::IsRelase(PAD_INPUT_LEFT, m_padNum)) && m_motionCount == 0)
 	{
-		m_attackFlag = false;
+		//m_attackFlag = false;
 		ImgposInit();
 	}
 
@@ -202,14 +203,13 @@ void Kinnikurou::Update()
 	// アイドル状態
 	if (m_moveType == static_cast<int>(moveType::Idol))
 	{
-		m_attackFlag = false;
+		//m_attackFlag = false;
 
 		m_pIdle->Update(m_imgPosX, m_imgPosY);
 	}
 	// ジャブ攻撃
 	if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
-		m_attackFlag = true;
 
 		if (!m_charDirection)
 		{
@@ -222,9 +222,9 @@ void Kinnikurou::Update()
 		else if (m_charDirection)
 		{
 			// 当たり判定
-			m_attackSizeLeft = -30;
+			m_attackSizeLeft = -90;
 			m_attackSizeTop = -30;
-			m_attackSizeRight = -90;
+			m_attackSizeRight = -30;
 			m_attackSizeBottom = 10;
 		}
 
@@ -233,7 +233,6 @@ void Kinnikurou::Update()
 	// 胸筋衝撃波
 	if (m_moveType == static_cast<int>(moveType::Attack2))
 	{
-		m_attackFlag = true;
 
 		if (!m_charDirection)
 		{
@@ -245,9 +244,9 @@ void Kinnikurou::Update()
 		}
 		else if (m_charDirection)
 		{
-			m_attackSizeLeft = 50;
+			m_attackSizeLeft = -100;
 			m_attackSizeTop = -90;
-			m_attackSizeRight = -100;
+			m_attackSizeRight = 50;
 			m_attackSizeBottom = 90;
 		}
 		
@@ -257,7 +256,6 @@ void Kinnikurou::Update()
 	// アッパー攻撃
 	if (m_moveType == static_cast<int>(moveType::Attack3))
 	{
-		m_attackFlag = true;
 
 		if (!m_charDirection)
 		{
@@ -269,9 +267,9 @@ void Kinnikurou::Update()
 		}
 		else if (m_charDirection)
 		{
-			m_attackSizeLeft = -30;
+			m_attackSizeLeft = -100;
 			m_attackSizeTop = -80;
-			m_attackSizeRight = -100;
+			m_attackSizeRight = -30;
 			m_attackSizeBottom = 80;
 		}
 
@@ -282,7 +280,7 @@ void Kinnikurou::Update()
 	// みぞおち攻撃
 	if (m_moveType == static_cast<int>(moveType::Attack4))
 	{
-		m_attackFlag = true;
+		
 
 		if (!m_charDirection)
 		{
@@ -294,9 +292,9 @@ void Kinnikurou::Update()
 		}
 		else if (m_charDirection)
 		{
-			m_attackSizeLeft = -30;
+			m_attackSizeLeft = -80;
 			m_attackSizeTop = -10;
-			m_attackSizeRight = -80;
+			m_attackSizeRight = -30;
 			m_attackSizeBottom = 10;
 		}
 
@@ -307,7 +305,7 @@ void Kinnikurou::Update()
 	// 走る状態
 	if (m_moveType == static_cast<int>(moveType::Run))
 	{
-		m_attackFlag = false;
+		//m_attackFlag = false;
 		m_pRun->Update(m_imgPosX, m_imgPosY);
 	}
 	//UpdateJump();
@@ -412,16 +410,44 @@ void Kinnikurou::DrawBoxAttackCol()
 
 void Kinnikurou::AttackCol()
 {
-	bool isAttack = m_pJab->IsAttackColJab() || 
+	/*bool isAttack = m_pJab->IsAttackColJab() || 
 					m_pMuscle->IsAttackColMuscle() || 
 					m_pUpper->IsAttackColUpper() || 
-					m_pMizo->IsAttackColMizo();
+					m_pMizo->IsAttackColMizo();*/
+
+	if (m_pJab->m_isAttackCol ||
+		m_pMuscle->m_isAttackCol ||
+		m_pUpper->m_isAttackCol ||
+		m_pMizo->m_isAttackCol)
+	{
+		m_attackFlag = true;
+	}
+	else
+	{
+		m_attackFlag = false;
+	}
 
 	if (m_attackFlag)
 	{
-		if (isAttack)
+		if (m_moveType == static_cast<int>(moveType::Attack1))
 		{
-			DrawBoxAttackCol();
+			m_damage = 10;
 		}
+		if (m_moveType == static_cast<int>(moveType::Attack2))
+		{
+			m_damage = 10;
+		}
+		if (m_moveType == static_cast<int>(moveType::Attack3))
+		{
+			m_damage = 10;
+		}
+		if (m_moveType == static_cast<int>(moveType::Attack4))
+		{
+			m_damage = 10;
+		}
+	}
+	else
+	{
+		m_damage = 0;
 	}
 }

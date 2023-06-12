@@ -1,3 +1,4 @@
+
 ﻿0:ChangeWindowMode実行 
 1:ウインドウモードフラグが立てられました
 5:ＤＸライブラリの初期化処理開始
@@ -163,3 +164,5 @@
 24856:Alloc memory dump
 24857:	Total size:0(0.000kb)  Alloc num:0
 24858:
+
+

@@ -3,7 +3,7 @@
 class DinosaurJump : public DinosaurStateBase
 {
 public:
-	DinosaurJump(Vec2 pos, Vec2 vec);
+	DinosaurJump(Vec2 vec);
 	
 	virtual ~DinosaurJump();
 

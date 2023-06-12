@@ -8,13 +8,12 @@ namespace
 	constexpr float kGravity = 0.8f;
 }
 
-DinosaurJump::DinosaurJump(Vec2 pos, Vec2 vec)
+DinosaurJump::DinosaurJump(Vec2 vec)
 {	
-	m_Pos = pos;
-	m_Vec = vec;
+	m_Vec.x = vec.x;
 	m_imagePosX = 0;
 	m_imagePosY = 4;
-	m_JumpPower = kJumpPower;
+	m_Vec.y = kJumpPower;
 	m_attackFlag = false;
 }
 
@@ -24,9 +23,7 @@ DinosaurJump::~DinosaurJump()
 
 DinosaurStateBase* DinosaurJump::Update(int padNum)
 {
-	m_Pos.y += m_JumpPower;
-	m_Pos.x += m_Vec.x;
-	m_JumpPower += kGravity;
+	m_Vec.y += kGravity;
 
 	if (m_imagePosX < 3)
 	{
@@ -38,9 +35,10 @@ DinosaurStateBase* DinosaurJump::Update(int padNum)
 		m_gapTime++;
 	}
 
-	if (m_JumpPower > -kJumpPower)
+	if (m_Vec.y > -kJumpPower)
 	{
-		return new DinosaurIdle(m_Pos, m_Vec);
+		m_Vec.y = 0;
+		return new DinosaurIdle(m_Vec);
 	}
 
 	return this;

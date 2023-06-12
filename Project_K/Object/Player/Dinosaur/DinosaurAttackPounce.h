@@ -3,7 +3,7 @@
 class DinosaurAttackPounce : public DinosaurStateBase
 {
 public:
-	DinosaurAttackPounce(Vec2 pos, Vec2 vec);
+	DinosaurAttackPounce(Vec2 vec, bool lookLeft);
 	
 	virtual ~DinosaurAttackPounce();
 

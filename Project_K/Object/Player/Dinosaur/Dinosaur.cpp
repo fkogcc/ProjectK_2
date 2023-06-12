@@ -16,11 +16,12 @@ namespace
 Dinosaur::Dinosaur() :
 	m_Handle(-1)
 {
-	m_hp = 150;
+	//m_hp = 100;
 	m_Handle = LoadGraph(kFilename);
 	m_StateManager = new DinosaurStateManager(m_Handle);
 	m_StateManager->Init();
 	//m_pos.y = 100.0f;
+	m_pos = { 500,600 };
 }
 
 Dinosaur::~Dinosaur()
@@ -42,10 +43,22 @@ void Dinosaur::End()
 void Dinosaur::Update()
 {
 	// hpが0になったらm_StateManagerのm_deadFlagをtrueに
-	if (m_hp < 0)
+	if (m_hp <= 0)
 	{
 		m_StateManager->SetDeadFlag();
 	}
+
+	if (m_onDamageFrame > 0)
+	{
+		m_StateManager->SetondamageFlag(true);
+		m_onDamageFrame--;
+		damageMove();
+	}
+	else
+	{
+		m_StateManager->SetondamageFlag(false);
+	}
+
 	// StateManagerのアップデート
 	m_StateManager->Update(m_padNum);
 
@@ -61,7 +74,7 @@ void Dinosaur::Update()
 	if (m_attackFlag)
 	{
 		// カウントを増やす
-		attackCountUp();
+	//	attackCountUp();
 	}
 	else// falseのとき
 	{
@@ -70,7 +83,12 @@ void Dinosaur::Update()
 	}
 
 	// m_posの値を取得
-	m_pos = m_StateManager->GetPos();
+	m_pos += m_StateManager->GetVec();
+
+	if (m_pos.y > 600)
+	{
+		m_pos.y = 600;
+	}
 
 	for (int i = 0; i < kShotMax; i++)
 	{
@@ -127,7 +145,7 @@ void Dinosaur::Update()
 void Dinosaur::Draw()
 {
 	// キャラクター表示
-	m_StateManager->Draw();
+	m_StateManager->Draw(m_pos);
 
 	//ショット表示
 	for (int i = 0; i < kShotMax; i++)
@@ -141,9 +159,9 @@ void Dinosaur::Draw()
 	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 	if (m_attackFlag)
 	{
-		DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,
+		/*DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,
 			static_cast<int>(m_pos.x) + m_attackSizeRight, static_cast<int>(m_pos.y) + m_attackSizeBottom,
-			0xff0000, false);
+			0xff0000, false);*/
 	}
 
 	DrawBox(static_cast<int>(m_pos.x) + m_sizeLeft, static_cast<int>(m_pos.y) + m_sizeTop,

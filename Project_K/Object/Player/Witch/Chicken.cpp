@@ -4,13 +4,13 @@
 namespace
 {
 	const char* const kFilmName = "Data/Image/Player/Witch/Niwatori.png";
-	float kMovePos = 45.0f;
 	constexpr int kCountFrame = 7;
 }
 Chicken::Chicken() :
 	m_handle(0),
 	m_movePos(0),
 	m_reversal(false),
+	m_move(0),
 	m_pos(),
 	m_animeFrame(0),
 	m_animeMax(0),
@@ -40,14 +40,14 @@ void Chicken::Update()
 	if (m_exist)
 	{
 		m_animeFrame++;
-		if (m_reversal && m_movePos == 60)
+		if (m_reversal && m_movePos == 40)
 		{
 			m_movePos *= -1;
 		}
 		if (m_animeFrame > 7)
 		{
 			m_animeHight++;
-			m_pos.x += m_movePos;
+			m_move += m_movePos;
 			m_animeFrame = 0;
 			m_countFrame++;
 		}
@@ -67,7 +67,8 @@ void Chicken::Update()
 	}
 	else
 	{
-		m_movePos = 60;
+		m_movePos = 40;
+		m_move = 0;
 	}
 }
 
@@ -75,7 +76,7 @@ void Chicken::Draw()
 {
 	if (m_exist)
 	{
-		my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x) + 30,
+		my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x) + m_move,
 			static_cast<int>(m_pos.y),			//ï\é¶ç¿ïW
 			32 * m_animeWidth, 32 * m_animeHight,			//êÿÇËéÊÇËç∂è„
 			32, 32,							//ïùÅAçÇÇ≥

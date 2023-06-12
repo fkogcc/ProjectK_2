@@ -28,7 +28,7 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
 
 SceneMain::~SceneMain()
 {
-	// ƒƒ‚ƒŠ‚ÌŠJ•ú
+	// ãƒ¡ãƒ¢ãƒªã®é–‹æ”¾
 	delete m_pStage;
 	delete m_pPlayer[0];
 	delete m_pPlayer[1];
@@ -64,94 +64,96 @@ SceneBase* SceneMain::Update()
 	m_pPlayer[0]->Update();
 	m_pPlayer[1]->Update();
 
-	// UI‚ÌXVˆ—
+	// UIã®æ›´æ–°å‡¦ç†
 	m_pUi->Update();
-	m_pUi->GetHp1(m_pPlayer[0]->GetHp());// 1P‚ÌHP‚ð“n‚·
-	m_pUi->GetHp2(m_pPlayer[1]->GetHp());// 2P‚ÌHP‚ð“n‚·
+	m_pUi->GetHp1(m_pPlayer[0]->GetHp());// 1Pã®HPã‚’æ¸¡ã™
+	m_pUi->GetHp2(m_pPlayer[1]->GetHp());// 2Pã®HPã‚’æ¸¡ã™
+	m_pUi->AttackFlag1(false);// æ”»æ’ƒä¸­ã®ãƒ•ãƒ©ã‚°
+	m_pUi->AttackFlag2(false);// æ”»æ’ƒä¸­ã®ãƒ•ãƒ©ã‚°
 
-	if (m_pColl->IsColl1() && m_pColl->IsColl2())
-	{
-		if (m_pPlayer[0]->GetAttackFrame() < m_pPlayer[1]->GetAttackFrame())
-		{
-			m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
-			m_pPlayer[0]->SetAttackFlag(false);
-		}
+	float toPlayer1 = m_pPlayer[1]->GetPos().x - m_pPlayer[0]->GetPos().x;
+	float toPlayer2 = m_pPlayer[0]->GetPos().x - m_pPlayer[1]->GetPos().x;
 
-		if (m_pPlayer[0]->GetAttackFrame() >= m_pPlayer[1]->GetAttackFrame())
-		{
-			m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
-			m_pPlayer[1]->SetAttackFlag(false);
-		}
-
-		/*if (m_Player[0]->GetAttackFrame() == m_Player[1]->GetAttackFrame())
-		{
-			m_Player[1]->OnDamage(1);
-		}*/
-	}
-
-	else if (m_pColl->IsColl1())
+	if (m_pColl->IsColl1())
 	{
 		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
+		m_pPlayer[0]->SetOnDamageFrame();
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
 		m_pPlayer[1]->SetAttackFlag(false);
-
+		m_pUi->AttackFlag1(true);// æ”»æ’ƒä¸­ã®ãƒ•ãƒ©ã‚°
 	}
 
-	else if (m_pColl->IsColl2())
+	if (m_pColl->IsColl2())
 	{
 		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
+		m_pPlayer[1]->SetOnDamageFrame();
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
 		m_pPlayer[0]->SetAttackFlag(false);
+		m_pUi->AttackFlag2(true);// æ”»æ’ƒä¸­ã®ãƒ•ãƒ©ã‚°
 	}
 
 	if (m_pColl->ShotColl1())
 	{
 		m_pPlayer[0]->OnDamage(1);
+		m_pPlayer[0]->SetOnDamageFrame();
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
+		m_pPlayer[1]->SetAttackFlag(false);
+		m_pUi->AttackFlag1(true);// æ”»æ’ƒä¸­ã®ãƒ•ãƒ©ã‚°
 	}
 
 	if (m_pColl->ShotColl2())
 	{
 		m_pPlayer[1]->OnDamage(1);
+		m_pPlayer[1]->SetOnDamageFrame();
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
+		m_pPlayer[1]->SetAttackFlag(false);
+		m_pUi->AttackFlag2(true);// æ”»æ’ƒä¸­ã®ãƒ•ãƒ©ã‚°
 	}
 
 	if (m_pColl->AttackColl())
 	{
 		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
+		m_pPlayer[0]->SetOnDamageFrame();
 		m_pPlayer[1]->SetAttackFlag(false);
 		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
+		m_pPlayer[1]->SetOnDamageFrame();
 		m_pPlayer[0]->SetAttackFlag(false);
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
 	}
 
 	m_pStage->Update();
 
-	// ƒV[ƒ“‘JˆÚ
+	// ã‚·ãƒ¼ãƒ³é·ç§»
 	if (IsFading())
 	{
 		m_isFadeOut = IsFadingOut();
 		SceneBase::UpdateFade();
 		if (!IsFading() && m_isFadeOut)
 		{
-			// true‚Ìê‡
-			// m_isVictory1P = 1P‚ÌŸ—˜
-			// m_isVictory2P = 2P‚ÌŸ—˜
-			return(new SceneResult(m_isVictory1P, m_isVictory2P));// 1ƒXƒe[ƒWØ‚è‘Ö‚¦
+			// trueã®å ´åˆ
+			// m_isVictory1P = 1Pã®å‹åˆ©
+			// m_isVictory2P = 2Pã®å‹åˆ©
+			return(new SceneResult(m_isVictory1P, m_isVictory2P));// 1ã‚¹ãƒ†ãƒ¼ã‚¸åˆ‡ã‚Šæ›¿ãˆ
 		}
 	}
 
-	// ƒtƒF[ƒhƒCƒ“ƒAƒEƒg‚µ‚Ä‚¢‚È‚¢Žž
+	// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ã‚¢ã‚¦ãƒˆã—ã¦ã„ãªã„æ™‚
 	if (!IsFading())
 	{
-		// ƒfƒoƒbƒO—pƒV[ƒ“‘JˆÚ
+		// ãƒ‡ãƒãƒƒã‚°ç”¨ã‚·ãƒ¼ãƒ³é·ç§»
 		if (m_pPlayer[0]->GetHp() <= 0 || m_pPlayer[1]->GetHp() <= 0)
 		{
 			StartFadeOut();
 		}
 	}
 
-	// 1P‚ÌŸ—˜
+	// 1Pã®å‹åˆ©
 	if (m_pPlayer[1]->GetHp() <= 0)
 	{
 		m_isVictory1P = true;
 	}
-	// 2P‚ÌŸ—˜
+	// 2Pã®å‹åˆ©
 	else if (m_pPlayer[0]->GetHp() <= 0)
 	{
 		m_isVictory2P = true;
@@ -162,18 +164,22 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	// ƒvƒŒƒCƒ„[‚ÌHP‚Ì•Ï”
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPã®å¤‰æ•°
 	printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
 	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
-	// ƒvƒŒƒCƒ„[‚Ì•`‰æ
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æç”»
 	m_pPlayer[0]->Draw();
 	m_pPlayer[1]->Draw();
 
-	// ƒXƒe[ƒW‚Ì•`‰æ
+	// ãƒ‡ãƒãƒƒã‚°ç”¨å½“ãŸã‚Šåˆ¤å®šæç”»
+	m_pPlayer[0]->DebugDrawCollision();
+	m_pPlayer[1]->DebugDrawCollision();
+
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã®æç”»
 	m_pStage->Draw();
 
-	// UI‚Ì•`‰æ
+	// UIã®æç”»
 	m_pUi->Draw();
 
 	SceneBase::DrawFade();
