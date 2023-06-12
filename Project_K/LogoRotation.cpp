@@ -69,9 +69,10 @@ void LogoRotation::Update()
 	}
 	else
 	{
+		float speed = 100.0f;
 		m_rota = 0.0f;
-		m_box += 25.0f;
-		m_box2 += 25.0f;
+		m_box += speed;
+		m_box2 += speed;
 	}
 
 	printfDx("%d\n", m_x);
@@ -87,9 +88,12 @@ void LogoRotation::Draw()
 	// 読みこんだグラフィックを回転描画
 	DrawRotaGraph(Game::kScreenWidth/2, 500.0f, m_size, m_rota, m_hLogo, true);
 
-	constexpr int y = 100;
+	constexpr int y = Game::kScreenHeight - 300;
 	constexpr int x = 100; 
 
+	int color = 0x000000;
+
+	// コメント
 	DrawBox(
 		x,
 		0,
@@ -97,6 +101,7 @@ void LogoRotation::Draw()
 		m_box2,
 		0xffff00, true);
 
+	// コメント
 	DrawBox(
 		0, 
 		y,

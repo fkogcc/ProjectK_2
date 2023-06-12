@@ -97,12 +97,9 @@ void Elf::Update()
 			m_damage = 0;
 		}
 	}
-	if (m_gapTime != -1)
-	{
-	}
 
-		// 操作
-		UpdateControl();
+	// 操作
+	UpdateControl();
 
 	// 自身の当たり判定
 	UpdateHitColl();
@@ -150,14 +147,12 @@ void Elf::Draw()
 // 操作
 void Elf::UpdateControl()
 {
-
 	// 攻撃が終わった時に待機状態に移行する
 	if (m_isAttack)
 	{
 		m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
 		m_isAttack = false;
 	}
-
 	// 攻撃モーションに入ったら動けなくなる
 	if (!m_attackFlag)
 	{
@@ -175,6 +170,12 @@ void Elf::UpdateControl()
 			m_isDirection = true;
 		}
 
+		if (m_moveType == static_cast<int>(moveType::Run) &&
+			(Pad::IsRelase(PAD_INPUT_LEFT, m_padNum) || Pad::IsRelase(PAD_INPUT_RIGHT, m_padNum)))
+		{
+			m_isAttack = true;
+		}
+
 		// 攻撃
 		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum) && m_moveType != static_cast<int>(moveType::Attack1))// XBOX A
 		{
@@ -182,7 +183,7 @@ void Elf::UpdateControl()
 			m_attackFlag = true;
 		}
 		// 攻撃
-		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))// XBOX B
+		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && m_moveType != static_cast<int>(moveType::Attack2))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);
 			m_attackFlag = true;
@@ -217,7 +218,7 @@ void Elf::UpdateControl()
 			m_moveType = static_cast<int>(moveType::Attack3);// 攻撃
 			m_attackFlag = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_6, m_padNum))// XBOX X or Y
+		if (Pad::IsTrigger(PAD_INPUT_6, m_padNum) && m_moveType != static_cast<int>(moveType::Attack4))// XBOX X or Y
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
 			m_attackFlag = true;
@@ -228,7 +229,6 @@ void Elf::UpdateControl()
 // アニメーション停止
 void Elf::AnimStop()
 {
-	printfDx("%d\n", m_gapTime);
 	// アニメーションが終わったら
 	if (!m_pChargeShot->IsSetMove() ||
 		!m_pJump->IsSetMove      () ||
