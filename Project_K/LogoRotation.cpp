@@ -60,8 +60,11 @@ void LogoRotation::Update()
 
 void LogoRotation::Draw()
 {
-	my::MyDrawExtendGraph(m_pos.x, m_pos.y, m_logoPos.x, m_logoPos.y, m_hLogo, true);
+	my::MyDrawExtendGraph(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y), 
+		static_cast<int>(m_logoPos.x), static_cast<int>(m_logoPos.y), m_hLogo, true);
 
-	DrawFormatString(m_pos.x, m_pos.y, 0x000000, "m_pos = %f",m_pos.x);
-	DrawFormatString(m_logoPos.x, m_logoPos.y, 0x000000, "m_logoPos = %f", m_logoPos.x);
+	DrawFormatString(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y), 0x000000, 
+		"m_pos = %f", static_cast<int>(m_pos.x));
+	DrawFormatString(static_cast<int>(m_logoPos.x), static_cast<int>(m_logoPos.y),
+		0x000000, "m_logoPos = %f", static_cast<int>(m_logoPos.x));
 }
