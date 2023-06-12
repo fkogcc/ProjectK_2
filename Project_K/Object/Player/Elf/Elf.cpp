@@ -23,14 +23,14 @@ namespace
 	constexpr float kGravity = 2.0f;
 	constexpr float kJumpPower = -40.0f;
 
-	// ‰æ‘œ‚©‚ç‚ÌƒvƒŒƒCƒ„[‚Ì‰E‰ºÀ•W
+	// ç”»åƒã‹ã‚‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å³ä¸‹åº§æ¨™
 	constexpr int kSizeX = 288;
 	constexpr int kSizeY = 128;
 
-	// ƒvƒŒƒCƒ„[ƒTƒCƒY
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚µã‚¤ã‚º
 	constexpr int kSize = 4;
 
-	// ƒvƒŒƒCƒ„[Šp“x
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è§’åº¦
 	constexpr float kRota = DX_PI_F * 2;
 }
 
@@ -47,13 +47,13 @@ Elf::Elf() :
 	m_pRun(nullptr)
 
 {
-	m_pIdle = new ElfIdle;// ‘Ò‹@
-	m_pRun  = new ElfRun; // ‘–‚è
+	m_pIdle = new ElfIdle;// å¾…æ©Ÿ
+	m_pRun  = new ElfRun; // èµ°ã‚Š
 	m_pJump = new ElfJump;
-	m_pPunch	  = new ElfAttackArrowPunch;	  // UŒ‚
-	m_pShot       = new ElfAttackArrowShot;       // UŒ‚
-	m_pChargeShot = new ElfAttackArrowChargeShot; // UŒ‚
-	m_pUp         = new ElfAttackArrowUp;	      // UŒ‚
+	m_pPunch	  = new ElfAttackArrowPunch;	  // æ”»æ’ƒ
+	m_pShot       = new ElfAttackArrowShot;       // æ”»æ’ƒ
+	m_pChargeShot = new ElfAttackArrowChargeShot; // æ”»æ’ƒ
+	m_pUp         = new ElfAttackArrowUp;	      // æ”»æ’ƒ
 
 	m_pos.y = 600.0f - 176.0f;
 }
@@ -75,17 +75,17 @@ void Elf::End()
 
 void Elf::Update()
 {
-	// ƒAƒjƒ[ƒVƒ‡ƒ“’â~
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åœæ­¢
 	AnimStop();
 
 	if (m_attackFlag)
 	{
-		DrawString(100, 100, "true : “®‚¯‚Ü‚¹‚ñ", 0xffffff);
+		DrawString(100, 100, "true : å‹•ã‘ã¾ã›ã‚“", 0xffffff);
 	}
 	else
 	{
-		// false ‚¾‚Æs“®‚Å‚«‚é
-		DrawString(100, 100, "false : “®‚¯‚Ü‚·", 0xffffff);
+		// false ã ã¨è¡Œå‹•ã§ãã‚‹
+		DrawString(100, 100, "false : å‹•ã‘ã¾ã™", 0xffffff);
 	}
 
 	DrawFormatString(100, 200, 0xffffff,"damage : %d", m_damage);
@@ -98,16 +98,16 @@ void Elf::Update()
 		}
 	}
 
-	// ‘€ì
+	// æ“ä½œ
 	UpdateControl();
 
-	// ©g‚Ì“–‚½‚è”»’è
+	// è‡ªèº«ã®å½“ãŸã‚Šåˆ¤å®š
 	UpdateHitColl();
 
-	// ‚Ç‚Ì“®‚«‚ğ‚·‚é‚©‚ğŒˆ‚ß‚é
+	// ã©ã®å‹•ãã‚’ã™ã‚‹ã‹ã‚’æ±ºã‚ã‚‹
 	AnimSwitch();
 
-	// d—ÍŠÖ˜A
+	// é‡åŠ›é–¢é€£
 	UpdateGravity();
 
 
@@ -115,27 +115,27 @@ void Elf::Update()
 
 void Elf::Draw()
 {
-	// ƒvƒŒƒCƒ„[‚Ì•`‰æ
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æç”»
 	my::MyDrawRectRotaGraph(
-		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//ƒvƒŒƒCƒ„[‚ÌˆÊ’u
-		m_imageX, m_imageY,// ‰æ‘œ‚Ì¶ã
-		kSizeX, kSizeY,    // ‰æ‘œ‚Ì‰E‰º
-		kSize,			   // ƒTƒCƒY
-		kRota,			   // ‰ñ“]Šp“x
-		m_handle,		   // ƒnƒ“ƒhƒ‹
-		true,		       // ‰æ‘œ“§‰ß
-		m_isDirection      // ‰æ‘œ”½“]
+		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+		m_imageX, m_imageY,// ç”»åƒã®å·¦ä¸Š
+		kSizeX, kSizeY,    // ç”»åƒã®å³ä¸‹
+		kSize,			   // ã‚µã‚¤ã‚º
+		kRota,			   // å›è»¢è§’åº¦
+		m_handle,		   // ãƒãƒ³ãƒ‰ãƒ«
+		true,		       // ç”»åƒé€é
+		m_isDirection      // ç”»åƒåè»¢
 	);
 
 #if _DEBUG
-	// ƒvƒŒƒCƒ„[‚ÌƒTƒCƒY
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚µã‚¤ã‚º
 	DrawBox(m_sizeLeft + m_pos.x , 
 			m_sizeTop + m_pos.y,
 			m_sizeRight + m_pos.x, 
 			m_sizeBottom + m_pos.y,
 			0xffffff, false);
 
-	// UŒ‚”ÍˆÍ
+	// æ”»æ’ƒç¯„å›²
 	DrawBox(m_attackSizeLeft + m_pos.x,
 			m_attackSizeTop + m_pos.y,
 			m_attackSizeRight + m_pos.x,
@@ -144,19 +144,19 @@ void Elf::Draw()
 #endif
 }
 
-// ‘€ì
+// æ“ä½œ
 void Elf::UpdateControl()
 {
-	// UŒ‚‚ªI‚í‚Á‚½‚É‘Ò‹@ó‘Ô‚ÉˆÚs‚·‚é
+	// æ”»æ’ƒãŒçµ‚ã‚ã£ãŸæ™‚ã«å¾…æ©ŸçŠ¶æ…‹ã«ç§»è¡Œã™ã‚‹
 	if (m_isAttack)
 	{
-		m_moveType = static_cast<int>(moveType::Idol);// ƒAƒCƒhƒ‹ó‘Ô
+		m_moveType = static_cast<int>(moveType::Idol);// ã‚¢ã‚¤ãƒ‰ãƒ«çŠ¶æ…‹
 		m_isAttack = false;
 	}
-	// UŒ‚ƒ‚[ƒVƒ‡ƒ“‚É“ü‚Á‚½‚ç“®‚¯‚È‚­‚È‚é
+	// æ”»æ’ƒãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã«å…¥ã£ãŸã‚‰å‹•ã‘ãªããªã‚‹
 	if (!m_attackFlag)
 	{
-		// ‘–‚é
+		// èµ°ã‚‹
 		if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
 		{
 			m_moveType = static_cast<int>(moveType::Run);
@@ -176,19 +176,19 @@ void Elf::UpdateControl()
 			m_isAttack = true;
 		}
 
-		// UŒ‚
+		// æ”»æ’ƒ
 		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum) && m_moveType != static_cast<int>(moveType::Attack1))// XBOX A
 		{
 			m_moveType = static_cast<int>(moveType::Attack1);
 			m_attackFlag = true;
 		}
-		// UŒ‚
+		// æ”»æ’ƒ
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && m_moveType != static_cast<int>(moveType::Attack2))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);
 			m_attackFlag = true;
 		}
-		//@ƒWƒƒƒ“ƒv
+		//ã€€ã‚¸ãƒ£ãƒ³ãƒ—
 		if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))// XBOX X or Y
 		{
 			m_moveType = static_cast<int>(moveType::Jump);
@@ -203,46 +203,55 @@ void Elf::UpdateControl()
 			Pad::IsTrigger(PAD_INPUT_2, m_padNum) &&// XBOX A && LEFT
 		   (Pad::IsTrigger(PAD_INPUT_LEFT, m_padNum)))   
 		{
-			m_moveType = static_cast<int>(moveType::Attack3);;// UŒ‚
+			m_moveType = static_cast<int>(moveType::Attack3);;// æ”»æ’ƒ
 			m_attackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) &&// XBOX A && UP
 		   (Pad::IsTrigger(PAD_INPUT_UP, m_padNum)))
 		{
-			m_moveType = static_cast<int>(moveType::Attack4);// UŒ‚
+			m_moveType = static_cast<int>(moveType::Attack4);// æ”»æ’ƒ
 			m_attackFlag = true;
 		}
 #endif
 		if (Pad::IsTrigger(PAD_INPUT_5, m_padNum) && m_moveType != static_cast<int>(moveType::Attack3))// XBOX X or Y
 		{
-			m_moveType = static_cast<int>(moveType::Attack3);// UŒ‚
+			m_moveType = static_cast<int>(moveType::Attack3);// æ”»æ’ƒ
 			m_attackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_6, m_padNum) && m_moveType != static_cast<int>(moveType::Attack4))// XBOX X or Y
 		{
-			m_moveType = static_cast<int>(moveType::Attack4);// UŒ‚
+			m_moveType = static_cast<int>(moveType::Attack4);// æ”»æ’ƒ
 			m_attackFlag = true;
 		}
 	}
 }
 
-// ƒAƒjƒ[ƒVƒ‡ƒ“’â~
+// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åœæ­¢
 void Elf::AnimStop()
 {
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½‚ç
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸã‚‰
 	if (!m_pChargeShot->IsSetMove() ||
 		!m_pJump->IsSetMove      () ||
 		!m_pShot->IsSetMove		 () ||
 		!m_pPunch->IsSetMove	 () ||
 		!m_pUp->IsSetMove		 ())
 
+#if _DEBUG
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚µã‚¤ã‚º
+	DrawBox(m_sizeLeft + static_cast<int>(m_pos.x) ,
+			m_sizeTop + static_cast<int>(m_pos.y),
+			m_sizeRight + static_cast<int>(m_pos.x),
+			m_sizeBottom + static_cast<int>(m_pos.y),
+			0xffffff, false);
+	// m_attackFlagãŒtrueã®ã¨ãæ”»æ’ƒå½“ãŸã‚Šåˆ¤å®šã‚’è¡¨ç¤º
+	if (m_attackFlag)
 	{
 		m_isAttack   = true;
 		m_attackFlag = true;
 
 		m_gapTime--;
 
-		// d’¼ó‘Ô‚ªI‚í‚Á‚½‚ç
+		// ç¡¬ç›´çŠ¶æ…‹ãŒçµ‚ã‚ã£ãŸã‚‰
 		if (m_gapTime < 0)
 		{
 			m_attackFlag = false;
@@ -253,7 +262,7 @@ void Elf::AnimStop()
 			m_pUp->SetMoveTime(true);
 		}
 
-		// UŒ‚”ÍˆÍ‚ğ0‚Å‰Šú‰»
+		// æ”»æ’ƒç¯„å›²ã‚’0ã§åˆæœŸåŒ–
 		m_attackSizeLeft   = 0;
 		m_attackSizeTop    = 0;
 		m_attackSizeRight  = 0;
@@ -261,57 +270,57 @@ void Elf::AnimStop()
 	}
 }
 
-// ƒAƒjƒ‚ÆUŒ‚”ÍˆÍ‚ğw’è
+// ã‚¢ãƒ‹ãƒ¡ã¨æ”»æ’ƒç¯„å›²ã‚’æŒ‡å®š
 void Elf::AnimSwitch()
 {
 	switch (m_moveType)
 	{
-	case static_cast<int>(moveType::Idol):// ‘Ò‹@
+	case static_cast<int>(moveType::Idol):// å¾…æ©Ÿ
 		AnimIdol();
 		break;
-	case static_cast<int>(moveType::Run):// ‘–‚è
+	case static_cast<int>(moveType::Run):// èµ°ã‚Š
 		AnimRun();
 		break;
-	case static_cast<int>(moveType::Jump):// ƒWƒƒƒ“ƒv
+	case static_cast<int>(moveType::Jump):// ã‚¸ãƒ£ãƒ³ãƒ—
 		AnimJump();
 		m_gapTime = 1;
 		break;
-	case static_cast<int>(moveType::Attack1):// UŒ‚ : ‹ßÚUŒ‚
+	case static_cast<int>(moveType::Attack1):// æ”»æ’ƒ : è¿‘æ¥æ”»æ’ƒ
 		AnimAttackPunch();
 		m_gapTime = 2;
 		break;
-	case static_cast<int>(moveType::Attack2):// UŒ‚ : ƒm[ƒ}ƒ‹ƒVƒ‡ƒbƒg
+	case static_cast<int>(moveType::Attack2):// æ”»æ’ƒ : ãƒãƒ¼ãƒãƒ«ã‚·ãƒ§ãƒƒãƒˆ
 		AnimAttackNormalShot();
 		m_gapTime = 10;
 		break;
-	case static_cast<int>(moveType::Attack3):// UŒ‚ : ’¼ü‚ÉÅ‘å‰Î—ÍƒVƒ‡ƒbƒg
+	case static_cast<int>(moveType::Attack3):// æ”»æ’ƒ : ç›´ç·šã«æœ€å¤§ç«åŠ›ã‚·ãƒ§ãƒƒãƒˆ
 		AnimAttackChargeShit();
 		m_gapTime = 60;
 		break;
-	case static_cast<int>(moveType::Attack4):// UŒ‚ : Î‚ßã‚É‹ßÚƒVƒ‡ƒbƒg
+	case static_cast<int>(moveType::Attack4):// æ”»æ’ƒ : æ–œã‚ä¸Šã«è¿‘æ¥ã‚·ãƒ§ãƒƒãƒˆ
 		AnimAttackUpShit();
 		m_gapTime = 30;
 		break;
-	default:// ‘Ò‹@
+	default:// å¾…æ©Ÿ
 		AnimIdol();
 		break;
 	}
 }
 
-// ©g‚Ì“–‚½‚è”»’è
+// è‡ªèº«ã®å½“ãŸã‚Šåˆ¤å®š
 void Elf::UpdateHitColl()
 {
-	// ƒvƒŒƒCƒ„[‚Ì“–‚½‚è”»’è—pˆÊ’u
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å½“ãŸã‚Šåˆ¤å®šç”¨ä½ç½®
 	m_sizeLeft = -30;
 	m_sizeTop = 75;
 	m_sizeRight = m_sizeLeft + 60;
 	m_sizeBottom = m_sizeTop + 176;
 }
 
-// d—ÍŠÖ˜A
+// é‡åŠ›é–¢é€£
 void Elf::UpdateGravity()
 {
-	// d—Í
+	// é‡åŠ›
 	float posY = 600.0f - 176.0f;
 	if (m_pos.y > posY)
 	{
@@ -322,67 +331,67 @@ void Elf::UpdateGravity()
 		}
 	}
 
-	// d—Í
+	// é‡åŠ›
 	m_jumpAcc += kGravity;
 	m_pos.y += m_jumpAcc;
 }
 
-// ‘Ò‹@ó‘ÔƒAƒjƒ[ƒVƒ‡ƒ“
+// å¾…æ©ŸçŠ¶æ…‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void Elf::AnimIdol()
 {
 	m_pIdle->Update();
-	// ‰æ‘œ“Ç‚İ‚İˆÊ’u
+	// ç”»åƒèª­ã¿è¾¼ã¿ä½ç½®
 	m_imageX = m_pIdle->SetPosImageX();
 	m_imageY = m_pIdle->SetPosImageY();
-	// UŒ‚”ÍˆÍ‚ğw’è@ƒAƒCƒhƒ‹ó‘Ô‚È‚Ì‚ÅˆÊ’u‚ğ‰Šú‰»
+	// æ”»æ’ƒç¯„å›²ã‚’æŒ‡å®šã€€ã‚¢ã‚¤ãƒ‰ãƒ«çŠ¶æ…‹ãªã®ã§ä½ç½®ã‚’åˆæœŸåŒ–
 	m_attackSizeLeft = 0;
 	m_attackSizeTop = 0;
 	m_attackSizeRight = 0;
 	m_attackSizeBottom = 0;
 
-	// UŒ‚—Í
+	// æ”»æ’ƒåŠ›
 	m_damage = 0;
 }
 
-// ‘–‚èƒAƒjƒ[ƒVƒ‡ƒ“
+// èµ°ã‚Šã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void Elf::AnimRun()
 {
 	m_pRun->Update();
-	// ‰æ‘œ“Ç‚İ‚İˆÊ’u
+	// ç”»åƒèª­ã¿è¾¼ã¿ä½ç½®
 	m_imageX = m_pRun->SetPosImageX();
 	m_imageY = m_pRun->SetPosImageY();
-	// UŒ‚”ÍˆÍ‚ğw’è@‘–‚èó‘Ô‚È‚Ì‚ÅˆÊ’u‚ğ‰Šú‰»
+	// æ”»æ’ƒç¯„å›²ã‚’æŒ‡å®šã€€èµ°ã‚ŠçŠ¶æ…‹ãªã®ã§ä½ç½®ã‚’åˆæœŸåŒ–
 	m_attackSizeLeft = 0;
 	m_attackSizeTop = 0;
 	m_attackSizeRight = 0;
 	m_attackSizeBottom = 0;
 
-	// UŒ‚—Í
+	// æ”»æ’ƒåŠ›
 	m_damage = 0;
 }
 
-// ƒWƒƒƒ“ƒvƒAƒjƒ[ƒVƒ‡ƒ“
+// ã‚¸ãƒ£ãƒ³ãƒ—ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void Elf::AnimJump()
 {
 	m_pJump->Update();
-	// ‰æ‘œ“Ç‚İ‚İˆÊ’u
+	// ç”»åƒèª­ã¿è¾¼ã¿ä½ç½®
 	m_imageX = m_pJump->SetPosImageX();
 	m_imageY = m_pJump->SetPosImageY();
 
-	// UŒ‚—Í
+	// æ”»æ’ƒåŠ›
 	m_damage = 0;
 }
 
-// ƒpƒ“ƒ`ƒAƒjƒ[ƒVƒ‡ƒ“
+// ãƒ‘ãƒ³ãƒã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void Elf::AnimAttackPunch()
 {
 	m_pPunch->Update();
-	// ‰æ‘œ“Ç‚İ‚İˆÊ’u
+	// ç”»åƒèª­ã¿è¾¼ã¿ä½ç½®
 	m_imageX = m_pPunch->SetPosImageX();
 	m_imageY = m_pPunch->SetPosImageY();
 
-	// UŒ‚”ÍˆÍ‚ğw’è
-	// Œü‚¢‚Ä‚¢‚é•ûŒü‚Å”ÍˆÍ‚ğŒˆ’è
+	// æ”»æ’ƒç¯„å›²ã‚’æŒ‡å®š
+	// å‘ã„ã¦ã„ã‚‹æ–¹å‘ã§ç¯„å›²ã‚’æ±ºå®š
 	if (m_isDirection)
 	{
 		m_attackSizeLeft = -230 - 90;
@@ -398,31 +407,31 @@ void Elf::AnimAttackPunch()
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
 	}
 
-	// UŒ‚—Í
+	// æ”»æ’ƒåŠ›
 	m_damage = 1;
 }
 
-// ’ÊíƒVƒ‡ƒbƒgƒAƒjƒ[ƒVƒ‡ƒ“
+// é€šå¸¸ã‚·ãƒ§ãƒƒãƒˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void Elf::AnimAttackNormalShot()
 {
 	m_pShot->Update();
-	// ‰æ‘œ“Ç‚İ‚İˆÊ’u
+	// ç”»åƒèª­ã¿è¾¼ã¿ä½ç½®
 	m_imageX = m_pShot->SetPosImageX();
 	m_imageY = m_pShot->SetPosImageY();
 
-	// UŒ‚—Í
+	// æ”»æ’ƒåŠ›
 	m_damage = 5;
 }
 
-// ƒ`ƒƒ[ƒWƒVƒ‡ƒbƒgƒAƒjƒ[ƒVƒ‡ƒ“
+// ãƒãƒ£ãƒ¼ã‚¸ã‚·ãƒ§ãƒƒãƒˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void Elf::AnimAttackChargeShit()
 {
 	m_pChargeShot->Update();
-	// ‰æ‘œ“Ç‚İ‚İˆÊ’u
+	// ç”»åƒèª­ã¿è¾¼ã¿ä½ç½®
 	m_imageX = m_pChargeShot->SetPosImageX();
 	m_imageY = m_pChargeShot->SetPosImageY();
-	// UŒ‚”ÍˆÍ‚ğw’è
-	// Œü‚¢‚Ä‚¢‚é•ûŒü‚Å”ÍˆÍ‚ğŒˆ’è
+	// æ”»æ’ƒç¯„å›²ã‚’æŒ‡å®š
+	// å‘ã„ã¦ã„ã‚‹æ–¹å‘ã§ç¯„å›²ã‚’æ±ºå®š
 	if (m_isDirection)
 	{
 		m_attackSizeLeft = -580 - 10;
@@ -438,23 +447,23 @@ void Elf::AnimAttackChargeShit()
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
 	}
 
-	// UŒ‚—Í
+	// æ”»æ’ƒåŠ›
 	m_damage = 20;
 }
 
-// ãUŒ‚ƒAƒjƒ[ƒVƒ‡ƒ“
+// ä¸Šæ”»æ’ƒã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 void Elf::AnimAttackUpShit()
 {
 	m_pUp->Update();
-	// ‰æ‘œ“Ç‚İ‚İˆÊ’u
+	// ç”»åƒèª­ã¿è¾¼ã¿ä½ç½®
 	m_imageX = m_pUp->SetPosImageX();
 	m_imageY = m_pUp->SetPosImageY();
-	// UŒ‚”ÍˆÍ‚ğw’è
+	// æ”»æ’ƒç¯„å›²ã‚’æŒ‡å®š
 	m_attackSizeLeft = -130;
 	m_attackSizeTop = -130;
 	m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 280;
 	m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
 
-	// UŒ‚—Í
+	// æ”»æ’ƒåŠ›
 	m_damage = 5;
 }

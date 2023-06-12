@@ -49,7 +49,7 @@ void ElfStage::Draw()
 	{
 		int scrX = data.m_chipNo % 16;
 		int scrY = data.m_chipNo / 16;
-		DrawRectGraph(data.m_pos.x, data.m_pos.y,
+		DrawRectGraph(static_cast<int>(data.m_pos.x), static_cast<int>(data.m_pos.y),
 			scrX * kMapChipSize, scrY * kMapChipSize,
 			kMapChipSize, kMapChipSize,
 			m_handle,

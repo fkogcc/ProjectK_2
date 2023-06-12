@@ -67,7 +67,7 @@ void KnightCat::Draw()
 {
 	if (m_exist)
 	{
-		my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x) + m_movePos,
+		my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x) + static_cast<int>(m_movePos),
 			static_cast<int>(m_pos.y),			//•\¦À•W
 			32 * m_animeWidth, 32 * m_animeHight,			//Ø‚èæ‚è¶ã
 			32, 32,							//•A‚‚³

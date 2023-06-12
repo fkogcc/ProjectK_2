@@ -33,9 +33,9 @@ void LogoRotation::Init()
 
 void LogoRotation::Update()
 {
-	// ‰ñ“]ƒXƒs[ƒh
+	// å›è»¢ã‚¹ãƒ”ãƒ¼ãƒ‰
 	const float transSpeed = 0.3f + 0.7f;
-	// ‰ñ“]
+	// å›è»¢
 	m_pos.x     += transSpeed;
 	m_logoPos.x -= transSpeed;
 	
@@ -43,7 +43,7 @@ void LogoRotation::Update()
 
 	if (m_pos.x == m_logoPos.x)
 	{
-		printfDx("”¼•ª\n");
+		printfDx("åŠåˆ†\n");
 		m_pos.x = 500.0f/2.0f;
 		
 		m_logoPos.x = 500.0f + 300.0f/2.0f;
@@ -81,11 +81,12 @@ void LogoRotation::Update()
 
 void LogoRotation::Draw()
 {
+
 	//my::MyDrawExtendGraph(500, 300,
 	//				      500+m_x /2.5 , 300+m_y / 2.5,
 	//				      m_hLogo, true);
 
-	// “Ç‚İ‚±‚ñ‚¾ƒOƒ‰ƒtƒBƒbƒN‚ğ‰ñ“]•`‰æ
+	// èª­ã¿ã“ã‚“ã ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚’å›è»¢æç”»
 	DrawRotaGraph(Game::kScreenWidth/2, 500.0f, m_size, m_rota, m_hLogo, true);
 
 	constexpr int y = Game::kScreenHeight - 300;
@@ -93,7 +94,7 @@ void LogoRotation::Draw()
 
 	int color = 0x000000;
 
-	// ƒRƒƒ“ƒg
+	// ã‚³ãƒ¡ãƒ³ãƒˆ
 	DrawBox(
 		x,
 		0,
@@ -101,7 +102,7 @@ void LogoRotation::Draw()
 		m_box2,
 		0xffff00, true);
 
-	// ƒRƒƒ“ƒg
+	// ã‚³ãƒ¡ãƒ³ãƒˆ
 	DrawBox(
 		0, 
 		y,
