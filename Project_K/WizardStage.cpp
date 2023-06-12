@@ -2,14 +2,14 @@
 #include<vector>
 #include<iostream>
 #include<cassert>
-#include "DinoStage.h"
+#include "WizardStage.h"
 #include "../../Util/game.h"
 
 namespace
 {
 	// テクスチャ情報
-	const char* kFileName = "Data/Image/Stage/Dino/Dino.png";
-	const char* kBgFileName = "Data/Image/Stage/Dino/DinoBg.png";
+	const char* kFileName = "Data/Image/Stage/Wizard/Wizard.png";
+	const char* kBgFileName = "Data/Image/Stage/Wizard/WizardBg0.png";
 
 	// マップチップ一つのサイズ
 	constexpr int kMapChipSize = 64;
@@ -19,7 +19,7 @@ namespace
 	constexpr int kMapWidth = 30;
 }
 
-DinoStage::DinoStage() :
+WizardStage::WizardStage() :
 	m_pos(0, 700),
 	m_handle(-1),
 	m_bgHandle(-1)
@@ -27,22 +27,22 @@ DinoStage::DinoStage() :
 {
 }
 
-DinoStage::~DinoStage()
+WizardStage::~WizardStage()
 {
 }
 
-void DinoStage::Init()
+void WizardStage::Init()
 {
 	m_handle = LoadGraph(kFileName, false);
 	m_bgHandle = LoadGraph(kBgFileName, false);
 }
 
-void DinoStage::Update()
+void WizardStage::Update()
 {
 	MapRead();
 }
 
-void DinoStage::Draw()
+void WizardStage::Draw()
 {
 	DrawExtendGraph(0, 0, Game::kScreenWidth, Game::kScreenHeight, m_bgHandle, false);
 
@@ -58,13 +58,13 @@ void DinoStage::Draw()
 	}
 }
 
-int DinoStage::MapRead()
+int WizardStage::MapRead()
 {
 	// csvファイルを読み込んで数字の配列にしたい
 
 	FILE* fp;
 
-	errno_t error = fopen_s(&fp, "Data/Image/Stage/Dino/DinoMap.csv", "r");
+	errno_t error = fopen_s(&fp, "Data/Image/Stage/Wizard/Wizard.csv", "r");
 
 	// 1文字ずつ読み込んで表示
 	int chr;

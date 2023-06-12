@@ -170,10 +170,18 @@
       <Filter>cpp\Util</Filter>
     </ClCompile>
     <ClCompile Include="Util\UI.cpp" />
-    <ClCompile Include="Object\Stage\StageBase.cpp">
+    <ClCompile Include="MachoStage.cpp">
       <Filter>cpp\Object\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Stage\DinoStage.cpp" />
+    <ClCompile Include="Object\Stage\DinoStage.cpp">
+      <Filter>cpp\Object\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ElfStage.cpp">
+      <Filter>cpp\Object\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="WizardStage.cpp">
+      <Filter>cpp\Object\Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="condition.h">
@@ -351,10 +359,18 @@
       <Filter>h\Util</Filter>
     </ClInclude>
     <ClInclude Include="Util\UI.h" />
-    <ClInclude Include="Object\Stage\StageBase.h">
+    <ClInclude Include="MachoStage.h">
       <Filter>h\Object\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Stage\DinoStage.h" />
+    <ClInclude Include="Object\Stage\DinoStage.h">
+      <Filter>h\Object\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ElfStage.h">
+      <Filter>h\Object\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="WizardStage.h">
+      <Filter>h\Object\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cpp">

@@ -3,12 +3,13 @@
 #include<iostream>
 #include<cassert>
 #include "Stage.h"
-#include "StageBase.h"
 #include "../../Util/game.h"
 
 namespace
 {
-	const char* kFileName = "Data/Image/Stage/Dino/Tileset.png";
+	// テクスチャ情報
+	const char* kFileName = "Data/Image/Stage/Wizard/Wizard.png";
+	const char* kBgFileName = "Data/Image/Stage/Wizard/WizardBg0.png";
 
 	// マップチップ一つのサイズ
 	constexpr int kMapChipSize = 64;
@@ -19,7 +20,10 @@ namespace
 }
 
 Stage::Stage() : 
-	m_pos(0, 700)
+	m_pos(0, 700),
+	m_handle(-1),
+	m_bgHandle(-1)
+
 {
 }
 
@@ -30,6 +34,7 @@ Stage::~Stage()
 void Stage::Init()
 {
 	m_handle = LoadGraph(kFileName, false);
+	m_bgHandle = LoadGraph(kBgFileName, false);
 }
 
 void Stage::Update()
@@ -39,6 +44,8 @@ void Stage::Update()
 
 void Stage::Draw()
 {
+	DrawExtendGraph(0, 0, Game::kScreenWidth, Game::kScreenHeight, m_bgHandle, false);
+
 	for (auto& data : m_data)
 	{
 		int scrX = data.m_chipNo % 16;
@@ -47,7 +54,7 @@ void Stage::Draw()
 			scrX * kMapChipSize, scrY * kMapChipSize,
 			kMapChipSize, kMapChipSize,
 			m_handle,
-			false, false);
+			true, false);
 	}
 }
 
@@ -57,7 +64,7 @@ int Stage::MapRead()
 
 	 FILE* fp;
 
-	 errno_t error = fopen_s(&fp, "Data/Image/Stage/Dino/DinoMap.csv","r");
+	 errno_t error = fopen_s(&fp, "Data/Image/Stage/Wizard/Wizard.csv","r");
 	 
 	 // 1文字ずつ読み込んで表示
 	 int chr;
