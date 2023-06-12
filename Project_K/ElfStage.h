@@ -3,6 +3,7 @@
 #include "../../Util/game.h"
 #include<vector>
 
+
 namespace
 {
 	constexpr int kStartX = 0;
@@ -11,13 +12,11 @@ namespace
 	constexpr int kEndY = 700;
 }
 
-class StageBase;
-
-class Stage
+class ElfStage
 {
 public:
-	Stage();
-	virtual ~Stage();
+	ElfStage();
+	virtual ~ElfStage();
 
 	void Init();
 	void Update();
@@ -35,9 +34,9 @@ public:
 		Vec2 m_pos;		// マップの座標
 		int m_chipNo;	// マップチップの番号
 	};
-	
+
 private:
-	Vec2 m_pos;		
+	Vec2 m_pos;
 	int m_handle;	// グラフィックハンドル
 	int m_bgHandle;	// 背景用グラフィックハンドル
 
