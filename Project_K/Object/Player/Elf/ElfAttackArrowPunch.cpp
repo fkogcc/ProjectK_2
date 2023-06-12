@@ -14,7 +14,7 @@ void ElfAttackArrowPunch::Update()
 {
 
 	m_frameCount++;
-	if (m_frameCount == 2)//3フレームに一回画像描画位置を変更する
+	if (m_frameCount == 1)//3フレームに一回画像描画位置を変更する
 	{
 		m_frameCount = 0;
 		if (m_imagePosX < 288 * kAttack_X)//画像が右に続いていたら右にずらす
