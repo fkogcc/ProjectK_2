@@ -6,20 +6,15 @@
 #include <string>
 #include <vector>
 
-// ポインタ
-class Dinosaur;		// 爬虫類
-class Elf;			// エルフ
-class Kinnikurou;	// 筋肉
-class Witch;		// 魔女
+class Stage;		// ステージ
 class PlayerBase;
 class Collision;
-
-class Stage;		// ステージ
+class UI;			// UI
 
 class SceneMain : public SceneBase
 {
 public:
-	SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch);
+	SceneMain(PlayerBase* Player1, PlayerBase* Player2);
 	virtual ~SceneMain();
 
 	virtual void Init();
@@ -29,20 +24,13 @@ public:
 	virtual void Draw();
 
 private:
-	Dinosaur*	m_pDino;
-	Elf*		m_pElf;
-	Kinnikurou* m_pKin;
-	Witch*		m_pWitch;
 	Stage*		m_pStage;
+	PlayerBase* m_pPlayer[2];
+	Collision* m_pColl;
+	UI* m_pUi;
 
-	PlayerBase* m_Player[2];
-
-	Collision* m_Coll;
-
-	bool m_isDino;
-	bool m_isElf;
-	bool m_isKin;
-	bool m_isWitch;
+	bool m_isVictory1P;// 1Pの勝敗
+	bool m_isVictory2P;// 2Pの勝敗
 };
 
 

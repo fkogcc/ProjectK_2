@@ -5,7 +5,7 @@ DinosaurAttackShot::~DinosaurAttackShot()
 {
 }
 
-DinosaurStateBase* DinosaurAttackShot::Update()
+DinosaurStateBase* DinosaurAttackShot::Update(int padNum)
 {
 	if (m_imagePosX < 5)
 	{
@@ -30,7 +30,7 @@ DinosaurStateBase* DinosaurAttackShot::Update()
 
 	if (m_gapTime > 15)
 	{
-		return new DinosaurIdle(m_Pos, m_Vec);
+		return new DinosaurIdle(m_Vec);
 	}
 
 	return this;

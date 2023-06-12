@@ -14,13 +14,13 @@ public:
 	// 終了
 	void End();
 	// 毎フレームの処理
-	void Update();
+	void Update(int padNum);
 	// 描画
-	void Draw();
+	void Draw(Vec2 pos);
 
 	bool GetshotFlag(); // ショットを撃つとき
 
-	Vec2 GetPos();
+	Vec2 GetVec();
 
 	bool GetAttackFlag();
 
@@ -31,10 +31,23 @@ public:
 
 	bool GetLookLeft() { return m_lookLeft; }
 
+	int GetOnDamage();
+
+	void SetAttackFlag();
+
+	void SetondamageFlag(bool ondamageFlag) { m_ondamageFlag = ondamageFlag; }
+
+	//死んだときm_deadFlagをtrueに
+	void SetDeadFlag() { m_deadFlag = true; }
+
 private:
 	int m_Handle;
 
 	bool m_lookLeft; // 左を向いているかどうか
+
+	bool m_deadFlag = false; //死んでいるかどうか
+
+	bool m_ondamageFlag = false; //攻撃を食らっているとき
 
 	// シーンベースポインタ
 	DinosaurStateBase* m_pState;

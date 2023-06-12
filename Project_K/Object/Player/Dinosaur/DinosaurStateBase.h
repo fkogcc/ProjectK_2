@@ -6,23 +6,24 @@
 class DinosaurStateBase
 {
 public:
-	virtual ~DinosaurStateBase(){};
+	virtual ~DinosaurStateBase() {};
 
 	virtual void Init(int Handle);
 
-	virtual DinosaurStateBase* Update() { return this; }
+	virtual DinosaurStateBase* Update(int padNum) { return this; }
 
-	virtual void Draw(int handle, bool lookRight);
+	virtual void Draw(int handle, bool lookRight,Vec2 pos);
 
-	virtual void ChangeGraph(int ChangeSpeed, int GraphNum , bool ChangeY);
+	virtual void ChangeGraph(int ChangeSpeed, int GraphNum, bool ChangeY);
 
-	virtual void SetPos(Vec2 pos) { m_Pos = pos; }
-	virtual Vec2 GetPos() { return m_Pos; }
+	virtual Vec2 GetVec() { return m_Vec; }
 
 	virtual bool GetshotFlag() { return m_shotFlag; }
 
 	virtual bool GetAttackFlag() { return m_attackFlag; }
+	virtual bool SetAttackFlag(bool attackFlag) { return m_attackFlag = attackFlag; }
 
+	virtual void SetDeadFlag() { m_deadFlag = true; }
 
 	virtual void SetLookFlag(bool RightFlag) { m_lookLeft = RightFlag; }
 
@@ -32,12 +33,15 @@ public:
 	int GetAttackSizeRight() { return m_attackSizeRight; }
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
 
+	int GetAttackDamage() { return m_attackDamage; }
+
 protected:
 	int m_Handle;
 
 	bool m_shotFlag = false;
 	bool m_lookLeft;	// 左を向いているか
-	
+	bool m_deadFlag = false; //死んでいるかどうか
+
 	int m_attakSizeLeft = 0;
 	int m_attackSizeTop = 0;
 	int m_attackSizeRight = 0;
@@ -53,7 +57,6 @@ protected:
 	int m_attackDamage = 0;// プレイヤーがエネミーに与えるダメージ量
 	bool m_attackFlag = false;
 	bool m_isMove = false;
-	Vec2 m_Pos = { 0.0f,0.0f };// 現在位置
 	Vec2 m_Vec = { 0.0f,0.0f };// 運動量
 };
 

@@ -9,7 +9,9 @@
 #include "ElfAttackArrowPunch.h"
 #include "ElfAttackArrowUp.h"
 
-#include "../../Shot/ShotBase.h"
+#include "../../Object/Shot/ElfShot.h"
+#include "../../Object/Shot/ShotBase.h"
+#include "../../Object/Shot/NullShot.h"
 
 #include "../../Util/Sound.h"
 //#include <memory>
@@ -18,6 +20,9 @@ namespace
 {
 	const char* const kFilmName = "Data/Image/Player/Elf/Elf.png";
 	constexpr float kSpeed = 10.0f;
+
+	constexpr float kGravity = 2.0f;
+	constexpr float kJumpPower = -40.0f;
 }
 
 Elf::Elf() :
@@ -42,6 +47,10 @@ Elf::Elf() :
 	m_pPunch = new ElfAttackArrowPunch;	  // 攻撃
 	m_pUp = new ElfAttackArrowUp;	      // 攻撃
 
+	m_pos.y = 600.0f - 176.0f;
+
+	m_damage = 1;
+
 }
 
 Elf::~Elf()
@@ -61,93 +70,98 @@ void Elf::End()
 
 void Elf::Update()
 {
-	if (!m_pChargeShot->IsSetMove() ||
-		!m_pJump->IsSetMove()||
-		!m_pShot->IsSetMove() ||
-		!m_pPunch->IsSetMove() ||
-		!m_pUp->IsSetMove())
+	AnimStop();// アニメーション停止
 
+	// 攻撃モーションに入ったら動けなくなる
+	if (!m_attackFlag)
 	{
+		// 攻撃が終わった時に待機状態に移行する
+		if (m_isAttack)
+		{
+			m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
+		}
 		m_isAttack = false;
 
-		m_pChargeShot->SetMoveTime(true);
-		m_pJump->SetMoveTime(true);
-		m_pShot->SetMoveTime(true);
-		m_pPunch->SetMoveTime(true);
-		m_pUp->SetMoveTime(true);
-	}
-
-	if (!m_isAttack)// 攻撃モーションに入ったら動けなくなる
-	{
-		m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
-
-		m_moveType = static_cast<int>(moveType::Jump);
-
-		if (Pad::IsPress(PAD_INPUT_RIGHT))
+		// 走る
+		if (Pad::IsPress(PAD_INPUT_RIGHT,m_padNum))
 		{
-			m_moveType = static_cast<int>(moveType::Run);// 走る
+			m_moveType = static_cast<int>(moveType::Run);
 			m_pos.x += kSpeed;
 			m_isDirection = false;
 		}
-		else if (Pad::IsPress(PAD_INPUT_LEFT))
+		else if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 		{
-			m_moveType = static_cast<int>(moveType::Run);// 走る
+			m_moveType = static_cast<int>(moveType::Run);
 			m_pos.x -= kSpeed;
 			m_isDirection = true;
 		}
-		else
-		{
-			//	m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
-			//	m_isAttack = false;
-		}
 
-		if (Pad::IsTrigger(PAD_INPUT_1))// XBOX A
+		// 攻撃
+		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))// XBOX A
 		{
-			m_moveType = static_cast<int>(moveType::Attack1);// 攻撃
-			m_isAttack = true;
+			m_moveType = static_cast<int>(moveType::Attack1);
+			m_attackFlag = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_2))// XBOX B
+		// 攻撃
+		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))// XBOX B
 		{
-			m_moveType = static_cast<int>(moveType::Attack2);// 攻撃
-			m_isAttack = true;
+			m_moveType = static_cast<int>(moveType::Attack2);
+			m_attackFlag = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_3))// XBOX X or Y
+		//　ジャンプ
+		if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))// XBOX X or Y
 		{
-			//　ジャンプ
 			m_moveType = static_cast<int>(moveType::Jump);
-			m_isAttack = true;
+			m_attackFlag = true;
+			m_jumpAcc = kJumpPower;
+			
 		}
-		if (Pad::IsTrigger(XINPUT_BUTTON_LEFT_SHOULDER) || (Pad::IsTrigger(PAD_INPUT_R)))// XBOX X or Y
+		if (Pad::IsTrigger(XINPUT_BUTTON_LEFT_SHOULDER, m_padNum) || (Pad::IsTrigger(PAD_INPUT_R, m_padNum)))// XBOX X or Y
 		{
 			//　ジャンプ
 
 		}
-		if (Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_RIGHT)) ||// XBOX A && RIGHT
-			Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_LEFT)))   // XBOX A && LEFT
+		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_RIGHT, m_padNum)) ||// XBOX A && RIGHT
+			Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_LEFT, m_padNum)))   // XBOX A && LEFT
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);;// 攻撃
-			m_isAttack = true;
+			m_attackFlag = true;
 		}
-		if (Pad::IsTrigger(PAD_INPUT_2) && (Pad::IsTrigger(PAD_INPUT_UP)))// XBOX A && UP
+		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && (Pad::IsTrigger(PAD_INPUT_UP, m_padNum)))// XBOX A && UP
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
-			m_isAttack = true;
+			m_attackFlag = true;
 		}
 	}
 
-	m_sizeLeft   = static_cast<int>(m_pos.x) - 30;
-	m_sizeTop    = static_cast<int>(m_pos.y) + 75;
+	// プレイヤーの当たり判定用位置
+	m_sizeLeft   = - 30;
+	m_sizeTop    =   75;
 	m_sizeRight  = m_sizeLeft + 60;
-	m_sizeBottom = m_sizeTop + 176;
+	m_sizeBottom = m_sizeTop  + 176;
 
-	AnimationSwitch();
+	// どの動きをするかを決める
+	AnimSwitch();
+
+	// 重力
+	float posY = 600.0f - 176.0f;
+	if (m_pos.y > posY)
+	{
+		m_pos.y = posY;
+		if (m_jumpAcc > 0.0f)
+		{
+			m_jumpAcc = 0.0f;
+		}
+	}
+	
+	// 重力
+	m_jumpAcc += kGravity;
+	m_pos.y += m_jumpAcc;
 
 }
 
 void Elf::Draw()
 {
-	//	DrawBox(m_posLeft, m_posTop, m_posRight, m_posBottom, 0xffffff, true);
-
 	my::MyDrawRectRotaGraph(
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
 		m_imageX, m_imageY,// 画像の右上
@@ -159,20 +173,59 @@ void Elf::Draw()
 		m_isDirection
 	);
 
-	DrawBox(m_sizeLeft, m_sizeTop, m_sizeRight, m_sizeBottom,0xffffff,false);
+#if _DEBUG
+	// プレイヤーのサイズ
+	DrawBox(m_sizeLeft + m_pos.x , 
+			m_sizeTop + m_pos.y,
+			m_sizeRight + m_pos.x, 
+			m_sizeBottom + m_pos.y,
+			0xffffff, false);
+	// m_attackFlagがtrueのとき攻撃当たり判定を表示
+	if (m_attackFlag)
+	{
+		DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,
+			static_cast<int>(m_pos.x) + m_attackSizeRight, static_cast<int>(m_pos.y) + m_attackSizeBottom,
+			0xff0000, false);
+	}
 
-	if(m_isAttack)DrawBox(m_attackSizeLeft, m_attackSizeTop, m_attackSizeRight, m_attackSizeBottom, 0xff0000, false);
-	
+#endif
 }
 
-void Elf::AnimationSwitch()
+void Elf::AnimStop()
+{
+	if (!m_pChargeShot->IsSetMove() ||
+		!m_pJump->IsSetMove() ||
+		!m_pShot->IsSetMove() ||
+		!m_pPunch->IsSetMove() ||
+		!m_pUp->IsSetMove())
+
+	{
+		m_attackFlag = false;
+		m_isAttack = true;
+
+		m_pChargeShot->SetMoveTime(true);
+		m_pJump->SetMoveTime(true);
+		m_pShot->SetMoveTime(true);
+		m_pPunch->SetMoveTime(true);
+		m_pUp->SetMoveTime(true);
+
+		m_attackSizeLeft = 0;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 0;
+		m_attackSizeBottom = 0;
+	}
+}
+
+void Elf::AnimSwitch()
 {
 	switch (m_moveType)
 	{
 	case static_cast<int>(moveType::Idol):// 待機
 		m_pIdle->Update();
+		// 画像読み込み位置
 		m_imageX = m_pIdle->SetPosImageX();
 		m_imageY = m_pIdle->SetPosImageY();
+		// 攻撃範囲を指定　アイドル状態なので位置を初期化
 		m_attackSizeLeft   = 0;
 		m_attackSizeTop    = 0;
 		m_attackSizeRight  = 0;
@@ -180,51 +233,85 @@ void Elf::AnimationSwitch()
 		break;
 	case static_cast<int>(moveType::Run):// 走り
 		m_pRun->Update();
+		// 画像読み込み位置
 		m_imageX = m_pRun->SetPosImageX();
 		m_imageY = m_pRun->SetPosImageY();
 		break;
-	case static_cast<int>(moveType::Attack1):// 攻撃
+	case static_cast<int>(moveType::Attack1):// 攻撃 : 近接攻撃
 		m_pPunch->Update();
+		// 画像読み込み位置
 		m_imageX = m_pPunch->SetPosImageX();
 		m_imageY = m_pPunch->SetPosImageY();
-		m_attackSizeLeft   = static_cast<int>(m_pos.x) + 90;
-		m_attackSizeTop    = static_cast<int>(m_pos.y) + 100;
-		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 230;
-		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
+
+		// 攻撃範囲を指定
+		// 向いている方向で範囲を決定
+		if (m_isDirection)
+		{
+			m_attackSizeLeft = - 230 - 90;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_sizeLeft) - 50;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
+		}
+		else
+		{
+			m_attackSizeLeft = 90;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 230;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
+		}
 		break;
-	case static_cast<int>(moveType::Attack2):// 攻撃
+	case static_cast<int>(moveType::Attack2):// 攻撃 : ノーマルショット
 		m_pShot->Update();
+		// 画像読み込み位置
 		m_imageX = m_pShot->SetPosImageX();
 		m_imageY = m_pShot->SetPosImageY();
 		// ショット
 		break;
-	case static_cast<int>(moveType::Attack3):// 攻撃
+	case static_cast<int>(moveType::Attack3):// 攻撃 : 直線に最大火力ショット
 		m_pChargeShot->Update();
+		// 画像読み込み位置
 		m_imageX = m_pChargeShot->SetPosImageX();
 		m_imageY = m_pChargeShot->SetPosImageY();
-		m_attackSizeLeft = static_cast<int>(m_pos.x) + 10;
-		m_attackSizeTop = static_cast<int>(m_pos.y)  + 100;
-		m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 580;
-		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+		// 攻撃範囲を指定
+		// 向いている方向で範囲を決定
+		if (m_isDirection)
+		{
+			m_attackSizeLeft =- 580 - 10;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_sizeLeft) - 80;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+		}
+		else
+		{
+			m_attackSizeLeft =10;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 580;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+		}
 		break;
-	case static_cast<int>(moveType::Attack4):// 攻撃
+	case static_cast<int>(moveType::Attack4):// 攻撃 : 斜め上に近接ショット
 		m_pUp->Update();
+		// 画像読み込み位置
 		m_imageX = m_pUp->SetPosImageX();
 		m_imageY = m_pUp->SetPosImageY();
-		m_attackSizeLeft   = static_cast<int>(m_pos.x) - 130;
-		m_attackSizeTop    = static_cast<int>(m_pos.y) - 130;
+		// 攻撃範囲を指定
+		m_attackSizeLeft   = - 130;
+		m_attackSizeTop    = - 130;
 		m_attackSizeRight  = static_cast<int>(m_attackSizeLeft) + 280;
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
 		break;
-	case static_cast<int>(moveType::Jump):// 攻撃
-		m_pJump->IsSetMove();
+	case static_cast<int>(moveType::Jump):// ジャンプ
+		m_pJump->Update();
+		// 画像読み込み位置
 		m_imageX = m_pJump->SetPosImageX();
 		m_imageY = m_pJump->SetPosImageY();
 		break;
 	default:// 待機
 		m_pIdle->Update();
+		// 画像読み込み位置
 		m_imageX = m_pIdle->SetPosImageX();
 		m_imageY = m_pIdle->SetPosImageY();
+		// 攻撃範囲を指定　アイドル状態なので位置を初期化
 		m_attackSizeLeft   = 0;
 		m_attackSizeTop    = 0;
 		m_attackSizeRight  = 0;

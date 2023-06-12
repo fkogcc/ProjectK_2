@@ -142,8 +142,11 @@
     <ClCompile Include="ElfStage.cpp" />
     <ClCompile Include="MachoStage.cpp" />
     <ClCompile Include="Object\Stage\DinoStage.cpp" />
+    <ClCompile Include="LogoRotation.cpp" />
+    <ClCompile Include="Object\Player\Dinosaur\DinosaurDead.cpp" />
     <ClCompile Include="Object\Player\Elf\ElfJump.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuJump.cpp" />
+    <ClCompile Include="Object\Player\Witch\WitchDead.cpp" />
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
     <ClCompile Include="System\CharaChoice.cpp" />
     <ClCompile Include="Util\Collision.cpp" />
@@ -194,7 +197,6 @@
     <ClCompile Include="Object\Stage\Stage.cpp" />
     <ClCompile Include="Util\DrawFunctions.cpp" />
     <ClCompile Include="Util\Pad.cpp" />
-    <ClCompile Include="Util\Pad2.cpp" />
     <ClCompile Include="Util\Sound.cpp" />
     <ClCompile Include="Util\UI.cpp" />
     <ClCompile Include="Util\Vec2.cpp" />
@@ -205,8 +207,11 @@
     <ClInclude Include="ElfStage.h" />
     <ClInclude Include="MachoStage.h" />
     <ClInclude Include="Object\Stage\DinoStage.h" />
+    <ClInclude Include="LogoRotation.h" />
+    <ClInclude Include="Object\Player\Dinosaur\DinosaurDead.h" />
     <ClInclude Include="Object\Player\Elf\ElfJump.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuJump.h" />
+    <ClInclude Include="Object\Player\Witch\WitchDead.h" />
     <ClInclude Include="Object\Shot\ElfShot.h" />
     <ClInclude Include="System\CharaChoice.h" />
     <ClInclude Include="Util\Collision.h" />
@@ -259,7 +264,6 @@
     <ClInclude Include="Scene\SceneMain.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Util\Pad.h" />
-    <ClInclude Include="Util\Pad2.h" />
     <ClInclude Include="Util\Sound.h" />
     <ClInclude Include="Util\UI.h" />
     <ClInclude Include="Util\Vec2.h" />

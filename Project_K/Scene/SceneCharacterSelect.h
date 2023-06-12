@@ -2,6 +2,7 @@
 #include "SceneBase.h"
 
 class CharaChoice;
+class PlayerBase;
 
 class SceneCharacterSelect : public SceneBase
 {
@@ -14,6 +15,10 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
+
+	// プレイヤーがキャラクターを選んだ時
+	//bool IsSelected() { return };
+
 private:
 	/*bool User1();
 	bool User2();*/
@@ -28,6 +33,7 @@ private:
 	bool m_isKin2;// きんにくろう
 	bool m_isWitch2;// 魔女
 
+	PlayerBase* m_Player[2];
+
 	CharaChoice* m_CharaChoice;
 };
-

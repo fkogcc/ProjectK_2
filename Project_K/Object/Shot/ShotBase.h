@@ -9,18 +9,18 @@ protected:
 		Vec2 Pos;
 		Vec2 Vec;
 
-		int shotSizeLeft;
-		int shotSizeTop;
-		int shotSizeRight;
-		int shotSizeBottom;
+		int shotSizeLeft = 0;
+		int shotSizeTop = 0;
+		int shotSizeRight = 0;
+		int shotSizeBottom = 0;
 	};
 
 	Data m_Shot;
 
 	bool m_Exist = false; // ë∂ç›Ç∑ÇÈÇ©Ç«Ç§Ç©
-	bool m_NullShot;	  // NullShotÇ≈Ç†ÇÈÇ©Ç«Ç§Ç©
+	bool m_NullShot = false;	  // NullShotÇ≈Ç†ÇÈÇ©Ç«Ç§Ç©
 public:
-	ShotBase() {};
+	ShotBase();
 
 	virtual ~ShotBase();
 
@@ -36,6 +36,7 @@ public:
 	virtual bool IsExist();
 
 	virtual bool GetExist() { return m_Exist; }
+	bool SetExist() { return m_Exist = false; }
 
 	virtual bool GetNullShot() { return m_NullShot; }
 };

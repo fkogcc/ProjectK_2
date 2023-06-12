@@ -5,7 +5,11 @@
 class SceneResult : public SceneBase
 {
 public:
-	SceneResult();
+	/// <summary>
+	/// 勝敗フラグ付きコンストラクタ
+	/// </summary>
+	/// <param name="isVictoryOrDefeat"></param>
+	SceneResult(bool isVictory1P, bool isVictory2P);
 	virtual ~SceneResult();
 
 	virtual void Init();
@@ -15,7 +19,12 @@ public:
 	virtual void Draw();
 
 private:
-	bool m_isTitle;
-	bool m_isRetry;
+	bool m_isTitle;// タイトルへ
+	bool m_isRetry;// リトライ
+
+	bool m_isNone = false;// 条件の中身がない状態
+
+	bool m_isVictory1P;// 1Pの勝敗
+	bool m_isVictory2P;// 2Pの勝敗
 };
 

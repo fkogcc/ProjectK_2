@@ -7,6 +7,7 @@
 #include"DinosaurAttackPounce.h"
 #include"DinosaurAttackScratch.h"
 #include"DinosaurAttackShot.h"
+#include"DinosaurDead.h"
 
 namespace
 {
@@ -18,52 +19,55 @@ DinosaurMove::~DinosaurMove()
 {
 }
 
-void DinosaurMove::IsMove()
+void DinosaurMove::IsMove(int padNum)
 {
 	m_Vec.x = 0;
-	if (Pad::IsPress(PAD_INPUT_LEFT))// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_LEFT, padNum))// XBOX X or Y
 	{
 		m_Vec.x = -kMoveSpeed;
 	}
 
-	if (Pad::IsPress(PAD_INPUT_RIGHT))
+	if (Pad::IsPress(PAD_INPUT_RIGHT, padNum))
 	{
 		m_Vec.x = kMoveSpeed;
 	}
 }
 
-DinosaurStateBase* DinosaurMove::Update()
+DinosaurStateBase* DinosaurMove::Update(int padNum)
 {
 	ChangeGraph(3, 6, true);
 
-	IsMove();
+	IsMove(padNum);
 
-	m_Pos.x += m_Vec.x;
-
-	if (Pad::IsPress(PAD_INPUT_UP))// XBOX X or Y
+	if (m_deadFlag)
 	{
-		return new DinosaurJump(m_Pos,m_Vec);
+		return new DinosaurDead( {0,0});
 	}
 
-	if (Pad::IsPress(PAD_INPUT_UP))// XBOX A
+	//if (Pad::IsPress(PAD_INPUT_UP, padNum))// XBOX X or Y
+	//{
+	//	return new DinosaurJump(m_Pos,m_Vec);
+	//}
+
+	if (Pad::IsPress(PAD_INPUT_UP, padNum))// XBOX A
 	{
-		return new DinosaurJump(m_Pos, m_Vec);
+		return new DinosaurJump(m_Vec);
 	}
-	if (Pad::IsPress(PAD_INPUT_2))// XBOX B
+	if (Pad::IsPress(PAD_INPUT_2, padNum))// XBOX B
 	{
-		return new DinosaurAttackBite(m_Pos, m_Vec);
+		return new DinosaurAttackBite({ 0,0 });
 	}
-	if (Pad::IsPress(PAD_INPUT_3))// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_3, padNum))// XBOX X or Y
 	{
-		return new DinosaurAttackScratch(m_Pos, m_Vec);
+		return new DinosaurAttackScratch({ 0,0 });
 	}
-	if (Pad::IsPress(PAD_INPUT_4))// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_4, padNum))// XBOX X or Y
 	{
-		return new DinosaurAttackShot(m_Pos, m_Vec);
+		return new DinosaurAttackShot({ 0,0 });
 	}
-	if (Pad::IsPress(PAD_INPUT_5))// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_1, padNum))// XBOX X or Y
 	{
-		return new DinosaurAttackPounce(m_Pos, m_Vec);
+		return new DinosaurAttackPounce({ 0,0 }, m_lookLeft);
 	}
 
 	if (m_Vec.x != 0)	// キャラクターが動いているとき
@@ -71,5 +75,5 @@ DinosaurStateBase* DinosaurMove::Update()
 		return this;
 	}
 
-	return new DinosaurIdle(m_Pos,m_Vec);
+	return new DinosaurIdle(m_Vec);
 }

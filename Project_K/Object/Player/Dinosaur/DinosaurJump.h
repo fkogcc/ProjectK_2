@@ -3,11 +3,11 @@
 class DinosaurJump : public DinosaurStateBase
 {
 public:
-	DinosaurJump(Vec2 pos, Vec2 vec);
+	DinosaurJump(Vec2 vec);
 	
 	virtual ~DinosaurJump();
 
-	virtual DinosaurStateBase* Update() override;
+	virtual DinosaurStateBase* Update(int padNum) override;
 
 private:
 	float m_JumpPower;

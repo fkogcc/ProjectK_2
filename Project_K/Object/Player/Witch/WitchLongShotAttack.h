@@ -4,24 +4,24 @@ class WitchLongShotAttack :
     public MoveTypeBase
 {
 public:
-	WitchLongShotAttack();
-	virtual ~WitchLongShotAttack() {}
+	WitchLongShotAttack();// コンストラクタ
+	virtual ~WitchLongShotAttack() {}// デストラクタ
 
-	void Init();
-	void Update();
+	void Init();// 初期化
+	void Update();// 更新処理
 
-	int IndexX() { return m_animeWidth; }
-	int IndexY() { return m_animeHight; }
-	int SizeX() { return m_indexX; }
-	int ShiftX() { return m_shiftX; }
-	int AnimeMax() { return m_animeMax; }
-	void SetReversal(bool reversal) { m_reversal = reversal; }
+	int IndexX() { return m_animeWidth; }// アニメーションのセット用
+	int IndexY() { return m_animeHight; }// アニメーションのセット用
+	int SizeX() { return m_indexX; }// サイズ変更
+	int ShiftX() { return m_shiftX; }// ずらしよう
+	int AnimeMax() { return m_animeMax; }// アニメーションのセット用
+	void SetReversal(bool reversal) { m_reversal = reversal; }// 反転
 private:
-	int m_animeHight;
-	int m_animeWidth;
-	int m_indexX;
-	int m_shiftX;
-	int m_animeMax;
-	bool m_reversal;
+	int m_animeWidth;// 横
+	int m_animeHight;// 縦
+	int m_animeMax;//末尾
+	int m_indexX;// サイズ
+	int m_shiftX;// ずらす
+	bool m_reversal;// 反転
 };
 

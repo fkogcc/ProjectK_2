@@ -10,109 +10,153 @@
 #include <assert.h>
 #include"../Object/Shot/ShotBase.h"
 #include"../Util/Collision.h"
+#include "../Util/UI.h"
 
 #include <iostream>
 
-SceneMain::SceneMain(bool isDino, bool isElf, bool isKin, bool isWitch) :
-	m_pDino(nullptr),
-	m_pElf(nullptr),
-	m_pKin(nullptr),
-	m_pWitch(nullptr),
-	m_isDino(isDino),
-	m_isElf(isElf),
-	m_isKin(isKin),
-	m_isWitch(isWitch)
-	
+SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
+	m_isVictory1P(false),
+	m_isVictory2P(false)
 {
-	m_pDino = new Dinosaur;
-	m_pElf = new Elf;
-	m_pKin = new Kinnikurou;
-	m_pWitch = new Witch;
 	m_pStage = new Stage;
 
-
-	m_Player[0] = new Dinosaur;
-	m_Player[1] = new Kinnikurou;
-	m_Coll = new Collision(m_Player[0], m_Player[1]);
+	m_pPlayer[0] = Player1;
+	m_pPlayer[1] = Player2;
+	m_pColl = new Collision(m_pPlayer[0], m_pPlayer[1]);
+	m_pUi = new UI(m_pPlayer[0]->GetHp(), m_pPlayer[1]->GetHp());
 }
 
 SceneMain::~SceneMain()
 {
-	delete m_pDino;
-	delete m_pElf;
-	delete m_pKin;
-	delete m_pWitch;
-	delete m_Player[0];
-	delete m_Player[1];
-
+	// メモリの開放
 	delete m_pStage;
+	delete m_pPlayer[0];
+	delete m_pPlayer[1];
+	delete m_pColl;
+	delete m_pUi;
+	
 }
 
 void SceneMain::Init()
 {
-	if (m_isDino) m_pDino->Init();
-	if (m_isElf) m_pElf->Init();
-	if (m_isKin) m_pKin->Init();
-	if (m_isWitch) m_pWitch->Init();
+	m_pPlayer[0]->Init();
+	m_pPlayer[1]->Init();
 
-	m_Player[0]->Init();
-	m_Player[1]->Init();
+	m_pPlayer[0]->SetPadNum(1);
+	m_pPlayer[1]->SetPadNum(2);
 
 
 	m_pStage->Init();
+
+	//m_pStage->Init();
 }
 
 void SceneMain::End()
 {
-	if (m_isDino) m_pDino->End();
-	if (m_isElf) m_pElf->End();
-	if (m_isKin) m_pKin->End();
-	//if (m_isWitch) m_pWitch->End();
+	m_pPlayer[0]->End();
+	m_pPlayer[1]->End();
 
-	m_Player[0]->End();
-	m_Player[1]->End();
+
 }
 
 SceneBase* SceneMain::Update()
 {
-	if (m_isDino) m_pDino->Update();
-	if (m_isElf) m_pElf->Update();
-	if (m_isKin) m_pKin->Update();
-	if (m_isWitch) m_pWitch->Update();
+	m_pPlayer[0]->Update();
+	m_pPlayer[1]->Update();
 
-	/*m_Player[0]->Update();
-	m_Player[1]->Update();
+	// UIの更新処理
+	m_pUi->Update();
+	m_pUi->GetHp1(m_pPlayer[0]->GetHp());// 1PのHPを渡す
+	m_pUi->GetHp2(m_pPlayer[1]->GetHp());// 2PのHPを渡す
+	m_pUi->AttackFlag1(false);// 攻撃中のフラグ
+	m_pUi->AttackFlag2(false);// 攻撃中のフラグ
 
-	if (m_Coll->IsColl1())
+	float toPlayer1 = m_pPlayer[1]->GetPos().x - m_pPlayer[0]->GetPos().x;
+	float toPlayer2 = m_pPlayer[0]->GetPos().x - m_pPlayer[1]->GetPos().x;
+
+	if (m_pColl->IsColl1())
 	{
-		m_Player[0]->OnDamage(1);
+		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
+		m_pPlayer[0]->SetOnDamageFrame();
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
+		m_pPlayer[1]->SetAttackFlag(false);
+		m_pUi->AttackFlag1(true);// 攻撃中のフラグ
 	}
 
-	else if (m_Coll->IsColl2())
+	if (m_pColl->IsColl2())
 	{
-		m_Player[1]->OnDamage(1);
-	}*/
+		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
+		m_pPlayer[1]->SetOnDamageFrame();
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
+		m_pPlayer[0]->SetAttackFlag(false);
+		m_pUi->AttackFlag2(true);// 攻撃中のフラグ
+	}
+
+	if (m_pColl->ShotColl1())
+	{
+		m_pPlayer[0]->OnDamage(1);
+		m_pPlayer[0]->SetOnDamageFrame();
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
+		m_pPlayer[1]->SetAttackFlag(false);
+		m_pUi->AttackFlag1(true);// 攻撃中のフラグ
+	}
+
+	if (m_pColl->ShotColl2())
+	{
+		m_pPlayer[1]->OnDamage(1);
+		m_pPlayer[1]->SetOnDamageFrame();
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
+		m_pPlayer[1]->SetAttackFlag(false);
+		m_pUi->AttackFlag2(true);// 攻撃中のフラグ
+	}
+
+	if (m_pColl->AttackColl())
+	{
+		m_pPlayer[0]->OnDamage(m_pPlayer[1]->GetDamage());
+		m_pPlayer[0]->SetOnDamageFrame();
+		m_pPlayer[1]->SetAttackFlag(false);
+		m_pPlayer[1]->OnDamage(m_pPlayer[0]->GetDamage());
+		m_pPlayer[1]->SetOnDamageFrame();
+		m_pPlayer[0]->SetAttackFlag(false);
+		m_pPlayer[0]->SetKnockBack(toPlayer1);
+		m_pPlayer[1]->SetKnockBack(toPlayer2);
+	}
 
 	m_pStage->Update();
 
-	// �V�[���J��
+	// シーン遷移
 	if (IsFading())
 	{
 		m_isFadeOut = IsFadingOut();
 		SceneBase::UpdateFade();
-
 		if (!IsFading() && m_isFadeOut)
 		{
-			return(new SceneResult);// 1�X�e�[�W�؂�ւ�
+			// trueの場合
+			// m_isVictory1P = 1Pの勝利
+			// m_isVictory2P = 2Pの勝利
+			return(new SceneResult(m_isVictory1P, m_isVictory2P));// 1ステージ切り替え
 		}
 	}
 
+	// フェードインアウトしていない時
 	if (!IsFading())
 	{
-		/*if (Pad::IsTrigger(PAD_INPUT_1))
+		// デバッグ用シーン遷移
+		if (m_pPlayer[0]->GetHp() <= 0 || m_pPlayer[1]->GetHp() <= 0)
 		{
 			StartFadeOut();
-		}*/
+		}
+	}
+
+	// 1Pの勝利
+	if (m_pPlayer[1]->GetHp() <= 0)
+	{
+		m_isVictory1P = true;
+	}
+	// 2Pの勝利
+	else if (m_pPlayer[0]->GetHp() <= 0)
+	{
+		m_isVictory2P = true;
 	}
 
 	return this;
@@ -120,18 +164,23 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	if (m_isDino) m_pDino->Draw();
-	if (m_isElf) m_pElf->Draw();
-	if (m_isKin) m_pKin->Draw();
-	if (m_isWitch) m_pWitch->Draw();
+	// プレイヤーのHPの変数
+	printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
+	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
-	/*printfDx("Dino:%d\n", m_Player[0]->GetHp());
-	printfDx("Kin:%d\n", m_Player[1]->GetHp());
+	// プレイヤーの描画
+	m_pPlayer[0]->Draw();
+	m_pPlayer[1]->Draw();
 
-	m_Player[0]->Draw();
-	m_Player[1]->Draw();*/
+	// デバッグ用当たり判定描画
+	m_pPlayer[0]->DebugDrawCollision();
+	m_pPlayer[1]->DebugDrawCollision();
 
+	// ステージの描画
 	m_pStage->Draw();
+
+	// UIの描画
+	m_pUi->Draw();
 
 	SceneBase::DrawFade();
 }

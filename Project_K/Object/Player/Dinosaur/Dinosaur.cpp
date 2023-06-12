@@ -4,19 +4,24 @@
 #include"../../Shot/ShotBase.h"
 #include"../../Shot/DinoShot.h"
 #include"../../Shot/NullShot.h"
+#include<cassert>
 
 namespace
 {
 	const char* kFilename = "Data/Image/Player/kyouryuu/Enemy.png";
+
+	constexpr int kAttackDuration = 10; //攻撃持続時間
 }
 
-Dinosaur::Dinosaur() : 
+Dinosaur::Dinosaur() :
 	m_Handle(-1)
 {
-	m_hp = 150;
+	//m_hp = 100;
 	m_Handle = LoadGraph(kFilename);
 	m_StateManager = new DinosaurStateManager(m_Handle);
 	m_StateManager->Init();
+	//m_pos.y = 100.0f;
+	m_pos = { 500,600 };
 }
 
 Dinosaur::~Dinosaur()
@@ -37,13 +42,53 @@ void Dinosaur::End()
 
 void Dinosaur::Update()
 {
-	m_StateManager->Update();
+	// hpが0になったらm_StateManagerのm_deadFlagをtrueに
+	if (m_hp <= 0)
+	{
+		m_StateManager->SetDeadFlag();
+	}
 
-	GetAttackSize();
+	if (m_onDamageFrame > 0)
+	{
+		m_StateManager->SetondamageFlag(true);
+		m_onDamageFrame--;
+		damageMove();
+	}
+	else
+	{
+		m_StateManager->SetondamageFlag(false);
+	}
 
+	// StateManagerのアップデート
+	m_StateManager->Update(m_padNum);
+
+	GetAttackSize(); //攻撃のサイズ取得
+
+	// ダメージ取得
+	m_damage = m_StateManager->GetOnDamage();
+
+	// 攻撃フラグ取得
 	m_attackFlag = m_StateManager->GetAttackFlag();
 
-	m_pos = m_StateManager->GetPos();
+	// 攻撃フラグがtrueのとき
+	if (m_attackFlag)
+	{
+		// カウントを増やす
+	//	attackCountUp();
+	}
+	else// falseのとき
+	{
+		// カウントを0に
+		m_attackFrameCount = 0;
+	}
+
+	// m_posの値を取得
+	m_pos += m_StateManager->GetVec();
+
+	if (m_pos.y > 600)
+	{
+		m_pos.y = 600;
+	}
 
 	for (int i = 0; i < kShotMax; i++)
 	{
@@ -53,7 +98,8 @@ void Dinosaur::Update()
 			m_Shot[i] = new NullShot();
 		}
 	}
-	
+
+	//ショットアップデート
 	for (int i = 0; i < kShotMax; i++)
 	{
 		m_Shot[i]->Update();
@@ -98,8 +144,10 @@ void Dinosaur::Update()
 
 void Dinosaur::Draw()
 {
-	m_StateManager->Draw();
+	// キャラクター表示
+	m_StateManager->Draw(m_pos);
 
+	//ショット表示
 	for (int i = 0; i < kShotMax; i++)
 	{
 		if (m_Shot[i] != nullptr)
@@ -108,15 +156,16 @@ void Dinosaur::Draw()
 		}
 	}
 
+	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 	if (m_attackFlag)
 	{
-		DrawBox(m_pos.x + m_attackSizeLeft, m_pos.y + m_attackSizeTop,
-			m_pos.x + m_attackSizeRight, m_pos.y + m_attackSizeBottom,
-			0xff0000, false);
+		/*DrawBox(static_cast<int>(m_pos.x) + m_attackSizeLeft, static_cast<int>(m_pos.y) + m_attackSizeTop,
+			static_cast<int>(m_pos.x) + m_attackSizeRight, static_cast<int>(m_pos.y) + m_attackSizeBottom,
+			0xff0000, false);*/
 	}
 
-	DrawBox(m_pos.x + m_sizeLeft, m_pos.y + m_sizeTop,
-		m_pos.x + m_sizeRight, m_pos.y + m_sizeBottom,
+	DrawBox(static_cast<int>(m_pos.x) + m_sizeLeft, static_cast<int>(m_pos.y) + m_sizeTop,
+		static_cast<int>(m_pos.x) + m_sizeRight, static_cast<int>(m_pos.y) + m_sizeBottom,
 		0xff0000, false);
 }
 
@@ -128,7 +177,13 @@ void Dinosaur::GetAttackSize()
 	m_attackSizeBottom = m_StateManager->GetAttackSizeBottom();
 }
 
-ShotBase* Dinosaur::GetShot(int i)
+void Dinosaur::SetAttackFlag(bool attackFlag)
 {
-	return m_Shot[i];
+	m_attackFlag = attackFlag;
+	m_StateManager->SetAttackFlag();
 }
+
+//ShotBase* Dinosaur::GetShot(int i)
+//{
+//	return m_Shot[i];
+//}

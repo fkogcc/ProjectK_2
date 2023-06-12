@@ -2,6 +2,10 @@
 #include <DxLib.h>
 //#include"game.h"
 
+ShotBase::ShotBase()
+{
+}
+
 ShotBase::~ShotBase()
 {
 }
@@ -16,11 +20,11 @@ void ShotBase::Update()
 
 void ShotBase::Draw()
 {
-	DrawCircle(m_Shot.Pos.x, m_Shot.Pos.y, 50,
+	DrawCircle(static_cast<int>(m_Shot.Pos.x), static_cast<int>(m_Shot.Pos.y), 50,
 		0xffffff, true);
 
-	DrawBox(m_Shot.Pos.x + m_Shot.shotSizeLeft, m_Shot.Pos.y + m_Shot.shotSizeTop,
-		m_Shot.Pos.x + m_Shot.shotSizeRight, m_Shot.Pos.y + m_Shot.shotSizeBottom,
+	DrawBox(static_cast<int>(m_Shot.Pos.x) + m_Shot.shotSizeLeft, static_cast<int>(m_Shot.Pos.y) + m_Shot.shotSizeTop,
+		static_cast<int>(m_Shot.Pos.x) + m_Shot.shotSizeRight, static_cast<int>(m_Shot.Pos.y) + m_Shot.shotSizeBottom,
 		0xff0000, false);
 }
 

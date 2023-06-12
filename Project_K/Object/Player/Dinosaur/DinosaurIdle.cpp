@@ -4,6 +4,7 @@
 #include "DinosaurAttackPounce.h"
 #include "DinosaurAttackShot.h"
 #include "DinosaurAttackBite.h"
+#include"DinosaurDead.h"
 #include"DinosaurJump.h"
 #include"DinosaurMove.h"
 
@@ -11,34 +12,39 @@ DinosaurIdle::~DinosaurIdle()
 {
 }
 
-DinosaurStateBase* DinosaurIdle::Update()
+DinosaurStateBase* DinosaurIdle::Update(int padNum)
 {
 	m_Vec.x = 0;
 
 	ChangeGraph(3, 9 , true);
-	if (Pad::IsPress(PAD_INPUT_LEFT) || (Pad::IsPress(PAD_INPUT_RIGHT)))// XBOX X or Y
+
+	if (m_deadFlag)
 	{
-		return new DinosaurMove(m_Pos, m_Vec);
+		return new DinosaurDead({ 0,0 });
 	}
-	if (Pad::IsPress(PAD_INPUT_UP))// XBOX A
+	if (Pad::IsPress(PAD_INPUT_LEFT,padNum) || (Pad::IsPress(PAD_INPUT_RIGHT, padNum)))// XBOX X or Y
 	{
-		return new DinosaurJump(m_Pos,m_Vec);
+		return new DinosaurMove({ 0,0 });
 	}
-	if (Pad::IsPress(PAD_INPUT_2))// XBOX B
+	if (Pad::IsPress(PAD_INPUT_UP, padNum))// XBOX A
 	{
-		return new DinosaurAttackBite(m_Pos, m_Vec);
+		return new DinosaurJump({ 0,0 });
 	}
-	if (Pad::IsPress(PAD_INPUT_3))// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_2, padNum))// XBOX B
 	{
-		return new DinosaurAttackScratch(m_Pos, m_Vec);
+		return new DinosaurAttackBite({ 0,0 });
 	}
-	if (Pad::IsPress(PAD_INPUT_4))// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_3, padNum))// XBOX X or Y
 	{
-		return new DinosaurAttackShot(m_Pos, m_Vec);
+		return new DinosaurAttackScratch({ 0,0 });
 	}
-	if (Pad::IsPress(PAD_INPUT_5))// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_4, padNum))// XBOX X or Y
 	{
-		return new DinosaurAttackPounce(m_Pos, m_Vec);
+		return new DinosaurAttackShot({ 0,0 });
+	}
+	if (Pad::IsPress(PAD_INPUT_1, padNum))// XBOX X or Y
+	{
+		return new DinosaurAttackPounce({ 0,0 }, m_lookLeft);
 	}
 
 	return this;

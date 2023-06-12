@@ -8,7 +8,7 @@ public:
 
 	bool IsAttackColUpper() { return m_isAttackCol; }
 
-private:
 	bool m_isAttackCol = false;
+private:
 };
 

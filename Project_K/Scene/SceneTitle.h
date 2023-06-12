@@ -1,7 +1,9 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
+#include "../Util/Vec2.h"
 
+class LogoRotation;
 class SceneTitle : public SceneBase
 {
 public:
@@ -15,7 +17,6 @@ public:
 	virtual void Draw();
 
 private:
-	
-
+	LogoRotation* m_pLogo;
 };
 

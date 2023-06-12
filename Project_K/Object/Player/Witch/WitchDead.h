@@ -1,11 +1,11 @@
 #pragma once
 #include "../Base/MoveTypeBase.h"
-class WitchCharge :
-    public MoveTypeBase
+class WitchDead :
+	public MoveTypeBase
 {
 public:
-	WitchCharge();// コンストラクタ
-	virtual ~WitchCharge() {}// デストラクタ
+	WitchDead();// コンストラクタ
+	virtual ~WitchDead() {}// デストラクタ
 
 	void Init();// 初期化
 
@@ -17,4 +17,3 @@ private:
 	int m_animeHight;// 縦
 	int m_animeMax;//末尾
 };
-

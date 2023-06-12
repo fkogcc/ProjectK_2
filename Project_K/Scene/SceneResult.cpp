@@ -1,10 +1,12 @@
-#include "SceneResult.h"
+﻿#include "SceneResult.h"
 #include "SceneTitle.h"
 #include "SceneMapSelect.h"
 
-SceneResult::SceneResult() :
+SceneResult::SceneResult(bool isVictory1P, bool isVictory2P) :
 	m_isTitle(false),
-	m_isRetry(false)
+	m_isRetry(false),
+	m_isVictory1P(isVictory1P),
+	m_isVictory2P(isVictory2P)
 {
 }
 
@@ -39,7 +41,7 @@ SceneBase* SceneResult::Update()
 
 	if (!IsFading())
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1) || Pad::IsTrigger(PAD_INPUT_2))
+		if (Pad::IsTrigger(PAD_INPUT_1,1) || Pad::IsTrigger(PAD_INPUT_2,1))
 		{
 			StartFadeOut();
 		}
@@ -47,11 +49,11 @@ SceneBase* SceneResult::Update()
 
 	if (!m_isTitle && !m_isRetry)
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1))
+		if (Pad::IsTrigger(PAD_INPUT_1,1))
 		{
 			m_isTitle = true;
 		}
-		else if (Pad::IsTrigger(PAD_INPUT_2))
+		else if (Pad::IsTrigger(PAD_INPUT_2,1))
 		{
 			m_isRetry = true;
 		}
@@ -64,8 +66,25 @@ SceneBase* SceneResult::Update()
 void SceneResult::Draw()
 {
 	DrawString(0, 0, "Result", Color::kWhite);
-	DrawString(0, 20, "PAD_INPUT_1��Title", Color::kWhite);
-	DrawString(0, 40, "PAD_INPUT_2��MapSelect", Color::kWhite);
+	DrawString(0, 20, "PAD_INPUT_1→Title", Color::kWhite);
+	DrawString(0, 40, "PAD_INPUT_2→MapSelect", Color::kWhite);
+
+	// 勝利状況
+	// 引き分け
+	if (m_isVictory1P && m_isVictory2P)
+	{
+		DrawString(100, 100, "Draw", Color::kRed);
+	}
+	// 1Pの勝利
+	else if (m_isVictory1P)
+	{
+		DrawString(100, 100, "1P:Victory", Color::kRed);
+	}
+	// 2Pの勝利
+	else if(m_isVictory2P)
+	{
+		DrawString(100, 100, "2P:Victory", Color::kRed);
+	}
 	
 	SceneBase::DrawFade();
 }
