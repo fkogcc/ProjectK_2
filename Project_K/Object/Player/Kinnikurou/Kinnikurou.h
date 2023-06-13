@@ -9,6 +9,7 @@ class KinnikuUpper;
 class KinnikuMizo;
 class KinnikuRun;
 class KinnikuJump;
+class KinnikuDead;
 
 class Kinnikurou : public PlayerBase
 {
@@ -36,6 +37,7 @@ private:
 	KinnikuMizo* m_pMizo;
 	KinnikuRun* m_pRun;
 	KinnikuJump* m_pJump;
+	KinnikuDead* m_pDead;
 
 	bool m_pushBottom;
 
@@ -49,6 +51,7 @@ private:
 	int m_RunHandle;// ˆÚ“®ó‘Ô
 	int m_JumpHandle;// ƒWƒƒƒ“ƒvó‘Ô
 	int m_FallHandle;// —‰ºó‘Ô
+	int m_DeadHandle;// €–Só‘Ô
 
 	// ‰æ‘œ‚ÌÀ•W
 	int m_imgPosX;// X
