@@ -1,4 +1,5 @@
 #include "ElfAttackArrowChargeShot.h"
+#include <DxLib.h>
 namespace// 仮のネームスペース
 {
 	constexpr int kAttack_X = 16;
@@ -12,7 +13,7 @@ ElfAttackArrowChargeShot::ElfAttackArrowChargeShot()
 
 void ElfAttackArrowChargeShot::Update()
 {
-
+	printfDx("%d\n", m_frameCount);
 	m_frameCount++;
 	if (m_frameCount == 5)//3フレームに一回画像描画位置を変更する
 	{
