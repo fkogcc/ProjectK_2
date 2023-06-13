@@ -25,7 +25,6 @@ namespace
 }
 
 Kinnikurou::Kinnikurou() :
-	m_pushBottom(false),
 	m_charHandle(-1),
 	m_idleHandle(-1),
 	m_jabHandle(-1),

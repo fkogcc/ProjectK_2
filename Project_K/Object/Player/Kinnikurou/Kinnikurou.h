@@ -22,24 +22,22 @@ public:
 	void Update();// 更新
 	void Draw()override;// 描画
 
-	void ImgposInit();
+	void ImgposInit();// 画像位置の初期化
 
-	void DrawBoxAttackCol();
+	void DrawBoxAttackCol();// 
 
 	void AttackCol();
 
 private:
-
-	KinnikuIdle* m_pIdle;
-	KinnikurouJab* m_pJab;
-	KinnikuMuscle* m_pMuscle;
-	KinnikuUpper* m_pUpper;
-	KinnikuMizo* m_pMizo;
-	KinnikuRun* m_pRun;
-	KinnikuJump* m_pJump;
-	KinnikuDead* m_pDead;
-
-	bool m_pushBottom;
+	// ポインタ
+	KinnikuIdle* m_pIdle;// アイドル状態
+	KinnikurouJab* m_pJab;// ジャブ攻撃状態
+	KinnikuMuscle* m_pMuscle;// 胸筋衝撃波攻撃状態
+	KinnikuUpper* m_pUpper;// アッパー攻撃状態
+	KinnikuMizo* m_pMizo;// みぞおち攻撃状態
+	KinnikuRun* m_pRun;// 移動状態
+	KinnikuJump* m_pJump;// ジャンプ状態
+	KinnikuDead* m_pDead;// 死亡状態
 
 	// ハンドル
 	int m_charHandle;// キャラクター全体
