@@ -11,7 +11,7 @@
 
 
 DinosaurStateManager::DinosaurStateManager(int Handle) :
-	m_Handle(Handle),
+	m_handle(Handle),
 	m_pState(nullptr)
 {
 }
@@ -63,7 +63,7 @@ void DinosaurStateManager::Update(int padNum)
 		delete m_pState;
 
 		m_pState = pState;
-		m_pState->Init(m_Handle);// ‰Šú‰»
+		m_pState->Init(m_handle);// ‰Šú‰»
 	}
 }
 // •`‰æ
@@ -71,7 +71,7 @@ void DinosaurStateManager::Draw(Vec2 pos)
 {
 	assert(m_pState);
 	if (!m_pState)	return;
-	m_pState->Draw(m_Handle, m_lookLeft, pos);// •`‰æ
+	m_pState->Draw(m_handle, m_lookLeft, pos);// •`‰æ
 }
 
 bool DinosaurStateManager::GetshotFlag()

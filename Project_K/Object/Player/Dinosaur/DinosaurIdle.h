@@ -5,7 +5,7 @@ class DinosaurIdle : public DinosaurStateBase
 public:
 	DinosaurIdle(Vec2 vec)
 	{
-		m_Vec = vec;
+		m_vec = vec;
 		m_attackFlag = false;
 	}
 	virtual ~DinosaurIdle();

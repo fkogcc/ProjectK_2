@@ -10,7 +10,7 @@ namespace
 
 void DinosaurStateBase::Init(int Handle)
 {
-	m_Handle = Handle;
+	m_handle = Handle;
 }
 
 void DinosaurStateBase::Draw(int handle , bool lookRight, Vec2 pos)

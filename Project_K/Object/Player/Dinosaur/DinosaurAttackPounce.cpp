@@ -12,10 +12,10 @@ namespace
 
 DinosaurAttackPounce::DinosaurAttackPounce(Vec2 vec, bool lookLeft)
 {
-	m_Vec = vec;
+	m_vec = vec;
 	m_imagePosX = 0;
 	m_imagePosY = 4;
-	m_Vec.y = kJumpPower;
+	m_vec.y = kJumpPower;
 
 	m_attakSizeLeft = -130;
 	m_attackSizeTop = 10;
@@ -26,11 +26,11 @@ DinosaurAttackPounce::DinosaurAttackPounce(Vec2 vec, bool lookLeft)
 
 	if (lookLeft)
 	{
-		m_Vec.x = -kMoveSpeed;
+		m_vec.x = -kMoveSpeed;
 	}
 	else
 	{
-		m_Vec.x = kMoveSpeed;
+		m_vec.x = kMoveSpeed;
 	}
 }
 
@@ -56,15 +56,15 @@ DinosaurStateBase* DinosaurAttackPounce::Update(int padNum)
 		m_gapTime++;
 	}
 
-	if (m_Vec.y < -kJumpPower)
+	if (m_vec.y < -kJumpPower)
 	{
 		/*m_Vec.y += m_JumpPower;*/
-		m_Vec.y += kGravity;
+		m_vec.y += kGravity;
 	}
 	
 	if (m_gapTime > 3)
 	{
-		m_Vec.x = 0;
+		m_vec.x = 0;
 	}
 
 	if (m_gapTime > 15)

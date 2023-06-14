@@ -5,7 +5,7 @@ class DinosaurMove : public DinosaurStateBase
 public:
 	DinosaurMove(Vec2 vec)
 	{
-		m_Vec = vec;
+		m_vec = vec;
 		m_imagePosY = 7;
 		m_attackFlag = false;
 	}

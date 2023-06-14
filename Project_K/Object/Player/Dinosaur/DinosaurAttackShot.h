@@ -6,7 +6,7 @@ public:
 	DinosaurAttackShot(Vec2 vec) : 
 		m_pastShotFlag(false)
 	{
-		m_Vec = vec;
+		m_vec = vec;
 		m_imagePosX = 0;
 		m_imagePosY = 2;
 

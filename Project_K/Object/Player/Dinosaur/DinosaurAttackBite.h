@@ -5,7 +5,7 @@ class DinosaurAttackBite : public DinosaurStateBase
 public:
 	DinosaurAttackBite(Vec2 vec)
 	{
-		m_Vec = vec;
+		m_vec = vec;
 		m_imagePosX = 0;
 		m_imagePosY = 5;
 		m_attackFlag = true;
