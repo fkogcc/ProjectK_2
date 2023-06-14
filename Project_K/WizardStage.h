@@ -11,13 +11,11 @@ namespace
 	constexpr int kEndY = 700;
 }
 
-class StageBase;
-
-class Stage
+class WizardStage
 {
 public:
-	Stage();
-	virtual ~Stage();
+	WizardStage();
+	virtual ~WizardStage();
 
 	void Init();
 	void Update();
@@ -30,16 +28,21 @@ public:
 	int GetEndX() const { return kEndX; }		// 終点座標Xの取得
 	int GetEndY() const { return kEndY; }		// 終点座標Yの取得
 
+	// 外部からのステージセレクト番号のsetter
+	int const GetSelectNum() const { m_selectNum; }
+
 	struct MapInfo
 	{
 		Vec2 m_pos;		// マップの座標
 		int m_chipNo;	// マップチップの番号
 	};
-	
+
 private:
-	Vec2 m_pos;		
+	Vec2 m_pos;
 	int m_handle;	// グラフィックハンドル
 	int m_bgHandle;	// 背景用グラフィックハンドル
+
+	int m_selectNum;	// 外部からのint型数値を格納するための変数
 
 	std::vector<MapInfo> m_data;// vector型の2次元配列変数
 };

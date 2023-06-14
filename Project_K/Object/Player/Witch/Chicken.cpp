@@ -76,7 +76,7 @@ void Chicken::Draw()
 {
 	if (m_exist)
 	{
-		my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x) + m_move,
+		my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x) + static_cast<int>(m_move),
 			static_cast<int>(m_pos.y),			//•\¦À•W
 			32 * m_animeWidth, 32 * m_animeHight,			//Ø‚èæ‚è¶ã
 			32, 32,							//•A‚‚³
