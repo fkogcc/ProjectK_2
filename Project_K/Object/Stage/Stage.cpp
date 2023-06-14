@@ -35,11 +35,12 @@ void Stage::Init()
 {
 	m_handle = LoadGraph(kFileName, false);
 	m_bgHandle = LoadGraph(kBgFileName, false);
+	MapRead();
 }
 
 void Stage::Update()
 {
-	MapRead();
+	
 }
 
 void Stage::Draw()
