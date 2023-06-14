@@ -92,6 +92,11 @@ void Witch::Update()
     m_pKnightCat->Update();// 猫ちゃんの更新処理
     KnockBack();
 
+    if (m_pos.y > 650.0f)
+    {
+        m_pos.y = 650.0f;
+    }
+
     // 死亡したら攻撃できなくする
     if (m_hp <= 0)// HPが0だったら死亡状態にする
     {
@@ -331,7 +336,7 @@ void Witch::UpdateJump()
     if (m_pos.y > m_temp + 150)
     {
         m_jumpFlag = false;// ふらぐをもどす
-        m_pos.y = m_temp + 150;// 最初の位置に戻す
+        m_pos.y = 650.0f;// 最初の位置に戻す
         m_jumpPower = 5;// ジャンプパワー
         m_movement = 0;// 移動量の初期化
     }
