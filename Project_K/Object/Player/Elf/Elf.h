@@ -24,25 +24,38 @@ public:
 	void End();// 終了処理
 	void Update();// 更新
 	void Draw();// 描画
+private:
+
+	void UpdateControl();// 操作
 
 	void AnimStop();// アニメーション停止
 
-	void AnimSwitch();// アニメ
+	void AnimSwitch();// アニメと攻撃範囲を指定
 
-//	void AnimDamageStop(bool damageFlg) { m_isAttackStop = damageFlg; }
+	void UpdateHitColl();// 自身の当たり判定
+
+	void UpdateGravity();// 重力関連
+
+	void AnimIdol(); // 待機状態アニメーション
+	void AnimRun();  // 走りアニメーション
+	void AnimJump(); // ジャンプアニメーション
+	void AnimAttackPunch();     // パンチアニメーション
+	void AnimAttackNormalShot();// 通常ショットアニメーション
+	void AnimAttackChargeShit();// チャージショットアニメーション
+	void AnimAttackUpShit();    // 上攻撃アニメーション
 
 private:
 	int m_handle;// 画像ハンドル
 
 	int m_imageX, m_imageY;// 画像描画位置
 
+	int m_gapTime;
+
 	float m_jumpAcc = 0.0f;
 
 	bool m_isAttack;// 攻撃ができるかどうか
 
-	bool m_isDirection;// 
-
-	bool m_isCollPos;
+	bool m_isDirection;// 向いている方向
 
 	ElfIdle* m_pIdle;// 待機
 	ElfRun* m_pRun; // 走り

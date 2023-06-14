@@ -1,4 +1,4 @@
-#include "SceneMain.h"
+﻿#include "SceneMain.h"
 #include "SceneResult.h"
 #include "../Object/Player/Dinosaur/Dinosaur.h"
 #include "../Object/Player/Elf/Elf.h"
@@ -47,8 +47,6 @@ void SceneMain::Init()
 
 
 	m_pStage->Init();
-
-	//m_pStage->Init();
 }
 
 void SceneMain::End()
@@ -168,6 +166,12 @@ void SceneMain::Draw()
 	printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
 	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
+	// ステージの描画
+	m_pStage->Draw();
+
+	// UIの描画
+	m_pUi->Draw();
+
 	// プレイヤーの描画
 	m_pPlayer[0]->Draw();
 	m_pPlayer[1]->Draw();
@@ -175,12 +179,6 @@ void SceneMain::Draw()
 	// デバッグ用当たり判定描画
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
-
-	// ステージの描画
-	m_pStage->Draw();
-
-	// UIの描画
-	m_pUi->Draw();
 
 	SceneBase::DrawFade();
 }
