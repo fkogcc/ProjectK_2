@@ -12,12 +12,10 @@ namespace
 
 PlayerBase::PlayerBase()
 {
+	for (int i = 0; i < kShotMax; i++)
 	{
-		for (int i = 0; i < kShotMax; i++)
-		{
-			m_pShot[i] = new NullShot();
-		}
-	};
+		m_pShot[i] = new NullShot();
+	}
 }
 
 void PlayerBase::SetKnockBack(float toPlayer)

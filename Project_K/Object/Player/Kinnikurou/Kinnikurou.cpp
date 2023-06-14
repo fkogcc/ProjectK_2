@@ -107,8 +107,20 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
+	printfDx("m_imgPosX:%d\n", m_imgPosX);
+	printfDx("m_imgPosY:%d\n", m_imgPosY);
+
 	if (m_hp > 0)
 	{
+		KnockBack();
+		if (m_onDamageFrame > 0)
+		{
+			ImgposInit();
+			m_moveType = static_cast<int>(moveType::Idol);
+			m_motionCount = 0;
+			InitAttackFlag();
+		}
+
 		if (m_motionCount != 0)
 		{
 			m_motionCount--;
@@ -435,10 +447,14 @@ void Kinnikurou::AttackCol()
 					m_pUpper->IsAttackColUpper() || 
 					m_pMizo->IsAttackColMizo();*/
 
-	if (m_pJab->m_isAttackCol ||
+	if ((m_pJab->m_isAttackCol ||
 		m_pMuscle->m_isAttackCol ||
 		m_pUpper->m_isAttackCol ||
-		m_pMizo->m_isAttackCol)
+		m_pMizo->m_isAttackCol) /*&& 
+		m_moveType == static_cast<int>(moveType::Attack1) ||
+		m_moveType == static_cast<int>(moveType::Attack2) ||
+		m_moveType == static_cast<int>(moveType::Attack3) ||
+		m_moveType == static_cast<int>(moveType::Attack4)*/)
 	{
 		m_attackFlag = true;
 	}
@@ -470,4 +486,12 @@ void Kinnikurou::AttackCol()
 	{
 		m_damage = 0;
 	}
+}
+
+void Kinnikurou::InitAttackFlag()
+{
+	m_pJab->m_isAttackCol = false;
+	m_pMuscle->m_isAttackCol = false;
+	m_pUpper->m_isAttackCol = false;
+	m_pMizo->m_isAttackCol = false;
 }

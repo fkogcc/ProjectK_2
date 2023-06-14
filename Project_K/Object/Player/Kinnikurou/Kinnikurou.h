@@ -28,6 +28,8 @@ public:
 
 	void AttackCol();
 
+	void InitAttackFlag();
+
 private:
 	// ポインタ
 	KinnikuIdle* m_pIdle;// アイドル状態

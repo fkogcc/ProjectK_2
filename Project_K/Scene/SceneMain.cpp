@@ -161,8 +161,8 @@ SceneBase* SceneMain::Update()
 void SceneMain::Draw()
 {
 	// プレイヤーのHPの変数
-	printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
-	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
+	//printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
+	//printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
 	// ステージの描画
 	m_pStage->Draw();
