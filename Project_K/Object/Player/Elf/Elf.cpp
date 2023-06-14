@@ -1,4 +1,4 @@
-#include "Elf.h"
+﻿#include "Elf.h"
 #include "../../../Util/DrawFunctions.h"
 #include "../../condition.h"
 #include "ElfIdle.h"
@@ -115,6 +115,8 @@ void Elf::Draw()
 		true,		       // 画像透過
 		m_isDirection      // 画像反転
 	);
+
+
 }
 
 // 操作
