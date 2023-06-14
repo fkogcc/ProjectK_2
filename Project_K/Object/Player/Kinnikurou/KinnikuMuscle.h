@@ -8,6 +8,7 @@ public:
 
 	bool IsAttackColMuscle() { return m_isAttackCol; }
 
+	// UŒ‚”»’è‚ª‚ ‚é‚©‚Ç‚¤‚©
 	bool m_isAttackCol = false;
 private:
 

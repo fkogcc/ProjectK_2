@@ -22,15 +22,15 @@ void KinnikuJump::Update(float& jumpAcc, float& posY,int padNum)
 {
 	m_isJumping = true;
 	m_isFalling = false;
-	jumpAcc += kGravity;
-	posY += jumpAcc;
+	jumpAcc += kGravity;// 重力
+	posY += jumpAcc;// ジャンプ力
 	if (posY >= 650.0f)
 	{
 		posY = 650.0f;
 		jumpAcc = 0.0f;
 		m_isJumping = false;
 	}
-
+	// ジャンプしていないとき
 	if (!m_isJumping)
 	{
 		if (Pad::IsTrigger(PAD_INPUT_UP, padNum))
