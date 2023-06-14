@@ -14,9 +14,14 @@ public:
 	virtual SceneBase* Update() override;
 	virtual void Draw();
 
+	// 選択された番号によってマップを選ぶ
+	virtual void ChooseNum();
+
 	// ステージが選ばれた時の処理
 	//bool IsSelected() { return };
 
 private:
+	// マップ判別用の番号変数
+	int m_mapNum;
 };
 
