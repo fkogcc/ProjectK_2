@@ -90,7 +90,7 @@ void Witch::Update()
 
     m_pChicken->Update();// にわとりの更新処理
     m_pKnightCat->Update();// 猫ちゃんの更新処理
-
+    KnockBack();
 
     // 死亡したら攻撃できなくする
     if (m_hp <= 0)// HPが0だったら死亡状態にする
@@ -130,6 +130,7 @@ void Witch::Draw()
 
     m_pChicken->Draw();// にわとりの描画
     m_pKnightCat->Draw();//ねこちゃんの描画
+    DrawFormatString(200, 500, 0xffffff, "%f", m_pos.y);
 
     // デバッグ描画
 #if DEBUG
@@ -175,25 +176,25 @@ void Witch::UpdateInputKey()
         m_reversal = true;// 画像の反転
         m_moveType = static_cast<int>(moveType::Run);// 走り状態
     }
-    if (Pad::IsPress(PAD_INPUT_UP, m_padNum))// 上
-    {
-        m_temp = m_pos.y - 150;// ジャンプしたときの上の上限
-        m_jumpFlag = true;// ジャンプしたフラグを建設する
-    }
-    if (Pad::IsPress(PAD_INPUT_UP, m_padNum) && Pad::IsPress(PAD_INPUT_LEFT, m_padNum))// 移動しながらジャンプ
-    {
-        m_temp = m_pos.y - 150;// ジャンプしたときの上の上限
-        m_movement = -10;// 移動量
-        m_jumpFlag = true;// ジャンプフラグの建設
-    }
-    if (Pad::IsPress(PAD_INPUT_UP, m_padNum) && Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))// 移動しながらジャンプ
-    {
-        m_temp = m_pos.y - 150;// ジャンプしたときの上の上限
-        m_movement = 10;// 移動量
-        m_jumpFlag = true;// ジャンプフラグの建設
-    }
     if (!m_tempFlag1 && !m_tempFlag2)// 力業実装、フラグがたってなかったら攻撃できます
     {
+        if (Pad::IsPress(PAD_INPUT_UP, m_padNum))// 上
+        {
+            m_temp = m_pos.y - 150;// ジャンプしたときの上の上限
+            m_jumpFlag = true;// ジャンプしたフラグを建設する
+        }
+        if (Pad::IsPress(PAD_INPUT_UP, m_padNum) && Pad::IsPress(PAD_INPUT_LEFT, m_padNum))// 移動しながらジャンプ
+        {
+            m_temp = m_pos.y - 150;// ジャンプしたときの上の上限
+            m_movement = -10;// 移動量
+            m_jumpFlag = true;// ジャンプフラグの建設
+        }
+        if (Pad::IsPress(PAD_INPUT_UP, m_padNum) && Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))// 移動しながらジャンプ
+        {
+            m_temp = m_pos.y - 150;// ジャンプしたときの上の上限
+            m_movement = 10;// 移動量
+            m_jumpFlag = true;// ジャンプフラグの建設
+        }
         m_attackFlag = false;// 最初に攻撃中のフラグを初期化してあげる
         if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))// 小攻撃
         {
