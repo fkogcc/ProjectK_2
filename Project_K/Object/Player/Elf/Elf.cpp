@@ -48,12 +48,12 @@ Elf::Elf() :
 
 {
 	m_pIdle = new ElfIdle;// 待機
-	m_pRun  = new ElfRun; // 走り
+	m_pRun = new ElfRun; // 走り
 	m_pJump = new ElfJump;
-	m_pPunch	  = new ElfAttackArrowPunch;	  // 攻撃
-	m_pShot       = new ElfAttackArrowShot;       // 攻撃
+	m_pPunch = new ElfAttackArrowPunch;	  // 攻撃
+	m_pShot = new ElfAttackArrowShot;       // 攻撃
 	m_pChargeShot = new ElfAttackArrowChargeShot; // 攻撃
-	m_pUp         = new ElfAttackArrowUp;	      // 攻撃
+	m_pUp = new ElfAttackArrowUp;	      // 攻撃
 
 	m_pos.y = 600.0f - 176.0f;
 }
@@ -78,17 +78,7 @@ void Elf::Update()
 	// アニメーション停止
 	AnimStop();
 
-	if (m_attackFlag)
-	{
-		DrawString(100, 100, "true : 動けません", 0xffffff);
-	}
-	else
-	{
-		// false だと行動できる
-		DrawString(100, 100, "false : 動けます", 0xffffff);
-	}
-
-	DrawFormatString(100, 200, 0xffffff,"damage : %d", m_damage);
+	DrawFormatString(100, 200, 0xffffff, "damage : %d", m_damage);
 
 	if (!m_attackFlag)
 	{
@@ -129,18 +119,18 @@ void Elf::Draw()
 
 #if _DEBUG
 	// プレイヤーのサイズ
-	DrawBox(m_sizeLeft + m_pos.x , 
-			m_sizeTop + m_pos.y,
-			m_sizeRight + m_pos.x, 
-			m_sizeBottom + m_pos.y,
-			0xffffff, false);
+	DrawBox(m_sizeLeft + m_pos.x,
+		m_sizeTop + m_pos.y,
+		m_sizeRight + m_pos.x,
+		m_sizeBottom + m_pos.y,
+		0xffffff, false);
 
 	// 攻撃範囲
 	DrawBox(m_attackSizeLeft + m_pos.x,
-			m_attackSizeTop + m_pos.y,
-			m_attackSizeRight + m_pos.x,
-			m_attackSizeBottom + m_pos.y,
-			0xff0000, false);
+		m_attackSizeTop + m_pos.y,
+		m_attackSizeRight + m_pos.x,
+		m_attackSizeBottom + m_pos.y,
+		0xff0000, false);
 #endif
 }
 
@@ -199,15 +189,15 @@ void Elf::UpdateControl()
 		}
 #if false	
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && // XBOX A && RIGHT
-		   (Pad::IsTrigger(PAD_INPUT_RIGHT, m_padNum)) ||
+			(Pad::IsTrigger(PAD_INPUT_RIGHT, m_padNum)) ||
 			Pad::IsTrigger(PAD_INPUT_2, m_padNum) &&// XBOX A && LEFT
-		   (Pad::IsTrigger(PAD_INPUT_LEFT, m_padNum)))   
+			(Pad::IsTrigger(PAD_INPUT_LEFT, m_padNum)))
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);;// 攻撃
 			m_attackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) &&// XBOX A && UP
-		   (Pad::IsTrigger(PAD_INPUT_UP, m_padNum)))
+			(Pad::IsTrigger(PAD_INPUT_UP, m_padNum)))
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
 			m_attackFlag = true;
@@ -231,22 +221,13 @@ void Elf::AnimStop()
 {
 	// アニメーションが終わったら
 	if (!m_pChargeShot->IsSetMove() ||
-		!m_pJump->IsSetMove      () ||
-		!m_pShot->IsSetMove		 () ||
-		!m_pPunch->IsSetMove	 () ||
-		!m_pUp->IsSetMove		 ())
+		!m_pJump->IsSetMove() ||
+		!m_pShot->IsSetMove() ||
+		!m_pPunch->IsSetMove() ||
+		!m_pUp->IsSetMove())
 
-#if _DEBUG
-	// プレイヤーのサイズ
-	DrawBox(m_sizeLeft + static_cast<int>(m_pos.x) ,
-			m_sizeTop + static_cast<int>(m_pos.y),
-			m_sizeRight + static_cast<int>(m_pos.x),
-			m_sizeBottom + static_cast<int>(m_pos.y),
-			0xffffff, false);
-	// m_attackFlagがtrueのとき攻撃当たり判定を表示
-	if (m_attackFlag)
 	{
-		m_isAttack   = true;
+		m_isAttack = true;
 		m_attackFlag = true;
 
 		m_gapTime--;
@@ -263,9 +244,9 @@ void Elf::AnimStop()
 		}
 
 		// 攻撃範囲を0で初期化
-		m_attackSizeLeft   = 0;
-		m_attackSizeTop    = 0;
-		m_attackSizeRight  = 0;
+		m_attackSizeLeft = 0;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 0;
 		m_attackSizeBottom = 0;
 	}
 }

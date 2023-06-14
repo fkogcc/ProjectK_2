@@ -48,7 +48,7 @@ SceneBase* SceneMapSelect::Update()
 	{
 		m_mapNum--;
 
-		if()
+		//if()
 	}
 
 	return this;
