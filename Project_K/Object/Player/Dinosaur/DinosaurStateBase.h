@@ -16,7 +16,7 @@ public:
 
 	virtual void ChangeGraph(int ChangeSpeed, int GraphNum, bool ChangeY);
 
-	virtual Vec2 GetVec() { return m_Vec; }
+	virtual Vec2 GetVec() { return m_vec; }
 
 	virtual bool GetshotFlag() { return m_shotFlag; }
 
@@ -36,7 +36,7 @@ public:
 	int GetAttackDamage() { return m_attackDamage; }
 
 protected:
-	int m_Handle;
+	int m_handle;
 
 	bool m_shotFlag = false;
 	bool m_lookLeft;	// 左を向いているか
@@ -57,6 +57,6 @@ protected:
 	int m_attackDamage = 0;// プレイヤーがエネミーに与えるダメージ量
 	bool m_attackFlag = false;
 	bool m_isMove = false;
-	Vec2 m_Vec = { 0.0f,0.0f };// 運動量
+	Vec2 m_vec = { 0.0f,0.0f };// 運動量
 };
 

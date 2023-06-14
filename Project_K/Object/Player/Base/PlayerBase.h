@@ -38,7 +38,9 @@ public:
 	int GetAttackSizeRight() { return m_attackSizeRight; }
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
 
+	// アタックフラグ取得(攻撃したときtrue)
 	bool GetAttackFlag() { return m_attackFlag; }
+	// アタックフラグセット(攻撃が当たった時に連続でヒットするのを防ぐためfalseにする)
 	virtual void SetAttackFlag(bool attackFlag) { m_attackFlag = attackFlag; }
 
 	const int GetAttackFrame() const { return m_attackFrameCount; }
@@ -52,22 +54,32 @@ public:
 	// SceneMainからプレイヤーが受けるダメージを受け取る
 	int GetDamage() { return m_damage; }
 
+	// ダメージを食らう時の処理()
 	void OnDamage(int damage) { m_hp -= damage; }
 
 	// 攻撃を食らったときダメージフレームに15を加える
 	void SetOnDamageFrame() { m_onDamageFrame = 25; }
 
+	// プレイヤーの体力取得
 	const int GetHp() const { return m_hp; }
 
+	// パッド番号取得(プレイヤー1とプレイヤー２を分けるため)
 	void SetPadNum(int padNum) { m_padNum = padNum; }
 
+	//ノックバックの処理(toPlayerはプレイヤーとプレイヤーの距離を求めるためのもの)
 	void SetKnockBack(float toPlayer);
 
+	//ポジション取得
 	Vec2 GetPos() { return m_pos; }
 
-	ShotBase* GetShot(int i) { return m_Shot[i]; }
+	//ショットポインタ取得
+	ShotBase* GetShot(int i) { return m_pShot[i]; }
 
+	//デバッグドローコリジョン
 	void DebugDrawCollision();
+
+	// ノックバック使用
+	void KnockBack();
 
 protected:
 //	void attackCountUp();
@@ -106,8 +118,8 @@ protected:
 	Vec2 m_pos = { 0.0f,0.0f };	// 位置
 	Vec2 m_vec = { 0.0f,0.0f };	// 運動量
 
-	std::array<ShotBase*, kShotMax> m_Shot;
+	std::array<ShotBase*, kShotMax> m_pShot; // 画面上に存在できるショットポインタの配列
 
-	Vec2 m_knockBack;
+	Vec2 m_knockBack; // ノックバックベクトル
 };
 

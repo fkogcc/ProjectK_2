@@ -30,7 +30,7 @@ DinosaurStateBase* DinosaurAttackShot::Update(int padNum)
 
 	if (m_gapTime > 15)
 	{
-		return new DinosaurIdle(m_Vec);
+		return new DinosaurIdle(m_vec);
 	}
 
 	return this;

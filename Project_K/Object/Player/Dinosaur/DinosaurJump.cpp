@@ -10,10 +10,10 @@ namespace
 
 DinosaurJump::DinosaurJump(Vec2 vec)
 {	
-	m_Vec.x = vec.x;
+	m_vec.x = vec.x;
 	m_imagePosX = 0;
 	m_imagePosY = 4;
-	m_Vec.y = kJumpPower;
+	m_vec.y = kJumpPower;
 	m_attackFlag = false;
 }
 
@@ -23,7 +23,7 @@ DinosaurJump::~DinosaurJump()
 
 DinosaurStateBase* DinosaurJump::Update(int padNum)
 {
-	m_Vec.y += kGravity;
+	m_vec.y += kGravity;
 
 	if (m_imagePosX < 3)
 	{
@@ -35,10 +35,10 @@ DinosaurStateBase* DinosaurJump::Update(int padNum)
 		m_gapTime++;
 	}
 
-	if (m_Vec.y > -kJumpPower)
+	if (m_vec.y > -kJumpPower)
 	{
-		m_Vec.y = 0;
-		return new DinosaurIdle(m_Vec);
+		m_vec.y = 0;
+		return new DinosaurIdle(m_vec);
 	}
 
 	return this;

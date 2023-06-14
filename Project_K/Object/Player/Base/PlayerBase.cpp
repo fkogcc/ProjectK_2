@@ -15,7 +15,7 @@ PlayerBase::PlayerBase()
 	{
 		for (int i = 0; i < kShotMax; i++)
 		{
-			m_Shot[i] = new NullShot();
+			m_pShot[i] = new NullShot();
 		}
 	};
 }
@@ -44,6 +44,15 @@ void PlayerBase::DebugDrawCollision()
 			0xff0000, false);
 	}
 	
+}
+
+void PlayerBase::KnockBack()
+{
+	if (m_onDamageFrame > 0)
+	{
+		m_onDamageFrame--;
+		damageMove();
+	}
 }
 
 void PlayerBase::damageMove()

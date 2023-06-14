@@ -41,7 +41,7 @@ public:
 	void SetDeadFlag() { m_deadFlag = true; }
 
 private:
-	int m_Handle;
+	int m_handle;
 
 	bool m_lookLeft; // ¶‚ğŒü‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©
 

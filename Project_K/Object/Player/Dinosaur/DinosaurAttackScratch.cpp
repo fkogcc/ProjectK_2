@@ -19,7 +19,7 @@ DinosaurStateBase* DinosaurAttackScratch::Update(int padNum)
 
 	if (m_gapTime > 5)
 	{
-		return new DinosaurIdle(m_Vec);
+		return new DinosaurIdle(m_vec);
 	}
 	return this;
 }

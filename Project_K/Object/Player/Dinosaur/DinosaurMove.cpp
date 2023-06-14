@@ -21,15 +21,15 @@ DinosaurMove::~DinosaurMove()
 
 void DinosaurMove::IsMove(int padNum)
 {
-	m_Vec.x = 0;
+	m_vec.x = 0;
 	if (Pad::IsPress(PAD_INPUT_LEFT, padNum))// XBOX X or Y
 	{
-		m_Vec.x = -kMoveSpeed;
+		m_vec.x = -kMoveSpeed;
 	}
 
 	if (Pad::IsPress(PAD_INPUT_RIGHT, padNum))
 	{
-		m_Vec.x = kMoveSpeed;
+		m_vec.x = kMoveSpeed;
 	}
 }
 
@@ -51,7 +51,7 @@ DinosaurStateBase* DinosaurMove::Update(int padNum)
 
 	if (Pad::IsPress(PAD_INPUT_UP, padNum))// XBOX A
 	{
-		return new DinosaurJump(m_Vec);
+		return new DinosaurJump(m_vec);
 	}
 	if (Pad::IsPress(PAD_INPUT_2, padNum))// XBOX B
 	{
@@ -70,10 +70,10 @@ DinosaurStateBase* DinosaurMove::Update(int padNum)
 		return new DinosaurAttackPounce({ 0,0 }, m_lookLeft);
 	}
 
-	if (m_Vec.x != 0)	// キャラクターが動いているとき
+	if (m_vec.x != 0)	// キャラクターが動いているとき
 	{
 		return this;
 	}
 
-	return new DinosaurIdle(m_Vec);
+	return new DinosaurIdle(m_vec);
 }

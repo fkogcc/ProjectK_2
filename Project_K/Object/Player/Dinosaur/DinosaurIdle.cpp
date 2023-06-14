@@ -14,7 +14,7 @@ DinosaurIdle::~DinosaurIdle()
 
 DinosaurStateBase* DinosaurIdle::Update(int padNum)
 {
-	m_Vec.x = 0;
+	m_vec.x = 0;
 
 	ChangeGraph(3, 9 , true);
 

@@ -1,25 +1,37 @@
 #include "DinosaurAttackBite.h"
 #include"DinosaurIdle.h"
 
+namespace
+{
+	//‰æ‘œ‚ª“ü‚ê‘Ö‚í‚éƒXƒs[ƒh
+	constexpr int kGraphSpeed = 4;
+	//‰æ‘œ‚ÌÅ‘å”
+	constexpr int kGraphSize = 10;
+	//‰æ‘œ‚ÌÄ¶‚ğ~‚ß‚é
+	constexpr int kStopGraph = 4;
+	//UŒ‚d’¼ŠÔ
+	constexpr int kAttackStan = 4;
+}
+
 DinosaurAttackBite::~DinosaurAttackBite()
 {
 }
 
 DinosaurStateBase* DinosaurAttackBite::Update(int padNum)
 {
-	if (m_imagePosX < 4)
+	if (m_imagePosX < kStopGraph)
 	{
-		ChangeGraph(4, 10, false);
+		ChangeGraph(kGraphSpeed, kGraphSize, false);
 	}
 	else
 	{
-		m_imagePosX = 4;
+		m_imagePosX = kStopGraph;
 		m_gapTime++;
 	}
 
-	if (m_gapTime > 4)
+	if (m_gapTime > kAttackStan)
 	{
-		return new DinosaurIdle(m_Vec);
+		return new DinosaurIdle(m_vec);
 	}
 
 

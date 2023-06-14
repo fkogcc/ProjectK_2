@@ -14,13 +14,11 @@ namespace
 }
 
 Dinosaur::Dinosaur() :
-	m_Handle(-1)
+	m_handle(-1)
 {
-	//m_hp = 100;
-	m_Handle = LoadGraph(kFilename);
-	m_StateManager = new DinosaurStateManager(m_Handle);
-	m_StateManager->Init();
-	//m_pos.y = 100.0f;
+	m_handle = LoadGraph(kFilename);
+	m_pStateManager = new DinosaurStateManager(m_handle);
+	m_pStateManager->Init();
 	m_pos = { 500,600 };
 }
 
@@ -30,6 +28,7 @@ Dinosaur::~Dinosaur()
 
 void Dinosaur::Init()
 {
+	//プレイヤーのサイズを代入
 	m_sizeLeft = -80;
 	m_sizeTop = -50;
 	m_sizeRight = 80;
@@ -45,30 +44,30 @@ void Dinosaur::Update()
 	// hpが0になったらm_StateManagerのm_deadFlagをtrueに
 	if (m_hp <= 0)
 	{
-		m_StateManager->SetDeadFlag();
+		m_pStateManager->SetDeadFlag();
 	}
 
+	//ダメージを食らってからm_onDamageFrameが0になるまで攻撃を受けない
+	KnockBack();
 	if (m_onDamageFrame > 0)
 	{
-		m_StateManager->SetondamageFlag(true);
-		m_onDamageFrame--;
-		damageMove();
+		m_pStateManager->SetondamageFlag(true); //攻撃を受けている状態のときtrue
 	}
 	else
 	{
-		m_StateManager->SetondamageFlag(false);
+		m_pStateManager->SetondamageFlag(false); //攻撃を受けている状態のときfalse
 	}
 
 	// StateManagerのアップデート
-	m_StateManager->Update(m_padNum);
+	m_pStateManager->Update(m_padNum);
 
 	GetAttackSize(); //攻撃のサイズ取得
 
 	// ダメージ取得
-	m_damage = m_StateManager->GetOnDamage();
+	m_damage = m_pStateManager->GetOnDamage();
 
 	// 攻撃フラグ取得
-	m_attackFlag = m_StateManager->GetAttackFlag();
+	m_attackFlag = m_pStateManager->GetAttackFlag();
 
 	// 攻撃フラグがtrueのとき
 	if (m_attackFlag)
@@ -83,7 +82,7 @@ void Dinosaur::Update()
 	}
 
 	// m_posの値を取得
-	m_pos += m_StateManager->GetVec();
+	m_pos += m_pStateManager->GetVec();
 
 	if (m_pos.y > 600)
 	{
@@ -93,16 +92,16 @@ void Dinosaur::Update()
 	for (int i = 0; i < kShotMax; i++)
 	{
 		// ショットの存在が消え、NullShotではないときm_ShotにNullShotを入れる
-		if (!m_Shot[i]->GetExist() && !m_Shot[i]->GetNullShot())
+		if (!m_pShot[i]->GetExist() && !m_pShot[i]->GetNullShot())
 		{
-			m_Shot[i] = new NullShot();
+			m_pShot[i] = new NullShot();
 		}
 	}
 
 	//ショットアップデート
 	for (int i = 0; i < kShotMax; i++)
 	{
-		m_Shot[i]->Update();
+		m_pShot[i]->Update();
 	}
 
 	////いなくなった敵は消えてもらう
@@ -121,20 +120,20 @@ void Dinosaur::Update()
 	////ここまでやらないと実際には消えないので注意
 
 	// ショットのフラグたたったとき
-	if (m_StateManager->GetshotFlag())
+	if (m_pStateManager->GetshotFlag())
 	{
 		for (int i = 0; i < kShotMax; i++)
 		{
 			// ショットが存在しないとき
-			if (!m_Shot[i]->GetExist())
+			if (!m_pShot[i]->GetExist())
 			{
-				if (m_StateManager->GetLookLeft())
+				if (m_pStateManager->GetLookLeft())
 				{
-					m_Shot[i] = new DinoShot(m_pos, { -15,0 });
+					m_pShot[i] = new DinoShot(m_pos, { -15,0 });
 				}
 				else
 				{
-					m_Shot[i] = new DinoShot(m_pos, { 15,0 });
+					m_pShot[i] = new DinoShot(m_pos, { 15,0 });
 				}
 				break; //ループ抜ける
 			}
@@ -145,14 +144,14 @@ void Dinosaur::Update()
 void Dinosaur::Draw()
 {
 	// キャラクター表示
-	m_StateManager->Draw(m_pos);
+	m_pStateManager->Draw(m_pos);
 
 	//ショット表示
 	for (int i = 0; i < kShotMax; i++)
 	{
-		if (m_Shot[i] != nullptr)
+		if (m_pShot[i] != nullptr)
 		{
-			m_Shot[i]->Draw();
+			m_pShot[i]->Draw();
 		}
 	}
 
@@ -171,16 +170,16 @@ void Dinosaur::Draw()
 
 void Dinosaur::GetAttackSize()
 {
-	m_attackSizeLeft = m_StateManager->GetAttackSizeLeft();
-	m_attackSizeTop = m_StateManager->GetAttackSizeTop();
-	m_attackSizeRight = m_StateManager->GetAttackSizeRight();
-	m_attackSizeBottom = m_StateManager->GetAttackSizeBottom();
+	m_attackSizeLeft = m_pStateManager->GetAttackSizeLeft();
+	m_attackSizeTop = m_pStateManager->GetAttackSizeTop();
+	m_attackSizeRight = m_pStateManager->GetAttackSizeRight();
+	m_attackSizeBottom = m_pStateManager->GetAttackSizeBottom();
 }
 
 void Dinosaur::SetAttackFlag(bool attackFlag)
 {
 	m_attackFlag = attackFlag;
-	m_StateManager->SetAttackFlag();
+	m_pStateManager->SetAttackFlag();
 }
 
 //ShotBase* Dinosaur::GetShot(int i)
