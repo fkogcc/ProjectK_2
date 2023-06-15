@@ -80,12 +80,12 @@ void Elf::Update()
 
 	if (m_attackFlag)
 	{
-		DrawString(100, 100, "true : 動けません", 0xffffff);
+		//DrawString(100, 100, "true : 動けません", 0xffffff);
 	}
 	else
 	{
 		// false だと行動できる
-		DrawString(100, 100, "false : 動けます", 0xffffff);
+		//DrawString(100, 100, "false : 動けます", 0xffffff);
 	}
 
 	DrawFormatString(100, 200, 0xffffff,"damage : %d", m_damage);
@@ -243,6 +243,7 @@ void Elf::AnimStop()
 			m_sizeRight + static_cast<int>(m_pos.x),
 			m_sizeBottom + static_cast<int>(m_pos.y),
 			0xffffff, false);
+#endif
 	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 	if (m_attackFlag)
 	{
