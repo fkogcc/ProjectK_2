@@ -24,9 +24,7 @@ public:
 
 	void ImgposInit();// 画像位置の初期化
 
-	void DrawBoxAttackCol();// 
-
-	void AttackCol();
+	void AttackCol();// 攻撃のタイミング
 
 	void InitAttackFlag();// 攻撃フラグの初期化
 
@@ -83,5 +81,6 @@ private:
 	float m_isJump;
 
 	// テスト変数
+	int m_stiffen = 0;// 硬直
 };
 

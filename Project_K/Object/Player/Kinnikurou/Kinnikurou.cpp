@@ -115,6 +115,7 @@ void Kinnikurou::Update()
 		CharDefaultPos(m_charDirection);
 		m_isSpawn = true;
 	}
+	m_stiffen--;
 	if (m_hp > 0)
 	{
 		// ノックバック
@@ -149,8 +150,9 @@ void Kinnikurou::Update()
 				m_initCount++;
 			}
 		}
-
+		// ジャンプ更新処理
 		m_pJump->Update(m_jumpAcc, m_pos.y, m_padNum);
+		// ジャンプしている間の挙動
 		if (m_pJump->IsJump())
 		{
 			m_moveType = static_cast<int>(moveType::Jump);
@@ -167,6 +169,7 @@ void Kinnikurou::Update()
 				m_charRun = true;
 			}
 		}
+		// ジャンプしていないときの処理
 		else
 		{
 			// 攻撃していないとき
@@ -174,44 +177,53 @@ void Kinnikurou::Update()
 			{
 				if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
 				{
-					m_moveType = 1;
+					m_moveType = static_cast<int>(moveType::Idol);
 					m_pos.x += 10;
 					m_charDirection = false;
 					m_charRun = true;
 				}
 				if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 				{
-					m_moveType = 1;
+					m_moveType = static_cast<int>(moveType::Idol);
 					m_pos.x -= 10;
 					m_charDirection = true;
 					m_charRun = true;
 				}
-				if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
+				if (m_stiffen <= 0)
 				{
-					m_moveType = 3;// ジャブ攻撃状態
-					ImgposInit();
-					m_motionCount = 3 * 3;
+					if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
+					{
+						m_moveType = static_cast<int>(moveType::Attack1);// ジャブ攻撃状態
+						ImgposInit();
+						m_motionCount = 3 * 3;
+						m_stiffen = 15;
+					}
 				}
 				if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))
 				{
-					m_moveType = 4;// マッスル攻撃状態
+					m_moveType = static_cast<int>(moveType::Attack2);// マッスル攻撃状態
 					ImgposInit();
 					m_motionCount = 2 * 4 + 15 * 3;
 				}
 				if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))
 				{
-					m_moveType = 5;// アッパー攻撃状態
+					m_moveType = static_cast<int>(moveType::Attack3);// アッパー攻撃状態
 					ImgposInit();
 					m_motionCount = 5 * 4;
 				}
 				if (Pad::IsTrigger(PAD_INPUT_4, m_padNum))
 				{
-					m_moveType = 6;// みぞおち攻撃状態
+					m_moveType = static_cast<int>(moveType::Attack4);// みぞおち攻撃状態
 					ImgposInit();
 					m_motionCount = 70 + 2 * 2 + 40;
 				}
 
 			}
+		}
+
+		if (m_stiffen <= 0)
+		{
+			m_stiffen = 0;
 		}
 
 		if (!Pad::IsPress(PAD_INPUT_RIGHT, m_padNum) || !Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
@@ -439,15 +451,6 @@ void Kinnikurou::ImgposInit()
 	m_imgPosY = 0;
 }
 
-void Kinnikurou::DrawBoxAttackCol()
-{
-	DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft,
-		static_cast<int> (m_pos.y) + m_attackSizeTop,
-		static_cast<int> (m_pos.x) + m_attackSizeRight,
-		static_cast<int> (m_pos.y) + m_attackSizeBottom,
-		0xff0000, false);
-}
-
 void Kinnikurou::AttackCol()
 {
 	bool isAttack = m_pJab->IsAttackColJab() || 
@@ -480,7 +483,7 @@ void Kinnikurou::AttackCol()
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack4))
 		{
-			m_damage = 15;
+			m_damage = 20;
 		}
 	}
 	else
