@@ -12,12 +12,10 @@ namespace
 
 PlayerBase::PlayerBase()
 {
+	for (int i = 0; i < kShotMax; i++)
 	{
-		for (int i = 0; i < kShotMax; i++)
-		{
-			m_pShot[i] = new NullShot();
-		}
-	};
+		m_pShot[i] = new NullShot();
+	}
 }
 
 void PlayerBase::SetKnockBack(float toPlayer)
@@ -52,6 +50,22 @@ void PlayerBase::KnockBack()
 	{
 		m_onDamageFrame--;
 		damageMove();
+	}
+}
+
+void PlayerBase::CharDefaultPos(bool& direction)
+{
+	if (m_padNum == 1)
+	{
+		m_pos.x = 500.0f;
+		m_pos.y = 600.0f;
+		direction = false;
+	}
+	else if (m_padNum == 2)
+	{
+		m_pos.x = 1400.0f;
+		m_pos.y = 600.0f;
+		direction = true;
 	}
 }
 

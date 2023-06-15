@@ -47,7 +47,7 @@ void LogoRotation::Update()
 
 	if (m_pos.x == m_logoPos.x)
 	{
-		printfDx("半分\n");
+		//printfDx("半分\n");
 		m_pos.x = 500.0f/2.0f;
 		
 		m_logoPos.x = 500.0f + 300.0f/2.0f;
@@ -79,7 +79,7 @@ void LogoRotation::Update()
 		m_box2 += speed;
 	}
 
-	printfDx("%d\n", m_x);
+	//printfDx("%d\n", m_x);
 
 }
 

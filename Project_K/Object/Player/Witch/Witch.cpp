@@ -85,6 +85,12 @@ void Witch::Init()
 // 更新処理
 void Witch::Update()
 {
+    if (!m_isSpawn)
+    {
+        CharDefaultPos(m_reversal);
+        m_isSpawn = true;
+    }
+
     UpdateAttackJudge();//当たり判定を呼び出す
     UpdatePlayerJudge();//当たり判定を呼び出す
 
