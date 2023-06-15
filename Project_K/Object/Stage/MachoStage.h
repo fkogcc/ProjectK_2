@@ -1,9 +1,10 @@
 #pragma once
-class MachoStage
+#include "../Stage/StageBase.h"
+
+class MachoStage : public StageBase
 {
 public:
 	MachoStage();
-	virtual ~MachoStage();
 
 	void Init();
 	void Update();

@@ -3,7 +3,7 @@
 #include "SceneTitle.h"
 
 SceneMapSelect::SceneMapSelect() :
-	m_mapNum(-1)
+	m_mapNum(1)
 {
 }
 
@@ -42,13 +42,17 @@ SceneBase* SceneMapSelect::Update()
 
 	if (Pad::IsTrigger(PAD_INPUT_UP, 1))
 	{
-		m_mapNum++;
+		if (m_mapNum < 4)
+		{
+			m_mapNum++;
+		}
 	}
 	else if (Pad::IsTrigger(PAD_INPUT_DOWN, 1))
 	{
-		m_mapNum--;
-
-		//if()
+		if (m_mapNum > 1)
+		{
+			m_mapNum--;
+		}
 	}
 
 	return this;

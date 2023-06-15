@@ -20,13 +20,7 @@ namespace
 }
 
 ElfStage::ElfStage() :
-	m_pos(0, 700),
-	m_bgHandle(-1)
-
-{
-}
-
-ElfStage::~ElfStage()
+	m_pos(0, 700)
 {
 }
 

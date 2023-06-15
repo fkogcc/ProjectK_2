@@ -4,6 +4,7 @@
 #include<cassert>
 #include "DinoStage.h"
 #include "../../Util/game.h"
+#include "../Stage/StageBase.h"
 
 namespace
 {
@@ -20,14 +21,7 @@ namespace
 }
 
 DinoStage::DinoStage() :
-	m_pos(0, 700),
-	m_handle(-1),
-	m_bgHandle(-1)
-
-{
-}
-
-DinoStage::~DinoStage()
+	m_pos(0, 700)
 {
 }
 

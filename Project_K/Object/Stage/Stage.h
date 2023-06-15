@@ -11,8 +11,6 @@ namespace
 	constexpr int kEndY = 700;
 }
 
-class StageBase;
-
 class Stage
 {
 public:

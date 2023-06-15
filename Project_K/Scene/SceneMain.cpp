@@ -5,6 +5,11 @@
 #include "../Object/Player/Kinnikurou/Kinnikurou.h"
 #include "../Object/Player/Witch/Witch.h"
 #include "../Object/Stage/Stage.h"
+#include "../Object/Stage/DinoStage.h"
+#include "../Object/Stage/ElfStage.h"
+#include "../Object/Stage/MachoStage.h"
+#include "../Object/Stage/WizardStage.h"
+#include "../Scene/SceneMapSelect.h"
 #include "../Util/DrawFunctions.h"
 #include "../condition.h"
 #include <assert.h>
@@ -47,6 +52,16 @@ void SceneMain::Init()
 
 
 	m_pStage->Init();
+
+	// ステージセレクトシーン
+	m_pSceneMapSelect = std::make_shared<SceneMapSelect>();
+
+
+	// 魔女ステージ
+	m_pWizStage = std::make_shared<WizardStage>();
+	m_pWizStage->Init();
+
+
 }
 
 void SceneMain::End()
@@ -155,6 +170,9 @@ SceneBase* SceneMain::Update()
 		m_isVictory2P = true;
 	}
 
+	// ステージ更新
+	m_pWizStage->Update();
+
 	return this;
 }
 
@@ -166,6 +184,7 @@ void SceneMain::Draw()
 
 	// ステージの描画
 	m_pStage->Draw();
+	m_pWizStage->Draw();
 
 	// UIの描画
 	m_pUi->Draw();

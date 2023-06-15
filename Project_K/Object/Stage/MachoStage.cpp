@@ -13,11 +13,6 @@ MachoStage::MachoStage() :
 {
 }
 
-MachoStage::~MachoStage()
-{
-
-}
-
 void MachoStage::Init()
 {
 	//グラフィックのロード

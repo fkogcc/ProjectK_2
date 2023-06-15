@@ -20,14 +20,7 @@ namespace
 }
 
 WizardStage::WizardStage() :
-	m_pos(0, 700),
-	m_handle(-1),
-	m_bgHandle(-1)
-
-{
-}
-
-WizardStage::~WizardStage()
+	m_pos(0, 700)
 {
 }
 
