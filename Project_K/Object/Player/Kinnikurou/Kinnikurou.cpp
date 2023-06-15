@@ -44,6 +44,7 @@ Kinnikurou::Kinnikurou() :
 	m_jumpAcc(0),
 	m_charDirection(false),
 	m_charRun(false),
+	m_isAttack(false),
 	m_isJump(true)
 {
 	m_pIdle = new KinnikuIdle;
@@ -80,8 +81,8 @@ void Kinnikurou::Init()
 	m_FallHandle = my::MyLoadGraph(kFall);
 	m_DeadHandle = my::MyLoadGraph(kDead);
 
-	m_pos.x = 200;
-	m_pos.y = 600;
+	m_pos.x = 0;
+	m_pos.y = 0;
 
 	m_imgPosX = 0;
 	m_imgPosY = 0;
@@ -90,6 +91,8 @@ void Kinnikurou::Init()
 	m_sizeTop = -50;
 	m_sizeRight = 50;
 	m_sizeBottom = 50;
+
+	
 }
 
 void Kinnikurou::End()
@@ -107,8 +110,11 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
-	printfDx("m_imgPosX:%d\n", m_imgPosX);
-	printfDx("m_imgPosY:%d\n", m_imgPosY);
+	if (!m_isSpawn)
+	{
+		CharDefaultPos(m_charDirection);
+		m_isSpawn = true;
+	}
 
 	if (m_hp > 0)
 	{
@@ -442,19 +448,12 @@ void Kinnikurou::DrawBoxAttackCol()
 
 void Kinnikurou::AttackCol()
 {
-	/*bool isAttack = m_pJab->IsAttackColJab() || 
+	bool isAttack = m_pJab->IsAttackColJab() || 
 					m_pMuscle->IsAttackColMuscle() || 
 					m_pUpper->IsAttackColUpper() || 
-					m_pMizo->IsAttackColMizo();*/
-
-	if ((m_pJab->m_isAttackCol ||
-		m_pMuscle->m_isAttackCol ||
-		m_pUpper->m_isAttackCol ||
-		m_pMizo->m_isAttackCol) /*&& 
-		m_moveType == static_cast<int>(moveType::Attack1) ||
-		m_moveType == static_cast<int>(moveType::Attack2) ||
-		m_moveType == static_cast<int>(moveType::Attack3) ||
-		m_moveType == static_cast<int>(moveType::Attack4)*/)
+					m_pMizo->IsAttackColMizo();
+	// 攻撃判定のタイミング
+	if (isAttack)
 	{
 		m_attackFlag = true;
 	}

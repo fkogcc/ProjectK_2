@@ -53,6 +53,22 @@ void PlayerBase::KnockBack()
 	}
 }
 
+void PlayerBase::CharDefaultPos(bool& direction)
+{
+	if (m_padNum == 1)
+	{
+		m_pos.x = 500.0f;
+		m_pos.y = 600.0f;
+		direction = false;
+	}
+	else if (m_padNum == 2)
+	{
+		m_pos.x = 1400.0f;
+		m_pos.y = 600.0f;
+		direction = true;
+	}
+}
+
 void PlayerBase::damageMove()
 {
 	m_pos += m_knockBack;
