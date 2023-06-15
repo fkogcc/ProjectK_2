@@ -218,12 +218,11 @@ void Elf::AnimStop()
 #endif
 	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 	if (m_attackFlag)
-
+		if(
 		!m_pJump->IsSetMove() ||
 		!m_pShot->IsSetMove() ||
 		!m_pPunch->IsSetMove() ||
 		!m_pUp->IsSetMove())
-
 
 	{
 		m_isAttack = true;
