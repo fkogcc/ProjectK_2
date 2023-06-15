@@ -3,7 +3,7 @@
 
 class CharaChoice;
 class PlayerBase;
-
+class SelectUI;
 class SceneCharacterSelect : public SceneBase
 {
 public:
@@ -36,4 +36,5 @@ private:
 	PlayerBase* m_Player[2];
 
 	CharaChoice* m_CharaChoice;
+	SelectUI* m_ui;
 };
