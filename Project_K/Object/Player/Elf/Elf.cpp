@@ -75,24 +75,12 @@ void Elf::End()
 
 void Elf::Update()
 {
-	if (!m_isSpawn)
-	{
-		CharDefaultPos(m_isDirection);
-		m_isSpawn = true;
-	}
+	
 
 	// アニメーション停止
 	AnimStop();
 
-	if (m_attackFlag)
-	{
-		//DrawString(100, 100, "true : 動けません", 0xffffff);
-	}
-	else
-	{
-		// false だと行動できる
-		//DrawString(100, 100, "false : 動けます", 0xffffff);
-	}
+	
 
 	KnockBack();
 
@@ -123,6 +111,11 @@ void Elf::Update()
 
 void Elf::Draw()
 {
+	if (!m_isSpawn)
+	{
+		CharDefaultPos(m_isDirection);
+		m_isSpawn = true;
+	}
 	// プレイヤーの描画
 	my::MyDrawRectRotaGraph(
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
@@ -208,29 +201,13 @@ void Elf::UpdateControl()
 void Elf::AnimStop()
 {
 	// アニメーションが終わったら
-	if (!m_pChargeShot->IsSetMove() ||
+	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 
+	if (!m_pChargeShot->IsSetMove() ||
 		!m_pJump->IsSetMove      () ||
 		!m_pShot->IsSetMove		 () ||
 		!m_pPunch->IsSetMove	 () ||
 		!m_pUp->IsSetMove		 ())
-
-#if _DEBUG
-	// プレイヤーのサイズ
-	DrawBox(m_sizeLeft + static_cast<int>(m_pos.x) ,
-			m_sizeTop + static_cast<int>(m_pos.y),
-			m_sizeRight + static_cast<int>(m_pos.x),
-			m_sizeBottom + static_cast<int>(m_pos.y),
-			0xffffff, false);
-#endif
-	// m_attackFlagがtrueのとき攻撃当たり判定を表示
-	if (m_attackFlag)
-		if(
-		!m_pJump->IsSetMove() ||
-		!m_pShot->IsSetMove() ||
-		!m_pPunch->IsSetMove() ||
-		!m_pUp->IsSetMove())
-
 	{
 		m_isAttack = true;
 		m_attackFlag = true;
