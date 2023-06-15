@@ -55,7 +55,7 @@ Elf::Elf() :
 	m_pChargeShot = new ElfAttackArrowChargeShot; // 攻撃
 	m_pUp         = new ElfAttackArrowUp;	      // 攻撃
 
-	m_pos.y = 600.0f - 176.0f;
+	//m_pos.y = 600.0f - 176.0f;
 }
 
 Elf::~Elf()
@@ -65,7 +65,7 @@ Elf::~Elf()
 void Elf::Init()
 {
 	m_handle = my::MyLoadGraph(kFilmName);
-	m_pos = { 0.0f, 1080.0f / 2.0f };
+	m_pos = { 0.0f, 0.0f };
 }
 
 void Elf::End()
@@ -75,6 +75,12 @@ void Elf::End()
 
 void Elf::Update()
 {
+	if (!m_isSpawn)
+	{
+		CharDefaultPos(m_isDirection);
+		m_isSpawn = true;
+	}
+
 	// アニメーション停止
 	AnimStop();
 

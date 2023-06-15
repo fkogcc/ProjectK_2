@@ -39,11 +39,11 @@ public:
 
 	//€‚ñ‚¾‚Æ‚«m_deadFlag‚ğtrue‚É
 	void SetDeadFlag() { m_deadFlag = true; }
+	bool m_lookLeft; // ¶‚ğŒü‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©
 
 private:
 	int m_handle;
 
-	bool m_lookLeft; // ¶‚ğŒü‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©
 
 	bool m_deadFlag = false; //€‚ñ‚Å‚¢‚é‚©‚Ç‚¤‚©
 
