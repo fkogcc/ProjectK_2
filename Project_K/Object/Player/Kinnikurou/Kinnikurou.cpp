@@ -115,16 +115,18 @@ void Kinnikurou::Update()
 		CharDefaultPos(m_charDirection);
 		m_isSpawn = true;
 	}
-
 	if (m_hp > 0)
 	{
+		// ノックバック
 		KnockBack();
+		// ノックバックしているときの処理
 		if (m_onDamageFrame > 0)
 		{
 			ImgposInit();
 			m_moveType = static_cast<int>(moveType::Idol);
 			m_motionCount = 0;
 			InitAttackFlag();
+			m_jumpAcc = 0;
 		}
 
 		if (m_motionCount != 0)
