@@ -48,12 +48,12 @@ Elf::Elf() :
 
 {
 	m_pIdle = new ElfIdle;// 待機
-	m_pRun  = new ElfRun; // 走り
+	m_pRun = new ElfRun; // 走り
 	m_pJump = new ElfJump;
-	m_pPunch	  = new ElfAttackArrowPunch;	  // 攻撃
-	m_pShot       = new ElfAttackArrowShot;       // 攻撃
+	m_pPunch = new ElfAttackArrowPunch;	  // 攻撃
+	m_pShot = new ElfAttackArrowShot;       // 攻撃
 	m_pChargeShot = new ElfAttackArrowChargeShot; // 攻撃
-	m_pUp         = new ElfAttackArrowUp;	      // 攻撃
+	m_pUp = new ElfAttackArrowUp;	      // 攻撃
 
 	//m_pos.y = 600.0f - 176.0f;
 }
@@ -94,7 +94,11 @@ void Elf::Update()
 		//DrawString(100, 100, "false : 動けます", 0xffffff);
 	}
 
-	DrawFormatString(100, 200, 0xffffff,"damage : %d", m_damage);
+	KnockBack();
+
+
+	// アニメーション停止
+	AnimStop();
 
 	if (!m_attackFlag)
 	{
@@ -115,8 +119,6 @@ void Elf::Update()
 
 	// 重力関連
 	UpdateGravity();
-
-
 }
 
 void Elf::Draw()
@@ -133,21 +135,7 @@ void Elf::Draw()
 		m_isDirection      // 画像反転
 	);
 
-#if _DEBUG
-	// プレイヤーのサイズ
-	DrawBox(m_sizeLeft + static_cast<int>(m_pos.x) , 
-			m_sizeTop + static_cast<int>(m_pos.y),
-			m_sizeRight + static_cast<int>(m_pos.x),
-			m_sizeBottom + static_cast<int>(m_pos.y),
-			0xffffff, false);
 
-	// 攻撃範囲
-	DrawBox(m_attackSizeLeft + static_cast<int>(m_pos.x),
-			m_attackSizeTop + static_cast<int>(m_pos.y),
-			m_attackSizeRight + static_cast<int>(m_pos.x),
-			m_attackSizeBottom + static_cast<int>(m_pos.y),
-			0xff0000, false);
-#endif
 }
 
 // 操作
@@ -176,12 +164,6 @@ void Elf::UpdateControl()
 			m_isDirection = true;
 		}
 
-		if (m_moveType == static_cast<int>(moveType::Run) &&
-			(Pad::IsRelase(PAD_INPUT_LEFT, m_padNum) || Pad::IsRelase(PAD_INPUT_RIGHT, m_padNum)))
-		{
-			m_isAttack = true;
-		}
-
 		// 攻撃
 		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum) && m_moveType != static_cast<int>(moveType::Attack1))// XBOX A
 		{
@@ -203,22 +185,6 @@ void Elf::UpdateControl()
 			m_jumpAcc = kJumpPower;
 
 		}
-#if false	
-		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && // XBOX A && RIGHT
-		   (Pad::IsTrigger(PAD_INPUT_RIGHT, m_padNum)) ||
-			Pad::IsTrigger(PAD_INPUT_2, m_padNum) &&// XBOX A && LEFT
-		   (Pad::IsTrigger(PAD_INPUT_LEFT, m_padNum)))   
-		{
-			m_moveType = static_cast<int>(moveType::Attack3);;// 攻撃
-			m_attackFlag = true;
-		}
-		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) &&// XBOX A && UP
-		   (Pad::IsTrigger(PAD_INPUT_UP, m_padNum)))
-		{
-			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
-			m_attackFlag = true;
-		}
-#endif
 		if (Pad::IsTrigger(PAD_INPUT_5, m_padNum) && m_moveType != static_cast<int>(moveType::Attack3))// XBOX X or Y
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);// 攻撃
@@ -229,6 +195,12 @@ void Elf::UpdateControl()
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
 			m_attackFlag = true;
 		}
+
+		if (m_moveType == static_cast<int>(moveType::Run) &&
+			(Pad::IsRelase(PAD_INPUT_LEFT, m_padNum) || Pad::IsRelase(PAD_INPUT_RIGHT, m_padNum)))
+		{
+			m_isAttack = true;
+		}
 	}
 }
 
@@ -237,6 +209,7 @@ void Elf::AnimStop()
 {
 	// アニメーションが終わったら
 	if (!m_pChargeShot->IsSetMove() ||
+
 		!m_pJump->IsSetMove      () ||
 		!m_pShot->IsSetMove		 () ||
 		!m_pPunch->IsSetMove	 () ||
@@ -252,28 +225,33 @@ void Elf::AnimStop()
 #endif
 	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 	if (m_attackFlag)
+		if(
+		!m_pJump->IsSetMove() ||
+		!m_pShot->IsSetMove() ||
+		!m_pPunch->IsSetMove() ||
+		!m_pUp->IsSetMove())
+
 	{
-		m_isAttack   = true;
+		m_isAttack = true;
 		m_attackFlag = true;
 
 		m_gapTime--;
 
-		// 硬直状態が終わったら
-		if (m_gapTime < 0)
-		{
-			m_attackFlag = false;
-			m_pChargeShot->SetMoveTime(true);
-			m_pJump->SetMoveTime(true);
-			m_pShot->SetMoveTime(true);
-			m_pPunch->SetMoveTime(true);
-			m_pUp->SetMoveTime(true);
-		}
-
 		// 攻撃範囲を0で初期化
-		m_attackSizeLeft   = 0;
-		m_attackSizeTop    = 0;
-		m_attackSizeRight  = 0;
+		m_attackSizeLeft = 0;
+		m_attackSizeTop = 0;
+		m_attackSizeRight = 0;
 		m_attackSizeBottom = 0;
+	}
+	// 硬直状態が終わったら
+	if (m_gapTime < 0)
+	{
+		m_attackFlag = false;
+		m_pChargeShot->SetMoveTime(true);
+		m_pJump->SetMoveTime(true);
+		m_pShot->SetMoveTime(true);
+		m_pPunch->SetMoveTime(true);
+		m_pUp->SetMoveTime(true);
 	}
 }
 
