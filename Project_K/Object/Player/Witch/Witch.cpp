@@ -130,7 +130,6 @@ void Witch::Draw()
 
     m_pChicken->Draw();// にわとりの描画
     m_pKnightCat->Draw();//ねこちゃんの描画
-    DrawFormatString(200, 500, 0xffffff, "%f", m_pos.y);
 
     // デバッグ描画
 #if DEBUG
@@ -226,7 +225,7 @@ void Witch::UpdateInputKey()
             m_moveType = static_cast<int>(moveType::Attack2);// 攻撃2状態
             m_animeFlag = true;// アニメーションフラグの建設
             m_attackFlag = true;// 攻撃中のフラグの建設
-            m_pLongShot->SetReversal(m_reversal);// ちょっと何か忘れたんで後で書きます
+            m_pLongShot->SetReversal(m_reversal);// 反転させるかどうか
             m_damage = 3;// ダメージ量
             // 画像が反転していた時の処理
             if (m_reversal)
