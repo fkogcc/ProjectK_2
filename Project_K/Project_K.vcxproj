@@ -139,8 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ElfStage.cpp" />
-    <ClCompile Include="MachoStage.cpp" />
+    <ClCompile Include="Object\Player\Kinnikurou\KinnikuDead.cpp" />
+    <ClCompile Include="Object\Stage\ElfStage.cpp" />
+    <ClCompile Include="Object\Stage\MachoStage.cpp" />
     <ClCompile Include="Object\Stage\DinoStage.cpp" />
     <ClCompile Include="LogoRotation.cpp" />
     <ClCompile Include="Object\Player\Dinosaur\DinosaurDead.cpp" />
@@ -201,11 +202,12 @@
     <ClCompile Include="Util\UI.cpp" />
     <ClCompile Include="Util\Vec2.cpp" />
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
-    <ClCompile Include="WizardStage.cpp" />
+    <ClCompile Include="Object\Stage\WizardStage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ElfStage.h" />
-    <ClInclude Include="MachoStage.h" />
+    <ClInclude Include="Object\Player\Kinnikurou\KinnikuDead.h" />
+    <ClInclude Include="Object\Stage\ElfStage.h" />
+    <ClInclude Include="Object\Stage\MachoStage.h" />
     <ClInclude Include="Object\Stage\DinoStage.h" />
     <ClInclude Include="LogoRotation.h" />
     <ClInclude Include="Object\Player\Dinosaur\DinosaurDead.h" />
@@ -268,7 +270,7 @@
     <ClInclude Include="Util\UI.h" />
     <ClInclude Include="Util\Vec2.h" />
     <ClInclude Include="Object\Player\Witch\Witch.h" />
-    <ClInclude Include="WizardStage.h" />
+    <ClInclude Include="Object\Stage\WizardStage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

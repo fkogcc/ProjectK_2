@@ -1,14 +1,18 @@
-#include "LogoRotation.h"
+﻿#include "LogoRotation.h"
 #include "Util/Pad.h"
 #include "Util/DrawFunctions.h"
-#include "Util/game.h";
+#include "Util/game.h"
 
 #include <DxLib.h>
 
 LogoRotation::LogoRotation():
 	m_hLogo  (-1),
 	m_pos    (0.0, 0.0),
-	m_logoPos(0.0, 0.0)
+	m_logoPos(0.0, 0.0),
+	m_x(0),
+	m_y(0),
+	width(0),
+	height(0)
 {
 	m_pos.x = 500.0f;
 	m_pos.y = 500.0f;
@@ -64,12 +68,12 @@ void LogoRotation::Update()
 	}
 	if (m_size < 0.5f)
 	{
-		m_size += 0.01;
+		m_size += 0.01f;
 		m_rota += 0.12f;
 	}
 	else
 	{
-		float speed = 100.0f;
+		int speed = 100;
 		m_rota = 0.0f;
 		m_box += speed;
 		m_box2 += speed;
@@ -87,7 +91,7 @@ void LogoRotation::Draw()
 	//				      m_hLogo, true);
 
 	// 読みこんだグラフィックを回転描画
-	DrawRotaGraph(Game::kScreenWidth/2, 500.0f, m_size, m_rota, m_hLogo, true);
+	DrawRotaGraph(Game::kScreenWidth/2, 500, m_size, m_rota, m_hLogo, true);
 
 	constexpr int y = Game::kScreenHeight - 300;
 	constexpr int x = 100; 

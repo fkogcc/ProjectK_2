@@ -120,8 +120,6 @@ SceneBase* SceneMain::Update()
 		m_pPlayer[1]->SetKnockBack(toPlayer2);
 	}
 
-	m_pStage->Update();
-
 	// シーン遷移
 	if (IsFading())
 	{
