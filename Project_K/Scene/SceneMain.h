@@ -38,6 +38,10 @@ private:
 	void (SceneMain::*m_updateFunc)();
 
 	int countDown; //カウントダウン
+
+	int m_drawCount;// 描画カウント
+
+	int m_font = 0;// フォントハンドル
 };
 
 

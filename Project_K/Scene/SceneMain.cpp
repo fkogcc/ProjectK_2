@@ -14,12 +14,23 @@
 
 #include <iostream>
 
+namespace
+{
+	const int kFontPosX = Game::kScreenWidth / 2 - 100;
+	const int kFontPosY = Game::kScreenHeight / 2 - 100;
+
+	const char* kFont = "HGP行書体";// フォント
+}
+
 SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
 	m_isVictory1P(false),
 	m_isVictory2P(false),
-	countDown(0)
+	countDown(180),
+	m_drawCount(60)
 {
 	m_pStage = new Stage;
+
+	m_font = CreateFontToHandle(kFont, 140, -1, -1);// 使用するフォント
 
 	m_pPlayer[0] = Player1;
 	m_pPlayer[1] = Player2;
@@ -93,8 +104,8 @@ SceneBase* SceneMain::Update()
 void SceneMain::Draw()
 {
 	// プレイヤーのHPの変数
-	printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
-	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
+	//printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
+	//printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
 	// ステージの描画
 	m_pStage->Draw();
@@ -110,17 +121,45 @@ void SceneMain::Draw()
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
 
+	if (countDown > 0)
+	{
+		// 赤フォントの表示
+		DrawFormatStringToHandle(kFontPosX + 50 + 5,
+			kFontPosY + 50 + 5, 0x800000, m_font, "%d", countDown / 60 + 1);
+		// 青フォントの表示
+		DrawFormatStringToHandle(kFontPosX + 50,
+			kFontPosY + 50, 0x7fffff, m_font, "%d", countDown / 60 + 1);
+	}
+	if (countDown <= 0)
+	{
+		m_drawCount--;
+	}
+	if (m_drawCount <= 0)
+	{
+		m_drawCount = -1;
+	}
+	if (countDown <= 0 && m_drawCount > 0)
+	{
+		DrawFormatStringToHandle(kFontPosX + 5,
+			kFontPosY + 5, 0x800000, m_font, "GO!");
+		DrawFormatStringToHandle(kFontPosX,
+			kFontPosY, 0x7fffff, m_font, "GO!");
+	}
+	//printfDx("%d\n", m_drawCount);
+
 	SceneBase::DrawFade();
 }
 
 void SceneMain::UpdateCountDown()
 {
-	countDown++;
+	countDown--;
 
-	if (countDown >= 180)
+	if (countDown <= 0)
 	{
 		m_updateFunc = &SceneMain::UpdateMain;
 	}
+
+	
 }
 
 void SceneMain::UpdateMain()
@@ -223,6 +262,8 @@ void SceneMain::UpdateDead()
 	// デバッグ用当たり判定描画
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
+
+	
 
 	SceneBase::DrawFade();
 }
