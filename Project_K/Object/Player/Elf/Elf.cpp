@@ -39,6 +39,7 @@ Elf::Elf() :
 	m_imageX(0), m_imageY(0),
 	m_isAttack(false),
 	m_isDirection(false),
+	m_isAttackHit(false),
 	m_pIdle(nullptr),
 	m_pChargeShot(nullptr),
 	m_pShot(nullptr),
@@ -128,8 +129,9 @@ void Elf::UpdateControl()
 		m_moveType = static_cast<int>(moveType::Idol);// アイドル状態
 		m_isAttack = false;
 	}
+
 	// 攻撃モーションに入ったら動けなくなる
-	if (!m_attackFlag)
+	if (!m_isAttackHit)
 	{
 		// 走る
 		if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
@@ -182,6 +184,9 @@ void Elf::UpdateControl()
 		{
 			m_isAttack = true;
 		}
+
+		if (m_attackFlag)m_isAttackHit = true;
+
 	}
 }
 
@@ -211,6 +216,7 @@ void Elf::AnimStop()
 	if (m_gapTime < 0)
 	{
 		m_attackFlag = false;
+		m_isAttackHit = false;
 		m_pChargeShot->SetMoveTime(true);
 		m_pJump->SetMoveTime(true);
 		m_pShot->SetMoveTime(true);
