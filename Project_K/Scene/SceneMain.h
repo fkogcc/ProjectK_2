@@ -39,7 +39,9 @@ private:
 
 	int countDown; //カウントダウン
 
-	int m_font = 0;// フォントハンドル
+	int m_font;// フォントハンドル
+
+	int m_timeUpDrawCount;// TIME OUTの描画時間
 };
 
 

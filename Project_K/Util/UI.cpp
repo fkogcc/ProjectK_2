@@ -13,7 +13,7 @@ namespace
 
 UI::UI(int Hp1, int Hp2) :
 	m_boxPos(kCenter, 90),	// 時間を表示するボックスの初期化
-	m_timeCount(99 * 60),// 時間を図るタイマー
+	m_timeCount(2 * 60),// 時間を図るタイマー
 	m_time(0),// 表示する時間
 	m_letter("%d")// 文字
 {
@@ -42,7 +42,6 @@ void UI::Update()
 
 void UI::Draw()
 {
-	m_time = m_timeCount / 60;
 	HpDraw();
 	FontDraw();
 }
@@ -127,7 +126,6 @@ void UI::FontUpdate()
 	{
 		m_timeCount = 0;// 0よりちっちゃくならないように
 	}
-	//m_time = m_timeCount / 60;
 	if (m_time < 10)
 	{
 		m_letter = "0%d";// 一桁台になったら0を表示させる
@@ -136,6 +134,7 @@ void UI::FontUpdate()
 
 void UI::FontDraw()
 {
+	m_time = m_timeCount / 60;
 	// 赤フォントの表示
 	DrawFormatStringToHandle((Game::kScreenWidth -
 		GetDrawStringWidthToHandle(m_letter, 2, m_font)) / 2 + 5,
@@ -144,6 +143,4 @@ void UI::FontDraw()
 	DrawFormatStringToHandle((Game::kScreenWidth -
 		GetDrawStringWidthToHandle(m_letter, 2, m_font)) / 2,
 		100 - 40, 0x7fffff, m_font, m_letter, m_time);
-
-	printfDx("%d\n", m_time);
 }
