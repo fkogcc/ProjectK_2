@@ -1,5 +1,6 @@
 #pragma once
 #include"Vec2.h"
+
 class SelectUI
 {
 private:
@@ -15,6 +16,8 @@ private:
 		int m_maxWidth = 0;
 		int m_maxHight = 0;
 		int m_animFrame = 0;
+		const char* m_text = 0;
+		int m_font = 0;
 	};
 public:
 
@@ -28,7 +31,10 @@ public:
 	void InitLoad();
 	void InitChar();
 	void UpdateCursor(int cursor1, int cursor2) { m_cursor1 = cursor1; m_cursor2 = cursor2; }
+	void UpdateCursorFlag(bool cursorFlag1, bool cursorFlag2) { m_cursorFlag1 = cursorFlag1; m_cursorFlag2 = cursorFlag2; }
 	void UpdateAnimation();
+	void DrawChar();
+	void DrawLetter();
 	void SelectCursor(int cursor, int selectNum);
 
 private:
@@ -56,9 +62,9 @@ private:
 
 	int m_cursor1;
 	int m_cursor2;
-	int m_wallOffset;
-	int m_waitFrame;
+	bool m_cursorFlag1;
+	bool m_cursorFlag2;
 
+	int m_selectFont;
 
 };
-

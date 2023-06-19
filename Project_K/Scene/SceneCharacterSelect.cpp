@@ -56,7 +56,9 @@ SceneBase* SceneCharacterSelect::Update()
 	//}
 
 	m_CharaChoice->Update();
-
+	m_ui->Update();
+	m_ui->UpdateCursor(m_CharaChoice->GetChackChara1(), m_CharaChoice->GetChackChara2());
+	m_ui->UpdateCursorFlag(m_CharaChoice->GetDecision1(), m_CharaChoice->GetDecision2());
 
 	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision2())
 	{
@@ -119,8 +121,6 @@ SceneBase* SceneCharacterSelect::Update()
 	//	}
 	//}
 
-	m_ui->Update();
-	m_ui->UpdateCursor(m_CharaChoice->GetChackChara1(), m_CharaChoice->GetChackChara2());
 	return this;
 }
 
