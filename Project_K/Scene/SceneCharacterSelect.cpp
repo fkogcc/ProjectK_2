@@ -22,7 +22,7 @@ SceneCharacterSelect::SceneCharacterSelect(int StageNo) :
 	m_Player[0] = nullptr;
     m_Player[1] = nullptr;
 	m_CharaChoice = new CharaChoice;
-	m_ui = new SelectUI;
+	m_pUi = new SelectUI;
 }
 
 SceneCharacterSelect::~SceneCharacterSelect()
@@ -31,7 +31,7 @@ SceneCharacterSelect::~SceneCharacterSelect()
 
 void SceneCharacterSelect::Init()
 {
-	m_ui->Init();
+	m_pUi->Init();
 }
 
 void SceneCharacterSelect::End()
@@ -56,9 +56,9 @@ SceneBase* SceneCharacterSelect::Update()
 	//}
 
 	m_CharaChoice->Update();
-	m_ui->Update();
-	m_ui->UpdateCursor(m_CharaChoice->GetChackChara1(), m_CharaChoice->GetChackChara2());
-	m_ui->UpdateCursorFlag(m_CharaChoice->GetDecision1(), m_CharaChoice->GetDecision2());
+	m_pUi->Update();
+	m_pUi->UpdateCursor(m_CharaChoice->GetChackChara1(), m_CharaChoice->GetChackChara2());
+	m_pUi->UpdateCursorFlag(m_CharaChoice->GetDecision1(), m_CharaChoice->GetDecision2());
 
 	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision2())
 	{
@@ -128,7 +128,7 @@ void SceneCharacterSelect::Draw()
 {
 	/*DrawString(0, 0, "CharacterSelect", Color::kWhite);
 	DrawString(0, 20, "PAD_INPUT_1->SceneMain", Color::kWhite);*/
-	m_ui->Draw();
+	m_pUi->Draw();
 	m_CharaChoice->Draw();
 
 //	SceneBase::DrawFade();

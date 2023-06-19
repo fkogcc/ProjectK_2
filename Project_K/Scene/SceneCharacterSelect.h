@@ -38,5 +38,5 @@ private:
 	PlayerBase* m_Player[2];
 
 	CharaChoice* m_CharaChoice;
-	SelectUI* m_ui;
+	SelectUI* m_pUi;
 };
