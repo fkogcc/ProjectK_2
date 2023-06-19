@@ -16,7 +16,9 @@ namespace
 	const char* kElfFilePath = "Data/Image/Stage/Elf/Elf.csv";
 
 	// マッチョステージ
-	const char* kMachoFile = "Data/Image/Stage/Macho/city.png";
+	const char* kMachoFile = "Data/Image/Stage/macho/macho.png";
+	const char* kMachoBgFile = "Data/Image/Stage/macho/Background_0.png";
+	const char* kMachoFilePath = "Data/Image/Stage/macho/macho.csv";
 
 	// 魔女ステージ
 	const char* kWizardFile = "Data/Image/Stage/Wizard/Wizard.png";
@@ -35,7 +37,7 @@ namespace
 StageBase::StageBase(int StageNo):
 	m_handle(-1),
 	m_bgHandle(-1),
-	m_pos(0, 700),
+	m_subPos(-1),
 	m_startX(0),
 	m_startY(700),
 	m_endX(Game::kScreenWidth),
@@ -65,21 +67,25 @@ void StageBase::Init()
 		m_handle = LoadGraph(kDinoFile);
 		m_bgHandle = LoadGraph(kDinoBgFile);
 		m_filePath = kDinoFilePath;
+		m_subPos = 0;
 		break;
 	case static_cast<int> (ElfStage):		// エルフステージ
 		m_handle = LoadGraph(kElfFile);
 		m_bgHandle = LoadGraph(kElfBgFile);
 		m_filePath = kElfFilePath;
+		m_subPos = 0;
 		break;
 	case static_cast<int> (MachoStage):	// マッチョステージ
-		m_handle = 1;
-		m_bgHandle = LoadGraph(kMachoFile);
-		m_filePath = "";
+		m_handle = LoadGraph(kMachoFile);
+		m_bgHandle = LoadGraph(kMachoBgFile);
+		m_filePath = kMachoFilePath;
+		m_subPos = 0;
 		break;
 	case static_cast<int> (WizardStage):	// 魔女ステージ
 		m_handle = LoadGraph(kWizardFile);
 		m_bgHandle = LoadGraph(kWizardBgFile);
 		m_filePath = kWizardFilePath;
+		m_subPos = 0;
 		break;
 	default:
 		break;
@@ -96,7 +102,7 @@ void StageBase::Update()
 
 void StageBase::Draw()
 {
-	DrawExtendGraph(0, 0, Game::kScreenWidth, Game::kScreenHeight, m_bgHandle, false);
+	DrawExtendGraph(0, 0 - m_subPos, Game::kScreenWidth, Game::kScreenHeight - m_subPos, m_bgHandle, false);
 
 	for (auto& data : m_data)
 	{

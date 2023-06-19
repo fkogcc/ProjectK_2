@@ -28,19 +28,18 @@ public :
 	};
 
 protected :
-	Vec2 m_pos;
-
 	std::vector<MapInfo> m_data;// vector型の2次元配列変数
 
 	int m_handle;	// グラフィックハンドル
 	int m_bgHandle;	// 背景用グラフィックハンドル
+	int m_subPos;	// マッチョグラフィックハンドルの座標差分
 
 	int m_startX;	// 始点の座標X
 	int m_startY;	// 始点の座標Y
 	int m_endX;		// 終点の座標X
 	int m_endY;		// 終点の座標Y
 
-	int m_stageNo;		// ステージの番号
+	int m_stageNo;			// ステージの番号
 	const char* m_filePath;	// ステージのcsvパス
 };
 
