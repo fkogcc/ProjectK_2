@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Util\FontFunction.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuDead.cpp" />
     <ClCompile Include="Object\Stage\ElfStage.cpp" />
     <ClCompile Include="Object\Stage\MachoStage.cpp" />
@@ -208,6 +209,7 @@
     <ClCompile Include="Object\Stage\WizardStage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Util\FontFunction.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuDead.h" />
     <ClInclude Include="Object\Stage\ElfStage.h" />
     <ClInclude Include="Object\Stage\MachoStage.h" />
