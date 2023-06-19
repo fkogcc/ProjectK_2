@@ -81,6 +81,14 @@ public:
 	// ノックバック使用
 	void KnockBack();
 
+	/// <summary>
+	/// キャラクターの初期位置
+	/// </summary>
+	/// <param name="posX">X座標</param>
+	/// <param name="posY">Y座標</param>
+	/// <param name="direction">キャラクターの向き</param>
+	void CharDefaultPos(bool& direction);
+
 protected:
 //	void attackCountUp();
 
@@ -114,6 +122,8 @@ protected:
 	int m_damage = 0;		// プレイヤーが受けるダメージ
 
 	bool m_attackFlag = false;	// 攻撃中かどうか
+
+	bool m_isSpawn = false;	// キャラクターがスポーンされたかどうか
 
 	Vec2 m_pos = { 0.0f,0.0f };	// 位置
 	Vec2 m_vec = { 0.0f,0.0f };	// 運動量

@@ -4,7 +4,7 @@ void KinnikuUpper::Update(int& imagePosX, int& imagePosY)
 {
 	m_isAttackCol = false;
 	m_frameCount++;
-	if (m_frameCount == 5)
+	if (m_frameCount >= 5)
 	{
 		imagePosX++;
 		m_frameCount = 0;

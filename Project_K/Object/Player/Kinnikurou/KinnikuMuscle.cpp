@@ -1,7 +1,10 @@
 #include "KinnikuMuscle.h"
+#include "DxLib.h"
 
 void KinnikuMuscle::Update(int& imagePosX, int& imagePosY)
 {
+
+
 	m_isAttackCol = false;
 	m_frameCount++;
 
@@ -15,7 +18,7 @@ void KinnikuMuscle::Update(int& imagePosX, int& imagePosY)
 		m_nextCount = 2;
 	}
 
-	if (m_frameCount == m_nextCount)
+	if (m_frameCount >= m_nextCount)
 	{
 		imagePosX++;
 		m_frameCount = 0;

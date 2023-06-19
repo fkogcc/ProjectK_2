@@ -24,9 +24,9 @@ public:
 
 	void ImgposInit();// 画像位置の初期化
 
-	void DrawBoxAttackCol();// 
+	void AttackCol();// 攻撃のタイミング
 
-	void AttackCol();
+	void InitAttackFlag();// 攻撃フラグの初期化
 
 private:
 	// ポインタ
@@ -74,7 +74,13 @@ private:
 	// キャラが移動状態かどうか
 	bool m_charRun;
 
+	// キャラの攻撃判定のタイミング
+	bool m_isAttack;
+
 	// キャラがジャンプ中かどうか
 	float m_isJump;
+
+	// テスト変数
+	int m_stiffen = 0;// 硬直
 };
 

@@ -151,6 +151,7 @@
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
     <ClCompile Include="Object\Stage\StageBase.cpp" />
     <ClCompile Include="Object\Stage\StageManager.cpp" />
+    <ClCompile Include="Util\SelectUI.cpp" />
     <ClCompile Include="System\CharaChoice.cpp" />
     <ClCompile Include="Util\Collision.cpp" />
     <ClCompile Include="Object\Shot\NullShot.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Object\Shot\ElfShot.h" />
     <ClInclude Include="Object\Stage\StageBase.h" />
     <ClInclude Include="Object\Stage\StageManager.h" />
+    <ClInclude Include="Util\SelectUI.h" />
     <ClInclude Include="System\CharaChoice.h" />
     <ClInclude Include="Util\Collision.h" />
     <ClInclude Include="Object\Shot\NullShot.h" />

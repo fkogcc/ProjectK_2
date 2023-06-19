@@ -7,7 +7,7 @@
 #include <vector>
 #include <memory>
 
-class StageBase;		// �X�e�[�W
+class StageBase;		// ステージ
 class SceneBase;
 class PlayerBase;
 class Collision;
@@ -24,15 +24,23 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
-
 private:
-	StageBase* m_pStageBase;	// �X�e�[�W�Z���N�g�V�[��
+	StageBase* m_pStageBase;	// ステージセレクトシーン
+	void UpdateCountDown(); //試合開始前のカウント
+	void UpdateMain();//試合開始
+	void UpdateDead();//片方が死んだら
+private:
+	Stage* m_pStage;
 	PlayerBase* m_pPlayer[2];
 	Collision* m_pColl;
 	UI* m_pUi;
 
-	bool m_isVictory1P;// 1P�̏��s
-	bool m_isVictory2P;// 2P�̏��s
+	bool m_isVictory1P;// 1Pの勝敗
+	bool m_isVictory2P;// 2Pの勝敗
+
+	void (SceneMain::*m_updateFunc)();
+
+	int countDown; //カウントダウン
 };
 
 

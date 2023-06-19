@@ -44,6 +44,7 @@ Kinnikurou::Kinnikurou() :
 	m_jumpAcc(0),
 	m_charDirection(false),
 	m_charRun(false),
+	m_isAttack(false),
 	m_isJump(true)
 {
 	m_pIdle = new KinnikuIdle;
@@ -80,8 +81,8 @@ void Kinnikurou::Init()
 	m_FallHandle = my::MyLoadGraph(kFall);
 	m_DeadHandle = my::MyLoadGraph(kDead);
 
-	m_pos.x = 200;
-	m_pos.y = 600;
+	m_pos.x = 0;
+	m_pos.y = 0;
 
 	m_imgPosX = 0;
 	m_imgPosY = 0;
@@ -90,6 +91,8 @@ void Kinnikurou::Init()
 	m_sizeTop = -50;
 	m_sizeRight = 50;
 	m_sizeBottom = 50;
+
+	
 }
 
 void Kinnikurou::End()
@@ -107,8 +110,26 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
+	if (!m_isSpawn)
+	{
+		CharDefaultPos(m_charDirection);
+		m_isSpawn = true;
+	}
+	m_stiffen--;
 	if (m_hp > 0)
 	{
+		// ノックバック
+		KnockBack();
+		// ノックバックしているときの処理
+		if (m_onDamageFrame > 0)
+		{
+			ImgposInit();
+			m_moveType = static_cast<int>(moveType::Idol);
+			m_motionCount = 0;
+			InitAttackFlag();
+			m_jumpAcc = 0;
+		}
+
 		if (m_motionCount != 0)
 		{
 			m_motionCount--;
@@ -129,8 +150,9 @@ void Kinnikurou::Update()
 				m_initCount++;
 			}
 		}
-
+		// ジャンプ更新処理
 		m_pJump->Update(m_jumpAcc, m_pos.y, m_padNum);
+		// ジャンプしている間の挙動
 		if (m_pJump->IsJump())
 		{
 			m_moveType = static_cast<int>(moveType::Jump);
@@ -147,6 +169,7 @@ void Kinnikurou::Update()
 				m_charRun = true;
 			}
 		}
+		// ジャンプしていないときの処理
 		else
 		{
 			// 攻撃していないとき
@@ -154,44 +177,53 @@ void Kinnikurou::Update()
 			{
 				if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
 				{
-					m_moveType = 1;
+					m_moveType = static_cast<int>(moveType::Idol);
 					m_pos.x += 10;
 					m_charDirection = false;
 					m_charRun = true;
 				}
 				if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 				{
-					m_moveType = 1;
+					m_moveType = static_cast<int>(moveType::Idol);
 					m_pos.x -= 10;
 					m_charDirection = true;
 					m_charRun = true;
 				}
-				if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
+				if (m_stiffen <= 0)
 				{
-					m_moveType = 3;// ジャブ攻撃状態
-					ImgposInit();
-					m_motionCount = 3 * 3;
+					if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
+					{
+						m_moveType = static_cast<int>(moveType::Attack1);// ジャブ攻撃状態
+						ImgposInit();
+						m_motionCount = 3 * 3;
+						m_stiffen = 15;
+					}
 				}
 				if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))
 				{
-					m_moveType = 4;// マッスル攻撃状態
+					m_moveType = static_cast<int>(moveType::Attack2);// マッスル攻撃状態
 					ImgposInit();
 					m_motionCount = 2 * 4 + 15 * 3;
 				}
 				if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))
 				{
-					m_moveType = 5;// アッパー攻撃状態
+					m_moveType = static_cast<int>(moveType::Attack3);// アッパー攻撃状態
 					ImgposInit();
 					m_motionCount = 5 * 4;
 				}
 				if (Pad::IsTrigger(PAD_INPUT_4, m_padNum))
 				{
-					m_moveType = 6;// みぞおち攻撃状態
+					m_moveType = static_cast<int>(moveType::Attack4);// みぞおち攻撃状態
 					ImgposInit();
 					m_motionCount = 70 + 2 * 2 + 40;
 				}
 
 			}
+		}
+
+		if (m_stiffen <= 0)
+		{
+			m_stiffen = 0;
 		}
 
 		if (!Pad::IsPress(PAD_INPUT_RIGHT, m_padNum) || !Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
@@ -419,26 +451,14 @@ void Kinnikurou::ImgposInit()
 	m_imgPosY = 0;
 }
 
-void Kinnikurou::DrawBoxAttackCol()
-{
-	DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft,
-		static_cast<int> (m_pos.y) + m_attackSizeTop,
-		static_cast<int> (m_pos.x) + m_attackSizeRight,
-		static_cast<int> (m_pos.y) + m_attackSizeBottom,
-		0xff0000, false);
-}
-
 void Kinnikurou::AttackCol()
 {
-	/*bool isAttack = m_pJab->IsAttackColJab() || 
+	bool isAttack = m_pJab->IsAttackColJab() || 
 					m_pMuscle->IsAttackColMuscle() || 
 					m_pUpper->IsAttackColUpper() || 
-					m_pMizo->IsAttackColMizo();*/
-
-	if (m_pJab->m_isAttackCol ||
-		m_pMuscle->m_isAttackCol ||
-		m_pUpper->m_isAttackCol ||
-		m_pMizo->m_isAttackCol)
+					m_pMizo->IsAttackColMizo();
+	// 攻撃判定のタイミング
+	if (isAttack)
 	{
 		m_attackFlag = true;
 	}
@@ -463,11 +483,19 @@ void Kinnikurou::AttackCol()
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack4))
 		{
-			m_damage = 15;
+			m_damage = 20;
 		}
 	}
 	else
 	{
 		m_damage = 0;
 	}
+}
+
+void Kinnikurou::InitAttackFlag()
+{
+	m_pJab->m_isAttackCol = false;
+	m_pMuscle->m_isAttackCol = false;
+	m_pUpper->m_isAttackCol = false;
+	m_pMizo->m_isAttackCol = false;
 }

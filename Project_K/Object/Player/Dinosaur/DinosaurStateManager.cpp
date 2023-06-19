@@ -33,6 +33,8 @@ void DinosaurStateManager::End()
 // –ˆƒtƒŒ[ƒ€‚Ìˆ—
 void DinosaurStateManager::Update(int padNum)
 {
+	
+
 	if (m_deadFlag)
 	{
 		m_pState->SetDeadFlag();
