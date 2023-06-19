@@ -14,7 +14,7 @@ SceneManager::SceneManager():
 // ‰Šú‰»
 void SceneManager::Init()
 {
-#ifdef _DEBUG
+#ifdef false
 	{
 		m_pScene = new SceneCharacterSelect;
 	}
