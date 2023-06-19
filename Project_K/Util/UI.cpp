@@ -13,7 +13,7 @@ namespace
 
 UI::UI(int Hp1, int Hp2) :
 	m_boxPos(kCenter, 90),	// 時間を表示するボックスの初期化
-	m_timeCount(2 * 60),// 時間を図るタイマー
+	m_timeCount(99 * 60),// 時間を図るタイマー
 	m_time(0),// 表示する時間
 	m_letter("%d")// 文字
 {
