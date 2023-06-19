@@ -22,6 +22,9 @@ public:
 	void GetHp2(int hp) { m_ui2.m_temp = hp; }// 2PのHP
 	void AttackFlag1(bool flag) { m_ui1.m_attackFlag = flag; }
 	void AttackFlag2(bool flag) { m_ui2.m_attackFlag = flag; }
+
+	int GetTime()const { return m_time; }
+
 private:
 
 	Vec2 m_boxPos;
@@ -32,8 +35,8 @@ private:
 		int m_temp = 0;// HPをうけとる用の変数
 		int m_life = 0;// 各プレイヤーのHP
 		int m_lower = 0;// 仮で保存するHP用の変数
-		int m_countFrame;// 仮のHPを減らすタイマー
-		bool m_attackFlag;// 攻撃中かどうかを調べる
+		int m_countFrame = 0;// 仮のHPを減らすタイマー
+		bool m_attackFlag = false;// 攻撃中かどうかを調べる
 	};
 
 	int m_font = 0;// フォント

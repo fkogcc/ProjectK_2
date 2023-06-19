@@ -40,7 +40,11 @@ private:
 
 	void (SceneMain::*m_updateFunc)();
 
-	int countDown; //カウントダウン
+	int countDown; //試合開始のカウントダウン
+
+	int m_font;// フォントハンドル
+
+	int m_timeUpDrawCount;// TIME OUT描画時間
 };
 
 
