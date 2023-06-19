@@ -89,10 +89,12 @@ public:
 	/// <param name="direction">キャラクターの向き</param>
 	void CharDefaultPos(bool& direction);
 
+	void moveLimit(); //画面外にキャラクターが出たとき
 protected:
 //	void attackCountUp();
 
 	void damageMove(); //ダメージを受けた時の移動処理
+
 
 	// プレイヤーのサイズ
 	int m_sizeLeft = 0;

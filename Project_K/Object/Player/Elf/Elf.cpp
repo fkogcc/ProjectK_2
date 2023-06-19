@@ -34,6 +34,21 @@ namespace
 	constexpr float kRota = DX_PI_F * 2;
 }
 
+// 攻撃関連の定数
+namespace AttackSetting
+{
+	constexpr int kDamageNormalShot = 5;
+	constexpr int kDamagePunch      = 1;
+	constexpr int kDamageUp         = 5;
+	constexpr int kDamageChargeShot = 15;
+
+	constexpr int kGapTimeJump       = 1;
+	constexpr int kGapTimePunch		 = 2;
+	constexpr int kGapTimeNormalShot = 10;
+	constexpr int kGapTimeUp         = 30;
+	constexpr int kGapTimeChargeShot = 60;
+}
+
 Elf::Elf() :
 	m_handle(0),
 	m_imageX(0), m_imageY(0),
@@ -48,25 +63,33 @@ Elf::Elf() :
 	m_pRun(nullptr)
 
 {
-	m_pIdle = new ElfIdle;// 待機
-	m_pRun = new ElfRun; // 走り
-	m_pJump = new ElfJump;
-	m_pPunch = new ElfAttackArrowPunch;	  // 攻撃
-	m_pShot = new ElfAttackArrowShot;       // 攻撃
+	m_pIdle		  = new ElfIdle;// 待機
+	m_pRun        = new ElfRun; // 走り
+	m_pJump       = new ElfJump;
+	m_pPunch      = new ElfAttackArrowPunch;	  // 攻撃
+	m_pShot       = new ElfAttackArrowShot;       // 攻撃
 	m_pChargeShot = new ElfAttackArrowChargeShot; // 攻撃
-	m_pUp = new ElfAttackArrowUp;	      // 攻撃
-
-	//m_pos.y = 600.0f - 176.0f;
+	m_pUp         = new ElfAttackArrowUp;	      // 攻撃
 }
 
 Elf::~Elf()
 {
+	delete m_pIdle;
+	delete m_pRun;
+	delete m_pJump;
+	delete m_pPunch;
+	delete m_pShot;
+	delete m_pChargeShot;
+	delete m_pUp;
 }
 
 void Elf::Init()
 {
 	m_handle = my::MyLoadGraph(kFilmName);
 	m_pos = { 0.0f, 0.0f };
+
+	
+	CharDefaultPos(m_isDirection);
 }
 
 void Elf::End()
@@ -76,15 +99,11 @@ void Elf::End()
 
 void Elf::Update()
 {
-	
 
 	// アニメーション停止
 	AnimStop();
 
-	
-
 	KnockBack();
-
 
 	// アニメーション停止
 	AnimStop();
@@ -158,7 +177,14 @@ void Elf::UpdateControl()
 			m_pos.x -= kSpeed;
 			m_isDirection = true;
 		}
+		//　ジャンプ
+		if (Pad::IsTrigger(PAD_INPUT_UP, m_padNum))// XBOX X or Y
+		{
+			m_moveType = static_cast<int>(moveType::Jump);
+			m_isAttackHit = true;
 
+			m_jumpAcc = kJumpPower;
+		}
 		// 攻撃
 		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum) && m_moveType != static_cast<int>(moveType::Attack1))// XBOX A
 		{
@@ -171,15 +197,7 @@ void Elf::UpdateControl()
 			m_moveType = static_cast<int>(moveType::Attack2);
 			m_attackFlag = true;
 		}
-		//　ジャンプ
-		if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))// XBOX X or Y
-		{
-			m_moveType = static_cast<int>(moveType::Jump);
-			m_attackFlag = true;
 
-			m_jumpAcc = kJumpPower;
-
-		}
 		if (Pad::IsTrigger(PAD_INPUT_5, m_padNum) && m_moveType != static_cast<int>(moveType::Attack3))// XBOX X or Y
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);// 攻撃
@@ -224,6 +242,9 @@ void Elf::AnimStop()
 		m_attackSizeTop = 0;
 		m_attackSizeRight = 0;
 		m_attackSizeBottom = 0;
+
+		m_chargeHitPos = 0;
+		m_chargeShotCount = 0;
 	}
 	// 硬直状態が終わったら
 	if (m_gapTime < 0)
@@ -251,23 +272,23 @@ void Elf::AnimSwitch()
 		break;
 	case static_cast<int>(moveType::Jump):// ジャンプ
 		AnimJump();
-		m_gapTime = 1;
+		m_gapTime = AttackSetting::kGapTimeJump;
 		break;
 	case static_cast<int>(moveType::Attack1):// 攻撃 : 近接攻撃
 		AnimAttackPunch();
-		m_gapTime = 2;
+		m_gapTime = AttackSetting::kGapTimePunch;
 		break;
 	case static_cast<int>(moveType::Attack2):// 攻撃 : ノーマルショット
 		AnimAttackNormalShot();
-		m_gapTime = 10;
+		m_gapTime = AttackSetting::kGapTimeNormalShot;
 		break;
 	case static_cast<int>(moveType::Attack3):// 攻撃 : 直線に最大火力ショット
 		AnimAttackChargeShit();
-		m_gapTime = 60;
+		m_gapTime = AttackSetting::kGapTimeChargeShot;
 		break;
 	case static_cast<int>(moveType::Attack4):// 攻撃 : 斜め上に近接ショット
 		AnimAttackUpShit();
-		m_gapTime = 30;
+		m_gapTime = AttackSetting::kGapTimeUp;
 		break;
 	default:// 待機
 		AnimIdol();
@@ -376,7 +397,7 @@ void Elf::AnimAttackPunch()
 	}
 
 	// 攻撃力
-	m_damage = 1;
+	m_damage = AttackSetting::kDamagePunch;
 }
 
 // 通常ショットアニメーション
@@ -388,7 +409,7 @@ void Elf::AnimAttackNormalShot()
 	m_imageY = m_pShot->SetPosImageY();
 
 	// 攻撃力
-	m_damage = 5;
+	m_damage = AttackSetting::kDamageNormalShot;
 }
 
 // チャージショットアニメーション
@@ -398,25 +419,40 @@ void Elf::AnimAttackChargeShit()
 	// 画像読み込み位置
 	m_imageX = m_pChargeShot->SetPosImageX();
 	m_imageY = m_pChargeShot->SetPosImageY();
-	// 攻撃範囲を指定
-	// 向いている方向で範囲を決定
-	if (m_isDirection)
+
+	m_chargeShotCount++;
+	if (m_chargeShotCount > 40)
 	{
-		m_attackSizeLeft = -580 - 10;
-		m_attackSizeTop = 100;
-		m_attackSizeRight = static_cast<int>(m_sizeLeft) - 80;
-		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
-	}
-	else
-	{
-		m_attackSizeLeft = 10;
-		m_attackSizeTop = 100;
-		m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 580;
-		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+		// 攻撃範囲を指定
+		// 向いている方向で範囲を決定
+		if (m_isDirection)
+		{	
+			m_attackSizeLeft = m_chargeHitPos;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = static_cast<int>(m_sizeLeft);
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+
+			if (m_chargeHitPos > -580 - 10)
+			{
+				m_chargeHitPos -= 40;
+			}	
+		}
+		else
+		{	
+			m_attackSizeLeft = 10;
+			m_attackSizeTop = 100;
+			m_attackSizeRight = m_chargeHitPos;
+			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
+
+			if (m_attackSizeRight < static_cast<int>(m_attackSizeLeft) + 580)
+			{
+				m_chargeHitPos += 40;
+			}
+		}
 	}
 
 	// 攻撃力
-	m_damage = 20;
+	m_damage = AttackSetting::kDamageChargeShot;
 }
 
 // 上攻撃アニメーション
@@ -433,5 +469,5 @@ void Elf::AnimAttackUpShit()
 	m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
 
 	// 攻撃力
-	m_damage = 5;
+	m_damage = AttackSetting::kDamageUp;
 }

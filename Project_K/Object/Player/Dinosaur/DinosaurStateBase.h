@@ -35,6 +35,8 @@ public:
 
 	int GetAttackDamage() { return m_attackDamage; }
 
+	bool GetAttackMotion() { return m_attackMotion; }
+
 protected:
 	int m_handle;
 
@@ -54,9 +56,13 @@ protected:
 
 	int m_gapTime = 0; // 後隙
 
+	int m_attackFrame = 0;//攻撃フラグがtrueになるまでの時間
+
 	int m_attackDamage = 0;// プレイヤーがエネミーに与えるダメージ量
-	bool m_attackFlag = false;
+	bool m_attackFlag = false; //攻撃判定があるとき
 	bool m_isMove = false;
 	Vec2 m_vec = { 0.0f,0.0f };// 運動量
+
+	bool m_attackMotion = false; //攻撃モーションのとき
 };
 
