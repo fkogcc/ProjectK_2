@@ -5,8 +5,10 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <memory>
 
-class Stage;		// ƒXƒe[ƒW
+class StageBase;		// ã‚¹ãƒ†ãƒ¼ã‚¸
+class SceneBase;
 class PlayerBase;
 class Collision;
 class UI;			// UI
@@ -14,7 +16,7 @@ class UI;			// UI
 class SceneMain : public SceneBase
 {
 public:
-	SceneMain(PlayerBase* Player1, PlayerBase* Player2);
+	SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo);
 	virtual ~SceneMain();
 
 	virtual void Init();
@@ -23,21 +25,22 @@ public:
 	virtual SceneBase* Update() override;
 	virtual void Draw();
 private:
-	void UpdateCountDown(); //‡ŠJn‘O‚ÌƒJƒEƒ“ƒg
-	void UpdateMain();//‡ŠJn
-	void UpdateDead();//•Ğ•û‚ª€‚ñ‚¾‚ç
+	StageBase* m_pStageBase;	// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆã‚·ãƒ¼ãƒ³
+	void UpdateCountDown(); //è©¦åˆé–‹å§‹å‰ã®ã‚«ã‚¦ãƒ³ãƒˆ
+	void UpdateMain();//è©¦åˆé–‹å§‹
+	void UpdateDead();//ç‰‡æ–¹ãŒæ­»ã‚“ã ã‚‰
 private:
 	Stage* m_pStage;
 	PlayerBase* m_pPlayer[2];
 	Collision* m_pColl;
 	UI* m_pUi;
 
-	bool m_isVictory1P;// 1P‚ÌŸ”s
-	bool m_isVictory2P;// 2P‚ÌŸ”s
+	bool m_isVictory1P;// 1Pã®å‹æ•—
+	bool m_isVictory2P;// 2Pã®å‹æ•—
 
 	void (SceneMain::*m_updateFunc)();
 
-	int countDown; //ƒJƒEƒ“ƒgƒ_ƒEƒ“
+	int countDown; //ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
 };
 
 

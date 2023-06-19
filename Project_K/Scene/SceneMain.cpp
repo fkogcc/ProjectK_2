@@ -4,7 +4,7 @@
 #include "../Object/Player/Elf/Elf.h"
 #include "../Object/Player/Kinnikurou/Kinnikurou.h"
 #include "../Object/Player/Witch/Witch.h"
-#include "../Object/Stage/Stage.h"
+#include "../Object/Stage/StageBase.h"
 #include "../Util/DrawFunctions.h"
 #include "../condition.h"
 #include <assert.h>
@@ -14,12 +14,12 @@
 
 #include <iostream>
 
-SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
+SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo) :
 	m_isVictory1P(false),
 	m_isVictory2P(false),
 	countDown(0)
 {
-	m_pStage = new Stage;
+	m_pStageBase = new StageBase(StageNo);
 
 	m_pPlayer[0] = Player1;
 	m_pPlayer[1] = Player2;
@@ -32,7 +32,7 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
 SceneMain::~SceneMain()
 {
 	// メモリの開放
-	delete m_pStage;
+	delete m_pStageBase;
 	delete m_pPlayer[0];
 	delete m_pPlayer[1];
 	delete m_pColl;
@@ -48,8 +48,7 @@ void SceneMain::Init()
 	m_pPlayer[0]->SetPadNum(1);
 	m_pPlayer[1]->SetPadNum(2);
 
-
-	m_pStage->Init();
+	m_pStageBase->Init();
 }
 
 void SceneMain::End()
@@ -197,11 +196,10 @@ void SceneMain::UpdateMain()
 		m_isVictory2P = true;
 	}
 
-	// デバッグ用シーン遷移
-	if (m_pPlayer[0]->GetHp() <= 0 || m_pPlayer[1]->GetHp() <= 0)
-	{
-		m_updateFunc = &SceneMain::UpdateDead;
-	}
+	// ステージ更新
+	m_pStageBase->Update();
+
+	return this;
 }
 
 void SceneMain::UpdateDead()
@@ -211,7 +209,7 @@ void SceneMain::UpdateDead()
 	//printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
 	// ステージの描画
-	m_pStage->Draw();
+	m_pStageBase->Draw();
 
 	// UIの描画
 	m_pUi->Draw();
