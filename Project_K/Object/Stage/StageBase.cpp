@@ -102,12 +102,16 @@ void StageBase::Draw()
 	{
 		int scrX = data.m_chipNo % 16;
 		int scrY = data.m_chipNo / 16;
-		DrawRectGraph(static_cast<int>(data.m_pos.x), static_cast<int>(data.m_pos.y),
+		DrawRectGraph(static_cast<int>(data.m_pos.x), static_cast<int>(data.m_pos.y) + 10,
 			scrX * kMapChipSize, scrY * kMapChipSize,
 			kMapChipSize, kMapChipSize,
 			m_handle,
 			true, false);
+
+		printfDx("%d\n", static_cast<int>(data.m_pos.y));
 	}
+
+	
 }
 
 int StageBase::MapRead()

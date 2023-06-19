@@ -131,6 +131,8 @@ void SceneMain::Draw()
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
 
+	DrawBox(0, 0, Game::kScreenWidth, 652, 0xffffff, false);
+
 	// 試合始まる前のカウントダウン
 	if (countDown > 60)
 	{
