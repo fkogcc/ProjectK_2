@@ -1,6 +1,7 @@
 #include "SceneTitle.h"
 #include "SceneMapSelect.h"
 #include "../LogoRotation.h"
+#include "../Util/Sound.h"
 
 SceneTitle::SceneTitle():
 	m_pLogo(nullptr)
@@ -15,12 +16,18 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
+	// BGM çƒê∂
+	Sound::startBgm(Sound::TitleBgm, 50);
+
 	m_isFadeOut = IsFadingOut();
 	m_pLogo->Init();
 }
 
 void SceneTitle::End()
 {
+	// BGM í‚é~
+	Sound::stopBgm(Sound::TitleBgm);
+
 	delete m_pLogo;
 }
 

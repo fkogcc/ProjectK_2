@@ -6,7 +6,9 @@ namespace Sound
 	typedef enum SoundId
 	{
 		// BGM
-		SoundId_PlayerBgm,		// æ“ª‰æ–Ê‚ÌBGM
+		TitleBgm,		// æ“ª‰æ–Ê‚ÌBGM
+		SelectBgm,		// æ“ª‰æ–Ê‚ÌBGM
+		MainBgm,		// æ“ª‰æ–Ê‚ÌBGM
 
 		SoundId_Num
 	}SoundId;
