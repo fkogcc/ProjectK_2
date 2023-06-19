@@ -55,6 +55,8 @@ private:
 
 	bool m_isAttack;// UŒ‚‚ª‚Å‚«‚é‚©‚Ç‚¤‚©
 
+	bool m_isAttackHit;
+
 	bool m_isDirection;// Œü‚¢‚Ä‚¢‚é•ûŒü
 
 	ElfIdle* m_pIdle;// ‘Ò‹@
