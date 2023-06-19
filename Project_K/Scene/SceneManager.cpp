@@ -14,8 +14,8 @@ SceneManager::SceneManager():
 // ‰Šú‰»
 void SceneManager::Init()
 {
-	m_pScene = new SceneCharacterSelect;
-	//m_pScene = new SceneTitle;
+	//m_pScene = new SceneCharacterSelect;
+	m_pScene = new SceneTitle;
 
 	m_pScene->Init();
 }
