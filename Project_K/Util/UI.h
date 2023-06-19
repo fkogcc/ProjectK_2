@@ -35,8 +35,8 @@ private:
 		int m_temp = 0;// HPをうけとる用の変数
 		int m_life = 0;// 各プレイヤーのHP
 		int m_lower = 0;// 仮で保存するHP用の変数
-		int m_countFrame;// 仮のHPを減らすタイマー
-		bool m_attackFlag;// 攻撃中かどうかを調べる
+		int m_countFrame = 0;// 仮のHPを減らすタイマー
+		bool m_attackFlag = false;// 攻撃中かどうかを調べる
 	};
 
 	int m_font = 0;// フォント
