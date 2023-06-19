@@ -8,14 +8,10 @@ namespace
 	const char* kMachoBgFileName = "Data/Image/Stage/macho/city.png";
 }
 
-MachoStage::MachoStage() :
-	m_handle(-1)// グラフィックハンドルの初期化
+MachoStage::MachoStage(int stageNo) :
+	m_handle(-1),// グラフィックハンドルの初期化
+	StageBase(stageNo)
 {
-}
-
-MachoStage::~MachoStage()
-{
-
 }
 
 void MachoStage::Init()
