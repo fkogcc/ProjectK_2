@@ -30,7 +30,7 @@ private:
 	void UpdateMain();//試合開始
 	void UpdateDead();//片方が死んだら
 private:
-	Stage* m_pStage;
+	//StageBase* m_pStage;
 	PlayerBase* m_pPlayer[2];
 	Collision* m_pColl;
 	UI* m_pUi;

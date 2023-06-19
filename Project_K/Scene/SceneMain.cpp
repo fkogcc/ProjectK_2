@@ -96,7 +96,7 @@ void SceneMain::Draw()
 	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
 	// ステージの描画
-	m_pStage->Draw();
+	m_pStageBase->Draw();
 
 	// UIの描画
 	m_pUi->Draw();
@@ -199,7 +199,7 @@ void SceneMain::UpdateMain()
 	// ステージ更新
 	m_pStageBase->Update();
 
-	return this;
+//	return this;
 }
 
 void SceneMain::UpdateDead()

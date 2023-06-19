@@ -219,23 +219,6 @@ void Elf::AnimStop()
 		!m_pShot->IsSetMove		 () ||
 		!m_pPunch->IsSetMove	 () ||
 		!m_pUp->IsSetMove		 ())
-
-#if _DEBUG
-	// プレイヤーのサイズ
-	DrawBox(m_sizeLeft + static_cast<int>(m_pos.x) ,
-			m_sizeTop + static_cast<int>(m_pos.y),
-			m_sizeRight + static_cast<int>(m_pos.x),
-			m_sizeBottom + static_cast<int>(m_pos.y),
-			0xffffff, false);
-#endif
-	// m_attackFlagがtrueのとき攻撃当たり判定を表示
-	if (m_attackFlag)
-		if(
-		!m_pJump->IsSetMove() ||
-		!m_pShot->IsSetMove() ||
-		!m_pPunch->IsSetMove() ||
-		!m_pUp->IsSetMove())
-
 	{
 		m_isAttack = true;
 		m_attackFlag = true;

@@ -87,11 +87,11 @@ void StageBase::Init()
 
 	assert(m_handle != -1);
 	assert(m_bgHandle != -1);
+	MapRead();
 }
 
 void StageBase::Update()
 {
-	MapRead();
 }
 
 void StageBase::Draw()

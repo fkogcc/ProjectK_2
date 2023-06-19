@@ -24,7 +24,7 @@ public :
 	struct MapInfo
 	{
 		Vec2 m_pos;		// マップの座標
-		int m_chipNo;	// マップチップの番号
+		int m_chipNo=0;	// マップチップの番号
 	};
 
 protected :
