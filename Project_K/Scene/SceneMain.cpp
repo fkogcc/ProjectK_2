@@ -25,8 +25,7 @@ namespace
 SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
 	m_isVictory1P(false),
 	m_isVictory2P(false),
-	countDown(180),
-	m_drawCount(60)
+	countDown(240)
 {
 	m_pStage = new Stage;
 
@@ -121,31 +120,29 @@ void SceneMain::Draw()
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
 
-	if (countDown > 0)
+	if (countDown > 60)
 	{
 		// 赤フォントの表示
 		DrawFormatStringToHandle(kFontPosX + 50 + 5,
-			kFontPosY + 50 + 5, 0x800000, m_font, "%d", countDown / 60 + 1);
+			kFontPosY + 50 + 5, 0x800000, m_font, "%d", countDown / 60);
 		// 青フォントの表示
 		DrawFormatStringToHandle(kFontPosX + 50,
-			kFontPosY + 50, 0x7fffff, m_font, "%d", countDown / 60 + 1);
+			kFontPosY + 50, 0x7fffff, m_font, "%d", countDown / 60);
 	}
-	if (countDown <= 0)
-	{
-		m_drawCount--;
-	}
-	if (m_drawCount <= 0)
-	{
-		m_drawCount = -1;
-	}
-	if (countDown <= 0 && m_drawCount > 0)
+	if (countDown <= 60 && countDown > 0)
 	{
 		DrawFormatStringToHandle(kFontPosX + 5,
 			kFontPosY + 5, 0x800000, m_font, "GO!");
 		DrawFormatStringToHandle(kFontPosX,
 			kFontPosY, 0x7fffff, m_font, "GO!");
 	}
+	if (countDown <= 0)
+	{
+		countDown = 0;
+	}
 	//printfDx("%d\n", m_drawCount);
+
+	//printfDx("%d\n", countDown);
 
 	SceneBase::DrawFade();
 }

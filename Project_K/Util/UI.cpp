@@ -42,6 +42,7 @@ void UI::Update()
 
 void UI::Draw()
 {
+	m_time = m_timeCount / 60;
 	HpDraw();
 	FontDraw();
 }
@@ -126,7 +127,7 @@ void UI::FontUpdate()
 	{
 		m_timeCount = 0;// 0‚æ‚è‚¿‚Á‚¿‚á‚­‚È‚ç‚È‚¢‚æ‚¤‚É
 	}
-	m_time = m_timeCount / 60;
+	//m_time = m_timeCount / 60;
 	if (m_time < 10)
 	{
 		m_letter = "0%d";// ˆêŒ…‘ä‚É‚È‚Á‚½‚ç0‚ð•\Ž¦‚³‚¹‚é
@@ -143,4 +144,6 @@ void UI::FontDraw()
 	DrawFormatStringToHandle((Game::kScreenWidth -
 		GetDrawStringWidthToHandle(m_letter, 2, m_font)) / 2,
 		100 - 40, 0x7fffff, m_font, m_letter, m_time);
+
+	printfDx("%d\n", m_time);
 }
