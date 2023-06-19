@@ -10,7 +10,7 @@ private:
 		float m_posY = 0;// 位置
 		int m_imgWidth = 0;// 切り取る幅
 		int m_imgHight = 0;// 切り取る高さ
-		int m_imgSize = 0;// 画像の大きさ（拡大率）
+		float m_imgSize = 0;// 画像の大きさ（拡大率）
 		int m_handle = -1;// 画像
 
 		int m_maxWidth = 0;
