@@ -31,9 +31,9 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo) :
 	m_isVictory1P(false),
 	m_isVictory2P(false),
 
-	m_countDown(0)
+	m_countDown(240),
 
-	countDown(240),
+	//countDown(240),
 	m_font(-1),
 	m_timeUpDrawCount(60)
 
@@ -70,7 +70,7 @@ void SceneMain::Init()
 	m_pPlayer[0]->Init();
 	m_pPlayer[1]->Init();
 
-	m_pStage->Init();
+	//m_pStage->Init();
 
 	m_pStageBase->Init();
 }
@@ -138,31 +138,31 @@ void SceneMain::Draw()
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
 
-1
+
 	//プレイヤーカーソル描画
 	m_pUi->DrawPlayerCursor(m_pPlayer[0]->GetPos(), m_pPlayer[1]->GetPos());
 
 	// 試合始まる前のカウントダウン
-	if (countDown > 60)
+	if (m_countDown > 60)
 	{
 		// 赤フォントの表示
 		DrawFormatStringToHandle(kGoFontPosX + 50 + 5,
-			kGoFontPosY + 50 + 5, 0x800000, m_font, "%d", countDown / 60);
+			kGoFontPosY + 50 + 5, 0x800000, m_font, "%d", m_countDown / 60);
 		// 青フォントの表示
 		DrawFormatStringToHandle(kGoFontPosX + 50,
-			kGoFontPosY + 50, 0x7fffff, m_font, "%d", countDown / 60);
+			kGoFontPosY + 50, 0x7fffff, m_font, "%d", m_countDown / 60);
 	}
 	// GO!描画
-	if (countDown <= 60 && countDown > 0)
+	if (m_countDown <= 60 && m_countDown > 0)
 	{
 		DrawFormatStringToHandle(kGoFontPosX + 5,
 			kGoFontPosY + 5, 0x800000, m_font, "GO!");
 		DrawFormatStringToHandle(kGoFontPosX,
 			kGoFontPosY, 0x7fffff, m_font, "GO!");
 	}
-	if (countDown <= 0)
+	if (m_countDown <= 0)
 	{
-		countDown = 0;
+		m_countDown = 0;
 	}
 
 	// タイムアウト描画
@@ -185,13 +185,13 @@ void SceneMain::Draw()
 void SceneMain::UpdateCountDown()
 {
 
-	m_countDown++;
+	//m_countDown++;
 
-	if (m_countDown >= 180)
+	//if (m_countDown >= 180)
 
-	countDown--;
+	m_countDown--;
 
-	if (countDown <= 0)
+	if (m_countDown <= 0)
 
 	{
 		m_updateFunc = &SceneMain::UpdateMain;
