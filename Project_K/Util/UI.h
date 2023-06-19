@@ -22,6 +22,8 @@ public:
 	void GetHp2(int hp) { m_ui2.m_temp = hp; }// 2PのHP
 	void AttackFlag1(bool flag) { m_ui1.m_attackFlag = flag; }
 	void AttackFlag2(bool flag) { m_ui2.m_attackFlag = flag; }
+
+	void DrawPlayerCursor(Vec2 playerPos1,Vec2 playerPos2); //プレイヤーのカーソル表示
 private:
 
 	Vec2 m_boxPos;
@@ -43,4 +45,7 @@ private:
 	int m_timeCount;// 時間カウント用
 	int m_time;// 表示用時間
 	const char* m_letter;// 文字
+
+	int playerCursorHandle1 = -1; //プレイヤーのカーソルハンドル
+	int playerCursorHandle2 = -1; //プレイヤーのカーソルハンドル
 };

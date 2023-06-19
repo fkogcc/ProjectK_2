@@ -37,7 +37,7 @@ private:
 
 	void (SceneMain::*m_updateFunc)();
 
-	int countDown; //カウントダウン
+	int m_countDown; //カウントダウン
 };
 
 

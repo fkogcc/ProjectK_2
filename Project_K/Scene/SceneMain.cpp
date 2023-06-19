@@ -17,7 +17,7 @@
 SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2) :
 	m_isVictory1P(false),
 	m_isVictory2P(false),
-	countDown(0)
+	m_countDown(0)
 {
 	m_pStage = new Stage;
 
@@ -42,12 +42,11 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
-	m_pPlayer[0]->Init();
-	m_pPlayer[1]->Init();
-
 	m_pPlayer[0]->SetPadNum(1);
 	m_pPlayer[1]->SetPadNum(2);
 
+	m_pPlayer[0]->Init();
+	m_pPlayer[1]->Init();
 
 	m_pStage->Init();
 }
@@ -110,14 +109,17 @@ void SceneMain::Draw()
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
 
+	//プレイヤーカーソル描画
+	m_pUi->DrawPlayerCursor(m_pPlayer[0]->GetPos(), m_pPlayer[1]->GetPos());
+
 	SceneBase::DrawFade();
 }
 
 void SceneMain::UpdateCountDown()
 {
-	countDown++;
+	m_countDown++;
 
-	if (countDown >= 180)
+	if (m_countDown >= 180)
 	{
 		m_updateFunc = &SceneMain::UpdateMain;
 	}
@@ -127,6 +129,9 @@ void SceneMain::UpdateMain()
 {
 	m_pPlayer[0]->Update();
 	m_pPlayer[1]->Update();
+
+	m_pPlayer[0]->moveLimit();
+	m_pPlayer[1]->moveLimit();
 
 	// UIの更新処理
 	m_pUi->Update();

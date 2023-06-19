@@ -92,7 +92,7 @@ void Kinnikurou::Init()
 	m_sizeRight = 50;
 	m_sizeBottom = 50;
 
-	
+	CharDefaultPos(m_charDirection);
 }
 
 void Kinnikurou::End()
@@ -110,11 +110,6 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
-	if (!m_isSpawn)
-	{
-		CharDefaultPos(m_charDirection);
-		m_isSpawn = true;
-	}
 	m_stiffen--;
 	if (m_hp > 0)
 	{

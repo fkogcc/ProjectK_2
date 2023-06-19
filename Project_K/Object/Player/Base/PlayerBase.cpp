@@ -1,5 +1,6 @@
 #include "PlayerBase.h"
 #include "../../Shot/NullShot.h"
+#include"../../../Util/game.h"
 
 namespace
 {
@@ -75,4 +76,18 @@ void PlayerBase::damageMove()
 
 	m_knockBack.x = min(max(m_knockBack.x- kAccX, 0), m_knockBack.x + kAccX);
 	m_knockBack.y += kAccY;
+}
+
+void PlayerBase::moveLimit()
+{
+	int playerSize = m_sizeRight - m_sizeLeft;
+	if (m_pos.x < static_cast<float>(-abs(playerSize)))
+	{
+		m_pos.x = static_cast<float>(Game::kScreenWidth) + static_cast<float>(abs(playerSize));
+	}
+
+	if (m_pos.x > static_cast<float>(Game::kScreenWidth) + static_cast<float>(abs(playerSize)))
+	{
+		m_pos.x = static_cast<float>(-abs(playerSize)) ;
+	}
 }
