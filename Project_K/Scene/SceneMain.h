@@ -28,7 +28,7 @@ private:
 	StageBase* m_pStageBase;	// ステージセレクトシーン
 	void UpdateCountDown(); //試合開始前のカウント
 	void UpdateMain();//試合開始
-	void UpdateDead();//片方が死んだら
+	void UpdateDead();//片方が死んだらまたは時間切れになったら
 private:
 	//StageBase* m_pStage;
 	PlayerBase* m_pPlayer[2];
