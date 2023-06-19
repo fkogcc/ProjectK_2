@@ -6,6 +6,7 @@ class DinoStage;	// 恐竜ステージ
 class ElfStage;		// エルフステージ
 class MachoStage;	// マッチョステージ
 class WizardStage;	// 魔女ステージ
+class StageBase;	// ステージ
 
 class SceneMapSelect : public SceneBase
 {
@@ -32,6 +33,7 @@ private:
 	ElfStage* m_pElfStage;		// エルフステージ
 	MachoStage* m_pMachoStage;	// マッチョステージ
 	WizardStage* m_pWizStage;	// 魔女ステージ
+	StageBase* m_pStageBase;	// ステージベース
 
 	// マップ判別用の番号変数
 	int m_mapNum;

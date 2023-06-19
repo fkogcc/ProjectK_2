@@ -7,7 +7,7 @@ class PlayerBase;
 class SceneCharacterSelect : public SceneBase
 {
 public:
-	SceneCharacterSelect();
+	SceneCharacterSelect(int StageNo);
 	virtual ~SceneCharacterSelect();
 
 	virtual void Init();
@@ -32,6 +32,8 @@ private:
 	bool m_isElf2;// エルフ
 	bool m_isKin2;// きんにくろう
 	bool m_isWitch2;// 魔女
+
+	int m_stageNo;	// ステージの番号
 
 	PlayerBase* m_Player[2];
 

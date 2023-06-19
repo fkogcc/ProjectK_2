@@ -66,6 +66,7 @@
     <ClCompile Include="Object\Stage\WizardStage.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuDead.cpp" />
     <ClCompile Include="Object\Stage\StageBase.cpp" />
+    <ClCompile Include="Object\Stage\StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Stage\ElfStage.h" />
@@ -135,5 +136,6 @@
     <ClInclude Include="Object\Stage\WizardStage.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuDead.h" />
     <ClInclude Include="Object\Stage\StageBase.h" />
+    <ClInclude Include="Object\Stage\StageManager.h" />
   </ItemGroup>
 </Project>

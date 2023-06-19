@@ -4,7 +4,7 @@
 class MachoStage : public StageBase
 {
 public:
-	MachoStage();
+	MachoStage(int stageNo);
 
 	void Init();
 	void Update();
