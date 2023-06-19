@@ -147,7 +147,11 @@ void Kinnikurou::Update()
 			}
 		}
 		// ジャンプ更新処理
-		m_pJump->Update(m_jumpAcc, m_pos.y, m_padNum);
+		if (m_motionCount == 0)
+		{
+			m_pJump->Update(m_jumpAcc, m_pos.y, m_padNum);
+
+		}
 		// ジャンプしている間の挙動
 		if (m_pJump->IsJump())
 		{

@@ -40,7 +40,8 @@ StageBase::StageBase(int StageNo):
 	m_startY(700),
 	m_endX(Game::kScreenWidth),
 	m_endY(0),
-	m_stageNo(StageNo)
+	m_stageNo(StageNo),
+	m_filePath("")
 {
 }
 

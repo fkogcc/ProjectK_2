@@ -5,7 +5,7 @@
 
 namespace
 {
-	int kBottomStandard = Game::kScreenHeight - 150; // 下の基準線（選択プレイヤーの位置を下で合わせる）
+	float kBottomStandard = Game::kScreenHeight - 150; // 下の基準線（選択プレイヤーの位置を下で合わせる）
 }
 
 SelectUI::SelectUI() :
@@ -126,7 +126,7 @@ void SelectUI::Draw()
 
 	// 1Pが選択してるキャラ
 	my::MyDrawRectRotaGraph(
-		400, m_player1.m_posY,//プレイヤーの位置
+		400, static_cast<int>(m_player1.m_posY),//プレイヤーの位置
 		m_player1.m_imgWidth * m_indexWidth1, m_player1.m_imgHight * m_indexHight1,// 画像の右上
 		m_player1.m_imgWidth, m_player1.m_imgHight,// 画像の切り取り
 		m_player1.m_imgSize,// 画像の拡大率
@@ -137,7 +137,7 @@ void SelectUI::Draw()
 
 	// 2Pが選択してるキャラ
 	my::MyDrawRectRotaGraph(
-		Game::kScreenWidth - 400, m_player2.m_posY,//プレイヤーの位置
+		Game::kScreenWidth - 400, static_cast<int>(m_player2.m_posY),//プレイヤーの位置
 		m_player2.m_imgWidth * m_indexWidth2, m_player2.m_imgHight * m_indexHight2,// 画像の右上
 		m_player2.m_imgWidth, m_player2.m_imgHight,// 画像の切り取り
 		m_player2.m_imgSize,// 画像の拡大率
