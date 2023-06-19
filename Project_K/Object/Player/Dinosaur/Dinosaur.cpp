@@ -19,7 +19,7 @@ Dinosaur::Dinosaur() :
 	m_handle = LoadGraph(kFilename);
 	m_pStateManager = new DinosaurStateManager(m_handle);
 	m_pStateManager->Init();
-	m_pos = { 500,600 };
+	m_pos = { 0.0f,0.0f };
 }
 
 Dinosaur::~Dinosaur()
@@ -143,6 +143,12 @@ void Dinosaur::Update()
 
 void Dinosaur::Draw()
 {
+	if (!m_isSpawn)
+	{
+		CharDefaultPos(m_pStateManager->m_lookLeft);
+		m_isSpawn = true;
+	}
+
 	// キャラクター表示
 	m_pStateManager->Draw(m_pos);
 

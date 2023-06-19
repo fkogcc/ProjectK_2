@@ -18,7 +18,7 @@ void KinnikuMizo::Update(int& imagePosX, int& imagePosY)
 		m_nextCount = 2;
 	}
 
-	if (m_frameCount == m_nextCount)
+	if (m_frameCount >= m_nextCount)
 	{
 		imagePosX++;
 		m_frameCount = 0;

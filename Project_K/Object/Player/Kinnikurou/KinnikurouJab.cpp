@@ -4,7 +4,7 @@ void KinnikurouJab::Update(int& imagePosX, int& imagePosY)
 {
 	m_isAttackCol = false;
 	m_frameCount++;
-	if (m_frameCount == 3)
+	if (m_frameCount >= 3)
 	{
 		imagePosX++;
 		m_frameCount = 0;

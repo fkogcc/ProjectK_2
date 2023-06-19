@@ -22,15 +22,22 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
-
 private:
-	Stage*		m_pStage;
+	void UpdateCountDown(); //試合開始前のカウント
+	void UpdateMain();//試合開始
+	void UpdateDead();//片方が死んだら
+private:
+	Stage* m_pStage;
 	PlayerBase* m_pPlayer[2];
 	Collision* m_pColl;
 	UI* m_pUi;
 
 	bool m_isVictory1P;// 1Pの勝敗
 	bool m_isVictory2P;// 2Pの勝敗
+
+	void (SceneMain::*m_updateFunc)();
+
+	int countDown; //カウントダウン
 };
 
 

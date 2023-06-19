@@ -6,7 +6,7 @@ class KinnikuMuscle : public MoveTypeBase
 public:
 	void Update(int& imagePosX, int& imagePosY);// 更新
 
-	bool IsAttackColMuscle() { return m_isAttackCol; }
+	bool IsAttackColMuscle() { return m_isAttackCol; }// 攻撃判定のタイミング
 
 	// 攻撃判定があるかどうか
 	bool m_isAttackCol = false;
