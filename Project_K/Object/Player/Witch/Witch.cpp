@@ -80,17 +80,13 @@ void Witch::Init()
     m_pChicken->Init();
     m_pKnightCat->Init();
     m_pDead->Init();
+
+    CharDefaultPos(m_reversal);
 }
 
 // 更新処理
 void Witch::Update()
 {
-    if (!m_isSpawn)
-    {
-        CharDefaultPos(m_reversal);
-        m_isSpawn = true;
-    }
-
     UpdateAttackJudge();//当たり判定を呼び出す
     UpdatePlayerJudge();//当たり判定を呼び出す
 

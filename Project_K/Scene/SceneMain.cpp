@@ -14,12 +14,33 @@
 
 #include <iostream>
 
+namespace
+{
+	// GO!テキストの座標
+	const int kGoFontPosX = Game::kScreenWidth / 2 - 100;
+	const int kGoFontPosY = Game::kScreenHeight / 2 - 100;
+
+	// TIME OUTのテキストの座標
+	const int kTimeUpFontPosX = Game::kScreenWidth / 2 - 150;
+	const int kTimeUpFontPosY = Game::kScreenHeight / 2 - 100;
+
+	const char* kFont = "HGP行書体";// フォント
+}
+
 SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo) :
 	m_isVictory1P(false),
 	m_isVictory2P(false),
-	countDown(0)
+
+	m_countDown(0)
+
+	countDown(240),
+	m_font(-1),
+	m_timeUpDrawCount(60)
+
 {
 	m_pStageBase = new StageBase(StageNo);
+
+	m_font = CreateFontToHandle(kFont, 140, -1, -1);// 使用するフォント
 
 	m_pPlayer[0] = Player1;
 	m_pPlayer[1] = Player2;
@@ -42,11 +63,14 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	m_pPlayer[0]->SetPadNum(1);
+	m_pPlayer[1]->SetPadNum(2);
+
+
 	m_pPlayer[0]->Init();
 	m_pPlayer[1]->Init();
 
-	m_pPlayer[0]->SetPadNum(1);
-	m_pPlayer[1]->SetPadNum(2);
+	m_pStage->Init();
 
 	m_pStageBase->Init();
 }
@@ -76,11 +100,16 @@ SceneBase* SceneMain::Update()
 		}
 	}
 
+	if (m_pUi->GetTime() <= 0)
+	{
+		m_timeUpDrawCount--;
+	}
+
 	// フェードインアウトしていない時
 	if (!IsFading())
 	{
 		// デバッグ用シーン遷移
-		if (m_pPlayer[0]->GetHp() <= 0 || m_pPlayer[1]->GetHp() <= 0)
+		if (m_pPlayer[0]->GetHp() <= 0 || m_pPlayer[1]->GetHp() <= 0 || m_timeUpDrawCount <= 0)
 		{
 			StartFadeOut();
 		}
@@ -92,8 +121,8 @@ SceneBase* SceneMain::Update()
 void SceneMain::Draw()
 {
 	// プレイヤーのHPの変数
-	printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
-	printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
+	//printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
+	//printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
 
 	// ステージの描画
 	m_pStageBase->Draw();
@@ -109,23 +138,75 @@ void SceneMain::Draw()
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
 
+1
+	//プレイヤーカーソル描画
+	m_pUi->DrawPlayerCursor(m_pPlayer[0]->GetPos(), m_pPlayer[1]->GetPos());
+
+	// 試合始まる前のカウントダウン
+	if (countDown > 60)
+	{
+		// 赤フォントの表示
+		DrawFormatStringToHandle(kGoFontPosX + 50 + 5,
+			kGoFontPosY + 50 + 5, 0x800000, m_font, "%d", countDown / 60);
+		// 青フォントの表示
+		DrawFormatStringToHandle(kGoFontPosX + 50,
+			kGoFontPosY + 50, 0x7fffff, m_font, "%d", countDown / 60);
+	}
+	// GO!描画
+	if (countDown <= 60 && countDown > 0)
+	{
+		DrawFormatStringToHandle(kGoFontPosX + 5,
+			kGoFontPosY + 5, 0x800000, m_font, "GO!");
+		DrawFormatStringToHandle(kGoFontPosX,
+			kGoFontPosY, 0x7fffff, m_font, "GO!");
+	}
+	if (countDown <= 0)
+	{
+		countDown = 0;
+	}
+
+	// タイムアウト描画
+	if (m_pUi->GetTime() <= 0)
+	{
+		DrawFormatStringToHandle(kTimeUpFontPosX + 5,
+			kTimeUpFontPosY + 5, 0x800000, m_font, "TIME\n UP");
+		DrawFormatStringToHandle(kTimeUpFontPosX,
+			kTimeUpFontPosY, 0x7fffff, m_font, "TIME\n UP");
+	}
+
+	//printfDx("%d\n", m_drawCount);
+
+	//printfDx("%d\n", countDown);
+
+
 	SceneBase::DrawFade();
 }
 
 void SceneMain::UpdateCountDown()
 {
-	countDown++;
 
-	if (countDown >= 180)
+	m_countDown++;
+
+	if (m_countDown >= 180)
+
+	countDown--;
+
+	if (countDown <= 0)
+
 	{
 		m_updateFunc = &SceneMain::UpdateMain;
 	}
+
+	
 }
 
 void SceneMain::UpdateMain()
 {
 	m_pPlayer[0]->Update();
 	m_pPlayer[1]->Update();
+
+	m_pPlayer[0]->moveLimit();
+	m_pPlayer[1]->moveLimit();
 
 	// UIの更新処理
 	m_pUi->Update();
@@ -186,16 +267,21 @@ void SceneMain::UpdateMain()
 	}
 
 	// 1Pの勝利
-	if (m_pPlayer[1]->GetHp() <= 0)
+	if (m_pPlayer[1]->GetHp() <= 0 || (m_pUi->GetTime() <= 0 && m_pPlayer[1]->GetHp() < m_pPlayer[0]->GetHp()))
 	{
 		m_isVictory1P = true;
 	}
 	// 2Pの勝利
-	else if (m_pPlayer[0]->GetHp() <= 0)
+	else if (m_pPlayer[0]->GetHp() <= 0 || (m_pUi->GetTime() <= 0 && m_pPlayer[1]->GetHp() > m_pPlayer[0]->GetHp()))
 	{
 		m_isVictory2P = true;
 	}
 
+	// デバッグ用シーン遷移
+	if (m_pPlayer[0]->GetHp() <= 0 || m_pPlayer[1]->GetHp() <= 0 || m_pUi->GetTime() <= 0)
+	{
+		m_updateFunc = &SceneMain::UpdateDead;
+	}
 	// ステージ更新
 	m_pStageBase->Update();
 
@@ -221,6 +307,8 @@ void SceneMain::UpdateDead()
 	// デバッグ用当たり判定描画
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
+
+	
 
 	SceneBase::DrawFade();
 }

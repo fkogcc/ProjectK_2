@@ -7,6 +7,7 @@ public:
 	{
 		m_vec = vec;
 		m_attackFlag = false;
+		m_attackMotion = false;
 	}
 	virtual ~DinosaurIdle();
 

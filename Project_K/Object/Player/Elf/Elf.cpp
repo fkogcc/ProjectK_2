@@ -87,6 +87,9 @@ void Elf::Init()
 {
 	m_handle = my::MyLoadGraph(kFilmName);
 	m_pos = { 0.0f, 0.0f };
+
+	
+	CharDefaultPos(m_isDirection);
 }
 
 void Elf::End()
@@ -96,11 +99,6 @@ void Elf::End()
 
 void Elf::Update()
 {
-	if (!m_isSpawn)
-	{
-		CharDefaultPos(m_isDirection);
-		m_isSpawn = true;
-	}
 
 	// アニメーション停止
 	AnimStop();
@@ -133,6 +131,11 @@ void Elf::Update()
 
 void Elf::Draw()
 {
+	if (!m_isSpawn)
+	{
+		CharDefaultPos(m_isDirection);
+		m_isSpawn = true;
+	}
 	// プレイヤーの描画
 	my::MyDrawRectRotaGraph(
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
@@ -221,8 +224,9 @@ void Elf::UpdateControl()
 void Elf::AnimStop()
 {
 	// アニメーションが終わったら
-	if (!m_pChargeShot->IsSetMove() ||
+	// m_attackFlagがtrueのとき攻撃当たり判定を表示
 
+	if (!m_pChargeShot->IsSetMove() ||
 		!m_pJump->IsSetMove      () ||
 		!m_pShot->IsSetMove		 () ||
 		!m_pPunch->IsSetMove	 () ||

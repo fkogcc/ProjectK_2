@@ -33,6 +33,8 @@ void Dinosaur::Init()
 	m_sizeTop = -50;
 	m_sizeRight = 80;
 	m_sizeBottom = 110;
+	
+	CharDefaultPos(m_pStateManager->m_lookLeft);
 }
 
 void Dinosaur::End()
@@ -143,12 +145,6 @@ void Dinosaur::Update()
 
 void Dinosaur::Draw()
 {
-	if (!m_isSpawn)
-	{
-		CharDefaultPos(m_pStateManager->m_lookLeft);
-		m_isSpawn = true;
-	}
-
 	// キャラクター表示
 	m_pStateManager->Draw(m_pos);
 

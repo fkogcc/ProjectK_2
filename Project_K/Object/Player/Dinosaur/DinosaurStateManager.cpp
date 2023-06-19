@@ -39,12 +39,12 @@ void DinosaurStateManager::Update(int padNum)
 	{
 		m_pState->SetDeadFlag();
 	}
-	if (Pad::IsPress(PAD_INPUT_LEFT, padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_LEFT, padNum) && !m_pState->GetAttackMotion())// XBOX X or Y
 	{
 		m_lookLeft = true;
 	}
 
-	if (Pad::IsPress(PAD_INPUT_RIGHT, padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_RIGHT, padNum) && !m_pState->GetAttackMotion())// XBOX X or Y
 	{
 		m_lookLeft = false;
 	}
