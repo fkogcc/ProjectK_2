@@ -51,6 +51,10 @@ private:
 
 	int m_gapTime;
 
+	int m_chargeHitPos = 0;
+
+	int m_chargeShotCount = 0;
+
 	float m_jumpAcc = 0.0f;
 
 	bool m_isAttack;// UŒ‚‚ª‚Å‚«‚é‚©‚Ç‚¤‚©
