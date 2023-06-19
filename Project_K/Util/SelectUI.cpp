@@ -1,4 +1,4 @@
-#include "SelectUI.h"
+﻿#include "SelectUI.h"
 #include"game.h"
 #include"DrawFunctions.h"
 #include"DxLib.h"
@@ -6,7 +6,23 @@
 
 namespace
 {
-  
+	int kBottomStandard = Game::kScreenHeight - 150; // 下の基準線（選択プレイヤーの位置を下で合わせる）
+	int kSelectFont = 0;
+
+	// 後できれいにしろおバカ
+	int kDinoFont = 0;
+	int kElfFont = 0;
+	int kKinFont = 0;
+	int kWitchFont = 0;
+	const char* kSelectText = "character select";
+
+	const char* kDinoText = "だいなそー";
+	const char* kElfText = "Elf";
+	const char* kKinText = "きんにくん";
+	const char* kWitchText = "Witch";
+
+	int kColor1P = 0xffffff;
+	int kColor2P = 0xffffff;
 }
 
 SelectUI::SelectUI() :
@@ -34,7 +50,7 @@ SelectUI::SelectUI() :
 	font::MyFontPath("Data/Font/Valentina-Regular.ttf");
 	kElfFont = CreateFontToHandle("Valentina", 50, -1, -1);;
 	font::MyFontPath("Data/Font/kkm_analogtv.ttf");
-	kKinFont = CreateFontToHandle("KKM-アナログテレビフォント", 50, -1, -1);
+	kKinFont = CreateFontToHandle("KKM-アナログテレビフォント", 50, -1, -1);;
 	font::MyFontPath("Data/Font/Utusi Star Normal.otf");
 	kWitchFont = CreateFontToHandle("Utusi Star", 50, -1, -1);
 }
@@ -69,6 +85,8 @@ void SelectUI::Update()
 
 void SelectUI::Draw()
 {
+	DrawChar();
+	DrawLetter();
 }
 
 void SelectUI::InitLoad()
