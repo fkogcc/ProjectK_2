@@ -10,7 +10,13 @@ namespace
 	//画像の再生を止める
 	constexpr int kStopGraph = 4;
 	//攻撃硬直時間
-	constexpr int kAttackStan = 4;
+	constexpr int kAttackStan = 10;
+
+	
+	constexpr int kAttackFlagOn = 3;//攻撃フラグがOnになるタイミング
+
+	constexpr int kAttackFlagOff = 10;//攻撃フラグがOffになるタイミング
+	
 }
 
 DinosaurAttackBite::~DinosaurAttackBite()
@@ -19,6 +25,18 @@ DinosaurAttackBite::~DinosaurAttackBite()
 
 DinosaurStateBase* DinosaurAttackBite::Update(int padNum)
 {
+	m_attackFrame++;
+
+	if (m_attackFrame == kAttackFlagOn)
+	{
+		m_attackFlag = true;
+	}
+
+	if (m_attackFrame == kAttackFlagOff)
+	{
+		m_attackFlag = false;
+	}
+
 	if (m_imagePosX < kStopGraph)
 	{
 		ChangeGraph(kGraphSpeed, kGraphSize, false);

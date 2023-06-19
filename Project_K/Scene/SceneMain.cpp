@@ -30,9 +30,13 @@ namespace
 SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo) :
 	m_isVictory1P(false),
 	m_isVictory2P(false),
+
+	m_countDown(0)
+
 	countDown(240),
 	m_font(-1),
 	m_timeUpDrawCount(60)
+
 {
 	m_pStageBase = new StageBase(StageNo);
 
@@ -59,11 +63,14 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	m_pPlayer[0]->SetPadNum(1);
+	m_pPlayer[1]->SetPadNum(2);
+
+
 	m_pPlayer[0]->Init();
 	m_pPlayer[1]->Init();
 
-	m_pPlayer[0]->SetPadNum(1);
-	m_pPlayer[1]->SetPadNum(2);
+	m_pStage->Init();
 
 	m_pStageBase->Init();
 }
@@ -131,6 +138,10 @@ void SceneMain::Draw()
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
 
+1
+	//プレイヤーカーソル描画
+	m_pUi->DrawPlayerCursor(m_pPlayer[0]->GetPos(), m_pPlayer[1]->GetPos());
+
 	// 試合始まる前のカウントダウン
 	if (countDown > 60)
 	{
@@ -167,14 +178,21 @@ void SceneMain::Draw()
 
 	//printfDx("%d\n", countDown);
 
+
 	SceneBase::DrawFade();
 }
 
 void SceneMain::UpdateCountDown()
 {
+
+	m_countDown++;
+
+	if (m_countDown >= 180)
+
 	countDown--;
 
 	if (countDown <= 0)
+
 	{
 		m_updateFunc = &SceneMain::UpdateMain;
 	}
@@ -186,6 +204,9 @@ void SceneMain::UpdateMain()
 {
 	m_pPlayer[0]->Update();
 	m_pPlayer[1]->Update();
+
+	m_pPlayer[0]->moveLimit();
+	m_pPlayer[1]->moveLimit();
 
 	// UIの更新処理
 	m_pUi->Update();

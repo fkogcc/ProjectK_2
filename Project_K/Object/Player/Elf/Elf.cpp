@@ -67,6 +67,9 @@ void Elf::Init()
 {
 	m_handle = my::MyLoadGraph(kFilmName);
 	m_pos = { 0.0f, 0.0f };
+
+	
+	CharDefaultPos(m_isDirection);
 }
 
 void Elf::End()
@@ -76,7 +79,10 @@ void Elf::End()
 
 void Elf::Update()
 {
+
+
 	
+
 
 	// アニメーション停止
 	AnimStop();
