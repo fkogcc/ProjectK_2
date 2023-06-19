@@ -1,9 +1,10 @@
 #include "SceneMapSelect.h"
 #include "SceneCharacterSelect.h"
 #include "SceneTitle.h"
+#include "../Object/Stage/StageBase.h"
 
 SceneMapSelect::SceneMapSelect() :
-	m_mapNum(-1)
+	m_mapNum(1)
 {
 }
 
@@ -13,6 +14,7 @@ SceneMapSelect::~SceneMapSelect()
 
 void SceneMapSelect::Init()
 {
+
 }
 
 void SceneMapSelect::End()
@@ -28,7 +30,7 @@ SceneBase* SceneMapSelect::Update()
 		
 		if (!IsFading() && m_isFadeOut) 
 		{ 
-			return (new SceneCharacterSelect); 
+			return (new SceneCharacterSelect(m_mapNum)); 
 		}
 	}
 
@@ -42,15 +44,22 @@ SceneBase* SceneMapSelect::Update()
 
 	if (Pad::IsTrigger(PAD_INPUT_UP, 1))
 	{
-		m_mapNum++;
+		if (m_mapNum < 4)
+		{
+			m_mapNum++;
+		}
 	}
 	else if (Pad::IsTrigger(PAD_INPUT_DOWN, 1))
 	{
-		m_mapNum--;
-
-		//if()
+		if (m_mapNum > 1)
+		{
+			m_mapNum--;
+		}
 	}
 
+
+
+	
 	return this;
 }
 
@@ -58,6 +67,8 @@ void SceneMapSelect::Draw()
 {
 	DrawString(0, 0, "MapSelect", Color::kWhite);
 	DrawFormatString(0, 15, 0xffffff, "MapNum = %d", m_mapNum);
+
+	DrawBox(m_mapNum * 45, m_mapNum * 45, m_mapNum * 90, m_mapNum * 90, 0xffffff, true);
 
 	SceneBase::DrawFade();
 }

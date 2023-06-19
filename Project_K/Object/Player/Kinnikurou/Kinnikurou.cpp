@@ -110,6 +110,9 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
+
+	
+
 	m_stiffen--;
 	if (m_hp > 0)
 	{
@@ -172,14 +175,14 @@ void Kinnikurou::Update()
 			{
 				if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
 				{
-					m_moveType = static_cast<int>(moveType::Idol);
+					m_moveType = static_cast<int>(moveType::Run);
 					m_pos.x += 10;
 					m_charDirection = false;
 					m_charRun = true;
 				}
 				if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 				{
-					m_moveType = static_cast<int>(moveType::Idol);
+					m_moveType = static_cast<int>(moveType::Run);
 					m_pos.x -= 10;
 					m_charDirection = true;
 					m_charRun = true;
@@ -356,6 +359,12 @@ void Kinnikurou::Update()
 
 void Kinnikurou::Draw()
 {
+	if (!m_isSpawn)
+	{
+		CharDefaultPos(m_charDirection);
+		m_isSpawn = true;
+	}
+
 	// アイドル状態
 	if (m_moveType == static_cast<int>(moveType::Idol))
 	{

@@ -65,6 +65,8 @@
     <ClCompile Include="Object\Player\Witch\Witch.cpp" />
     <ClCompile Include="Object\Stage\WizardStage.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuDead.cpp" />
+    <ClCompile Include="Object\Stage\StageBase.cpp" />
+    <ClCompile Include="Object\Stage\StageManager.cpp" />
     <ClCompile Include="Util\SelectUI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +136,8 @@
     <ClInclude Include="Object\Player\Witch\Witch.h" />
     <ClInclude Include="Object\Stage\WizardStage.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuDead.h" />
+    <ClInclude Include="Object\Stage\StageBase.h" />
+    <ClInclude Include="Object\Stage\StageManager.h" />
     <ClInclude Include="Util\SelectUI.h" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,8 @@
 #include"../Object/Player/Kinnikurou/Kinnikurou.h"
 #include"../Object/Player/Witch/Witch.h"
 #include"../Util/SelectUI.h"
-SceneCharacterSelect::SceneCharacterSelect() :
+
+SceneCharacterSelect::SceneCharacterSelect(int StageNo) :
 	m_isDino(false),
 	m_isElf(false),
 	m_isKin(false),
@@ -15,7 +16,8 @@ SceneCharacterSelect::SceneCharacterSelect() :
 	m_isDino2(false),
 	m_isElf2(false),
 	m_isKin2(false),
-	m_isWitch2(false)
+	m_isWitch2(false),
+	m_stageNo(StageNo)
 {
 	m_Player[0] = nullptr;
     m_Player[1] = nullptr;
@@ -73,11 +75,11 @@ SceneBase* SceneCharacterSelect::Update()
 		if (m_CharaChoice->GetChackChara2() == 2) m_Player[1] = new Kinnikurou;
 		if (m_CharaChoice->GetChackChara2() == 3) m_Player[1] = new Witch;
 		
-		return(new SceneMain(m_Player[0],m_Player[1]));// 1ステージ切り替え
+		return(new SceneMain(m_Player[0],m_Player[1], m_stageNo));// 1ステージ切り替え
 	}
-
-
-
+	m_Player[0] = new Elf;
+	m_Player[1] = new Dinosaur;
+	return(new SceneMain(m_Player[0], m_Player[1], m_stageNo));// 1ステージ切り替え
 	/*if (IsFading())
 	{
 		m_isFadeOut = IsFadingOut();

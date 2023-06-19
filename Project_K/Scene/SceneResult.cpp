@@ -71,7 +71,7 @@ void SceneResult::Draw()
 
 	// 勝利状況
 	// 引き分け
-	if (m_isVictory1P && m_isVictory2P)
+	if ((m_isVictory1P && m_isVictory2P) || (!m_isVictory1P && !m_isVictory2P))
 	{
 		DrawString(100, 100, "Draw", Color::kRed);
 	}
