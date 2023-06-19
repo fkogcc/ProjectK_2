@@ -22,6 +22,9 @@ public:
 	void GetHp2(int hp) { m_ui2.m_temp = hp; }// 2P‚ÌHP
 	void AttackFlag1(bool flag) { m_ui1.m_attackFlag = flag; }
 	void AttackFlag2(bool flag) { m_ui2.m_attackFlag = flag; }
+
+	int GetTime()const { return m_time; }
+
 private:
 
 	Vec2 m_boxPos;

@@ -40,7 +40,11 @@ private:
 
 	void (SceneMain::*m_updateFunc)();
 
-	int countDown; //カウントダウン
+	int countDown; //�J�E���g�_�E��
+
+	int m_font;// �t�H���g�n���h��
+
+	int m_timeUpDrawCount;// TIME OUT�̕`�掞��
 };
 
 
