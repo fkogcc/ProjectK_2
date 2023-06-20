@@ -75,7 +75,6 @@ void SceneMain::Init()
 	m_pPlayer[0]->Init();
 	m_pPlayer[1]->Init();
 
-	//m_pStage->Init();
 
 	m_pStageBase->Init();
 }
@@ -105,7 +104,7 @@ SceneBase* SceneMain::Update()
 			// trueの場合
 			// m_isVictory1P = 1Pの勝利
 			// m_isVictory2P = 2Pの勝利
-			return(new SceneResult(m_isVictory1P, m_isVictory2P));// 1ステージ切り替え
+			return(new SceneResult(m_isVictory1P, m_isVictory2P, m_pPlayer[0], m_pPlayer[1]));// 1ステージ切り替え
 		}
 	}
 
@@ -129,10 +128,6 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	// プレイヤーのHPの変数
-	//printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
-	//printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
-
 	// ステージの描画
 	m_pStageBase->Draw();
 
@@ -184,21 +179,13 @@ void SceneMain::Draw()
 			kTimeUpFontPosY, 0x7fffff, m_font, "TIME\n UP");
 	}
 
-	//printfDx("%d\n", m_drawCount);
-
-	//printfDx("%d\n", countDown);
-
 
 	SceneBase::DrawFade();
 }
 
 void SceneMain::UpdateCountDown()
 {
-
-	//m_countDown++;
-
-	//if (m_countDown >= 180)
-
+	// カウントダウン
 	m_countDown--;
 
 	if (m_countDown <= 0)
@@ -300,10 +287,6 @@ void SceneMain::UpdateMain()
 
 void SceneMain::UpdateDead()
 {
-	// プレイヤーのHPの変数
-	//printfDx("Dino:%d\n", m_pPlayer[0]->GetHp());
-	//printfDx("Kin:%d\n", m_pPlayer[1]->GetHp());
-
 	// ステージの描画
 	m_pStageBase->Draw();
 

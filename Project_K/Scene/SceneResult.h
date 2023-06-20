@@ -2,6 +2,8 @@
 #include "SceneBase.h"
 #include "../Util/common.h"
 
+class PlayerBase;
+
 class SceneResult : public SceneBase
 {
 public:
@@ -9,7 +11,7 @@ public:
 	/// 勝敗フラグ付きコンストラクタ
 	/// </summary>
 	/// <param name="isVictoryOrDefeat"></param>
-	SceneResult(bool isVictory1P, bool isVictory2P);
+	SceneResult(bool isVictory1P, bool isVictory2P, PlayerBase* player1P, PlayerBase* player2P);
 	virtual ~SceneResult();
 
 	virtual void Init();
@@ -19,6 +21,9 @@ public:
 	virtual void Draw();
 
 private:
+	// ポインタ
+	PlayerBase* m_pPlayer[2];// プレイヤーベース
+
 	bool m_isTitle;// タイトルへ
 	bool m_isRetry;// リトライ
 

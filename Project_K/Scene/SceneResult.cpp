@@ -2,12 +2,14 @@
 #include "SceneTitle.h"
 #include "SceneMapSelect.h"
 
-SceneResult::SceneResult(bool isVictory1P, bool isVictory2P) :
+SceneResult::SceneResult(bool isVictory1P, bool isVictory2P, PlayerBase* player1P, PlayerBase* player2P) :
 	m_isTitle(false),
 	m_isRetry(false),
 	m_isVictory1P(isVictory1P),
 	m_isVictory2P(isVictory2P)
 {
+	m_pPlayer[0] = player1P;
+	m_pPlayer[1] = player2P;
 }
 
 SceneResult::~SceneResult()
