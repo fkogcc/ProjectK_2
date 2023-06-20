@@ -7,6 +7,7 @@
 #include"../Object/Player/Kinnikurou/Kinnikurou.h"
 #include"../Object/Player/Witch/Witch.h"
 #include"../Util/SelectUI.h"
+#include "../Util/Sound.h"
 
 SceneCharacterSelect::SceneCharacterSelect(int StageNo) :
 	m_isDino(false),
@@ -31,11 +32,15 @@ SceneCharacterSelect::~SceneCharacterSelect()
 
 void SceneCharacterSelect::Init()
 {
+	// BGM 再生
+	Sound::startBgm(Sound::SelectBgm, 255);
 	m_ui->Init();
 }
 
 void SceneCharacterSelect::End()
 {
+	// BGM 停止
+	Sound::stopBgm(Sound::SelectBgm);
 }
 
 SceneBase* SceneCharacterSelect::Update()
