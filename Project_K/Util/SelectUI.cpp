@@ -1,166 +1,112 @@
-#include "SelectUI.h"
+ï»¿#include "SelectUI.h"
 #include"game.h"
 #include"DrawFunctions.h"
 #include"DxLib.h"
+#include"FontFunction.h"
 
 namespace
 {
-	float kBottomStandard = Game::kScreenHeight - 150; // ‰º‚ÌŠî€üi‘I‘ğƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğ‰º‚Å‡‚í‚¹‚éj
+	int kBottomStandard = Game::kScreenHeight - 150; // ä¸‹ã®åŸºæº–ç·šï¼ˆé¸æŠãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’ä¸‹ã§åˆã‚ã›ã‚‹ï¼‰
+	int kSelectFont = 0;// ä¸Šã«è¡¨ç¤ºã™ã‚‹ã®ã«ä½¿ç”¨ã™ã‚‹ãƒ•ã‚©ãƒ³ãƒˆ
+	int kDinoFont = 0;// æç«œãã‚“ãŒä½¿ç”¨ã™ã‚‹ãƒ•ã‚©ãƒ³ãƒˆ
+	int kElfFont = 0;// ã‚¨ãƒ«ãƒ•ãã‚“ãŒä½¿ç”¨ã™ã‚‹ãƒ•ã‚©ãƒ³ãƒˆ
+	int kKinFont = 0;// ãã‚“ã«ãã‚“ãŒä½¿ç”¨ã™ã‚‹ãƒ•ã‚©ãƒ³ãƒˆ
+	int kWitchFont = 0;// é­”å¥³ãŒä½¿ç”¨ã™ã‚‹ãƒ•ã‚©ãƒ³ãƒˆ
+	const char* kSelectText = "character select";// ä¸Šã«è¡¨ç¤ºã™ã‚‹æ–‡å­—
+	const char* kDinoText = "ã ã„ãªããƒ¼";// è¡¨ç¤ºã™ã‚‹æ–‡å­—
+	const char* kElfText = "Elf";// è¡¨ç¤ºã™ã‚‹æ–‡å­—
+	const char* kKinText = "ãã‚“ã«ãã‚“";// è¡¨ç¤ºã™ã‚‹æ–‡å­—
+	const char* kWitchText = "Witch";// è¡¨ç¤ºã™ã‚‹æ–‡å­—
+
+	int kColor1P = 0xffffff;// 1PãŒä½¿ç”¨ã™ã‚‹è‰²
+	int kColor2P = 0xffffff;// 2PãŒä½¿ç”¨ã™ã‚‹è‰²
 }
 
 SelectUI::SelectUI() :
-	m_wallHandle(0),
 	m_frameHandle(0),
 	m_dinoHandle(0),
 	m_elfHandle(0),
 	m_kinnikuHandle(0),
 	m_witchHandle(0),
-	m_cursor1(0),
 	m_frameCount1(0),
 	m_indexWidth1(0),
 	m_indexHight1(0),
 	m_frameCount2(0),
 	m_indexWidth2(0),
 	m_indexHight2(0),
+	m_cursor1(0),
 	m_cursor2(0),
-	m_wallOffset(0),
-	m_waitFrame(0)
+	m_cursorFlag1(false),
+	m_cursorFlag2(false)
 {
+
 }
 
 SelectUI::~SelectUI()
 {
-	// ‰æ‘œ‚ÌƒfƒŠ[ƒgˆ—
-	my::MyDeleteGraph(m_wallHandle);
+	// ç”»åƒã®ãƒ‡ãƒªãƒ¼ãƒˆå‡¦ç†
 	my::MyDeleteGraph(m_frameHandle);
 	my::MyDeleteGraph(m_dinoHandle);
 	my::MyDeleteGraph(m_elfHandle);
 	my::MyDeleteGraph(m_kinnikuHandle);
 	my::MyDeleteGraph(m_witchHandle);
+
+	// ãƒ•ã‚©ãƒ³ãƒˆã®ãƒ‡ãƒªãƒ¼tp
+	DeleteFontToHandle(kSelectFont);
+	DeleteFontToHandle(kDinoFont);
+	DeleteFontToHandle(kElfFont);
+	DeleteFontToHandle(kKinFont);
+	DeleteFontToHandle(kWitchFont);
 }
 
 void SelectUI::Init()
 {
-	InitLoad();// ‰æ‘œ‚Ìƒ[ƒh
-	InitChar();// ƒLƒƒƒ‰ƒNƒ^‚Ì‰Šú‰»ˆ—
+	InitLoad();// ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
+	InitFont();// ãƒ•ã‚©ãƒ³ãƒˆã®åˆæœŸåŒ–
+	InitChar();// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ã®åˆæœŸåŒ–å‡¦ç†
 }
 
 void SelectUI::Update()
 {
-	//m_wallOffset++;// ƒXƒNƒ[ƒ‹
-	//if (m_wallOffset >= 64)
-	//{
-	//	m_wallOffset -= 64;// ƒXƒNƒ[ƒ‹
-	//}
-	SelectCursor(m_cursor1, 1);// ƒJ[ƒ\ƒ‹‚É‚æ‚Á‚ÄƒAƒbƒvƒf[ƒg
-	SelectCursor(m_cursor2, 2);// ƒJ[ƒ\ƒ‹‚É‚æ‚Á‚ÄƒAƒbƒvƒf[ƒg 
-	UpdateAnimation();// ƒAƒjƒ[ƒVƒ‡ƒ“
+	SelectCursor(m_cursor1, 1);// ã‚«ãƒ¼ã‚½ãƒ«ã«ã‚ˆã£ã¦ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
+	SelectCursor(m_cursor2, 2);// ã‚«ãƒ¼ã‚½ãƒ«ã«ã‚ˆã£ã¦ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ 
+	UpdateAnimation();// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 }
 
 void SelectUI::Draw()
 {
-	//// ‚È‚ñ‚©ƒXƒNƒ[ƒ‹‚µ‚Ä‚é
-	//for (int x = 0; x < Game::kScreenWidth / 64 + 1; x++)
-	//{
-	//	for (int y = 0; y < Game::kScreenHeight / 64 + 1; y++)
-	//	{
-	//		DrawGraph(x * 64 - m_wallOffset, y * 64, m_wallHandle, false);
-	//	}
-	//}
-	// ƒtƒŒ[ƒ€
-	for (int i = 1; i <= 4; i++)
-	{
-		int pos = 200;
-		my::MyDrawRectRotaGraph(
-			static_cast<int>(Game::kScreenWidth / 2), static_cast<int>(48) + pos * i,//ƒvƒŒƒCƒ„[‚ÌˆÊ’u
-			0, 0,// ‰æ‘œ‚Ì‰Eã
-			48, 48,
-			4,
-			DX_PI_F * 2,
-			m_frameHandle,
-			true,
-			false);
-	}
-
-	// ƒAƒCƒRƒ“(‚Æ‚©‚°‚­‚ñ)
-	my::MyDrawRectRotaGraph(
-		static_cast<int>(Game::kScreenWidth / 2 + 270), static_cast<int>(200 - 25),//ƒvƒŒƒCƒ„[‚ÌˆÊ’u
-		320, 0,// ‰æ‘œ‚Ì‰Eã
-		450, 180,
-		1.5,
-		DX_PI_F * 2,
-		m_dinoHandle,
-		true,
-		false);
-	// ƒAƒCƒRƒ“(Elf‚­‚ñ)
-	my::MyDrawRectRotaGraph(
-		static_cast<int>(Game::kScreenWidth / 2), static_cast<int>(200 + 10),//ƒvƒŒƒCƒ„[‚ÌˆÊ’u
-		0, 0,// ‰æ‘œ‚Ì‰Eã
-		288, 100,
-		6,
-		DX_PI_F * 2,
-		m_elfHandle,
-		true,
-		false);
-	// ƒAƒCƒRƒ“(‚«‚ñ‚É‚­‚ñ)
-	my::MyDrawRectRotaGraph(
-		static_cast<int>(Game::kScreenWidth / 2), static_cast<int>(600 + 50),//ƒvƒŒƒCƒ„[‚ÌˆÊ’u
-		0, 0,// ‰æ‘œ‚Ì‰Eã
-		18, 18,
-		7,
-		DX_PI_F * 2,
-		m_kinnikuHandle,
-		true,
-		false);
-	// ƒAƒCƒRƒ“(‚Ü‚¶‚å)
-	my::MyDrawRectRotaGraph(
-		static_cast<int>(Game::kScreenWidth / 2), static_cast<int>(840),//ƒvƒŒƒCƒ„[‚ÌˆÊ’u
-		0, 0,// ‰æ‘œ‚Ì‰Eã
-		48, 30,
-		5,
-		DX_PI_F * 2,
-		m_witchHandle,
-		true,
-		false);
-
-
-	// 1P‚ª‘I‘ğ‚µ‚Ä‚éƒLƒƒƒ‰
-	my::MyDrawRectRotaGraph(
-		400, static_cast<int>(m_player1.m_posY),//ƒvƒŒƒCƒ„[‚ÌˆÊ’u
-		m_player1.m_imgWidth * m_indexWidth1, m_player1.m_imgHight * m_indexHight1,// ‰æ‘œ‚Ì‰Eã
-		m_player1.m_imgWidth, m_player1.m_imgHight,// ‰æ‘œ‚ÌØ‚èæ‚è
-		m_player1.m_imgSize,// ‰æ‘œ‚ÌŠg‘å—¦
-		DX_PI_F * 2,// ‰ñ“]
-		m_player1.m_handle,// ‰æ‘œ
-		true,// ”½“]
-		false);// “§‰ß
-
-	// 2P‚ª‘I‘ğ‚µ‚Ä‚éƒLƒƒƒ‰
-	my::MyDrawRectRotaGraph(
-		Game::kScreenWidth - 400, static_cast<int>(m_player2.m_posY),//ƒvƒŒƒCƒ„[‚ÌˆÊ’u
-		m_player2.m_imgWidth * m_indexWidth2, m_player2.m_imgHight * m_indexHight2,// ‰æ‘œ‚Ì‰Eã
-		m_player2.m_imgWidth, m_player2.m_imgHight,// ‰æ‘œ‚ÌØ‚èæ‚è
-		m_player2.m_imgSize,// ‰æ‘œ‚ÌŠg‘å—¦
-		DX_PI_F * 2,// ‰ñ“]
-		m_player2.m_handle,// ‰æ‘œ
-		true,// ”½“]
-		true);// “§‰ß
+	DrawChar();// ã‚­ãƒ£ãƒ©ã®æç”»
+	DrawLetter();// æ–‡å­—ã®åˆæœŸåŒ–
 }
 
 void SelectUI::InitLoad()
 {
-	// ‰æ‘œ‚Ìƒ[ƒhˆ—
-	m_wallHandle = my::MyLoadGraph("Data/Image/UI/pink.png");
-	m_frameHandle = my::MyLoadGraph("Data/Image/UI/frame.png");
-	m_dinoHandle = my::MyLoadGraph("Data/Image/Player/kyouryuu/Enemy.png");
-	m_elfHandle = my::MyLoadGraph("Data/Image/Player/Elf/Elf.png");
-	m_kinnikuHandle = my::MyLoadGraph("Data/Image/Player/Kinnikurou/Idle.png");
-	m_witchHandle = my::MyLoadGraph("Data/Image/Player/Witch/Witch.png");
+	// ç”»åƒã®ãƒ­ãƒ¼ãƒ‰å‡¦ç†
+	m_frameHandle = my::MyLoadGraph("Data/Image/UI/frame.png");// ãƒ•ãƒ¬ãƒ¼ãƒ 
+	m_dinoHandle = my::MyLoadGraph("Data/Image/Player/kyouryuu/Enemy.png");// æç«œ
+	m_elfHandle = my::MyLoadGraph("Data/Image/Player/Elf/Elf.png");// ã‚¨ãƒ«ãƒ•
+	m_kinnikuHandle = my::MyLoadGraph("Data/Image/Player/Kinnikurou/Idle.png");// ãã‚“ã«ãã‚“
+	m_witchHandle = my::MyLoadGraph("Data/Image/Player/Witch/Witch.png");// é­”å¥³
+}
+
+void SelectUI::InitFont()
+{
+	font::MyFontPath("Data/Font/Valentina-Regular.ttf");
+	kSelectFont = CreateFontToHandle("Valentina", 100, -1, -1);// ä¸Šã®è¡¨ç¤ºã™ã‚‹æ–‡å­—ã«ä½¿ç”¨ã™ã‚‹ãƒ•ã‚©ãƒ³
+
+	font::MyFontPath("Data/Font/851letrogo_007.ttf");
+	kDinoFont = CreateFontToHandle("851ãƒ¬ãƒˆãƒ­ã‚´", 50, -1, -1);// æç«œãã‚“ç”¨ãƒ•ã‚©ãƒ³ãƒˆ
+	font::MyFontPath("Data/Font/Valentina-Regular.ttf");
+	kElfFont = CreateFontToHandle("Valentina", 50, -1, -1);// ã‚¨ãƒ«ãƒ•ãã‚“ç”¨ãƒ•ã‚©ãƒ³ãƒˆ
+	font::MyFontPath("Data/Font/kkm_analogtv.ttf");
+	kKinFont = CreateFontToHandle("KKM-ã‚¢ãƒŠãƒ­ã‚°ãƒ†ãƒ¬ãƒ“ãƒ•ã‚©ãƒ³ãƒˆ", 50, -1, -1);// ãã‚“ã«ãã‚“ç”¨ãƒ•ã‚©ãƒ³ãƒˆ
+	font::MyFontPath("Data/Font/Utusi Star Normal.otf");
+	kWitchFont = CreateFontToHandle("Utusi Star", 50, -1, -1);// é­”å¥³ç”¨ãƒ•ã‚©ãƒ³ãƒˆ
 }
 
 void SelectUI::InitChar()
 {
-	// P1‚Ì‰Šú‰»
+	// P1ã®åˆæœŸåŒ–
 	m_player1.m_imgWidth = 0;
 	m_player1.m_imgHight = 0;
 	m_player1.m_imgSize = 0;
@@ -168,18 +114,12 @@ void SelectUI::InitChar()
 	m_player1.m_maxWidth = 0;
 	m_player1.m_maxHight = 0;
 	m_player1.m_animFrame = 0;
-	m_temp = m_player1;
+	m_player1.m_text = kDinoText;
+	m_player1.m_font = kDinoFont;
+	m_temp = m_player1;// ã“ã“ã§ã¾ã¨ã‚ã¦åˆæœŸåŒ–
+	m_player2 = m_player1;// ã¤ã„ã§ã«2Pã‚‚ã¾ã¨ã‚ã¦åˆæœŸåŒ–
 
-	// P2‚Ì‰Šú‰»
-	m_player2.m_imgWidth = 0;
-	m_player2.m_imgHight = 0;
-	m_player2.m_imgSize = 0;
-	m_player2.m_posY = 0;
-	m_player2.m_maxWidth = 0;
-	m_player2.m_maxHight = 0;
-	m_player2.m_animFrame = 0;
-
-	// ‚Æ‚©‚°‚­‚ñ‚Ì‰Šú‰»
+	// æç«œãã‚“ã®åˆæœŸåŒ–
 	m_dino.m_imgWidth = 640;
 	m_dino.m_imgHight = 222;
 	m_dino.m_imgSize = 2;
@@ -188,8 +128,11 @@ void SelectUI::InitChar()
 	m_dino.m_maxWidth = 9;
 	m_dino.m_maxHight = 2;
 	m_dino.m_animFrame = 5;
+	m_dino.m_text = kDinoText;
+	m_dino.m_font = kDinoFont;
 
-	// ƒGƒ‹ƒt‚­‚ñ‚Ì‰Šú‰»
+
+	// ã‚¨ãƒ«ãƒ•ãã‚“ã®åˆæœŸåŒ–
 	m_elf.m_imgWidth = 288;
 	m_elf.m_imgHight = 128;
 	m_elf.m_imgSize = 7;
@@ -198,8 +141,10 @@ void SelectUI::InitChar()
 	m_elf.m_maxWidth = 12;
 	m_elf.m_maxHight = 0;
 	m_elf.m_animFrame = 5;
+	m_elf.m_text = kElfText;
+	m_elf.m_font = kElfFont;
 
-	// ‚«‚ñ‚É‚­‚ñ‚Ì‰Šú‰»
+	// ãã‚“ã«ãã‚“ã®åˆæœŸåŒ–
 	m_kinnniku.m_imgWidth = 18;
 	m_kinnniku.m_imgHight = 23;
 	m_kinnniku.m_imgSize = 10;
@@ -208,8 +153,10 @@ void SelectUI::InitChar()
 	m_kinnniku.m_maxHight = 0;
 	m_kinnniku.m_maxWidth = 2;
 	m_kinnniku.m_animFrame = 60;
+	m_kinnniku.m_text = kKinText;
+	m_kinnniku.m_font = kKinFont;
 
-	// –‚—‚Ì‰Šú‰»
+	// é­”å¥³ã®åˆæœŸåŒ–
 	m_witch.m_imgWidth = 48;
 	m_witch.m_imgHight = 48;
 	m_witch.m_imgSize = 6;
@@ -218,12 +165,14 @@ void SelectUI::InitChar()
 	m_witch.m_maxWidth = 1;
 	m_witch.m_maxHight = 8;
 	m_witch.m_animFrame = 15;
+	m_witch.m_text = kWitchText;
+	m_witch.m_font = kWitchFont;
 
 }
 
 void SelectUI::UpdateAnimation()
 {
-	// 1P‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+	// 1Pã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	m_frameCount1++;
 	if (m_player1.m_animFrame <= m_frameCount1)
 	{
@@ -240,7 +189,7 @@ void SelectUI::UpdateAnimation()
 	{
 		m_indexHight1 = 0;
 	}
-	// 2P‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+	// 2Pã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	m_frameCount2++;
 	if (m_player2.m_animFrame <= m_frameCount2)
 	{
@@ -259,11 +208,110 @@ void SelectUI::UpdateAnimation()
 	}
 }
 
+void SelectUI::DrawChar()
+{
+	// ãƒ•ãƒ¬ãƒ¼ãƒ 
+	for (int i = 1; i <= 4; i++)
+	{
+		int pos = 200;
+		my::MyDrawRectRotaGraph(
+			static_cast<int>(Game::kScreenWidth / 2), static_cast<int>(48) + pos * i,//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+			0, 0,// ç”»åƒã®å³ä¸Š
+			48, 48,
+			4,
+			DX_PI_F * 2,
+			m_frameHandle,
+			true,
+			false);
+	}
+	// ã‚¢ã‚¤ã‚³ãƒ³(æç«œãã‚“)
+	my::MyDrawRectRotaGraph(
+		static_cast<int>(Game::kScreenWidth / 2 + 270), static_cast<int>(200 - 25),//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+		320, 0,// ç”»åƒã®å³ä¸Š
+		450, 180,
+		1.5,
+		DX_PI_F * 2,
+		m_dinoHandle,
+		true,
+		false);
+	// ã‚¢ã‚¤ã‚³ãƒ³(Elfãã‚“)
+	my::MyDrawRectRotaGraph(
+		static_cast<int>(Game::kScreenWidth / 2), static_cast<int>(200 + 10),//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+		0, 0,// ç”»åƒã®å³ä¸Š
+		288, 100,
+		6,
+		DX_PI_F * 2,
+		m_elfHandle,
+		true,
+		false);
+	// ã‚¢ã‚¤ã‚³ãƒ³(ãã‚“ã«ãã‚“)
+	my::MyDrawRectRotaGraph(
+		static_cast<int>(Game::kScreenWidth / 2), static_cast<int>(600 + 50),//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+		0, 0,// ç”»åƒã®å³ä¸Š
+		18, 18,
+		7,
+		DX_PI_F * 2,
+		m_kinnikuHandle,
+		true,
+		false);
+	// ã‚¢ã‚¤ã‚³ãƒ³(ã¾ã˜ã‚‡)
+	my::MyDrawRectRotaGraph(
+		static_cast<int>(Game::kScreenWidth / 2), static_cast<int>(840),//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+		0, 0,// ç”»åƒã®å³ä¸Š
+		48, 30,
+		5,
+		DX_PI_F * 2,
+		m_witchHandle,
+		true,
+		false);
+
+
+	// 1PãŒé¸æŠã—ã¦ã‚‹ã‚­ãƒ£ãƒ©
+	my::MyDrawRectRotaGraph(
+		400, m_player1.m_posY,//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+		m_player1.m_imgWidth * m_indexWidth1, m_player1.m_imgHight * m_indexHight1,// ç”»åƒã®å³ä¸Š
+		m_player1.m_imgWidth, m_player1.m_imgHight,// ç”»åƒã®åˆ‡ã‚Šå–ã‚Š
+		m_player1.m_imgSize,// ç”»åƒã®æ‹¡å¤§ç‡
+		DX_PI_F * 2,// å›è»¢
+		m_player1.m_handle,// ç”»åƒ
+		true,// åè»¢
+		false);// é€é
+
+	// 2PãŒé¸æŠã—ã¦ã‚‹ã‚­ãƒ£ãƒ©
+	my::MyDrawRectRotaGraph(
+		Game::kScreenWidth - 400, m_player2.m_posY,//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+		m_player2.m_imgWidth * m_indexWidth2, m_player2.m_imgHight * m_indexHight2,// ç”»åƒã®å³ä¸Š
+		m_player2.m_imgWidth, m_player2.m_imgHight,// ç”»åƒã®åˆ‡ã‚Šå–ã‚Š
+		m_player2.m_imgSize,// ç”»åƒã®æ‹¡å¤§ç‡
+		DX_PI_F * 2,// å›è»¢
+		m_player2.m_handle,// ç”»åƒ
+		true,// åè»¢
+		true);// é€é
+}
+
+void SelectUI::DrawLetter()
+{
+	// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒ¬ã‚¯ãƒˆã®è¡¨ç¤º
+	DrawStringToHandle((Game::kScreenWidth -
+		GetDrawStringWidthToHandle(kSelectText, 16, kSelectFont)) / 2,
+		100 - 35, kSelectText, 0x800000, kSelectFont);
+
+	//int a = GetDrawStringWidthToHandle(kSelectText, 12, m_player1.m_font) / 2;
+
+	// 1Pã®åå‰è¡¨ç¤º
+	DrawStringToHandle(400,
+		300, m_player1.m_text, kColor1P, m_player1.m_font);
+	// 2Pã®åå‰è¡¨ç¤º
+	DrawStringToHandle(Game::kScreenWidth - 400,
+		300, m_player2.m_text, kColor2P, m_player2.m_font);
+}
+
 void SelectUI::SelectCursor(int cursor, int selectNum)
 {
+	// ã‚«ãƒ¼ã‚½ãƒ«ãŒã„ã‚‹ä½ç½®ã§å‡¦ç†ã‚’å¤‰æ›´ã™ã‚‹
 	if (cursor == 0)
 	{
-		// ‚¾‚¢‚È‚»[‚­‚ñ
+		// æç«œãã‚“
 		m_temp.m_imgWidth = m_dino.m_imgWidth;
 		m_temp.m_imgHight = m_dino.m_imgHight;
 		m_temp.m_imgSize = m_dino.m_imgSize;
@@ -272,10 +320,12 @@ void SelectUI::SelectCursor(int cursor, int selectNum)
 		m_temp.m_maxHight = m_dino.m_maxHight;
 		m_temp.m_animFrame = m_dino.m_animFrame;
 		m_temp.m_handle = m_dinoHandle;
+		m_temp.m_text = m_dino.m_text;
+		m_temp.m_font = m_dino.m_font;
 	}
 	if (cursor == 1)
 	{
-		// ƒGƒ‹ƒt‚­‚ñ
+		// ã‚¨ãƒ«ãƒ•ãã‚“
 		m_temp.m_imgWidth = m_elf.m_imgWidth;
 		m_temp.m_imgHight = m_elf.m_imgHight;
 		m_temp.m_imgSize = m_elf.m_imgSize;
@@ -284,10 +334,12 @@ void SelectUI::SelectCursor(int cursor, int selectNum)
 		m_temp.m_maxHight = m_elf.m_maxHight;
 		m_temp.m_animFrame = m_elf.m_animFrame;
 		m_temp.m_handle = m_elfHandle;
+		m_temp.m_text = m_elf.m_text;
+		m_temp.m_font = m_elf.m_font;
 	}
 	if (cursor == 2)
 	{
-		// ‚«‚ñ‚É‚­‚ñ
+		// ãã‚“ã«ãã‚“
 		m_temp.m_imgWidth = m_kinnniku.m_imgWidth;
 		m_temp.m_imgHight = m_kinnniku.m_imgHight;
 		m_temp.m_imgSize = m_kinnniku.m_imgSize;
@@ -296,10 +348,12 @@ void SelectUI::SelectCursor(int cursor, int selectNum)
 		m_temp.m_maxHight = m_kinnniku.m_maxHight;
 		m_temp.m_animFrame = m_kinnniku.m_animFrame;
 		m_temp.m_handle = m_kinnikuHandle;
+		m_temp.m_text = m_kinnniku.m_text;
+		m_temp.m_font = m_kinnniku.m_font;
 	}
 	if (cursor == 3)
 	{
-		// –‚—
+		// é­”å¥³
 		m_temp.m_imgWidth = m_witch.m_imgWidth;
 		m_temp.m_imgHight = m_witch.m_imgHight;
 		m_temp.m_imgSize = m_witch.m_imgSize;
@@ -308,7 +362,10 @@ void SelectUI::SelectCursor(int cursor, int selectNum)
 		m_temp.m_maxHight = m_witch.m_maxHight;
 		m_temp.m_animFrame = m_witch.m_animFrame;
 		m_temp.m_handle = m_witchHandle;
+		m_temp.m_text = m_witch.m_text;
+		m_temp.m_font = m_witch.m_font;
 	}
+	// æ¸¡ã—ãŸæ•°ã«ã‚ˆã£ã¦PADãŒã©ã£ã¡ã‹ã‚’åˆ†å²ã•ã›ã‚‹
 	if (selectNum == 1)
 	{
 		m_player1 = m_temp;
@@ -316,5 +373,23 @@ void SelectUI::SelectCursor(int cursor, int selectNum)
 	else
 	{
 		m_player2 = m_temp;
+	}
+	// æ±ºå®šã•ã‚Œã¦ã„ãŸã‚‰å„ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è‰²ã«ã™ã‚‹
+	// ãã†ã§ã¯ãªã‹ã£ãŸã‚‰ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ç™½ã‚’æ¸¡ã™
+	if (m_cursorFlag1)// 1P
+	{
+		kColor1P = 0xff0000;
+	}
+	else
+	{
+		kColor1P = 0xffffff;
+	}
+	if (m_cursorFlag2)// 2P
+	{
+		kColor2P = 0x0000ff;
+	}
+	else
+	{
+		kColor2P = 0xffffff;
 	}
 }
