@@ -11,6 +11,7 @@
 #include"../Object/Shot/ShotBase.h"
 #include"../Util/Collision.h"
 #include "../Util/UI.h"
+#include "../Util/Sound.h"
 
 #include <iostream>
 
@@ -63,6 +64,10 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+
+	// BGM 再生
+	Sound::startBgm(Sound::MainBgm, 255);
+
 	m_pPlayer[0]->SetPadNum(1);
 	m_pPlayer[1]->SetPadNum(2);
 
@@ -77,6 +82,10 @@ void SceneMain::Init()
 
 void SceneMain::End()
 {
+
+	// BGM 停止
+	Sound::stopBgm(Sound::MainBgm);
+
 	m_pPlayer[0]->End();
 	m_pPlayer[1]->End();
 
