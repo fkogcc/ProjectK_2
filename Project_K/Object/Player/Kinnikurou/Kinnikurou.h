@@ -23,10 +23,15 @@ public:
 	void Draw()override;// 描画
 
 	void ImgposInit();// 画像位置の初期化
-
 	void AttackCol();// 攻撃のタイミング
-
 	void InitAttackFlag();// 攻撃フラグの初期化
+	void UpdateKnockBack();// ノックバック中の処理
+	void MotionCountDown();// モーションのフレームカウントダウン
+
+	void UpdateRun();// 走りモーション
+	void UpdateAttack();// 攻撃モーション
+	void CollisionSize(int left, int top, int Right, int Bottom);// 攻撃判定の代入
+	void HandleAssignment(int handle, int width, int height);
 
 private:
 	// ポインタ

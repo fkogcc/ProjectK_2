@@ -28,28 +28,32 @@ SceneBase* SceneMapSelect::Update()
 		m_isFadeOut = IsFadingOut();
 		SceneBase::UpdateFade();
 		
-		if (!IsFading() && m_isFadeOut) 
+		if (!IsFading() && m_isFadeOut && !m_isBackScene) 
 		{ 
 			return (new SceneCharacterSelect(m_mapNum)); 
+		}
+		if (!IsFading() && m_isFadeOut && m_isBackScene)
+		{
+			return (new SceneTitle());
 		}
 	}
 
 	if (!IsFading())
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1,1))
+		if (Pad::IsTrigger(PAD_INPUT_1,1) || Pad::IsTrigger(PAD_INPUT_1, 2))
 		{
 			StartFadeOut();
 		}
 	}
 
-	if (Pad::IsTrigger(PAD_INPUT_UP, 1))
+	if (Pad::IsTrigger(PAD_INPUT_UP, 1) || Pad::IsTrigger(PAD_INPUT_UP, 2))
 	{
 		if (m_mapNum < 4)
 		{
 			m_mapNum++;
 		}
 	}
-	else if (Pad::IsTrigger(PAD_INPUT_DOWN, 1))
+	else if (Pad::IsTrigger(PAD_INPUT_DOWN, 1) || Pad::IsTrigger(PAD_INPUT_DOWN, 2))
 	{
 		if (m_mapNum > 1)
 		{
@@ -57,7 +61,11 @@ SceneBase* SceneMapSelect::Update()
 		}
 	}
 
-
+	if (Pad::IsTrigger(PAD_INPUT_2, 1) || Pad::IsTrigger(PAD_INPUT_2, 2))
+	{
+		m_isBackScene = true;
+		StartFadeOut();
+	}
 
 	
 	return this;
