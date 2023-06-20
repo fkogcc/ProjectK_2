@@ -7,26 +7,22 @@
 namespace
 {
 	int kBottomStandard = Game::kScreenHeight - 150; // 下の基準線（選択プレイヤーの位置を下で合わせる）
-	int kSelectFont = 0;
+	int kSelectFont = 0;// 上に表示するのに使用するフォント
+	int kDinoFont = 0;// 恐竜くんが使用するフォント
+	int kElfFont = 0;// エルフくんが使用するフォント
+	int kKinFont = 0;// きんにくんが使用するフォント
+	int kWitchFont = 0;// 魔女が使用するフォント
+	const char* kSelectText = "character select";// 上に表示する文字
+	const char* kDinoText = "だいなそー";// 表示する文字
+	const char* kElfText = "Elf";// 表示する文字
+	const char* kKinText = "きんにくん";// 表示する文字
+	const char* kWitchText = "Witch";// 表示する文字
 
-	// 後できれいにしろおバカ
-	int kDinoFont = 0;
-	int kElfFont = 0;
-	int kKinFont = 0;
-	int kWitchFont = 0;
-	const char* kSelectText = "character select";
-
-	const char* kDinoText = "だいなそー";
-	const char* kElfText = "Elf";
-	const char* kKinText = "きんにくん";
-	const char* kWitchText = "Witch";
-
-	int kColor1P = 0xffffff;
-	int kColor2P = 0xffffff;
+	int kColor1P = 0xffffff;// 1Pが使用する色
+	int kColor2P = 0xffffff;// 2Pが使用する色
 }
 
 SelectUI::SelectUI() :
-	m_wallHandle(0),
 	m_frameHandle(0),
 	m_dinoHandle(0),
 	m_elfHandle(0),
@@ -40,25 +36,15 @@ SelectUI::SelectUI() :
 	m_indexHight2(0),
 	m_cursor1(0),
 	m_cursor2(0),
-	m_selectFont()
+	m_cursorFlag1(false),
+	m_cursorFlag2(false)
 {
-	font::MyFontPath("Data/Font/Valentina-Regular.ttf");
-	kSelectFont = CreateFontToHandle("Valentina", 100, -1, -1);
 
-	font::MyFontPath("Data/Font/851letrogo_007.ttf");
-	kDinoFont = CreateFontToHandle("851レトロゴ", 50, -1, -1);
-	font::MyFontPath("Data/Font/Valentina-Regular.ttf");
-	kElfFont = CreateFontToHandle("Valentina", 50, -1, -1);;
-	font::MyFontPath("Data/Font/kkm_analogtv.ttf");
-	kKinFont = CreateFontToHandle("KKM-アナログテレビフォント", 50, -1, -1);;
-	font::MyFontPath("Data/Font/Utusi Star Normal.otf");
-	kWitchFont = CreateFontToHandle("Utusi Star", 50, -1, -1);
 }
 
 SelectUI::~SelectUI()
 {
 	// 画像のデリート処理
-	my::MyDeleteGraph(m_wallHandle);
 	my::MyDeleteGraph(m_frameHandle);
 	my::MyDeleteGraph(m_dinoHandle);
 	my::MyDeleteGraph(m_elfHandle);
@@ -66,13 +52,17 @@ SelectUI::~SelectUI()
 	my::MyDeleteGraph(m_witchHandle);
 
 	// フォントのデリーtp
-	DeleteFontToHandle(m_selectFont);
 	DeleteFontToHandle(kSelectFont);
+	DeleteFontToHandle(kDinoFont);
+	DeleteFontToHandle(kElfFont);
+	DeleteFontToHandle(kKinFont);
+	DeleteFontToHandle(kWitchFont);
 }
 
 void SelectUI::Init()
 {
 	InitLoad();// 画像のロード
+	InitFont();// フォントの初期化
 	InitChar();// キャラクタの初期化処理
 }
 
@@ -85,27 +75,37 @@ void SelectUI::Update()
 
 void SelectUI::Draw()
 {
-	DrawChar();
-	DrawLetter();
+	DrawChar();// キャラの描画
+	DrawLetter();// 文字の初期化
 }
 
 void SelectUI::InitLoad()
 {
 	// 画像のロード処理
-	m_wallHandle = my::MyLoadGraph("Data/Image/UI/pink.png");
-	m_frameHandle = my::MyLoadGraph("Data/Image/UI/frame.png");
-	m_dinoHandle = my::MyLoadGraph("Data/Image/Player/kyouryuu/Enemy.png");
-	m_elfHandle = my::MyLoadGraph("Data/Image/Player/Elf/Elf.png");
-	m_kinnikuHandle = my::MyLoadGraph("Data/Image/Player/Kinnikurou/Idle.png");
-	m_witchHandle = my::MyLoadGraph("Data/Image/Player/Witch/Witch.png");
+	m_frameHandle = my::MyLoadGraph("Data/Image/UI/frame.png");// フレーム
+	m_dinoHandle = my::MyLoadGraph("Data/Image/Player/kyouryuu/Enemy.png");// 恐竜
+	m_elfHandle = my::MyLoadGraph("Data/Image/Player/Elf/Elf.png");// エルフ
+	m_kinnikuHandle = my::MyLoadGraph("Data/Image/Player/Kinnikurou/Idle.png");// きんにくん
+	m_witchHandle = my::MyLoadGraph("Data/Image/Player/Witch/Witch.png");// 魔女
+}
 
-	m_selectFont = kSelectFont;// 使用するフォント、サイズ
+void SelectUI::InitFont()
+{
+	font::MyFontPath("Data/Font/Valentina-Regular.ttf");
+	kSelectFont = CreateFontToHandle("Valentina", 100, -1, -1);// 上の表示する文字に使用するフォン
+
+	font::MyFontPath("Data/Font/851letrogo_007.ttf");
+	kDinoFont = CreateFontToHandle("851レトロゴ", 50, -1, -1);// 恐竜くん用フォント
+	font::MyFontPath("Data/Font/Valentina-Regular.ttf");
+	kElfFont = CreateFontToHandle("Valentina", 50, -1, -1);// エルフくん用フォント
+	font::MyFontPath("Data/Font/kkm_analogtv.ttf");
+	kKinFont = CreateFontToHandle("KKM-アナログテレビフォント", 50, -1, -1);// きんにくん用フォント
+	font::MyFontPath("Data/Font/Utusi Star Normal.otf");
+	kWitchFont = CreateFontToHandle("Utusi Star", 50, -1, -1);// 魔女用フォント
 }
 
 void SelectUI::InitChar()
 {
-	// わかりにくい処理の書き方なのできれいにしたい
-
 	// P1の初期化
 	m_player1.m_imgWidth = 0;
 	m_player1.m_imgHight = 0;
@@ -116,18 +116,10 @@ void SelectUI::InitChar()
 	m_player1.m_animFrame = 0;
 	m_player1.m_text = kDinoText;
 	m_player1.m_font = kDinoFont;
-	m_temp = m_player1;
+	m_temp = m_player1;// ここでまとめて初期化
+	m_player2 = m_player1;// ついでに2Pもまとめて初期化
 
-	// P2の初期化
-	m_player2.m_imgWidth = 0;
-	m_player2.m_imgHight = 0;
-	m_player2.m_imgSize = 0;
-	m_player2.m_posY = 0;
-	m_player2.m_maxWidth = 0;
-	m_player2.m_maxHight = 0;
-	m_player2.m_animFrame = 0;
-
-	// とかげくんの初期化
+	// 恐竜くんの初期化
 	m_dino.m_imgWidth = 640;
 	m_dino.m_imgHight = 222;
 	m_dino.m_imgSize = 2;
@@ -232,7 +224,7 @@ void SelectUI::DrawChar()
 			true,
 			false);
 	}
-	// アイコン(とかげくん)
+	// アイコン(恐竜くん)
 	my::MyDrawRectRotaGraph(
 		static_cast<int>(Game::kScreenWidth / 2 + 270), static_cast<int>(200 - 25),//プレイヤーの位置
 		320, 0,// 画像の右上
@@ -301,32 +293,25 @@ void SelectUI::DrawLetter()
 {
 	// キャラクターセレクトの表示
 	DrawStringToHandle((Game::kScreenWidth -
-		GetDrawStringWidthToHandle(kSelectText, 16, m_selectFont)) / 2,
-		100 - 35, kSelectText, 0x800000, m_selectFont);
+		GetDrawStringWidthToHandle(kSelectText, 16, kSelectFont)) / 2,
+		100 - 35, kSelectText, 0x800000, kSelectFont);
 
-	int a = GetDrawStringWidthToHandle(kSelectText, 12, m_player1.m_font) / 2;
+	//int a = GetDrawStringWidthToHandle(kSelectText, 12, m_player1.m_font) / 2;
 
 	// 1Pの名前表示
-	DrawStringToHandle(400 - a,
+	DrawStringToHandle(400,
 		300, m_player1.m_text, kColor1P, m_player1.m_font);
-	// 1Pの名前表示
+	// 2Pの名前表示
 	DrawStringToHandle(Game::kScreenWidth - 400,
 		300, m_player2.m_text, kColor2P, m_player2.m_font);
-	//// 1Pの名前表示
-	//DrawStringToHandle((400 -
-	//	GetDrawStringWidthToHandle(kCharText1P, 12, m_char1PFont)) / 2,
-	//	500, kCharText1P, 0x800000, m_char1PFont);
-	//// 1Pの名前表示
-	//DrawStringToHandle((Game::kScreenWidth  -
-	//	GetDrawStringWidthToHandle(kCharText1P, 12, m_char1PFont)) / 2,
-	//	500, kCharText1P, 0x800000, m_char1PFont);
 }
 
 void SelectUI::SelectCursor(int cursor, int selectNum)
 {
+	// カーソルがいる位置で処理を変更する
 	if (cursor == 0)
 	{
-		// だいなそーくん
+		// 恐竜くん
 		m_temp.m_imgWidth = m_dino.m_imgWidth;
 		m_temp.m_imgHight = m_dino.m_imgHight;
 		m_temp.m_imgSize = m_dino.m_imgSize;
@@ -380,6 +365,7 @@ void SelectUI::SelectCursor(int cursor, int selectNum)
 		m_temp.m_text = m_witch.m_text;
 		m_temp.m_font = m_witch.m_font;
 	}
+	// 渡した数によってPADがどっちかを分岐させる
 	if (selectNum == 1)
 	{
 		m_player1 = m_temp;
@@ -388,7 +374,9 @@ void SelectUI::SelectCursor(int cursor, int selectNum)
 	{
 		m_player2 = m_temp;
 	}
-	if (m_cursorFlag1)
+	// 決定されていたら各プレイヤーの色にする
+	// そうではなかったらデフォルトで白を渡す
+	if (m_cursorFlag1)// 1P
 	{
 		kColor1P = 0xff0000;
 	}
@@ -396,7 +384,7 @@ void SelectUI::SelectCursor(int cursor, int selectNum)
 	{
 		kColor1P = 0xffffff;
 	}
-	if (m_cursorFlag2)
+	if (m_cursorFlag2)// 2P
 	{
 		kColor2P = 0x0000ff;
 	}

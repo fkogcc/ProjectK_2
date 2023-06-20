@@ -57,8 +57,8 @@ SceneBase* SceneCharacterSelect::Update()
 
 	m_CharaChoice->Update();
 	m_pUi->Update();
-	m_pUi->UpdateCursor(m_CharaChoice->GetChackChara1(), m_CharaChoice->GetChackChara2());
-	m_pUi->UpdateCursorFlag(m_CharaChoice->GetDecision1(), m_CharaChoice->GetDecision2());
+	m_pUi->SetCursor(m_CharaChoice->GetChackChara1(), m_CharaChoice->GetChackChara2());
+	m_pUi->SetCursorFlag(m_CharaChoice->GetDecision1(), m_CharaChoice->GetDecision2());
 
 	if (m_CharaChoice->GetDecision1() && m_CharaChoice->GetDecision2())
 	{
