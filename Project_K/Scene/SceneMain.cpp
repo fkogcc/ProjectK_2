@@ -121,11 +121,11 @@ void SceneMain::Draw()
 	m_pStageBase->Draw();
 
 	// UIの描画
-	m_pUi->Draw();
+//	m_pUi->Draw();
 
 	// プレイヤーの描画
-	m_pPlayer[0]->Draw();
-	m_pPlayer[1]->Draw();
+//	m_pPlayer[0]->Draw();
+//	m_pPlayer[1]->Draw();
 
 	// デバッグ用当たり判定描画
 	m_pPlayer[0]->DebugDrawCollision();

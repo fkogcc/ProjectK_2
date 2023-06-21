@@ -150,7 +150,6 @@
     <ClCompile Include="Object\Player\Witch\WitchDead.cpp" />
     <ClCompile Include="Object\Shot\ElfShot.cpp" />
     <ClCompile Include="Object\Stage\StageBase.cpp" />
-    <ClCompile Include="Object\Stage\StageManager.cpp" />
     <ClCompile Include="Util\SelectUI.cpp" />
     <ClCompile Include="System\CharaChoice.cpp" />
     <ClCompile Include="Util\Collision.cpp" />
@@ -198,7 +197,6 @@
     <ClCompile Include="Scene\SceneMapSelect.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
-    <ClCompile Include="Object\Stage\Stage.cpp" />
     <ClCompile Include="Util\DrawFunctions.cpp" />
     <ClCompile Include="Util\Pad.cpp" />
     <ClCompile Include="Util\Sound.cpp" />
@@ -219,7 +217,6 @@
     <ClInclude Include="Object\Player\Witch\WitchDead.h" />
     <ClInclude Include="Object\Shot\ElfShot.h" />
     <ClInclude Include="Object\Stage\StageBase.h" />
-    <ClInclude Include="Object\Stage\StageManager.h" />
     <ClInclude Include="Util\SelectUI.h" />
     <ClInclude Include="System\CharaChoice.h" />
     <ClInclude Include="Util\Collision.h" />
@@ -265,7 +262,6 @@
     <ClInclude Include="Scene\SceneMapSelect.h" />
     <ClInclude Include="Scene\SceneResult.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
-    <ClInclude Include="Object\Stage\Stage.h" />
     <ClInclude Include="Util\DrawFunctions.h" />
     <ClInclude Include="Util\game.h" />
     <ClInclude Include="Scene\SceneBase.h" />

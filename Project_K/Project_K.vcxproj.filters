@@ -56,7 +56,6 @@
     <ClCompile Include="Scene\SceneMapSelect.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
-    <ClCompile Include="Object\Stage\Stage.cpp" />
     <ClCompile Include="Util\DrawFunctions.cpp" />
     <ClCompile Include="Util\Pad.cpp" />
     <ClCompile Include="Util\Sound.cpp" />
@@ -66,7 +65,6 @@
     <ClCompile Include="Object\Stage\WizardStage.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuDead.cpp" />
     <ClCompile Include="Object\Stage\StageBase.cpp" />
-    <ClCompile Include="Object\Stage\StageManager.cpp" />
     <ClCompile Include="Util\SelectUI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +121,6 @@
     <ClInclude Include="Scene\SceneMapSelect.h" />
     <ClInclude Include="Scene\SceneResult.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
-    <ClInclude Include="Object\Stage\Stage.h" />
     <ClInclude Include="Util\DrawFunctions.h" />
     <ClInclude Include="Util\game.h" />
     <ClInclude Include="Scene\SceneBase.h" />
@@ -137,7 +134,6 @@
     <ClInclude Include="Object\Stage\WizardStage.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuDead.h" />
     <ClInclude Include="Object\Stage\StageBase.h" />
-    <ClInclude Include="Object\Stage\StageManager.h" />
     <ClInclude Include="Util\SelectUI.h" />
   </ItemGroup>
 </Project>

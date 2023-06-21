@@ -1,12 +1,7 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
-
-class DinoStage;	// 恐竜ステージ
-class ElfStage;		// エルフステージ
-class MachoStage;	// マッチョステージ
-class WizardStage;	// 魔女ステージ
-class StageBase;	// ステージ
+#include "../Util/Vec2.h"
 
 class SceneMapSelect : public SceneBase
 {
@@ -23,17 +18,17 @@ public:
 	// 選択された番号によってマップを選ぶ
 	virtual void ChooseNum();
 
-	void setWizStage(WizardStage* pWizStage) { m_pWizStage = pWizStage; }
-
 	// ステージが選ばれた時の処理
 	//bool IsSelected() { return };
 
 private:
-	DinoStage* m_pDinoStage;	// 恐竜ステージ
-	ElfStage* m_pElfStage;		// エルフステージ
-	MachoStage* m_pMachoStage;	// マッチョステージ
-	WizardStage* m_pWizStage;	// 魔女ステージ
-	StageBase* m_pStageBase;	// ステージベース
+	Vec2 m_pos;
+
+	//**** UI用グラフィックハンドル ****//
+	int m_stageHandle;	// 
+	int m_bgHandle;		// 背景
+	int m_handle;
+	int m_font;			// フォントハンドル
 
 	// マップ判別用の番号変数
 	int m_mapNum;
