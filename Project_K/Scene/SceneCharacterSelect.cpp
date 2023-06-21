@@ -7,7 +7,6 @@
 #include"../Object/Player/Kinnikurou/Kinnikurou.h"
 #include"../Object/Player/Witch/Witch.h"
 #include"../Util/SelectUI.h"
-#include "../Util/Sound.h"
 
 SceneCharacterSelect::SceneCharacterSelect(int StageNo) :
 	m_isDino(false),
@@ -21,7 +20,7 @@ SceneCharacterSelect::SceneCharacterSelect(int StageNo) :
 	m_stageNo(StageNo)
 {
 	m_Player[0] = nullptr;
-    m_Player[1] = nullptr;
+	m_Player[1] = nullptr;
 	m_CharaChoice = new CharaChoice;
 	m_pUi = new SelectUI;
 }
@@ -32,19 +31,11 @@ SceneCharacterSelect::~SceneCharacterSelect()
 
 void SceneCharacterSelect::Init()
 {
-
-	// BGM 再生
-	Sound::startBgm(Sound::SelectBgm, 255);
-
-
-	m_pUi->Init();
-
+	m_pUi->Init(m_stageNo);
 }
 
 void SceneCharacterSelect::End()
 {
-	// BGM 停止
-	Sound::stopBgm(Sound::SelectBgm);
 }
 
 SceneBase* SceneCharacterSelect::Update()
@@ -85,8 +76,8 @@ SceneBase* SceneCharacterSelect::Update()
 		if (m_CharaChoice->GetChackChara2() == 1) m_Player[1] = new Elf;
 		if (m_CharaChoice->GetChackChara2() == 2) m_Player[1] = new Kinnikurou;
 		if (m_CharaChoice->GetChackChara2() == 3) m_Player[1] = new Witch;
-		
-		return(new SceneMain(m_Player[0],m_Player[1], m_stageNo));// 1ステージ切り替え
+
+		return(new SceneMain(m_Player[0], m_Player[1], m_stageNo));// 1ステージ切り替え
 	}
 	//m_Player[0] = new Elf;
 	//m_Player[1] = new Dinosaur;
@@ -140,7 +131,7 @@ void SceneCharacterSelect::Draw()
 	m_pUi->Draw();
 	m_CharaChoice->Draw();
 
-//	SceneBase::DrawFade();
+	//	SceneBase::DrawFade();
 }
 
 //bool SceneCharacterSelect::User1()
