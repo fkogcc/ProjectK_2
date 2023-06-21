@@ -41,7 +41,7 @@ protected:
 	int m_handle;
 
 	bool m_shotFlag = false;
-	bool m_lookLeft;	// 左を向いているか
+	bool m_lookLeft = false;	// 左を向いているか
 	bool m_deadFlag = false; //死んでいるかどうか
 
 	int m_attakSizeLeft = 0;

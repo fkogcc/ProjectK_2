@@ -36,7 +36,10 @@ public:
 	virtual bool IsExist();
 
 	virtual bool GetExist() { return m_Exist; }
-	bool SetExist() { return m_Exist = false; }
+	bool SetExist() { 
+		m_Exist = false; 
+		return m_Exist; 
+	}
 
 	virtual bool GetNullShot() { return m_NullShot; }
 };

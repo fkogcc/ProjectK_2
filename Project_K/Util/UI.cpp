@@ -154,9 +154,9 @@ void UI::FontDraw()
 
 void UI::DrawPlayerCursor(Vec2 playerPos1, Vec2 playerPos2)
 {
-	DrawGraph(playerPos1.x - 50, playerPos1.y - 120, 
+	DrawGraph(static_cast<int>(playerPos1.x) - 50, static_cast<int>(playerPos1.y) - 120,
 		playerCursorHandle1, true);
 
-	DrawGraph(playerPos2.x - 50, playerPos2.y - 120,
+	DrawGraph(static_cast<int>(playerPos2.x) - 50, static_cast<int>(playerPos2.y) - 120,
 		playerCursorHandle2, true);
 }

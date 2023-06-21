@@ -27,7 +27,7 @@ Witch::Witch() :
     m_LoopCount(1),// 何回ループしたか数える変数
     m_animeFrame(0),//アニメーションの速さ
     m_animeMax(0),//アニメーションの最大値
-    m_indexX(0),// 画像の横の切り取り幅
+    m_indexX(1),// 画像の横の切り取り幅
     m_playerjudge(0),// 画像によるずれを補正する変数
     m_shiftX(0),// 画像のサイズが違うことによる問題を補正する変数
     m_animeFlag(false),// アニメーションが行われているかのフラグ
@@ -68,7 +68,7 @@ Witch::~Witch()
 // 初期化
 void Witch::Init()
 {
-    m_pos = { 100.0f,650.0f };// プレイヤーの初期位置の設定
+
     m_handle = my::MyLoadGraph(kFilmName);// 画像のロード
 
     // クラスの初期化
@@ -90,12 +90,17 @@ void Witch::Update()
     UpdateAttackJudge();//当たり判定を呼び出す
     UpdatePlayerJudge();//当たり判定を呼び出す
 
+    if (m_pos.y > 600.0f)
+    {
+        m_pos.y = 600.0f;
+    }
+
     m_pChicken->Update();// にわとりの更新処理
     m_pKnightCat->Update();// 猫ちゃんの更新処理
     KnockBack();
 
     // 死亡したら攻撃できなくする
-    if (m_hp <= 0)// HPが0だったら死亡状態にする
+    if (GetHp() <= 0)// HPが0だったら死亡状態にする
     {
         m_moveType = static_cast<int>(moveType::Dead);// 死亡状態にする
     }
@@ -121,6 +126,11 @@ void Witch::Update()
 // 描画処理
 void Witch::Draw()
 {
+    if (!m_isSpawn)
+    {
+        CharDefaultPos(m_reversal);
+        m_isSpawn = true;
+    }
     //プレイヤーの描画
     my::MyDrawRectRotaGraph(static_cast<int>(m_pos.x),
         static_cast<int>(m_pos.y),// 表示座標
@@ -133,33 +143,33 @@ void Witch::Draw()
     m_pChicken->Draw();// にわとりの描画
     m_pKnightCat->Draw();//ねこちゃんの描画
 
-    // デバッグ描画
-#if DEBUG
-    //DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft,
-    //    static_cast<int> (m_pos.y) + m_sizeTop,
-    //    static_cast<int> (m_pos.x) + m_sizeRight,
-    //    static_cast<int> (m_pos.y) + m_sizeBottom,
-    //    0x00ff00, false);
-
-    //if (m_attackFlag)
-    //{
-    //    DrawBox(m_attackSizeLeft,
-    //        m_attackSizeTop,
-    //        m_attackSizeRight,
-    //        m_attackSizeBottom,
-    //        0xff0000, false);
-    //}
-
-    if (m_attackFlag)
-    {
-        DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft,
-            static_cast<int> (m_pos.y) + m_attackSizeTop,
-            static_cast<int> (m_pos.x) + m_attackSizeRight,
-            static_cast<int> (m_pos.y) + m_attackSizeBottom,
-            0xff0000, false);
-    }
-    DrawFormatString(200, 0, 0xffffff, "%d", m_attackSizeLeft);
-#endif
+//    // デバッグ描画
+//#if DEBUG
+//    //DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft,
+//    //    static_cast<int> (m_pos.y) + m_sizeTop,
+//    //    static_cast<int> (m_pos.x) + m_sizeRight,
+//    //    static_cast<int> (m_pos.y) + m_sizeBottom,
+//    //    0x00ff00, false);
+//
+//    //if (m_attackFlag)
+//    //{
+//    //    DrawBox(m_attackSizeLeft,
+//    //        m_attackSizeTop,
+//    //        m_attackSizeRight,
+//    //        m_attackSizeBottom,
+//    //        0xff0000, false);
+//    //}
+//
+//    if (m_attackFlag)
+//    {
+//        DrawBox(static_cast<int> (m_pos.x) + m_attackSizeLeft,
+//            static_cast<int> (m_pos.y) + m_attackSizeTop,
+//            static_cast<int> (m_pos.x) + m_attackSizeRight,
+//            static_cast<int> (m_pos.y) + m_attackSizeBottom,
+//            0xff0000, false);
+//    }
+//    DrawFormatString(200, 0, 0xffffff, "%d", m_attackSizeLeft);
+//#endif
 }
 
 // パッドがおされた時の状態
@@ -402,7 +412,7 @@ void Witch::UpdateAnim()
     }
     else if (m_pKnightCat->IsExist())// ねこちゃんの当たり判定
     {
-        m_attackSizeLeft =  static_cast<int>((m_pKnightCat->GetPos().x - m_pos.x) + (m_pKnightCat->GetMovePos()) - 20);
+        m_attackSizeLeft = static_cast<int>((m_pKnightCat->GetPos().x - m_pos.x) + (m_pKnightCat->GetMovePos()) - 20);
         m_attackSizeTop = 0;
         m_attackSizeRight = static_cast<int>((m_pKnightCat->GetPos().x - m_pos.x) + (m_pKnightCat->GetMovePos()) + 40);
         m_attackSizeBottom = 60;

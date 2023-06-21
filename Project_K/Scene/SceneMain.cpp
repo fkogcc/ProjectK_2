@@ -31,10 +31,7 @@ namespace
 SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo) :
 	m_isVictory1P(false),
 	m_isVictory2P(false),
-
 	m_countDown(240),
-
-	//countDown(240),
 	m_font(-1),
 	m_timeUpDrawCount(60)
 
@@ -71,22 +68,21 @@ void SceneMain::Init()
 	m_pPlayer[0]->SetPadNum(1);
 	m_pPlayer[1]->SetPadNum(2);
 
-
 	m_pPlayer[0]->Init();
 	m_pPlayer[1]->Init();
-
 
 	m_pStageBase->Init();
 }
 
 void SceneMain::End()
 {
-
 	// BGM 停止
 	Sound::stopBgm(Sound::MainBgm);
 
+
 	//m_pPlayer[0]->End();
 	//m_pPlayer[1]->End();
+
 }
 
 SceneBase* SceneMain::Update()
@@ -299,8 +295,6 @@ void SceneMain::UpdateDead()
 	// デバッグ用当たり判定描画
 	m_pPlayer[0]->DebugDrawCollision();
 	m_pPlayer[1]->DebugDrawCollision();
-
-	
 
 	SceneBase::DrawFade();
 }

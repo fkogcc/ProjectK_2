@@ -131,7 +131,8 @@ SceneBase* SceneResult::Update()
 
 	if (!IsFading())
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1,1) || Pad::IsTrigger(PAD_INPUT_2,1))
+		if (Pad::IsTrigger(PAD_INPUT_1,1) || Pad::IsTrigger(PAD_INPUT_2,1) ||
+			Pad::IsTrigger(PAD_INPUT_1, 2) || Pad::IsTrigger(PAD_INPUT_2, 2))
 		{
 			StartFadeOut();
 		}
@@ -139,11 +140,11 @@ SceneBase* SceneResult::Update()
 
 	if (!m_isTitle && !m_isRetry)
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1,1))
+		if (Pad::IsTrigger(PAD_INPUT_1, 1) || Pad::IsTrigger(PAD_INPUT_1, 2))
 		{
 			m_isTitle = true;
 		}
-		else if (Pad::IsTrigger(PAD_INPUT_2,1))
+		else if (Pad::IsTrigger(PAD_INPUT_2,1) || Pad::IsTrigger(PAD_INPUT_2, 2))
 		{
 			m_isRetry = true;
 		}
