@@ -40,7 +40,7 @@ namespace AttackSetting
 	constexpr int kDamageNormalShot = 5;
 	constexpr int kDamagePunch      = 1;
 	constexpr int kDamageUp         = 5;
-	constexpr int kDamageChargeShot = 15;
+	constexpr int kDamageChargeShot = 15 * 30;
 
 	constexpr int kGapTimeJump       = 1;
 	constexpr int kGapTimePunch		 = 2;
@@ -94,12 +94,11 @@ void Elf::Init()
 
 void Elf::End()
 {
-	my::MyDeleteGraph(m_handle);
+//	my::MyDeleteGraph(m_handle);
 }
 
 void Elf::Update()
 {
-
 	// アニメーション停止
 	AnimStop();
 
@@ -141,7 +140,7 @@ void Elf::Draw()
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
 		m_imageX, m_imageY,// 画像の左上
 		kSizeX, kSizeY,    // 画像の右下
-		kSize,			   // サイズ
+		kSize * m_sizeUp,	   // サイズ
 		kRota,			   // 回転角度
 		m_handle,		   // ハンドル
 		true,		       // 画像透過

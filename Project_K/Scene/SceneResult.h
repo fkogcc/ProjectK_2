@@ -3,7 +3,7 @@
 #include "../Util/common.h"
 
 class PlayerBase;
-
+class StringFunction;
 class SceneResult : public SceneBase
 {
 public:
@@ -20,9 +20,12 @@ public:
 	virtual SceneBase* Update() override;
 	virtual void Draw();
 
+
+
 private:
 	// ポインタ
 	PlayerBase* m_pPlayer[2];// プレイヤーベース
+	StringFunction* m_pString;
 
 	bool m_isTitle;// タイトルへ
 	bool m_isRetry;// リトライ

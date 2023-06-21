@@ -20,6 +20,7 @@ namespace Sound
 	// BGM‚ÌÄ¶
 	void startBgm(SoundId id, int volume = 255);
 	void stopBgm(SoundId id);
+	void loopBgm(SoundId id);
 
 	// Œø‰Ê‰¹‚ÌÄ¶
 	void play(SoundId id);

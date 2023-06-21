@@ -69,8 +69,11 @@ public:
 	//ノックバックの処理(toPlayerはプレイヤーとプレイヤーの距離を求めるためのもの)
 	void SetKnockBack(float toPlayer);
 
+	void SetSize(int size) { m_sizeUp = size; }
+
 	//ポジション取得
 	Vec2 GetPos() { return m_pos; }
+	void SetPos(Vec2 pos) { m_pos = pos; }
 
 	//ショットポインタ取得
 	ShotBase* GetShot(int i) { return m_pShot[i]; }
@@ -122,6 +125,8 @@ protected:
 	int m_moveType = 0;
 	int m_hp = 100;	// プレイヤーの体力量(100が標準)
 	int m_damage = 0;		// プレイヤーが受けるダメージ
+
+	int m_sizeUp = 1;// プレイヤーのサイズの倍率
 
 	bool m_attackFlag = false;	// 攻撃中かどうか
 

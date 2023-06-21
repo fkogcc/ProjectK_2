@@ -33,7 +33,7 @@ void SceneTitle::End()
 
 SceneBase* SceneTitle::Update()
 {
-
+	Sound::loopBgm(Sound::TitleBgm);
 	m_pLogo->Update();
 
 	// フェードインアウトしている
@@ -74,3 +74,5 @@ void SceneTitle::Draw()
 
 	SceneBase::DrawFade();
 }
+
+

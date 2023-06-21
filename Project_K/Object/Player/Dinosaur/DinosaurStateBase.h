@@ -12,7 +12,7 @@ public:
 
 	virtual DinosaurStateBase* Update(int padNum) { return this; }
 
-	virtual void Draw(int handle, bool lookRight,Vec2 pos);
+	virtual void Draw(int handle, bool lookRight,Vec2 pos,int size);
 
 	virtual void ChangeGraph(int ChangeSpeed, int GraphNum, bool ChangeY);
 

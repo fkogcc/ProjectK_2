@@ -121,3 +121,13 @@ void LogoRotation::Draw()
 //	DrawFormatString(m_pos.x, m_pos.y, 0x000000, "m_pos = %f",m_pos.x);
 //	DrawFormatString(m_logoPos.x, m_logoPos.y, 0x000000, "m_logoPos = %f", m_logoPos.x);
 }
+
+inline int LogoRotation::test(int x)
+{
+	return x * (2 - 1);
+}
+
+int LogoRotation::test2(int x)
+{
+	return x;
+}
