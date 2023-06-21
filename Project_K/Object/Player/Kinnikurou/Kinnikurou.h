@@ -87,5 +87,7 @@ private:
 
 	// ƒeƒXƒg•Ï”
 	int m_stiffen = 0;// d’¼
+
+	int m_testCount = 0;
 };
 
