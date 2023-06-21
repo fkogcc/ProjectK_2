@@ -69,6 +69,7 @@ SelectUI::~SelectUI()
 	DeleteFontToHandle(kSelectFont);
 	DeleteFontToHandle(kHiraganaFont);
 	DeleteFontToHandle(kEnglishFont);
+	DeleteFontToHandle(kGuideFont);
 }
 
 void SelectUI::Init(int StageNo)
