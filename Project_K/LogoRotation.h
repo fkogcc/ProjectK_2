@@ -11,6 +11,9 @@ public:
 	void Init();
 	void Update();
 	void Draw();
+
+	inline int test(int x);
+	int test2(int x);
 private:
 	// 
 	int m_hLogo;

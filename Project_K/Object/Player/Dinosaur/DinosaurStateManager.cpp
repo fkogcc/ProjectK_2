@@ -69,11 +69,11 @@ void DinosaurStateManager::Update(int padNum)
 	}
 }
 // •`‰æ
-void DinosaurStateManager::Draw(Vec2 pos)
+void DinosaurStateManager::Draw(Vec2 pos,int size)
 {
 	assert(m_pState);
 	if (!m_pState)	return;
-	m_pState->Draw(m_handle, m_lookLeft, pos);// •`‰æ
+	m_pState->Draw(m_handle, m_lookLeft, pos, size);// •`‰æ
 }
 
 bool DinosaurStateManager::GetshotFlag()

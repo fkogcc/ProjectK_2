@@ -136,7 +136,7 @@ void Witch::Draw()
         static_cast<int>(m_pos.y),// 表示座標
         48 * m_animeWidth, 48 * m_animeHight,// 切り取り左上
         48 * m_indexX, 48,// 幅、高さ
-        3.0f, 0.0f,	// 拡大率、回転角度
+        3.0f * m_sizeUp, 0.0f,	// 拡大率、回転角度
         m_handle, true, m_reversal);// 画像、透過するか、画像を反転するかどうか
 
 

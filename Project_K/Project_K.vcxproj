@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="StringFunction.cpp" />
     <ClCompile Include="Util\FontFunction.cpp" />
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuDead.cpp" />
     <ClCompile Include="Object\Stage\ElfStage.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="Object\Stage\WizardStage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="StringFunction.h" />
     <ClInclude Include="Util\FontFunction.h" />
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuDead.h" />
     <ClInclude Include="Object\Stage\ElfStage.h" />

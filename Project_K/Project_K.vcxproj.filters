@@ -69,6 +69,7 @@
     <ClCompile Include="Object\Stage\StageManager.cpp" />
     <ClCompile Include="Util\SelectUI.cpp" />
     <ClCompile Include="Util\FontFunction.cpp" />
+    <ClCompile Include="StringFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Stage\ElfStage.h" />
@@ -141,5 +142,6 @@
     <ClInclude Include="Object\Stage\StageManager.h" />
     <ClInclude Include="Util\SelectUI.h" />
     <ClInclude Include="Util\FontFunction.h" />
+    <ClInclude Include="StringFunction.h" />
   </ItemGroup>
 </Project>
