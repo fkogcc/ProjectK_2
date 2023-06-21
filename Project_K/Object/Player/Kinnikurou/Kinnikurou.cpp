@@ -276,75 +276,50 @@ void Kinnikurou::Draw()
 	// アイドル状態
 	if (m_moveType == static_cast<int>(moveType::Idol))
 	{
-		/*m_charHandle = m_idleHandle;
-		m_imgWidth = 18;
-		m_imgHeight = 23;*/
 		HandleAssignment(m_idleHandle, 18, 23);
 	}
 	// ジャブ攻撃状態
 	else if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
-		/*m_charHandle = m_jabHandle;
-		m_imgWidth = 56 / 2;
-		m_imgHeight = 23;*/
 		HandleAssignment(m_jabHandle, 56 / 2, 23);
 	}
 	// マッスル攻撃状態
 	else if (m_moveType == static_cast<int>(moveType::Attack2))
 	{
-		/*m_charHandle = m_muscleHandle;
-		m_imgWidth = 27;
-		m_imgHeight = 24;*/
 		HandleAssignment(m_muscleHandle, 27, 24);
 	}
 	// アッパー攻撃状態
 	else if (m_moveType == static_cast<int>(moveType::Attack3))
 	{
-		/*m_charHandle = m_UpperHandle;
-		m_imgWidth = 27;
-		m_imgHeight = 24;*/
 		HandleAssignment(m_UpperHandle, 27, 24);
 	}
 	// みぞおち攻撃状態
 	else if (m_moveType == static_cast<int>(moveType::Attack4))
 	{
-		/*m_charHandle = m_MizoHandle;
-		m_imgWidth = 27;
-		m_imgHeight = 24;*/
 		HandleAssignment(m_MizoHandle, 27, 24);
 	}
 	// 移動状態
 	else if (m_moveType == static_cast<int>(moveType::Run))
 	{
-		/*m_charHandle = m_RunHandle;
-		m_imgWidth = 54 / 3;
-		m_imgHeight = 72 / 3;*/
 		HandleAssignment(m_RunHandle, 54 / 3, 72 / 3);
 	}
 	else if (m_moveType == static_cast<int>(moveType::Jump))
 	{
 		if (m_pJump->IsFall())
 		{
-			m_charHandle = m_FallHandle;
-			m_imgWidth = 24;
-			m_imgHeight = 22;
+			HandleAssignment(m_FallHandle, 24, 22);
 		}
 		else
 		{
-			m_charHandle = m_JumpHandle;
-			m_imgWidth = 19;
-			m_imgHeight = 21;
+			HandleAssignment(m_JumpHandle, 19, 21);
 		}
 		
 		ImgposInit();
 	}
 	else if (m_moveType == static_cast<int>(moveType::Dead))
 	{
-		m_charHandle = m_DeadHandle;
-		m_imgWidth = 90 / 3;
-		m_imgHeight = 96 / 4;
+		HandleAssignment(m_DeadHandle, 90 / 3, 96 / 3);
 	}
-
 
 	// キャラクターの描画
 	my::MyDrawRectRotaGraph(static_cast<int> (m_pos.x), static_cast<int> (m_pos.y),
