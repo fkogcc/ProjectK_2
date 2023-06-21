@@ -55,8 +55,8 @@ SceneMain::~SceneMain()
 {
 	// メモリの開放
 	delete m_pStageBase;
-	delete m_pPlayer[0];
-	delete m_pPlayer[1];
+	//delete m_pPlayer[0];
+	//delete m_pPlayer[1];
 	delete m_pColl;
 	delete m_pUi;
 	
@@ -85,10 +85,8 @@ void SceneMain::End()
 	// BGM 停止
 	Sound::stopBgm(Sound::MainBgm);
 
-	m_pPlayer[0]->End();
-	m_pPlayer[1]->End();
-
-
+	//m_pPlayer[0]->End();
+	//m_pPlayer[1]->End();
 }
 
 SceneBase* SceneMain::Update()
@@ -122,6 +120,7 @@ SceneBase* SceneMain::Update()
 			StartFadeOut();
 		}
 	}
+
 
 	return this;
 }

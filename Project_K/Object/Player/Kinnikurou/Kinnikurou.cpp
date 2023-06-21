@@ -440,7 +440,7 @@ void Kinnikurou::Draw()
 	my::MyDrawRectRotaGraph(static_cast<int> (m_pos.x), static_cast<int> (m_pos.y),
 		m_imgPosX * m_imgWidth, m_imgPosY * m_imgHeight,
 		m_imgWidth, m_imgHeight,
-		5.0f, 0.0f,
+		5.0f * m_sizeUp, 0.0f,
 		m_charHandle,
 		true, m_charDirection);
 

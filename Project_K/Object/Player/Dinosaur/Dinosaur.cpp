@@ -146,7 +146,7 @@ void Dinosaur::Update()
 void Dinosaur::Draw()
 {
 	// キャラクター表示
-	m_pStateManager->Draw(m_pos);
+	m_pStateManager->Draw(m_pos, m_sizeUp);
 
 	//ショット表示
 	for (int i = 0; i < kShotMax; i++)

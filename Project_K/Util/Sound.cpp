@@ -48,7 +48,13 @@ namespace Sound
 	{
 		StopSoundMem(m_soundHandle[id]);
 	}
-
+	void loopBgm(SoundId id)
+	{
+		if(CheckSoundMem(m_soundHandle[id]) != 1)
+		{
+			PlaySoundMem(m_soundHandle[id], DX_PLAYTYPE_BACK, true);
+		}
+	}
 	// Œø‰Ê‰¹‚ÌÄ¶
 	void play(SoundId id)
 	{
