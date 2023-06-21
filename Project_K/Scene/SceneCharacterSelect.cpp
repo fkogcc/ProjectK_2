@@ -14,7 +14,7 @@ SceneCharacterSelect::SceneCharacterSelect(int StageNo) :
 	m_stageNo(StageNo)
 {
 	m_Player[0] = nullptr;
-    m_Player[1] = nullptr;
+	m_Player[1] = nullptr;
 	m_CharaChoice = new CharaChoice;
 	m_pUi = new SelectUI;
 }
@@ -28,13 +28,11 @@ void SceneCharacterSelect::Init()
 	// BGM 再生
 	Sound::startBgm(Sound::SelectBgm, 255);
 
-	m_pUi->Init();
+	m_pUi->Init(m_stageNo);
 }
 
 void SceneCharacterSelect::End()
 {
-	// BGM 停止
-	Sound::stopBgm(Sound::SelectBgm);
 }
 
 SceneBase* SceneCharacterSelect::Update()
@@ -55,8 +53,8 @@ SceneBase* SceneCharacterSelect::Update()
 		if (m_CharaChoice->GetChackChara2() == 1) m_Player[1] = new Elf;
 		if (m_CharaChoice->GetChackChara2() == 2) m_Player[1] = new Kinnikurou;
 		if (m_CharaChoice->GetChackChara2() == 3) m_Player[1] = new Witch;
-		
-		return(new SceneMain(m_Player[0],m_Player[1], m_stageNo));// 1ステージ切り替え
+
+		return(new SceneMain(m_Player[0], m_Player[1], m_stageNo));// 1ステージ切り替え
 	}
 
 	if (Pad::IsTrigger(PAD_INPUT_2, 1) || Pad::IsTrigger(PAD_INPUT_2, 2))
