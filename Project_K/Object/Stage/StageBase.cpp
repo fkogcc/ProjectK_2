@@ -11,9 +11,9 @@ namespace
 	const char* kDinoBgFile = "Data/Image/Stage/Dino/DinoBg.png";
 	const char* kDinoFilePath = "Data/Image/Stage/Dino/DinoMap.csv";
 	// エルフステージ
-	const char* kElfFile = "Data/Image/Stage/Elf/Elf.png";
-	const char* kElfBgFile = "Data/Image/Stage/Elf/Background.png";
-	const char* kElfFilePath = "Data/Image/Stage/Elf/Elf.csv";
+	const char* kElfFile = "Data/Image/Stage/elf/elf.png";
+	const char* kElfBgFile = "Data/Image/Stage/elf/Background.png";
+	const char* kElfFilePath = "Data/Image/Stage/elf/elf.csv";
 
 	// マッチョステージ
 	const char* kMachoFile = "Data/Image/Stage/macho/macho.png";
@@ -115,7 +115,7 @@ void StageBase::Draw()
 			m_handle,
 			true, false);
 
-		printfDx("%d\n", static_cast<int>(data.m_pos.y));
+	//  printfDx("%d\n", static_cast<int>(data.m_pos.y));
 	}
 
 	

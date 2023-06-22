@@ -120,7 +120,6 @@ SceneBase* SceneMain::Update()
 		}
 	}
 
-
 	return this;
 }
 
