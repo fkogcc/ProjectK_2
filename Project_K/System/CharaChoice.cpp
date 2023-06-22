@@ -28,96 +28,81 @@ void CharaChoice::Draw()
 {
 	if (m_Decision1) //キャラクターが決定されたとき赤文字で表示
 	{
-		DrawFormatString(300, 400, 0xff0000,
-			"%d", m_charaNumber1);
+		DrawDecision1P(0xff0000);
 	}
 	else //決定されてないとき白文字で表示
 	{
-		DrawFormatString(300, 400, 0xffffff,
-			"%d", m_charaNumber1);
+		DrawDecision1P(0xffffff);
 	}
 
 	if (m_Decision2)//キャラクターが決定されたとき赤文字で表示
 	{
-		DrawFormatString(600, 400, 0xff0000,
-			"%d", m_charaNumber2);
+		DrawDecision2P(0xff0000);
 	}
 	else //決定されてないとき白文字で表示
 	{
-		DrawFormatString(600, 400, 0xffffff,
-			"%d", m_charaNumber2);
+		DrawDecision2P(0xffffff);
 	}
 }
+
 
 void CharaChoice::updateChara1()
 {
 	//キャラクターが決定されていてかつ2ボタンを押された場合
-	if (Pad::IsTrigger(PAD_INPUT_2, 1) && m_Decision1)
-	{
-		m_Decision1 = false;
-		return;
-	}
-
-	if (m_Decision1) return; //キャラクターが決定されていたら処理をしない
-
-	if (Pad::IsTrigger(PAD_INPUT_1, 1))
-	{
-		m_Decision1 = true;
-		return;
-	}
-	if (Pad::IsTrigger(PAD_INPUT_DOWN, 1))
-	{
-		if (m_charaNumber1 >= 3)
-		{
-			m_charaNumber1 = 0;
-			return;
-		}
-		m_charaNumber1++;
-	}
-
-	if (Pad::IsTrigger(PAD_INPUT_UP, 1))
-	{
-		if (m_charaNumber1 <= 0)
-		{
-			m_charaNumber1 = 3;
-			return;
-		}
-		m_charaNumber1--;
-	}
+	UpdateChara(1, m_charaNumber1, m_Decision1);
 }
 
 void CharaChoice::updateChara2()
 {
 	//キャラクターが決定されていてかつ2ボタンを押された場合
-	if (Pad::IsTrigger(PAD_INPUT_2, 2) && m_Decision2)
+	UpdateChara(2, m_charaNumber2, m_Decision2);
+}
+
+void CharaChoice::UpdateChara(int padNum, int& charaNum, bool& decision)
+{
+	//キャラクターが決定されていてかつ2ボタンを押された場合
+	if (Pad::IsTrigger(PAD_INPUT_1, padNum) && decision)
 	{
-		m_Decision2 = false;
+		decision = false;
 		return;
 	}
-	if (m_Decision2) return;//キャラクターが決定されていたら処理をしない
 
-	if (Pad::IsTrigger(PAD_INPUT_1, 2))
+	if (decision) return; //キャラクターが決定されていたら処理をしない
+
+	if (Pad::IsTrigger(PAD_INPUT_1, padNum) && !decision)
 	{
-		m_Decision2 = true;
+		decision = true;
 		return;
 	}
-	if (Pad::IsTrigger(PAD_INPUT_DOWN, 2))
+	if (Pad::IsTrigger(PAD_INPUT_DOWN, padNum))
 	{
-		if (m_charaNumber2 >= 3)
+		if (charaNum >= 3)
 		{
-			m_charaNumber2 = 0;
+			charaNum = 0;
 			return;
 		}
-		m_charaNumber2++;
+		charaNum++;
 	}
 
-	if (Pad::IsTrigger(PAD_INPUT_UP, 2))
+	if (Pad::IsTrigger(PAD_INPUT_UP, padNum))
 	{
-		if (m_charaNumber2 <= 0)
+		if (charaNum <= 0)
 		{
-			m_charaNumber2 = 3;
+			charaNum = 3;
 			return;
 		}
-		m_charaNumber2--;
+		charaNum--;
 	}
+}
+
+void CharaChoice::DrawDecision1P(int color)
+{
+	DrawFormatString(300, 400, color,
+		"%d", m_charaNumber1);
+}
+
+void CharaChoice::DrawDecision2P(int color)
+{
+	DrawFormatString(600, 400, color,
+		"%d", m_charaNumber2);
 }
