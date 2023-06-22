@@ -139,4 +139,3 @@ protected:
 
 	Vec2 m_knockBack; // ノックバックベクトル
 };
-

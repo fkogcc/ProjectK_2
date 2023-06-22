@@ -23,8 +23,8 @@ public:
 	int GetChackChara2() { return m_charaNumber2; }
 
 	//キャラクター決定情報を返す.
-	bool GetDecision1() { return m_Decision1; }
-	bool GetDecision2() { return m_Decision2; }
+	bool GetDecision1() { return m_decision1; }
+	bool GetDecision2() { return m_decision2; }
 
 private:
 	//キャラナンバーのアップデート
@@ -40,6 +40,6 @@ private:
 	int m_charaNumber1;
 	int m_charaNumber2;
 	
-	bool m_Decision1;// キャラクター1が決定されたか
-	bool m_Decision2;// キャラクター2が決定されたか
+	bool m_decision1;// キャラクター1が決定されたか
+	bool m_decision2;// キャラクター2が決定されたか
 };

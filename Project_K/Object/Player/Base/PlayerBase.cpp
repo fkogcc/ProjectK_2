@@ -4,28 +4,31 @@
 
 namespace
 {
-	constexpr float kAccX = 0.5f;
-	constexpr float kAccY = 1.0f;
+	constexpr float kAccX = 0.5f; //X軸のノックバック減少量
+	constexpr float kAccY = 1.0f;//Y軸のノックバック減少量
 
-	constexpr float kKnockBackX = 10.0f;
-	constexpr float kKnockBackY = -5.0f;
+	constexpr float kKnockBackX = 10.0f;//X軸のノックバック量
+	constexpr float kKnockBackY = -5.0f;//Y軸のノックバック量
 }
 
 PlayerBase::PlayerBase()
 {
+	//ショットを初期化
 	for (int i = 0; i < kShotMax; i++)
 	{
 		m_pShot[i] = new NullShot();
 	}
 }
 
-void PlayerBase::SetKnockBack(float toPlayer)
+//ノックバックセット
+void PlayerBase::SetKnockBack(float toPlayer)//プレイヤー同士の位置
 {
+	// 敵プレイヤーが左側にいるとき
 	if (toPlayer < 0.0f)
 	{
 		m_knockBack = { kKnockBackX ,kKnockBackY };
 	}
-
+	// 敵プレイヤーが右側にいるとき
 	if (toPlayer >= 0.0f)
 	{
 		m_knockBack = { -kKnockBackX ,kKnockBackY };
@@ -45,8 +48,10 @@ void PlayerBase::DebugDrawCollision()
 	
 }
 
+//ノックバック処理
 void PlayerBase::KnockBack()
 {
+	//m_onDamageFrameが0になるまで何もしない
 	if (m_onDamageFrame > 0)
 	{
 		m_onDamageFrame--;
@@ -70,6 +75,7 @@ void PlayerBase::CharDefaultPos(bool& direction)
 	}
 }
 
+//攻撃を食らった時の動き
 void PlayerBase::damageMove()
 {
 	m_pos += m_knockBack;
@@ -78,6 +84,7 @@ void PlayerBase::damageMove()
 	m_knockBack.y += kAccY;
 }
 
+//プレイヤーの動きの制限
 void PlayerBase::moveLimit()
 {
 	int playerSize = m_sizeRight - m_sizeLeft;

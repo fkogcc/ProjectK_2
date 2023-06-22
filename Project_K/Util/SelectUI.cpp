@@ -28,6 +28,7 @@ namespace
 }
 
 SelectUI::SelectUI() :
+	m_pStageBase(nullptr),
 	m_frameHandle(0),
 	m_buttonHandle(0),
 	m_dinoHandle(0),

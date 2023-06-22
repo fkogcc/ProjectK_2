@@ -9,6 +9,7 @@ namespace
 	const int kTimeBoxSize = 50;// 時間を表示する場所のボックスのサイズ
 	const int kCenter = Game::kScreenWidth / 2;// 真ん中の位置
 	const char* kFont = "HGP行書体";
+	int kTextFont = 0;
 
 	const char* kPlayerCursorHandle1 = "Data/Image/UI/1P.png";
 	const char* kPlayerCursorHandle2 = "Data/Image/UI/2P.png";
@@ -21,6 +22,7 @@ UI::UI(int Hp1, int Hp2) :
 	m_letter("%d")// 文字
 {
 	m_font = CreateFontToHandle(kFont, 70, -1, -1);// 使用するフォント、サイズ
+	kTextFont = CreateFontToHandle(kFont, 40, -1, -1);// 使用するフォント、サイズ
 	// 1Pの初期化
 	m_ui1.m_pos = { m_boxPos.x - kTimeBoxSize,80 };
 	m_ui1.m_temp = Hp1;
@@ -106,23 +108,34 @@ void UI::HpUpdate()
 
 void UI::HpDraw()
 {
-	//DrawLine(Game::kScreenWidth / 2, 0, Game::kScreenWidth / 2, 600, 0xffffff);
+	SetDrawBlendMode(DX_BLENDMODE_MULA, 150);			// 見やすいようにちょっと黒フィルターをかけてる
+	// 描画
+	DrawBox(static_cast<int>(m_boxPos.x) - kTimeBoxSize, static_cast<int>(m_boxPos.y) - kTimeBoxSize,
+		static_cast<int>(m_boxPos.x) + kTimeBoxSize, static_cast<int>(m_boxPos.y) + kTimeBoxSize,
+		0x000000, true);
+	DrawBox(static_cast<int>(m_ui1.m_pos.x), static_cast<int>(m_ui1.m_pos.y),
+		static_cast<int>(m_ui1.m_pos.x) - (5 * 100), static_cast<int>(m_ui1.m_pos.y) + kHightGauge, 0x000000, true);
+	DrawBox(static_cast<int>(m_ui2.m_pos.x), static_cast<int>(m_ui2.m_pos.y),
+		static_cast<int>(m_ui2.m_pos.x) + (5 * 100), static_cast<int>(m_ui2.m_pos.y) + kHightGauge, 0x000000, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);			//通常描画に戻す
+
 	//仮のHPの表示
 	DrawBox(static_cast<int>(m_ui1.m_pos.x), static_cast<int>(m_ui1.m_pos.y),
 		static_cast<int>(m_ui1.m_pos.x) - (5 * m_ui1.m_lower), static_cast<int>(m_ui1.m_pos.y) + kHightGauge, 0xff0000, true);
-	DrawBox(static_cast<int>(m_ui1.m_pos.x), static_cast<int>(m_ui1.m_pos.y),
-		static_cast<int>(m_ui1.m_pos.x) - (5 * m_ui1.m_life), static_cast<int>(m_ui1.m_pos.y) + kHightGauge, 0x00ff00, true);
-	//現在HPの表示
 	DrawBox(static_cast<int>(m_ui2.m_pos.x), static_cast<int>(m_ui2.m_pos.y),
 		static_cast<int>(m_ui2.m_pos.x) + (5 * m_ui2.m_lower), static_cast<int>(m_ui2.m_pos.y) + kHightGauge, 0xff0000, true);
+	//現在HPの表示
+	DrawBox(static_cast<int>(m_ui1.m_pos.x), static_cast<int>(m_ui1.m_pos.y),
+		static_cast<int>(m_ui1.m_pos.x) - (5 * m_ui1.m_life), static_cast<int>(m_ui1.m_pos.y) + kHightGauge, 0x00ff00, true);
 	DrawBox(static_cast<int>(m_ui2.m_pos.x), static_cast<int>(m_ui2.m_pos.y),
 		static_cast<int>(m_ui2.m_pos.x) + (5 * m_ui2.m_life), static_cast<int>(m_ui2.m_pos.y) + kHightGauge, 0x00ff00, true);
+	DrawBox(static_cast<int>(m_ui1.m_pos.x), static_cast<int>(m_ui1.m_pos.y),
+		static_cast<int>(m_ui1.m_pos.x) - (5 * 100), static_cast<int>(m_ui1.m_pos.y) + kHightGauge, 0x000000, false);
+	DrawBox(static_cast<int>(m_ui2.m_pos.x), static_cast<int>(m_ui2.m_pos.y),
+		static_cast<int>(m_ui2.m_pos.x) + (5 * 100), static_cast<int>(m_ui2.m_pos.y) + kHightGauge, 0x000000, false);
 
-	// ここに時間を表示する（目安の位置）
-	//DrawBox(static_cast<int>(m_boxPos.x) - kTimeBoxSize, static_cast<int>(m_boxPos.y) - kTimeBoxSize,
-	//	static_cast<int>(m_boxPos.x) + kTimeBoxSize, static_cast<int>(m_boxPos.y) + kTimeBoxSize, 0xff00f0, true);// 面白いことしたかったけどできませんでした
 	DrawBox(static_cast<int>(m_boxPos.x) - kTimeBoxSize, static_cast<int>(m_boxPos.y) - kTimeBoxSize,
-		static_cast<int>(m_boxPos.x) + kTimeBoxSize, static_cast<int>(m_boxPos.y) + kTimeBoxSize, 0xff00f0, false);
+		static_cast<int>(m_boxPos.x) + kTimeBoxSize, static_cast<int>(m_boxPos.y) + kTimeBoxSize, 0x000000, false);
 }
 
 void UI::FontUpdate()
@@ -150,7 +163,14 @@ void UI::FontDraw()
 	DrawFormatStringToHandle((Game::kScreenWidth -
 		GetDrawStringWidthToHandle(m_letter, 2, m_font)) / 2,
 		100 - 40, 0x7fffff, m_font, m_letter, m_time);
+
+	// とちゅうです
+	//DrawFormatStringToHandle(850,
+	//	80, 0xffafaf, kTextFont, "1P");
+	//DrawFormatStringToHandle(1020,
+	//	80, 0xffafaf, kTextFont, "2P");
 }
+
 
 void UI::DrawPlayerCursor(Vec2 playerPos1, Vec2 playerPos2)
 {

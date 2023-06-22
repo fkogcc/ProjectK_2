@@ -17,7 +17,6 @@ public:
 	void FontUpdate();
 	void FontDraw();
 
-
 	void GetHp1(int hp) { m_ui1.m_temp = hp; }// 1PのHP
 	void GetHp2(int hp) { m_ui2.m_temp = hp; }// 2PのHP
 	void AttackFlag1(bool flag) { m_ui1.m_attackFlag = flag; }
