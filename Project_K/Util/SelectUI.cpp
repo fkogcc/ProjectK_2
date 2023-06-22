@@ -51,6 +51,7 @@ SelectUI::SelectUI() :
 	m_cursorFlag2(false),
 	m_cursolHeight(0)
 {
+	m_pStageBase = nullptr;
 }
 
 SelectUI::~SelectUI()

@@ -24,9 +24,9 @@ void KinnikuJump::Update(float& jumpAcc, float& posY,int padNum)
 	m_isFalling = false;
 	jumpAcc += kGravity;// d—Í
 	posY += jumpAcc;// ƒWƒƒƒ“ƒv—Í
-	if (posY >= 650.0f)
+	if (posY >= 600.0f)
 	{
-		posY = 650.0f;
+		posY = 600.0f;
 		jumpAcc = 0.0f;
 		m_isJumping = false;
 	}

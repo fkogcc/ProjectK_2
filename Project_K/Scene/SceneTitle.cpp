@@ -17,7 +17,7 @@ SceneTitle::~SceneTitle()
 void SceneTitle::Init()
 {
 	// BGM Ä¶
-	Sound::startBgm(Sound::TitleBgm, 255);
+	Sound::startBgm(Sound::TitleBgm, 200);
 
 	m_isFadeOut = IsFadingOut();
 	m_pLogo->Init();

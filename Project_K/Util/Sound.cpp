@@ -14,6 +14,7 @@ namespace
 		"Data/Sound/BGM/Title.mp3",
 		"Data/Sound/BGM/Select.mp3",
 		"Data/Sound/BGM/Main.mp3",
+		"Data/Sound/BGM/Result.mp3",
 	};
 }
 

@@ -2,43 +2,44 @@
 #include "SceneCharacterSelect.h"
 #include "SceneTitle.h"
 #include "../Object/Stage/StageBase.h"
+#include "../Util/Sound.h"
 
 namespace
 {
-	// ˜gü‚ÌƒTƒCƒY
+	// ËœgÂÃ¼â€šÃŒÆ’TÆ’CÆ’Y
 	constexpr int kFrameSizeX = 500;
 	constexpr int kFrameSizeY = 290;
 
-	//**** ƒeƒNƒXƒ`ƒƒî•ñ ****//
+	//**** Æ’eÆ’NÆ’XÆ’`Æ’Æ’ÂÃ®â€¢Ã± ****//
 	const char* kRandFile = "Data/Image/UI/StageSelect/RandStage.png";
 	const char* kDinoFile = "Data/Image/UI/StageSelect/Dino.bmp";
 	const char* kElfFile = "Data/Image/UI/StageSelect/Elf.bmp";
 	const char* kMachoFile = "Data/Image/UI/StageSelect/Macho.bmp";
 	const char* kWizardFile = "Data/Image/UI/StageSelect/Wizard.png";
 
-	// ƒtƒHƒ“ƒgî•ñ
-	const char* kFont = "HGPs‘‘Ì";
+	// Æ’tÆ’HÆ’â€œÆ’gÂÃ®â€¢Ã±
+	const char* kFont = "HGPÂsÂâ€˜â€˜ÃŒ";
 }
 
 SceneMapSelect::SceneMapSelect() :
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^‰Šú‰»
+	// Æ’RÆ’â€œÆ’XÆ’gÆ’â€°Æ’NÆ’^Ââ€°Å Ãºâ€°Â»
 	m_bgHandle(-1),
 	m_font(-1),
 	m_mapNum(0)
 {
-	m_handle[0] = LoadGraph(kRandFile);		// ƒ‰ƒ“ƒ_ƒ€ƒXƒe[ƒW
-	m_handle[1] = LoadGraph(kDinoFile);		// ‹°—³ƒXƒe[ƒW
-	m_handle[2] = LoadGraph(kElfFile);		// ƒGƒ‹ƒtƒXƒe[ƒW
-	m_handle[3] = LoadGraph(kMachoFile);	// ƒ}ƒbƒ`ƒ‡ƒXƒe[ƒW
-	m_handle[4] = LoadGraph(kWizardFile);	// –‚—ƒXƒe[ƒW
+	m_handle[0] = LoadGraph(kRandFile);		// Æ’â€°Æ’â€œÆ’_Æ’â‚¬Æ’XÆ’eÂ[Æ’W
+	m_handle[1] = LoadGraph(kDinoFile);		// â€¹Â°â€”Â³Æ’XÆ’eÂ[Æ’W
+	m_handle[2] = LoadGraph(kElfFile);		// Æ’GÆ’â€¹Æ’tÆ’XÆ’eÂ[Æ’W
+	m_handle[3] = LoadGraph(kMachoFile);	// Æ’}Æ’bÆ’`Æ’â€¡Æ’XÆ’eÂ[Æ’W
+	m_handle[4] = LoadGraph(kWizardFile);	// â€“â€šÂâ€”Æ’XÆ’eÂ[Æ’W
 
-	// g—p‚·‚éƒtƒHƒ“ƒg
+	// Å½gâ€”pâ€šÂ·â€šÃ©Æ’tÆ’HÆ’â€œÆ’g
 	m_font = CreateFontToHandle(kFont, 140, -1, -1);
 }
 
 SceneMapSelect::~SceneMapSelect()
 {
-	// ƒnƒ“ƒhƒ‹‚Ìíœ
+	// Æ’nÆ’â€œÆ’hÆ’â€¹â€šÃŒÂÃ­ÂÅ“
 	DeleteGraph(m_stageHandle);
 	DeleteGraph(m_bgHandle);
 
@@ -50,18 +51,24 @@ SceneMapSelect::~SceneMapSelect()
 
 void SceneMapSelect::Init()
 {
-	// ƒOƒ‰ƒtƒBƒbƒNƒnƒ“ƒhƒ‹‚Ìƒ[ƒh
+	// Æ’OÆ’â€°Æ’tÆ’BÆ’bÆ’NÆ’nÆ’â€œÆ’hÆ’â€¹â€šÃŒÆ’ÂÂ[Æ’h
 	m_stageHandle = LoadGraph("Data/Image/UI/StageSelect/ManyStage.png");
 	m_bgHandle = LoadGraph("Data/Image/UI/StageSelect/Bg.png");
+	// BGM ÂÃ„ÂÂ¶
+	Sound::startBgm(Sound::SelectBgm, 200);
 }
 
 void SceneMapSelect::End()
 {
-
+	// BGM â€™Ã¢Å½~
+	Sound::stopBgm(Sound::SelectBgm);
 }
 
 SceneBase* SceneMapSelect::Update()
 {
+	// BGM Æ’â€¹Â[Æ’v
+	Sound::loopBgm(Sound::SelectBgm);
+
 	if (IsFading())
 	{
 		m_isFadeOut = IsFadingOut();
@@ -87,7 +94,7 @@ SceneBase* SceneMapSelect::Update()
 		}
 	}
 
-	// ƒJ[ƒ\ƒ‹ˆÚ“®ˆ—(”’l‚ÅŠÇ—)
+	// Æ’JÂ[Æ’\Æ’â€¹Ë†Ãšâ€œÂ®ÂË†â€”Â(Ââ€â€™lâ€šÃ…Å Ã‡â€”Â)
 	if (Pad::IsTrigger(PAD_INPUT_UP, 1))
 	{
 		if (m_mapNum > 0)
@@ -117,22 +124,22 @@ SceneBase* SceneMapSelect::Update()
 
 void SceneMapSelect::Draw()
 {
-	// ƒfƒoƒbƒO•\¦
+	// Æ’fÆ’oÆ’bÆ’Oâ€¢\Å½Â¦
 	DrawString(0, 0, "MapSelect", Color::kWhite);
 
-	// ®F‚Ì”wŒi•`‰æ
+	// ÂÂ®ÂFâ€šÃŒâ€wÅ’iâ€¢`â€°Ã¦
 	DrawGraph(0, 0, m_bgHandle, true);
 
-	// wStage Selectx‰ºü•`‰æ
+	// ÂwStage SelectÂxâ€°ÂºÂÃ¼â€¢`â€°Ã¦
 	DrawBox(30, 175, 765, 190, 0x00ffff, true);
 
-	// ƒeƒLƒXƒg•`‰æ
+	// Æ’eÆ’LÆ’XÆ’gâ€¢`â€°Ã¦
 	DrawFormatStringToHandle(30, 75, 0x800000, m_font, "Select Stage");
 
-	// Œ»İƒJ[ƒ\ƒ‹‘I‘ğ‚³‚ê‚Ä‚¢‚éƒXƒe[ƒW‚ÌŠg‘å•\¦‚Ì•`‰æ
+	// Å’Â»ÂÃÆ’JÂ[Æ’\Æ’â€¹â€˜Iâ€˜Ã°â€šÂ³â€šÃªâ€šÃ„â€šÂ¢â€šÃ©Æ’XÆ’eÂ[Æ’Wâ€šÃŒÅ gâ€˜Ã¥â€¢\Å½Â¦â€šÃŒâ€¢`â€°Ã¦
 	DrawExtendGraph(50, 300, 658, 642, m_handle[m_mapNum], true);
 
-	// ƒXƒe[ƒW‘I‘ğ‚Ì˜gü•`‰æ
+	// Æ’XÆ’eÂ[Æ’Wâ€˜Iâ€˜Ã°Å½Å¾â€šÃŒËœgÂÃ¼â€¢`â€°Ã¦
 	switch (m_mapNum)
 	{
 	case 0:
@@ -154,11 +161,11 @@ void SceneMapSelect::Draw()
 		break;
 	}
 
-	// ŠeƒXƒe[ƒW‚Ìk¬•`‰æ
+	// Å eÆ’XÆ’eÂ[Æ’Wâ€šÃŒÂkÂÂ¬â€¢`â€°Ã¦
 	DrawGraph(0, 0, m_stageHandle, true);
 	printfDx("%d", m_mapNum);
 
-	// ƒtƒF[ƒhƒAƒEƒgˆ—
+	// Æ’tÆ’FÂ[Æ’hÆ’AÆ’EÆ’gÂË†â€”Â
 	SceneBase::DrawFade();
 }
 
