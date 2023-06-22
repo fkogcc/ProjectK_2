@@ -35,6 +35,8 @@ void Dinosaur::Init()
 	m_sizeBottom = 110;
 	
 	CharDefaultPos(m_pStateManager->m_lookLeft);
+
+	m_pos.y = 550;
 }
 
 void Dinosaur::End()
@@ -86,9 +88,9 @@ void Dinosaur::Update()
 	// m_posの値を取得
 	m_pos += m_pStateManager->GetVec();
 
-	if (m_pos.y > 600)
+	if (m_pos.y > 550)
 	{
-		m_pos.y = 600;
+		m_pos.y = 550;
 	}
 
 	for (int i = 0; i < kShotMax; i++)
