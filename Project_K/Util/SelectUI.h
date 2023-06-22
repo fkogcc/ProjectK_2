@@ -42,6 +42,26 @@ public:
 	void DrawCursor();//	カーソルの表示
 
 private:
+	/// <summary>
+	/// 各キャラクターの初期化
+	/// </summary>
+	/// <param name="charaData">各キャラクターが持つ情報</param>
+	/// <param name="imgWidth">切り取る幅</param>
+	/// <param name="imgHight">切り取る高さ</param>
+	/// <param name="imgSize">画像の大きさ(拡大率)</param>
+	/// <param name="posY">位置</param>
+	/// <param name="maxWidth">アニメーションの横の最大値</param>
+	/// <param name="maxHight">アニメーションの縦の最大値</param>
+	/// <param name="animFrame">アニメーションの速度(フレーム)</param>
+	/// <param name="text">テキスト(キャラ名)</param>
+	/// <param name="font">使用するフォント</param>
+	void InitCharas(CharData& charaData, 
+		int imgWidth, int imgHight, 
+		float imgSize, int maxWidth, 
+		int maxHight, int animFrame, 
+		const char* text, int font);
+
+private:
 	StageBase* m_pStageBase;	// ステージセレクトシーン
 
 	CharData m_temp;// 一時的に保存する用の変数
