@@ -1,10 +1,10 @@
 #include "ElfShot.h"
 
-ElfShoot::~ElfShoot()
+ElfShot::~ElfShot()
 {
 }
 
-void ElfShoot::Update()
+void ElfShot::Update()
 {
 	m_Shot.Pos += m_Shot.Vec;
 
