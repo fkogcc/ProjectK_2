@@ -49,14 +49,14 @@ void CharaChoice::Draw()
 void CharaChoice::updateChara1()
 {
 	//キャラクターが決定されていてかつ2ボタンを押された場合
-	UpdateChara(1, m_charaNumber1, m_Decision1);
+	UpdateChara(1, m_charaNumber1, m_decision1);
 
 }
 
 void CharaChoice::updateChara2()
 {
 	//キャラクターが決定されていてかつ2ボタンを押された場合
-	UpdateChara(2, m_charaNumber2, m_Decision2);
+	UpdateChara(2, m_charaNumber2, m_decision2);
 }
 
 void CharaChoice::UpdateChara(int padNum, int& charaNum, bool& decision)
