@@ -72,7 +72,7 @@ void Chicken::Update()
 	}
 }
 
-void Chicken::Draw()
+void Chicken::Draw(int sizeup)
 {
 	if (m_exist)
 	{
@@ -80,7 +80,7 @@ void Chicken::Draw()
 			static_cast<int>(m_pos.y),			//•\¦À•W
 			32 * m_animeWidth, 32 * m_animeHight,			//Ø‚èæ‚è¶ã
 			32, 32,							//•A‚‚³
-			3.0f, 0.0f,						//Šg‘å—¦A‰ñ“]Šp“x
+			3.0f * sizeup, 0.0f,						//Šg‘å—¦A‰ñ“]Šp“x
 			m_handle, true, m_reversal);
 	}
 }
