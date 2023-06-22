@@ -11,6 +11,19 @@ namespace Sound
 		MainBgm,		// 戦闘画面のBGM
 		ResultBgm,		// リザルト画面のBGM
 
+		// SE
+		// だいなそー
+
+		// エルフ
+
+		// きんにくん
+		KinnikuAttack1,
+		KinnikuAttack2,
+		KinnikuAttack3,
+		KinnikuAttack4,
+
+		// 魔女
+
 		SoundId_Num
 	}SoundId;
 

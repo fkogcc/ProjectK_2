@@ -64,11 +64,7 @@ SceneBase* SceneTitle::Update()
 
 void SceneTitle::Draw()
 {
-
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xffffff, true);
-
-	DrawString(0, 0, "title", Color::kWhite, false);
-	DrawString(0, 0, "title", 0x000000, false);
 
 	m_pLogo->Draw();
 

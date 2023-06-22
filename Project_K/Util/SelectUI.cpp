@@ -144,29 +144,10 @@ void SelectUI::InitChar()
 	m_player2 = m_player1;// ついでに2Pもまとめて初期化
 
 	// 恐竜くんの初期化
-	m_dino.m_imgWidth = 640;
-	m_dino.m_imgHight = 222;
-	m_dino.m_imgSize = 2;
-	float kyouryuuPos = kBottomStandard - (m_dino.m_imgHight * m_dino.m_imgSize / 2);
-	m_dino.m_posY = kyouryuuPos;
-	m_dino.m_maxWidth = 9;
-	m_dino.m_maxHight = 2;
-	m_dino.m_animFrame = 5;
-	m_dino.m_text = kDinoText;
-	m_dino.m_font = kHiraganaFont;
-
+	InitCharas(m_dino, 640, 222, 2, 9, 2, 5, kDinoText, kHiraganaFont);
 
 	// エルフくんの初期化
-	m_elf.m_imgWidth = 288;
-	m_elf.m_imgHight = 128;
-	m_elf.m_imgSize = 7;
-	float elfPos = kBottomStandard - (m_elf.m_imgHight * m_elf.m_imgSize / 2);
-	m_elf.m_posY = elfPos;
-	m_elf.m_maxWidth = 12;
-	m_elf.m_maxHight = 0;
-	m_elf.m_animFrame = 5;
-	m_elf.m_text = kElfText;
-	m_elf.m_font = kEnglishFont;
+	InitCharas(m_elf, 288, 128, 7, 12, 0, 5, kElfText, kEnglishFont);
 
 	// きんにくんの初期化
 	m_kinnniku.m_imgWidth = 18;
@@ -179,18 +160,10 @@ void SelectUI::InitChar()
 	m_kinnniku.m_animFrame = 60;
 	m_kinnniku.m_text = kKinText;
 	m_kinnniku.m_font = kHiraganaFont;
+	//InitCharas(m_kinnniku, 18, 23, 10, 0, 2, 60, kKinText, kHiraganaFont);
 
 	// 魔女の初期化
-	m_witch.m_imgWidth = 48;
-	m_witch.m_imgHight = 48;
-	m_witch.m_imgSize = 6;
-	float witchPos = kBottomStandard - (m_witch.m_imgHight * m_witch.m_imgSize / 2);
-	m_witch.m_posY = witchPos;
-	m_witch.m_maxWidth = 1;
-	m_witch.m_maxHight = 8;
-	m_witch.m_animFrame = 15;
-	m_witch.m_text = kWitchText;
-	m_witch.m_font = kEnglishFont;
+	InitCharas(m_witch, 48, 48, 6, 1, 8, 15, kWitchText, kEnglishFont);
 
 }
 
@@ -481,5 +454,20 @@ void SelectUI::DrawCursor()
 	DrawTriangle(1070, posY2P + 30,
 		1100, posY2P + 30 - m_cursolHeight,
 		1100, posY2P + 30 + m_cursolHeight, kColor2P, false);
+}
+
+void SelectUI::InitCharas(CharData& charaData, int imgWidth, int imgHight, float imgSize, int maxWidth, int maxHight, int animFrame, const char* text, int font)
+{
+	// 各キャラクターの初期化
+	charaData.m_imgWidth = imgWidth;
+	charaData.m_imgHight = imgHight;
+	charaData.m_imgSize = imgSize;
+	float charposY = kBottomStandard - (charaData.m_imgHight * charaData.m_imgSize / 2);
+	charaData.m_posY = charposY;
+	charaData.m_maxWidth = maxWidth;
+	charaData.m_maxHight = maxHight;
+	charaData.m_animFrame = animFrame;
+	charaData.m_text = text;
+	charaData.m_font = font;
 }
 
