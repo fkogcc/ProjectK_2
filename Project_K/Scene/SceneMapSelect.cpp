@@ -1,4 +1,4 @@
-#include "SceneMapSelect.h"
+﻿#include "SceneMapSelect.h"
 #include "SceneCharacterSelect.h"
 #include "SceneTitle.h"
 #include "../Object/Stage/StageBase.h"
@@ -6,40 +6,40 @@
 
 namespace
 {
-	// ˜gü‚ÌƒTƒCƒY
+	// 枠線の縦横サイズ
 	constexpr int kFrameSizeX = 500;
 	constexpr int kFrameSizeY = 290;
 
-	//**** ƒeƒNƒXƒ`ƒƒî•ñ ****//
+	//**** グラフィック情報 ****//
 	const char* kRandFile = "Data/Image/UI/StageSelect/RandStage.png";
 	const char* kDinoFile = "Data/Image/UI/StageSelect/Dino.bmp";
 	const char* kElfFile = "Data/Image/UI/StageSelect/Elf.bmp";
 	const char* kMachoFile = "Data/Image/UI/StageSelect/Macho.bmp";
 	const char* kWizardFile = "Data/Image/UI/StageSelect/Wizard.png";
 
-	// ƒtƒHƒ“ƒgî•ñ
-	const char* kFont = "HGPs‘‘Ì";
+	// フォント
+	const char* kFont = "HGP行書体";
 }
 
 SceneMapSelect::SceneMapSelect() :
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^‰Šú‰»
+	// コンストラクタ初期化
 	m_bgHandle(-1),
 	m_font(-1),
 	m_mapNum(0)
 {
-	m_handle[0] = LoadGraph(kRandFile);		// ƒ‰ƒ“ƒ_ƒ€ƒXƒe[ƒW
-	m_handle[1] = LoadGraph(kDinoFile);		// ‹°—³ƒXƒe[ƒW
-	m_handle[2] = LoadGraph(kElfFile);		// ƒGƒ‹ƒtƒXƒe[ƒW
-	m_handle[3] = LoadGraph(kMachoFile);	// ƒ}ƒbƒ`ƒ‡ƒXƒe[ƒW
-	m_handle[4] = LoadGraph(kWizardFile);	// –‚—ƒXƒe[ƒW
+	m_handle[0] = LoadGraph(kRandFile);		// ランダムステージ
+	m_handle[1] = LoadGraph(kDinoFile);		// 恐竜ステージ
+	m_handle[2] = LoadGraph(kElfFile);		// エルフステージ
+	m_handle[3] = LoadGraph(kMachoFile);	// マッチョステージ
+	m_handle[4] = LoadGraph(kWizardFile);	// 魔女ステージ
 
-	// Žg—p‚·‚éƒtƒHƒ“ƒg
+	// 使用フォント
 	m_font = CreateFontToHandle(kFont, 140, -1, -1);
 }
 
 SceneMapSelect::~SceneMapSelect()
 {
-	// ƒnƒ“ƒhƒ‹‚Ìíœ
+	// グラフィックハンドルの削除
 	DeleteGraph(m_stageHandle);
 	DeleteGraph(m_bgHandle);
 
@@ -51,7 +51,7 @@ SceneMapSelect::~SceneMapSelect()
 
 void SceneMapSelect::Init()
 {
-	// ƒOƒ‰ƒtƒBƒbƒNƒnƒ“ƒhƒ‹‚Ìƒ[ƒh
+	// グラフィックハンドルのロード
 	m_stageHandle = LoadGraph("Data/Image/UI/StageSelect/ManyStage.png");
 	m_bgHandle = LoadGraph("Data/Image/UI/StageSelect/Bg.png");
 	// BGM Ä¶
@@ -94,7 +94,7 @@ SceneBase* SceneMapSelect::Update()
 		}
 	}
 
-	// ƒJ[ƒ\ƒ‹ˆÚ“®ˆ—(”’l‚ÅŠÇ—)
+	// カーソルの移動処理
 	if (Pad::IsTrigger(PAD_INPUT_UP, 1))
 	{
 		if (m_mapNum > 0)
@@ -124,22 +124,22 @@ SceneBase* SceneMapSelect::Update()
 
 void SceneMapSelect::Draw()
 {
-	// ƒfƒoƒbƒO•\Ž¦
+	// デバッグ表示
 	DrawString(0, 0, "MapSelect", Color::kWhite);
 
-	// ®F‚Ì”wŒi•`‰æ
+	// 紺色の背景描画
 	DrawGraph(0, 0, m_bgHandle, true);
 
-	// wStage Selectx‰ºü•`‰æ
+	// 『Select Stage』の下線描画
 	DrawBox(30, 175, 765, 190, 0x00ffff, true);
 
-	// ƒeƒLƒXƒg•`‰æ
+	// テキスト描画
 	DrawFormatStringToHandle(30, 75, 0x800000, m_font, "Select Stage");
 
-	// Œ»ÝƒJ[ƒ\ƒ‹‘I‘ð‚³‚ê‚Ä‚¢‚éƒXƒe[ƒW‚ÌŠg‘å•\Ž¦‚Ì•`‰æ
+	// カーソル位置のステージの拡大描画
 	DrawExtendGraph(50, 300, 658, 642, m_handle[m_mapNum], true);
 
-	// ƒXƒe[ƒW‘I‘ðŽž‚Ì˜gü•`‰æ
+	// カーソル位置の枠線描画
 	switch (m_mapNum)
 	{
 	case 0:
@@ -161,14 +161,8 @@ void SceneMapSelect::Draw()
 		break;
 	}
 
-	// ŠeƒXƒe[ƒW‚Ìk¬•`‰æ
+	// 各ステージの縮小描画
 	DrawGraph(0, 0, m_stageHandle, true);
-	printfDx("%d", m_mapNum);
 
-	// ƒtƒF[ƒhƒAƒEƒgˆ—
 	SceneBase::DrawFade();
-}
-
-void SceneMapSelect::ChooseNum()
-{
 }

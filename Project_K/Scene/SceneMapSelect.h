@@ -15,9 +15,6 @@ public:
 	virtual SceneBase* Update() override;	// 更新
 	virtual void Draw();		// 描画
 
-	// 選択された番号によってマップを選ぶ
-	virtual void ChooseNum();
-
 	// ステージが選ばれた時の処理
 	//bool IsSelected() { return };
 
