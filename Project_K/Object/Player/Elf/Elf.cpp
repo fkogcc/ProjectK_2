@@ -14,6 +14,7 @@
 #include "../../Object/Shot/NullShot.h"
 
 #include "../../Util/Sound.h"
+#include <array>
 
 namespace
 {
@@ -40,7 +41,7 @@ namespace AttackSetting
 	constexpr int kDamageNormalShot = 5;
 	constexpr int kDamagePunch      = 1;
 	constexpr int kDamageUp         = 5;
-	constexpr int kDamageChargeShot = 15 * 30;
+	constexpr int kDamageChargeShot = 20;
 
 	constexpr int kGapTimeJump       = 1;
 	constexpr int kGapTimePunch		 = 2;
@@ -57,7 +58,7 @@ Elf::Elf() :
 	m_isAttackHit(false),
 	m_pIdle(nullptr),
 	m_pChargeShot(nullptr),
-	m_pShot(nullptr),
+	m_pShoot(nullptr),
 	m_pPunch(nullptr),
 	m_pUp(nullptr),
 	m_pRun(nullptr)
@@ -67,7 +68,7 @@ Elf::Elf() :
 	m_pRun        = new ElfRun; // 走り
 	m_pJump       = new ElfJump;
 	m_pPunch      = new ElfAttackArrowPunch;	  // 攻撃
-	m_pShot       = new ElfAttackArrowShot;       // 攻撃
+	m_pShoot       = new ElfAttackArrowShot;       // 攻撃
 	m_pChargeShot = new ElfAttackArrowChargeShot; // 攻撃
 	m_pUp         = new ElfAttackArrowUp;	      // 攻撃
 }
@@ -78,7 +79,7 @@ Elf::~Elf()
 	delete m_pRun;
 	delete m_pJump;
 	delete m_pPunch;
-	delete m_pShot;
+	delete m_pShoot;
 	delete m_pChargeShot;
 	delete m_pUp;
 }
@@ -99,6 +100,16 @@ void Elf::End()
 
 void Elf::Update()
 {
+	for (int i = 0; i < kShotMax; i++)
+	{
+		// ショットの存在が消え、NullShotではないときm_ShotにNullShotを入れる
+		if (!m_pShot[i]->GetExist() && !m_pShot[i]->GetNullShot())
+		{
+			m_pShot[i] = new NullShot();
+		}
+		m_pShot[i]->Update();
+	}
+
 	// アニメーション停止
 	AnimStop();
 
@@ -135,6 +146,10 @@ void Elf::Draw()
 		CharDefaultPos(m_isDirection);
 		m_isSpawn = true;
 	}
+	for (int i = 0; i < kShotMax; i++)
+	{
+		m_pShot[i]->Draw();
+	}
 	// プレイヤーの描画
 	my::MyDrawRectRotaGraph(
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
@@ -146,8 +161,6 @@ void Elf::Draw()
 		true,		       // 画像透過
 		m_isDirection      // 画像反転
 	);
-
-
 }
 
 // 操作
@@ -195,6 +208,25 @@ void Elf::UpdateControl()
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);
 			m_attackFlag = true;
+
+			for (int i = 0; i < kShotMax; i++)
+			{
+				// ショットが存在しないとき
+				if (!m_pShot[i]->GetExist())
+				{
+					// shot発射時の位置を修正
+					Vec2 shotPos = { m_pos.x, m_pos.y + 110.0f };
+					if (m_isDirection)
+					{
+						m_pShot[i] = new ElfShot(shotPos, { -15,0 });
+					}
+					else
+					{
+						m_pShot[i] = new ElfShot(shotPos, { 15,0 });
+					}
+					break; //ループ抜ける
+				}
+			}
 		}
 
 		if (Pad::IsTrigger(PAD_INPUT_5, m_padNum) && m_moveType != static_cast<int>(moveType::Attack3))// XBOX X or Y
@@ -206,6 +238,7 @@ void Elf::UpdateControl()
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
 			m_attackFlag = true;
+
 		}
 
 		if (m_moveType == static_cast<int>(moveType::Run) &&
@@ -227,7 +260,7 @@ void Elf::AnimStop()
 
 	if (!m_pChargeShot->IsSetMove() ||
 		!m_pJump->IsSetMove      () ||
-		!m_pShot->IsSetMove		 () ||
+		!m_pShoot->IsSetMove		 () ||
 		!m_pPunch->IsSetMove	 () ||
 		!m_pUp->IsSetMove		 ())
 	{
@@ -252,7 +285,7 @@ void Elf::AnimStop()
 		m_isAttackHit = false;
 		m_pChargeShot->SetMoveTime(true);
 		m_pJump->SetMoveTime(true);
-		m_pShot->SetMoveTime(true);
+		m_pShoot->SetMoveTime(true);
 		m_pPunch->SetMoveTime(true);
 		m_pUp->SetMoveTime(true);
 	}
@@ -402,10 +435,12 @@ void Elf::AnimAttackPunch()
 // 通常ショットアニメーション
 void Elf::AnimAttackNormalShot()
 {
-	m_pShot->Update();
+	m_pShoot->Update();
 	// 画像読み込み位置
-	m_imageX = m_pShot->SetPosImageX();
-	m_imageY = m_pShot->SetPosImageY();
+	m_imageX = m_pShoot->SetPosImageX();
+	m_imageY = m_pShoot->SetPosImageY();
+
+
 
 	// 攻撃力
 	m_damage = AttackSetting::kDamageNormalShot;

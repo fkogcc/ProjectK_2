@@ -4,6 +4,7 @@
 
 class PlayerBase;
 class StringFunction;
+class UIAnimation;
 class SceneResult : public SceneBase
 {
 public:
@@ -19,13 +20,11 @@ public:
 
 	virtual SceneBase* Update() override;
 	virtual void Draw();
-
-
-
 private:
 	// ポインタ
 	PlayerBase* m_pPlayer[2];// プレイヤーベース
 	StringFunction* m_pString;
+	UIAnimation* m_pAnimUI;
 
 	bool m_isTitle;// タイトルへ
 	bool m_isRetry;// リトライ

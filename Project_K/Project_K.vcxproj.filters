@@ -70,6 +70,7 @@
     <ClCompile Include="Util\SelectUI.cpp" />
     <ClCompile Include="Util\FontFunction.cpp" />
     <ClCompile Include="StringFunction.cpp" />
+    <ClCompile Include="UIAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Stage\ElfStage.h" />
@@ -143,5 +144,7 @@
     <ClInclude Include="Util\SelectUI.h" />
     <ClInclude Include="Util\FontFunction.h" />
     <ClInclude Include="StringFunction.h" />
+    <ClInclude Include="UIAnimation.h" />
+    <ClInclude Include="ButtonNo.h" />
   </ItemGroup>
 </Project>

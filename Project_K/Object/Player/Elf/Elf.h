@@ -67,9 +67,11 @@ private:
 	ElfRun* m_pRun; // ‘–‚è
 	ElfJump* m_pJump;
 	ElfAttackArrowChargeShot* m_pChargeShot;// UŒ‚
-	ElfAttackArrowShot* m_pShot;      // UŒ‚
+	ElfAttackArrowShot* m_pShoot;      // UŒ‚
 	ElfAttackArrowPunch* m_pPunch;     // UŒ‚
 	ElfAttackArrowUp* m_pUp;        // UŒ‚
+
+
 };
 
 
