@@ -1,5 +1,7 @@
 #include "KnightCat.h"
 #include "../../Util/DrawFunctions.h"
+#include"../../Util/Sound.h"
+
 namespace
 {
 	const char* const kFilmName = "Data/Image/Player/Witch/Nekochan.png";
@@ -36,6 +38,8 @@ void KnightCat::Update()
 {
 	if (m_exist)
 	{
+	// SE ÉãÅ[Év
+	Sound::loopBgm(Sound::WitchAttack4);// SEÇÇ»ÇÁÇ∑
 		if (m_reversal)
 		{
 			m_movePos = -50;
