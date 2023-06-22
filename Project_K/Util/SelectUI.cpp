@@ -462,23 +462,23 @@ void SelectUI::DrawLetter()
 
 void SelectUI::DrawCursor()
 {
-	int posY1P = 48 + 200 * (m_cursor1 + 1);
+	int posY1P = 30 + 200 * (m_cursor1 + 1);
 	//int posY = 48 + 200 * (m_cursor1 + 1);
-	//int posY2P = 48 + 200 * (m_cursor2 + 1);
+	int posY2P = 30 + 200 * (m_cursor2 + 1);
 	//if (cursorNext == i)
-	{
-		DrawTriangle(800, posY1P + 30,
-			770, posY1P + 30 - m_cursolHeight,
-			770, posY1P + 30 + m_cursolHeight, 0xff0000, true);
-		DrawTriangle(800, posY1P + 30,
-			770, posY1P + 30 - m_cursolHeight,
-			770, posY1P + 30 + m_cursolHeight, kColor1P, false);
 
-		//DrawTriangle(1170, posY2P + 30,
-		//	1200, posY2P + 30 - cursorHeight,
-		//	1200, posY2P + 30 + cursorHeight, 0x0000ff, true);
-		//DrawTriangle(1170, posY2P + 30,
-		//	1200, posY2P + 30 - cursorHeight,
-		//	1200, posY2P + 30 + cursorHeight, kColor2P, false);
-	}
+	DrawTriangle(860, posY1P + 30,
+		830, posY1P + 30 - m_cursolHeight,
+		830, posY1P + 30 + m_cursolHeight, 0xff0000, true);
+	DrawTriangle(860, posY1P + 30,
+		830, posY1P + 30 - m_cursolHeight,
+		830, posY1P + 30 + m_cursolHeight, kColor1P, false);
+
+	DrawTriangle(1070, posY2P + 30,
+		1100, posY2P + 30 - m_cursolHeight,
+		1100, posY2P + 30 + m_cursolHeight, 0x0000ff, true);
+	DrawTriangle(1070, posY2P + 30,
+		1100, posY2P + 30 - m_cursolHeight,
+		1100, posY2P + 30 + m_cursolHeight, kColor2P, false);
 }
+
