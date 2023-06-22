@@ -369,7 +369,7 @@ void Kinnikurou::AttackCol()
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack2))
 		{
-			m_damage = 10;
+			m_damage = 20;
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack3))
 		{
@@ -377,7 +377,7 @@ void Kinnikurou::AttackCol()
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack4))
 		{
-			m_damage = 20;
+			m_damage = 30;
 		}
 	}
 	else
@@ -453,7 +453,7 @@ void Kinnikurou::UpdateAttack()
 	{
 		m_moveType = static_cast<int>(moveType::Attack2);// マッスル攻撃状態
 		ImgposInit();
-		m_motionCount = 2 * 4 + 15 * 3;
+		m_motionCount = 2 * 3 + 15 * 3 + 1;
 	}
 	if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))
 	{
@@ -465,7 +465,7 @@ void Kinnikurou::UpdateAttack()
 	{
 		m_moveType = static_cast<int>(moveType::Attack4);// みぞおち攻撃状態
 		ImgposInit();
-		m_motionCount = 70 + 2 * 2 + 40;
+		m_motionCount = 70 + 2 * 2 + 40 -1;
 	}
 }
 

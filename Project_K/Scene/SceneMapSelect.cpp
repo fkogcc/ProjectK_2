@@ -95,7 +95,7 @@ SceneBase* SceneMapSelect::Update()
 	}
 
 	// カーソルの移動処理
-	if (Pad::IsTrigger(PAD_INPUT_UP, 1))
+	if (Pad::IsTrigger(PAD_INPUT_UP, 1) || Pad::IsTrigger(PAD_INPUT_UP, 2))
 	{
 		if (m_mapNum > 0)
 		{
@@ -106,7 +106,7 @@ SceneBase* SceneMapSelect::Update()
 			m_mapNum = 4;
 		}
 	}
-	else if (Pad::IsTrigger(PAD_INPUT_DOWN, 1))
+	else if (Pad::IsTrigger(PAD_INPUT_DOWN, 1) || Pad::IsTrigger(PAD_INPUT_DOWN, 2))
 	{
 		if (m_mapNum < 4)
 		{
