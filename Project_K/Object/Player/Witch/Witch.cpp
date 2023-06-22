@@ -10,6 +10,7 @@
 #include"Chicken.h"
 #include"KnightCat.h"
 #include"WitchDead.h"
+#include"../../Util/Sound.h"
 
 namespace
 {
@@ -294,6 +295,7 @@ void Witch::UpdatePlayerState()
         m_animeWidth = m_pShot->IndexX();// どこの位置からアニメーションするかの指定
         m_animeHight = m_pShot->IndexY();// 縦の番号を0にもどす
         m_animeMax = m_pShot->AnimeMax();// アニメーションの末尾の設定
+        Sound::play(Sound::WitchAttack1);
     }
     if (m_moveType == static_cast<int>(moveType::Attack2))// 中攻撃（氷四連）
     {
@@ -303,18 +305,21 @@ void Witch::UpdatePlayerState()
         m_indexX = m_pLongShot->SizeX();// 画像サイズの変更
         m_shiftX = m_pLongShot->ShiftX();// 画像サイズの変更に伴うずらす位置の取得
         m_animeMax = m_pLongShot->AnimeMax();// アニメーションの末尾の設定
+        Sound::play(Sound::WitchAttack2);
     }
     if (m_moveType == static_cast<int>(moveType::Attack3))// 中攻撃（ニワトリー）
     {
         m_animeWidth = m_pCharge->IndexX();// どこの位置からアニメーションするかの指定
         m_animeHight = m_pCharge->IndexY();// 縦の番号を0にもどす
         m_animeMax = m_pCharge->AnimeMax();// アニメーションの末尾の設定
+        Sound::play(Sound::WitchCharge);// SEをならす
     }
     if (m_moveType == static_cast<int>(moveType::Attack4))// 強攻撃（ねこちゃん）
     {
         m_animeWidth = m_pCharge->IndexX();// どこの位置からアニメーションするかの指定
         m_animeHight = m_pCharge->IndexY();// 縦の番号を0にもどす
         m_animeMax = m_pCharge->AnimeMax();// アニメーションの末尾の設定
+        Sound::play(Sound::WitchCharge);// SEをならす
     }
     //if (m_moveType == static_cast<int>(moveType::Damage))// ダメージをうけた
     //{

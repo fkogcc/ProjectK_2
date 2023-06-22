@@ -28,6 +28,11 @@ namespace
 		"Data/Sound/SE/Attack4.mp3",
 
 		// ñÇèó
+		"Data/Sound/SE/Witch/iceMagic.mp3",
+		"Data/Sound/SE/Witch/iceAttack.mp3",
+		"Data/Sound/SE/Witch/chickenwalk.mp3",
+		"Data/Sound/SE/Witch/knife.mp3",
+		"Data/Sound/SE/Witch/charge.mp3",
 	};
 }
 
