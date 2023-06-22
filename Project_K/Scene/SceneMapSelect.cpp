@@ -2,6 +2,7 @@
 #include "SceneCharacterSelect.h"
 #include "SceneTitle.h"
 #include "../Object/Stage/StageBase.h"
+#include "../Util/Sound.h"
 
 SceneMapSelect::SceneMapSelect() :
 	m_mapNum(1)
@@ -14,15 +15,21 @@ SceneMapSelect::~SceneMapSelect()
 
 void SceneMapSelect::Init()
 {
-
+	// BGM çƒê∂
+	Sound::startBgm(Sound::SelectBgm, 200);
 }
 
 void SceneMapSelect::End()
 {
+	// BGM í‚é~
+	Sound::stopBgm(Sound::SelectBgm);
 }
 
 SceneBase* SceneMapSelect::Update()
 {
+	// BGM ÉãÅ[Év
+	Sound::loopBgm(Sound::SelectBgm);
+
 	if (IsFading())
 	{
 		m_isFadeOut = IsFadingOut();

@@ -249,7 +249,7 @@ void Kinnikurou::Update()
 				CollisionSize(-80, -10, -30, 10);
 			}
 
-			m_pMizo->Update(m_imgPosX, m_imgPosY);
+			m_pMizo->Update(m_imgPosX, m_imgPosY, m_testCount);
 		}
 		// 走る状態
 		if (m_moveType == static_cast<int>(moveType::Run))
@@ -331,17 +331,18 @@ void Kinnikurou::Draw()
 
 	AttackCol();
 
-	DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft, 
-		static_cast<int> (m_pos.y) + m_sizeTop,
-		static_cast<int> (m_pos.x) + m_sizeRight, 
-		static_cast<int> (m_pos.y) + m_sizeBottom,
-		0xffffff, false);
+	//DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft, 
+	//	static_cast<int> (m_pos.y) + m_sizeTop,
+	//	static_cast<int> (m_pos.x) + m_sizeRight, 
+	//	static_cast<int> (m_pos.y) + m_sizeBottom,
+	//	0xffffff, false);
 }
 
 void Kinnikurou::ImgposInit()
 {
 	m_imgPosX = 0;
 	m_imgPosY = 0;
+	m_testCount = 0;
 }
 
 void Kinnikurou::AttackCol()

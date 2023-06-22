@@ -6,9 +6,10 @@ namespace Sound
 	typedef enum SoundId
 	{
 		// BGM
-		TitleBgm,		// 先頭画面のBGM
-		SelectBgm,		// 先頭画面のBGM
-		MainBgm,		// 先頭画面のBGM
+		TitleBgm,		// タイトル画面のBGM
+		SelectBgm,		// 選択画面のBGM
+		MainBgm,		// 戦闘画面のBGM
+		ResultBgm,		// リザルト画面のBGM
 
 		SoundId_Num
 	}SoundId;

@@ -26,17 +26,21 @@ SceneCharacterSelect::~SceneCharacterSelect()
 void SceneCharacterSelect::Init()
 {
 	// BGM 再生
-	Sound::startBgm(Sound::SelectBgm, 255);
+	Sound::startBgm(Sound::SelectBgm, 200);
 
 	m_pUi->Init(m_stageNo);
 }
 
 void SceneCharacterSelect::End()
 {
+	// BGM 停止
+	Sound::stopBgm(Sound::SelectBgm);
 }
 
 SceneBase* SceneCharacterSelect::Update()
 {
+	// BGM ループ
+	Sound::loopBgm(Sound::SelectBgm);
 	m_CharaChoice->Update();
 	m_pUi->Update();
 	m_pUi->SetCursor(m_CharaChoice->GetChackChara1(), m_CharaChoice->GetChackChara2());
