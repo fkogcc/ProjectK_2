@@ -39,12 +39,12 @@ void DinosaurStateManager::Update(int padNum)
 	{
 		m_pState->SetDeadFlag();
 	}
-	if (Pad::IsPress(PAD_INPUT_LEFT, padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_LEFT, padNum) && !m_pState->GetAttackMotion())// XBOX X or Y
 	{
 		m_lookLeft = true;
 	}
 
-	if (Pad::IsPress(PAD_INPUT_RIGHT, padNum) && !m_pState->GetAttackFlag())// XBOX X or Y
+	if (Pad::IsPress(PAD_INPUT_RIGHT, padNum) && !m_pState->GetAttackMotion())// XBOX X or Y
 	{
 		m_lookLeft = false;
 	}
@@ -69,11 +69,11 @@ void DinosaurStateManager::Update(int padNum)
 	}
 }
 // •`‰æ
-void DinosaurStateManager::Draw(Vec2 pos)
+void DinosaurStateManager::Draw(Vec2 pos,int size)
 {
 	assert(m_pState);
 	if (!m_pState)	return;
-	m_pState->Draw(m_handle, m_lookLeft, pos);// •`‰æ
+	m_pState->Draw(m_handle, m_lookLeft, pos, size);// •`‰æ
 }
 
 bool DinosaurStateManager::GetshotFlag()

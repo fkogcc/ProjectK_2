@@ -1,7 +1,6 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
-#include "../Util/Vec2.h"
 
 class SceneMapSelect : public SceneBase
 {
@@ -18,18 +17,7 @@ public:
 	// 選択された番号によってマップを選ぶ
 	virtual void ChooseNum();
 
-	// ステージが選ばれた時の処理
-	//bool IsSelected() { return };
-
 private:
-	Vec2 m_pos;
-
-	//**** UI用グラフィックハンドル ****//
-	int m_stageHandle;	// 
-	int m_bgHandle;		// 背景
-	int m_handle;
-	int m_font;			// フォントハンドル
-
 	// マップ判別用の番号変数
 	int m_mapNum;
 };

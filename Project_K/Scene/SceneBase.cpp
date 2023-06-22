@@ -11,7 +11,8 @@ SceneBase::SceneBase() :
 	m_fadeColor(Color::kBlack),
 	m_fadeBright(255),
 	m_fadeSpeed(-kFadeSpeed),
-	m_isFadeOut(false)
+	m_isFadeOut(false),
+	m_isBackScene(false)
 {
 }
 

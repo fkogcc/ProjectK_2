@@ -29,5 +29,7 @@ protected:
 	int m_fadeSpeed;
 
 	bool m_isFadeOut;// フェードアウトを行っているかどうか
+
+	bool m_isBackScene;
 };
 

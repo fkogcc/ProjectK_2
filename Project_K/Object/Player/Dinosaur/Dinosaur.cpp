@@ -33,6 +33,10 @@ void Dinosaur::Init()
 	m_sizeTop = -50;
 	m_sizeRight = 80;
 	m_sizeBottom = 110;
+	
+	CharDefaultPos(m_pStateManager->m_lookLeft);
+
+	m_pos.y = 550;
 }
 
 void Dinosaur::End()
@@ -84,9 +88,9 @@ void Dinosaur::Update()
 	// m_posの値を取得
 	m_pos += m_pStateManager->GetVec();
 
-	if (m_pos.y > 600)
+	if (m_pos.y > 550)
 	{
-		m_pos.y = 600;
+		m_pos.y = 550;
 	}
 
 	for (int i = 0; i < kShotMax; i++)
@@ -143,14 +147,8 @@ void Dinosaur::Update()
 
 void Dinosaur::Draw()
 {
-	if (!m_isSpawn)
-	{
-		CharDefaultPos(m_pStateManager->m_lookLeft);
-		m_isSpawn = true;
-	}
-
 	// キャラクター表示
-	m_pStateManager->Draw(m_pos);
+	m_pStateManager->Draw(m_pos, m_sizeUp);
 
 	//ショット表示
 	for (int i = 0; i < kShotMax; i++)

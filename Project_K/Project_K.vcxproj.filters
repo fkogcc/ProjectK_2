@@ -66,6 +66,8 @@
     <ClCompile Include="Object\Player\Kinnikurou\KinnikuDead.cpp" />
     <ClCompile Include="Object\Stage\StageBase.cpp" />
     <ClCompile Include="Util\SelectUI.cpp" />
+    <ClCompile Include="Util\FontFunction.cpp" />
+    <ClCompile Include="StringFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Stage\ElfStage.h" />
@@ -135,5 +137,7 @@
     <ClInclude Include="Object\Player\Kinnikurou\KinnikuDead.h" />
     <ClInclude Include="Object\Stage\StageBase.h" />
     <ClInclude Include="Util\SelectUI.h" />
+    <ClInclude Include="Util\FontFunction.h" />
+    <ClInclude Include="StringFunction.h" />
   </ItemGroup>
 </Project>

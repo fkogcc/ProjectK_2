@@ -12,7 +12,7 @@ public:
 
 	virtual DinosaurStateBase* Update(int padNum) { return this; }
 
-	virtual void Draw(int handle, bool lookRight,Vec2 pos);
+	virtual void Draw(int handle, bool lookRight,Vec2 pos,int size);
 
 	virtual void ChangeGraph(int ChangeSpeed, int GraphNum, bool ChangeY);
 
@@ -35,11 +35,13 @@ public:
 
 	int GetAttackDamage() { return m_attackDamage; }
 
+	bool GetAttackMotion() { return m_attackMotion; }
+
 protected:
 	int m_handle;
 
 	bool m_shotFlag = false;
-	bool m_lookLeft;	// 左を向いているか
+	bool m_lookLeft = false;	// 左を向いているか
 	bool m_deadFlag = false; //死んでいるかどうか
 
 	int m_attakSizeLeft = 0;
@@ -54,9 +56,13 @@ protected:
 
 	int m_gapTime = 0; // 後隙
 
+	int m_attackFrame = 0;//攻撃フラグがtrueになるまでの時間
+
 	int m_attackDamage = 0;// プレイヤーがエネミーに与えるダメージ量
-	bool m_attackFlag = false;
+	bool m_attackFlag = false; //攻撃判定があるとき
 	bool m_isMove = false;
 	Vec2 m_vec = { 0.0f,0.0f };// 運動量
+
+	bool m_attackMotion = false; //攻撃モーションのとき
 };
 

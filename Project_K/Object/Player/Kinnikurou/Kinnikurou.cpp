@@ -92,7 +92,7 @@ void Kinnikurou::Init()
 	m_sizeRight = 50;
 	m_sizeBottom = 50;
 
-	
+	CharDefaultPos(m_charDirection);
 }
 
 void Kinnikurou::End()
@@ -110,31 +110,16 @@ void Kinnikurou::End()
 
 void Kinnikurou::Update()
 {
-	
 	m_stiffen--;
 	if (m_hp > 0)
 	{
 		// ノックバック
-		KnockBack();
-		// ノックバックしているときの処理
-		if (m_onDamageFrame > 0)
-		{
-			ImgposInit();
-			m_moveType = static_cast<int>(moveType::Idol);
-			m_motionCount = 0;
-			InitAttackFlag();
-			m_jumpAcc = 0;
-		}
-
-		if (m_motionCount != 0)
-		{
-			m_motionCount--;
-			if (m_motionCount <= 0) m_motionCount = 0;
-		}
+		UpdateKnockBack();
+		// モーションのカウントダウン
+		MotionCountDown();
 
 		if (m_motionCount == 0 && !m_charRun)
 		{
-
 			m_moveType = 0;
 		}
 
@@ -147,7 +132,11 @@ void Kinnikurou::Update()
 			}
 		}
 		// ジャンプ更新処理
-		m_pJump->Update(m_jumpAcc, m_pos.y, m_padNum);
+		if (m_motionCount == 0)
+		{
+			m_pJump->Update(m_jumpAcc, m_pos.y, m_padNum);
+
+		}
 		// ジャンプしている間の挙動
 		if (m_pJump->IsJump())
 		{
@@ -171,52 +160,14 @@ void Kinnikurou::Update()
 			// 攻撃していないとき
 			if (m_motionCount == 0)
 			{
-				if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
-				{
-					m_moveType = static_cast<int>(moveType::Run);
-					m_pos.x += 10;
-					m_charDirection = false;
-					m_charRun = true;
-				}
-				if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
-				{
-					m_moveType = static_cast<int>(moveType::Run);
-					m_pos.x -= 10;
-					m_charDirection = true;
-					m_charRun = true;
-				}
-				if (m_stiffen <= 0)
-				{
-					if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
-					{
-						m_moveType = static_cast<int>(moveType::Attack1);// ジャブ攻撃状態
-						ImgposInit();
-						m_motionCount = 3 * 3;
-						m_stiffen = 15;
-					}
-				}
-				if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))
-				{
-					m_moveType = static_cast<int>(moveType::Attack2);// マッスル攻撃状態
-					ImgposInit();
-					m_motionCount = 2 * 4 + 15 * 3;
-				}
-				if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))
-				{
-					m_moveType = static_cast<int>(moveType::Attack3);// アッパー攻撃状態
-					ImgposInit();
-					m_motionCount = 5 * 4;
-				}
-				if (Pad::IsTrigger(PAD_INPUT_4, m_padNum))
-				{
-					m_moveType = static_cast<int>(moveType::Attack4);// みぞおち攻撃状態
-					ImgposInit();
-					m_motionCount = 70 + 2 * 2 + 40;
-				}
-
+				// 走る
+				UpdateRun();
+				// 攻撃
+				UpdateAttack();
 			}
 		}
 
+		// 硬直固定
 		if (m_stiffen <= 0)
 		{
 			m_stiffen = 0;
@@ -224,13 +175,11 @@ void Kinnikurou::Update()
 
 		if (!Pad::IsPress(PAD_INPUT_RIGHT, m_padNum) || !Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
 		{
-			//m_attackFlag = false;
 			m_charRun = false;
 		}
 
 		if ((Pad::IsRelase(PAD_INPUT_RIGHT, m_padNum) || Pad::IsRelase(PAD_INPUT_LEFT, m_padNum)) && m_motionCount == 0)
 		{
-			//m_attackFlag = false;
 			ImgposInit();
 		}
 
@@ -238,29 +187,20 @@ void Kinnikurou::Update()
 		// アイドル状態
 		if (m_moveType == static_cast<int>(moveType::Idol))
 		{
-			//m_attackFlag = false;
-
 			m_pIdle->Update(m_imgPosX, m_imgPosY);
 		}
 		// ジャブ攻撃
 		if (m_moveType == static_cast<int>(moveType::Attack1))
 		{
-
 			if (!m_charDirection)
 			{
 				// 当たり判定
-				m_attackSizeLeft = 30;
-				m_attackSizeTop = -30;
-				m_attackSizeRight = 90;
-				m_attackSizeBottom = 10;
+				CollisionSize(30, -30, 90, 10);
 			}
 			else if (m_charDirection)
 			{
 				// 当たり判定
-				m_attackSizeLeft = -90;
-				m_attackSizeTop = -30;
-				m_attackSizeRight = -30;
-				m_attackSizeBottom = 10;
+				CollisionSize(-90, -30, -30, 10);
 			}
 
 			m_pJab->Update(m_imgPosX, m_imgPosY);
@@ -268,21 +208,14 @@ void Kinnikurou::Update()
 		// 胸筋衝撃波
 		if (m_moveType == static_cast<int>(moveType::Attack2))
 		{
-
 			if (!m_charDirection)
 			{
 				// 当たり判定
-				m_attackSizeLeft = -50;
-				m_attackSizeTop = -90;
-				m_attackSizeRight = 100;
-				m_attackSizeBottom = 90;
+				CollisionSize(-50, -90, 100, 90);
 			}
 			else if (m_charDirection)
 			{
-				m_attackSizeLeft = -100;
-				m_attackSizeTop = -90;
-				m_attackSizeRight = 50;
-				m_attackSizeBottom = 90;
+				CollisionSize(-100, -90, 50, 90);
 			}
 
 
@@ -291,59 +224,38 @@ void Kinnikurou::Update()
 		// アッパー攻撃
 		if (m_moveType == static_cast<int>(moveType::Attack3))
 		{
-
 			if (!m_charDirection)
 			{
 				// 当たり判定
-				m_attackSizeLeft = 30;
-				m_attackSizeTop = -80;
-				m_attackSizeRight = 100;
-				m_attackSizeBottom = 80;
+				CollisionSize(30, -80, 100, 80);
 			}
 			else if (m_charDirection)
 			{
-				m_attackSizeLeft = -100;
-				m_attackSizeTop = -80;
-				m_attackSizeRight = -30;
-				m_attackSizeBottom = 80;
+				CollisionSize(-100, -80, -30, 80);
 			}
-
-
 
 			m_pUpper->Update(m_imgPosX, m_imgPosY);
 		}
 		// みぞおち攻撃
 		if (m_moveType == static_cast<int>(moveType::Attack4))
 		{
-
-
 			if (!m_charDirection)
 			{
 				// 当たり判定
-				m_attackSizeLeft = 30;
-				m_attackSizeTop = -10;
-				m_attackSizeRight = 80;
-				m_attackSizeBottom = 10;
+				CollisionSize(30, -10, 80, 10);
 			}
 			else if (m_charDirection)
 			{
-				m_attackSizeLeft = -80;
-				m_attackSizeTop = -10;
-				m_attackSizeRight = -30;
-				m_attackSizeBottom = 10;
+				CollisionSize(-80, -10, -30, 10);
 			}
-
-
 
 			m_pMizo->Update(m_imgPosX, m_imgPosY);
 		}
 		// 走る状態
 		if (m_moveType == static_cast<int>(moveType::Run))
 		{
-			//m_attackFlag = false;
 			m_pRun->Update(m_imgPosX, m_imgPosY);
 		}
-		//UpdateJump();
 	}
 	else
 	{
@@ -351,8 +263,6 @@ void Kinnikurou::Update()
 		m_moveType = static_cast<int>(moveType::Dead);
 		m_pDead->Update(m_imgPosX, m_imgPosY);
 	}
-
-	
 }
 
 void Kinnikurou::Draw()
@@ -366,75 +276,56 @@ void Kinnikurou::Draw()
 	// アイドル状態
 	if (m_moveType == static_cast<int>(moveType::Idol))
 	{
-		m_charHandle = m_idleHandle;
-		m_imgWidth = 18;
-		m_imgHeight = 23;
+		HandleAssignment(m_idleHandle, 18, 23);
 	}
 	// ジャブ攻撃状態
 	else if (m_moveType == static_cast<int>(moveType::Attack1))
 	{
-		m_charHandle = m_jabHandle;
-		m_imgWidth = 56 / 2;
-		m_imgHeight = 23;
+		HandleAssignment(m_jabHandle, 56 / 2, 23);
 	}
 	// マッスル攻撃状態
 	else if (m_moveType == static_cast<int>(moveType::Attack2))
 	{
-		m_charHandle = m_muscleHandle;
-		m_imgWidth = 27;
-		m_imgHeight = 24;
+		HandleAssignment(m_muscleHandle, 27, 24);
 	}
 	// アッパー攻撃状態
 	else if (m_moveType == static_cast<int>(moveType::Attack3))
 	{
-		m_charHandle = m_UpperHandle;
-		m_imgWidth = 27;
-		m_imgHeight = 24;
+		HandleAssignment(m_UpperHandle, 27, 24);
 	}
 	// みぞおち攻撃状態
 	else if (m_moveType == static_cast<int>(moveType::Attack4))
 	{
-		m_charHandle = m_MizoHandle;
-		m_imgWidth = 27;
-		m_imgHeight = 24;
+		HandleAssignment(m_MizoHandle, 27, 24);
 	}
 	// 移動状態
 	else if (m_moveType == static_cast<int>(moveType::Run))
 	{
-		m_charHandle = m_RunHandle;
-		m_imgWidth = 54 / 3;
-		m_imgHeight = 72 / 3;
+		HandleAssignment(m_RunHandle, 54 / 3, 72 / 3);
 	}
 	else if (m_moveType == static_cast<int>(moveType::Jump))
 	{
 		if (m_pJump->IsFall())
 		{
-			m_charHandle = m_FallHandle;
-			m_imgWidth = 24;
-			m_imgHeight = 22;
+			HandleAssignment(m_FallHandle, 24, 22);
 		}
 		else
 		{
-			m_charHandle = m_JumpHandle;
-			m_imgWidth = 19;
-			m_imgHeight = 21;
+			HandleAssignment(m_JumpHandle, 19, 21);
 		}
 		
 		ImgposInit();
 	}
 	else if (m_moveType == static_cast<int>(moveType::Dead))
 	{
-		m_charHandle = m_DeadHandle;
-		m_imgWidth = 90 / 3;
-		m_imgHeight = 96 / 4;
+		HandleAssignment(m_DeadHandle, 90 / 3, 96 / 3);
 	}
-
 
 	// キャラクターの描画
 	my::MyDrawRectRotaGraph(static_cast<int> (m_pos.x), static_cast<int> (m_pos.y),
 		m_imgPosX * m_imgWidth, m_imgPosY * m_imgHeight,
 		m_imgWidth, m_imgHeight,
-		5.0f, 0.0f,
+		5.0f * m_sizeUp, 0.0f,
 		m_charHandle,
 		true, m_charDirection);
 
@@ -500,4 +391,94 @@ void Kinnikurou::InitAttackFlag()
 	m_pMuscle->m_isAttackCol = false;
 	m_pUpper->m_isAttackCol = false;
 	m_pMizo->m_isAttackCol = false;
+}
+
+void Kinnikurou::UpdateKnockBack()
+{
+	// ノックバック
+	KnockBack();
+	// ノックバックしているときの処理
+	if (m_onDamageFrame > 0)
+	{
+		ImgposInit();
+		m_moveType = static_cast<int>(moveType::Idol);
+		m_motionCount = 0;
+		InitAttackFlag();
+		m_jumpAcc = 0;
+	}
+}
+
+void Kinnikurou::MotionCountDown()
+{
+	// モーションのカウントダウン
+	if (m_motionCount != 0)
+	{
+		m_motionCount--;
+		if (m_motionCount <= 0) m_motionCount = 0;
+	}
+}
+
+void Kinnikurou::UpdateRun()
+{
+	if (Pad::IsPress(PAD_INPUT_RIGHT, m_padNum))
+	{
+		m_moveType = static_cast<int>(moveType::Run);
+		m_pos.x += 10;
+		m_charDirection = false;
+		m_charRun = true;
+	}
+	if (Pad::IsPress(PAD_INPUT_LEFT, m_padNum))
+	{
+		m_moveType = static_cast<int>(moveType::Run);
+		m_pos.x -= 10;
+		m_charDirection = true;
+		m_charRun = true;
+	}
+}
+
+void Kinnikurou::UpdateAttack()
+{
+	if (m_stiffen <= 0)
+	{
+		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum))
+		{
+			m_moveType = static_cast<int>(moveType::Attack1);// ジャブ攻撃状態
+			ImgposInit();
+			m_motionCount = 3 * 3;
+			m_stiffen = 15;
+		}
+	}
+	if (Pad::IsTrigger(PAD_INPUT_2, m_padNum))
+	{
+		m_moveType = static_cast<int>(moveType::Attack2);// マッスル攻撃状態
+		ImgposInit();
+		m_motionCount = 2 * 4 + 15 * 3;
+	}
+	if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))
+	{
+		m_moveType = static_cast<int>(moveType::Attack3);// アッパー攻撃状態
+		ImgposInit();
+		m_motionCount = 5 * 4;
+	}
+	if (Pad::IsTrigger(PAD_INPUT_4, m_padNum))
+	{
+		m_moveType = static_cast<int>(moveType::Attack4);// みぞおち攻撃状態
+		ImgposInit();
+		m_motionCount = 70 + 2 * 2 + 40;
+	}
+}
+
+void Kinnikurou::CollisionSize(int left, int top, int right, int bottom)
+{
+	m_attackSizeLeft = left;
+	m_attackSizeTop = top;
+	m_attackSizeRight = right;
+	m_attackSizeBottom = bottom;
+}
+
+void Kinnikurou::HandleAssignment(int handle, int width, int height)
+{
+	m_charHandle = handle;
+	m_imgWidth = width;
+	m_imgHeight = height;
 }

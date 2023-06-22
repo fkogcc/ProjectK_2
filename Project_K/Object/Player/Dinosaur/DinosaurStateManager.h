@@ -16,7 +16,7 @@ public:
 	// 毎フレームの処理
 	void Update(int padNum);
 	// 描画
-	void Draw(Vec2 pos);
+	void Draw(Vec2 pos, int size);
 
 	bool GetshotFlag(); // ショットを撃つとき
 

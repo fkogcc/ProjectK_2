@@ -9,11 +9,14 @@ namespace
 	const int kTimeBoxSize = 50;// 時間を表示する場所のボックスのサイズ
 	const int kCenter = Game::kScreenWidth / 2;// 真ん中の位置
 	const char* kFont = "HGP行書体";
+
+	const char* kPlayerCursorHandle1 = "Data/Image/UI/1P.png";
+	const char* kPlayerCursorHandle2 = "Data/Image/UI/2P.png";
 }
 
 UI::UI(int Hp1, int Hp2) :
 	m_boxPos(kCenter, 90),	// 時間を表示するボックスの初期化
-	m_timeCount(2 * 60),// 時間を図るタイマー
+	m_timeCount(99 * 60),// 時間を図るタイマー
 	m_time(0),// 表示する時間
 	m_letter("%d")// 文字
 {
@@ -32,6 +35,10 @@ UI::UI(int Hp1, int Hp2) :
 	m_ui2.m_lower = m_ui2.m_life;
 	m_ui2.m_countFrame = 50;// タイマーの初期化
 	m_ui2.m_attackFlag = false;// 攻撃中かしるためのフラグ
+
+	//ハンドルロード
+	playerCursorHandle1 = LoadGraph(kPlayerCursorHandle1);
+	playerCursorHandle2 = LoadGraph(kPlayerCursorHandle2);
 }
 
 void UI::Update()
@@ -143,4 +150,13 @@ void UI::FontDraw()
 	DrawFormatStringToHandle((Game::kScreenWidth -
 		GetDrawStringWidthToHandle(m_letter, 2, m_font)) / 2,
 		100 - 40, 0x7fffff, m_font, m_letter, m_time);
+}
+
+void UI::DrawPlayerCursor(Vec2 playerPos1, Vec2 playerPos2)
+{
+	DrawGraph(static_cast<int>(playerPos1.x) - 50, static_cast<int>(playerPos1.y) - 120,
+		playerCursorHandle1, true);
+
+	DrawGraph(static_cast<int>(playerPos2.x) - 50, static_cast<int>(playerPos2.y) - 120,
+		playerCursorHandle2, true);
 }

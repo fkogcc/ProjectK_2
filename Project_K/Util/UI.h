@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"Vec2.h"
 
 class UI
@@ -7,9 +7,9 @@ public:
 	UI(int Hp1, int Hp2);
 	~UI() {};
 
-	void Init() {}// ‰Šú‰»
-	void Update();// XVˆ—
-	void Draw();// •`‰æˆ—
+	void Init() {}// åˆæœŸåŒ–
+	void Update();// æ›´æ–°å‡¦ç†
+	void Draw();// æç”»å‡¦ç†
 
 	void HpUpdate();
 	void HpDraw();
@@ -18,12 +18,16 @@ public:
 	void FontDraw();
 
 
-	void GetHp1(int hp) { m_ui1.m_temp = hp; }// 1P‚ÌHP
-	void GetHp2(int hp) { m_ui2.m_temp = hp; }// 2P‚ÌHP
+	void GetHp1(int hp) { m_ui1.m_temp = hp; }// 1Pã®HP
+	void GetHp2(int hp) { m_ui2.m_temp = hp; }// 2Pã®HP
 	void AttackFlag1(bool flag) { m_ui1.m_attackFlag = flag; }
 	void AttackFlag2(bool flag) { m_ui2.m_attackFlag = flag; }
 
+
+	void DrawPlayerCursor(Vec2 playerPos1,Vec2 playerPos2); //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚«ãƒ¼ã‚½ãƒ«è¡¨ç¤º
+
 	int GetTime()const { return m_time; }
+
 
 private:
 
@@ -31,19 +35,22 @@ private:
 
 	struct  UIData
 	{
-		Vec2 m_pos = { 0,0 };// HPƒo[‚ÌˆÊ’u
-		int m_temp = 0;// HP‚ğ‚¤‚¯‚Æ‚é—p‚Ì•Ï”
-		int m_life = 0;// ŠeƒvƒŒƒCƒ„[‚ÌHP
-		int m_lower = 0;// ‰¼‚Å•Û‘¶‚·‚éHP—p‚Ì•Ï”
-		int m_countFrame = 0;// ‰¼‚ÌHP‚ğŒ¸‚ç‚·ƒ^ƒCƒ}[
-		bool m_attackFlag = false;// UŒ‚’†‚©‚Ç‚¤‚©‚ğ’²‚×‚é
+		Vec2 m_pos = { 0,0 };// HPãƒãƒ¼ã®ä½ç½®
+		int m_temp = 0;// HPã‚’ã†ã‘ã¨ã‚‹ç”¨ã®å¤‰æ•°
+		int m_life = 0;// å„ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HP
+		int m_lower = 0;// ä»®ã§ä¿å­˜ã™ã‚‹HPç”¨ã®å¤‰æ•°
+		int m_countFrame = 0;// ä»®ã®HPã‚’æ¸›ã‚‰ã™ã‚¿ã‚¤ãƒãƒ¼
+		bool m_attackFlag = false;// æ”»æ’ƒä¸­ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹
 	};
 
-	int m_font = 0;// ƒtƒHƒ“ƒg
+	int m_font = 0;// ãƒ•ã‚©ãƒ³ãƒˆ
 	UIData m_ui1;// 1P
 	UIData m_ui2;// 2P
 
-	int m_timeCount;// ŠÔƒJƒEƒ“ƒg—p
-	int m_time;// •\¦—pŠÔ
-	const char* m_letter;// •¶š
+	int m_timeCount;// æ™‚é–“ã‚«ã‚¦ãƒ³ãƒˆç”¨
+	int m_time;// è¡¨ç¤ºç”¨æ™‚é–“
+	const char* m_letter;// æ–‡å­—
+
+	int playerCursorHandle1 = -1; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚«ãƒ¼ã‚½ãƒ«ãƒãƒ³ãƒ‰ãƒ«
+	int playerCursorHandle2 = -1; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚«ãƒ¼ã‚½ãƒ«ãƒãƒ³ãƒ‰ãƒ«
 };

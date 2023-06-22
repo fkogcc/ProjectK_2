@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "SceneBase.h"
 #include "../Util/Vec2.h"
 
@@ -28,9 +28,8 @@ private:
 	StageBase* m_pStageBase;	// ステージセレクトシーン
 	void UpdateCountDown(); //試合開始前のカウント
 	void UpdateMain();//試合開始
-	void UpdateDead();//片方が死んだら
+	void UpdateDead();//片方が死んだらまたは時間切れになったら
 private:
-	//StageBase* m_pStage;
 	PlayerBase* m_pPlayer[2];
 	Collision* m_pColl;
 	UI* m_pUi;
@@ -38,13 +37,16 @@ private:
 	bool m_isVictory1P;// 1Pの勝敗
 	bool m_isVictory2P;// 2Pの勝敗
 
-	void (SceneMain::*m_updateFunc)();
+	void (SceneMain::*m_updateFunc)();// Updateのメンバ関数ポインタ
 
-	int countDown; //試合開始のカウントダウン
+
+	int m_countDown; //�J�E���g�_�E��
+
 
 	int m_font;// フォントハンドル
 
 	int m_timeUpDrawCount;// TIME OUT描画時間
+
 };
 
 

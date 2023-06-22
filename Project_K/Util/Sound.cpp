@@ -11,7 +11,9 @@ namespace
 	const char* const kFileName[Sound::SoundId_Num] =
 	{
 		// BGM
-		"Data/Sound/NoSound.mp3",
+		"Data/Sound/BGM/Title.mp3",
+		"Data/Sound/BGM/Select.mp3",
+		"Data/Sound/BGM/Main.mp3",
 	};
 }
 
@@ -46,7 +48,13 @@ namespace Sound
 	{
 		StopSoundMem(m_soundHandle[id]);
 	}
-
+	void loopBgm(SoundId id)
+	{
+		if(CheckSoundMem(m_soundHandle[id]) != 1)
+		{
+			PlaySoundMem(m_soundHandle[id], DX_PLAYTYPE_BACK, true);
+		}
+	}
 	// å¯â âπÇÃçƒê∂
 	void play(SoundId id)
 	{
