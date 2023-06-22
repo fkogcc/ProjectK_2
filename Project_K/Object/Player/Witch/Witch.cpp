@@ -140,8 +140,8 @@ void Witch::Draw()
         m_handle, true, m_reversal);// 画像、透過するか、画像を反転するかどうか
 
 
-    m_pChicken->Draw();// にわとりの描画
-    m_pKnightCat->Draw();//ねこちゃんの描画
+    m_pChicken->Draw(m_sizeUp);// にわとりの描画
+    m_pKnightCat->Draw(m_sizeUp);//ねこちゃんの描画
 
 //    // デバッグ描画
 //#if DEBUG
@@ -212,7 +212,7 @@ void Witch::UpdateInputKey()
             m_moveType = static_cast<int>(moveType::Attack1);// 攻撃1状態
             m_animeFlag = true;// アニメーションフラグの建設
             m_attackFlag = true;// 攻撃中のフラグの建設
-            m_damage = 1;// ダメージ
+            m_damage = 7;// ダメージ
             // 画像が反転していた時の処理
             if (m_reversal)
             {
@@ -238,7 +238,7 @@ void Witch::UpdateInputKey()
             m_animeFlag = true;// アニメーションフラグの建設
             m_attackFlag = true;// 攻撃中のフラグの建設
             m_pLongShot->SetReversal(m_reversal);// 反転させるかどうか
-            m_damage = 3;// ダメージ量
+            m_damage = 10;// ダメージ量
             // 画像が反転していた時の処理
             if (m_reversal)
             {
@@ -383,7 +383,7 @@ void Witch::UpdateAnim()
                     m_pChicken->SetReversal(m_reversal);
                     m_pChicken->SetPos(m_pos);
                     m_attackFlag = true;
-                    m_damage = 3;// ダメージ量
+                    m_damage = 12;// ダメージ量
                 }
                 m_pChicken->SetFlag(true);
             }
@@ -395,7 +395,7 @@ void Witch::UpdateAnim()
                     m_pKnightCat->SetReversal(m_reversal);;
                     m_pKnightCat->SetPos(m_pos);
                     m_attackFlag = true;
-                    m_damage = 5;// ダメージ量
+                    m_damage = 20;// ダメージ量
                 }
                 m_pKnightCat->SetFlag(true);
             }

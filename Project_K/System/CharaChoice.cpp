@@ -4,8 +4,8 @@
 CharaChoice::CharaChoice() :
 	m_charaNumber1(0),
 	m_charaNumber2(0),
-	m_Decision1(false),
-	m_Decision2(false)
+	m_decision1(false),
+	m_decision2(false)
 {
 }
 
@@ -20,104 +20,90 @@ void CharaChoice::Init()
 
 void CharaChoice::Update()
 {
-	updateChara1(); //ƒpƒbƒh1‚ÌƒAƒbƒvƒf[ƒg
-	updateChara2(); //ƒpƒbƒh2‚ÌƒAƒbƒvƒf[ƒg
+	updateChara1(); //ãƒ‘ãƒƒãƒ‰1ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
+	updateChara2(); //ãƒ‘ãƒƒãƒ‰2ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
 }
 
 void CharaChoice::Draw()
 {
-	if (m_Decision1) //ƒLƒƒƒ‰ƒNƒ^[‚ªŒˆ’è‚³‚ê‚½‚Æ‚«Ô•¶Žš‚Å•\Ž¦
+	if (m_decision1) //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒæ±ºå®šã•ã‚ŒãŸã¨ãèµ¤æ–‡å­—ã§è¡¨ç¤º
 	{
-		DrawFormatString(300, 400, 0xff0000,
-			"%d", m_charaNumber1);
+		DrawDecision1P(0xff0000);
 	}
-	else //Œˆ’è‚³‚ê‚Ä‚È‚¢‚Æ‚«”’•¶Žš‚Å•\Ž¦
+	else //æ±ºå®šã•ã‚Œã¦ãªã„ã¨ãç™½æ–‡å­—ã§è¡¨ç¤º
 	{
-		DrawFormatString(300, 400, 0xffffff,
-			"%d", m_charaNumber1);
+		DrawDecision1P(0xffffff);
 	}
 
-	if (m_Decision2)//ƒLƒƒƒ‰ƒNƒ^[‚ªŒˆ’è‚³‚ê‚½‚Æ‚«Ô•¶Žš‚Å•\Ž¦
+	if (m_decision2)//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒæ±ºå®šã•ã‚ŒãŸã¨ãèµ¤æ–‡å­—ã§è¡¨ç¤º
 	{
-		DrawFormatString(600, 400, 0xff0000,
-			"%d", m_charaNumber2);
+		DrawDecision2P(0xff0000);
 	}
-	else //Œˆ’è‚³‚ê‚Ä‚È‚¢‚Æ‚«”’•¶Žš‚Å•\Ž¦
+	else //æ±ºå®šã•ã‚Œã¦ãªã„ã¨ãç™½æ–‡å­—ã§è¡¨ç¤º
 	{
-		DrawFormatString(600, 400, 0xffffff,
-			"%d", m_charaNumber2);
+		DrawDecision2P(0xffffff);
 	}
 }
 
+
 void CharaChoice::updateChara1()
 {
-	//ƒLƒƒƒ‰ƒNƒ^[‚ªŒˆ’è‚³‚ê‚Ä‚¢‚Ä‚©‚Â2ƒ{ƒ^ƒ“‚ð‰Ÿ‚³‚ê‚½ê‡
-	if (Pad::IsTrigger(PAD_INPUT_2, 1) && m_Decision1)
-	{
-		m_Decision1 = false;
-		return;
-	}
+	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒæ±ºå®šã•ã‚Œã¦ã„ã¦ã‹ã¤2ãƒœã‚¿ãƒ³ã‚’æŠ¼ã•ã‚ŒãŸå ´åˆ
+	UpdateChara(1, m_charaNumber1, m_Decision1);
 
-	if (m_Decision1) return; //ƒLƒƒƒ‰ƒNƒ^[‚ªŒˆ’è‚³‚ê‚Ä‚¢‚½‚çˆ—‚ð‚µ‚È‚¢
-
-	if (Pad::IsTrigger(PAD_INPUT_1, 1))
-	{
-		m_Decision1 = true;
-		return;
-	}
-	if (Pad::IsTrigger(PAD_INPUT_DOWN, 1))
-	{
-		if (m_charaNumber1 >= 3)
-		{
-			m_charaNumber1 = 0;
-			return;
-		}
-		m_charaNumber1++;
-	}
-
-	if (Pad::IsTrigger(PAD_INPUT_UP, 1))
-	{
-		if (m_charaNumber1 <= 0)
-		{
-			m_charaNumber1 = 3;
-			return;
-		}
-		m_charaNumber1--;
-	}
 }
 
 void CharaChoice::updateChara2()
 {
-	//ƒLƒƒƒ‰ƒNƒ^[‚ªŒˆ’è‚³‚ê‚Ä‚¢‚Ä‚©‚Â2ƒ{ƒ^ƒ“‚ð‰Ÿ‚³‚ê‚½ê‡
-	if (Pad::IsTrigger(PAD_INPUT_2, 2) && m_Decision2)
+	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒæ±ºå®šã•ã‚Œã¦ã„ã¦ã‹ã¤2ãƒœã‚¿ãƒ³ã‚’æŠ¼ã•ã‚ŒãŸå ´åˆ
+	UpdateChara(2, m_charaNumber2, m_Decision2);
+}
+
+void CharaChoice::UpdateChara(int padNum, int& charaNum, bool& decision)
+{
+	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒæ±ºå®šã•ã‚Œã¦ã„ã¦ã‹ã¤2ãƒœã‚¿ãƒ³ã‚’æŠ¼ã•ã‚ŒãŸå ´åˆ
+	if (Pad::IsTrigger(PAD_INPUT_1, padNum) && decision)
 	{
-		m_Decision2 = false;
+		decision = false;
 		return;
 	}
-	if (m_Decision2) return;//ƒLƒƒƒ‰ƒNƒ^[‚ªŒˆ’è‚³‚ê‚Ä‚¢‚½‚çˆ—‚ð‚µ‚È‚¢
 
-	if (Pad::IsTrigger(PAD_INPUT_1, 2))
+	if (decision) return; //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒæ±ºå®šã•ã‚Œã¦ã„ãŸã‚‰å‡¦ç†ã‚’ã—ãªã„
+
+	if (Pad::IsTrigger(PAD_INPUT_1, padNum) && !decision)
 	{
-		m_Decision2 = true;
+		decision = true;
 		return;
 	}
-	if (Pad::IsTrigger(PAD_INPUT_DOWN, 2))
+	if (Pad::IsTrigger(PAD_INPUT_DOWN, padNum))
 	{
-		if (m_charaNumber2 >= 3)
+		if (charaNum >= 3)
 		{
-			m_charaNumber2 = 0;
+			charaNum = 0;
 			return;
 		}
-		m_charaNumber2++;
+		charaNum++;
 	}
 
-	if (Pad::IsTrigger(PAD_INPUT_UP, 2))
+	if (Pad::IsTrigger(PAD_INPUT_UP, padNum))
 	{
-		if (m_charaNumber2 <= 0)
+		if (charaNum <= 0)
 		{
-			m_charaNumber2 = 3;
+			charaNum = 3;
 			return;
 		}
-		m_charaNumber2--;
+		charaNum--;
 	}
+}
+
+void CharaChoice::DrawDecision1P(int color)
+{
+	DrawFormatString(300, 400, color,
+		"%d", m_charaNumber1);
+}
+
+void CharaChoice::DrawDecision2P(int color)
+{
+	DrawFormatString(600, 400, color,
+		"%d", m_charaNumber2);
 }

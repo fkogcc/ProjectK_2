@@ -87,6 +87,9 @@ void SceneMain::End()
 
 SceneBase* SceneMain::Update()
 {
+	// BGM ループ
+	Sound::loopBgm(Sound::MainBgm);
+
 	(this->*m_updateFunc)();
 	// シーン遷移
 	if (IsFading())
@@ -116,7 +119,6 @@ SceneBase* SceneMain::Update()
 			StartFadeOut();
 		}
 	}
-
 
 	return this;
 }

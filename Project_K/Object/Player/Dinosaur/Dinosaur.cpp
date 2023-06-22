@@ -9,6 +9,7 @@
 namespace
 {
 	const char* kFilename = "Data/Image/Player/kyouryuu/Enemy.png";
+	const char* kShotFilename = "Data/Image/Player/kyouryuu/Shot.png";
 
 	constexpr int kAttackDuration = 10; //攻撃持続時間
 }
@@ -17,6 +18,7 @@ Dinosaur::Dinosaur() :
 	m_handle(-1)
 {
 	m_handle = LoadGraph(kFilename);
+	m_shotHandle = LoadGraph(kShotFilename);
 	m_pStateManager = new DinosaurStateManager(m_handle);
 	m_pStateManager->Init();
 	m_pos = { 0.0f,0.0f };
@@ -35,6 +37,8 @@ void Dinosaur::Init()
 	m_sizeBottom = 110;
 	
 	CharDefaultPos(m_pStateManager->m_lookLeft);
+
+	m_pos.y = 550;
 }
 
 void Dinosaur::End()
@@ -86,9 +90,9 @@ void Dinosaur::Update()
 	// m_posの値を取得
 	m_pos += m_pStateManager->GetVec();
 
-	if (m_pos.y > 600)
+	if (m_pos.y > 550)
 	{
-		m_pos.y = 600;
+		m_pos.y = 550;
 	}
 
 	for (int i = 0; i < kShotMax; i++)
@@ -137,6 +141,7 @@ void Dinosaur::Update()
 				{
 					m_pShot[i] = new DinoShot(m_pos, { 15,0 });
 				}
+				m_pShot[i]->SetHandle(m_shotHandle);
 				break; //ループ抜ける
 			}
 		}

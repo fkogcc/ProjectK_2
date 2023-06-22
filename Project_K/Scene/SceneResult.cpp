@@ -7,8 +7,12 @@
 #include "../Object/Player/Witch/Witch.h"
 #include "../Util/Vec2.h"
 #include "../StringFunction.h"
+
 #include "../UIAnimation.h"
 #include "../ButtonNo.h"
+
+#include "../Util/Sound.h"
+
 
 namespace
 {
@@ -47,6 +51,9 @@ SceneResult::~SceneResult()
 
 void SceneResult::Init()
 {
+	// BGM 再生
+	Sound::startBgm(Sound::ResultBgm, 200);
+
 	bool isWin[2] = { m_isVictory1P ,m_isVictory2P };
 	const char* fontName = "Valentina";
 	const char* fontName2 = "851レトロゴ";
@@ -135,12 +142,22 @@ void SceneResult::End()
 {
 	m_pPlayer[0]->End();
 	m_pPlayer[1]->End();
+
 	m_pAnimUI->End();
+
+	// BGM 停止
+	Sound::stopBgm(Sound::ResultBgm);
+
 }
 
 SceneBase* SceneResult::Update()
 {
+
 	m_pAnimUI->Update();
+
+	// BGM ループ
+	Sound::loopBgm(Sound::ResultBgm);
+
 	if (IsFading())
 	{
 		m_isFadeOut = IsFadingOut();

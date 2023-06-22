@@ -1,9 +1,9 @@
 #include "KinnikuMizo.h"
 
-void KinnikuMizo::Update(int& imagePosX, int& imagePosY)
+void KinnikuMizo::Update(int& imagePosX, int& imagePosY, int& framecount)
 {
 	m_isAttackCol = false;
-	m_frameCount++;
+	framecount++;
 
 	if (imagePosX == 0 && imagePosY == 0)
 	{
@@ -18,10 +18,10 @@ void KinnikuMizo::Update(int& imagePosX, int& imagePosY)
 		m_nextCount = 2;
 	}
 
-	if (m_frameCount >= m_nextCount)
+	if (framecount >= m_nextCount)
 	{
 		imagePosX++;
-		m_frameCount = 0;
+		framecount = 0;
 
 	}
 	if (imagePosX >= 4)
@@ -32,4 +32,6 @@ void KinnikuMizo::Update(int& imagePosX, int& imagePosY)
 	{
 		m_isAttackCol = true;
 	}
+
+	
 }

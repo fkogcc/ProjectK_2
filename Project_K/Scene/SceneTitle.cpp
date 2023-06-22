@@ -17,7 +17,7 @@ SceneTitle::~SceneTitle()
 void SceneTitle::Init()
 {
 	// BGM Ä¶
-	Sound::startBgm(Sound::TitleBgm, 255);
+	Sound::startBgm(Sound::TitleBgm, 200);
 
 	m_isFadeOut = IsFadingOut();
 	m_pLogo->Init();
@@ -64,11 +64,7 @@ SceneBase* SceneTitle::Update()
 
 void SceneTitle::Draw()
 {
-
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xffffff, true);
-
-	DrawString(0, 0, "title", Color::kWhite, false);
-	DrawString(0, 0, "title", 0x000000, false);
 
 	m_pLogo->Draw();
 

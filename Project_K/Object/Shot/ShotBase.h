@@ -19,6 +19,17 @@ protected:
 
 	bool m_Exist = false; // 存在するかどうか
 	bool m_NullShot = false;	  // NullShotであるかどうか
+
+	int m_handle = -1; //ショットハンドル
+
+	int m_imageNum = 0; //画像番号
+	int m_imageMaxNum; //画像最大番号
+	Vec2 m_imageSize;//画像サイズ
+	int m_changeSpeed = 0; //画像変更スピード
+	int m_changeFrame;//画像変更フレーム
+
+	void ChangeImage();//画像変更
+
 public:
 	ShotBase();
 
@@ -42,5 +53,9 @@ public:
 	}
 
 	virtual bool GetNullShot() { return m_NullShot; }
+
+	void SetHandle(int handle) { m_handle = handle; }
+
+
 };
 

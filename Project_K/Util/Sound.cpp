@@ -14,6 +14,20 @@ namespace
 		"Data/Sound/BGM/Title.mp3",
 		"Data/Sound/BGM/Select.mp3",
 		"Data/Sound/BGM/Main.mp3",
+		"Data/Sound/BGM/Result.mp3",
+
+		// SE
+		// ‚¾‚¢‚È‚»[
+
+		// ƒGƒ‹ƒt
+
+		// ‚«‚ñ‚É‚­‚ñ
+		"Data/Sound/SE/Attack1.mp3",
+		"Data/Sound/SE/Attack2.mp3",
+		"Data/Sound/SE/Attack3.mp3",
+		"Data/Sound/SE/Attack4.mp3",
+
+		// –‚—
 	};
 }
 

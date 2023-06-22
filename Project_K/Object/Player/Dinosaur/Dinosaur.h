@@ -20,7 +20,8 @@ public:
 
 	void SetAttackFlag(bool attackFlag)override;
 private:
-	int m_handle;
+	int m_handle; //プレイヤーハンドル
+	int m_shotHandle;//ショットハンドル
 	DinosaurStateManager* m_pStateManager;
 };
 
