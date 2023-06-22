@@ -15,6 +15,11 @@ public:
 
 		m_Exist = true;
 		m_NullShot = false;
+
+		m_imageMaxNum = 5;
+		m_imageSize = { 100,100 };
+		m_changeFrame = 8;
+
 	}
 	virtual ~DinoShot();
 
