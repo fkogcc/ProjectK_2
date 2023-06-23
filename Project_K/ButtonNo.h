@@ -5,4 +5,6 @@ enum class ButtonNo
 	B,
 	X,
 	Y,
+	Up,
+	Down
 };
