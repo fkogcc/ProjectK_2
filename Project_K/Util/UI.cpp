@@ -43,6 +43,14 @@ UI::UI(int Hp1, int Hp2) :
 	playerCursorHandle2 = LoadGraph(kPlayerCursorHandle2);
 }
 
+UI::~UI()
+{
+	DeleteFontToHandle(m_font);
+
+	DeleteGraph(playerCursorHandle1);
+	DeleteGraph(playerCursorHandle2);
+}
+
 void UI::Update()
 {
 	HpUpdate();
@@ -163,12 +171,7 @@ void UI::FontDraw()
 	DrawFormatStringToHandle((Game::kScreenWidth -
 		GetDrawStringWidthToHandle(m_letter, 2, m_font)) / 2,
 		100 - 40, 0x7fffff, m_font, m_letter, m_time);
-
-	// ‚Æ‚¿‚ã‚¤‚Å‚·
-	//DrawFormatStringToHandle(850,
-	//	80, 0xffafaf, kTextFont, "1P");
-	//DrawFormatStringToHandle(1020,
-	//	80, 0xffafaf, kTextFont, "2P");
+	
 }
 
 

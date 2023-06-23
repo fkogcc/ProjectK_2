@@ -13,6 +13,10 @@ void KinnikuMizo::Update(int& imagePosX, int& imagePosY, int& framecount)
 	{
 		m_nextCount = 40;
 	}
+	else if(imagePosX == 2 && imagePosY == 0)
+	{
+		m_nextCount = 1;
+	}
 	else
 	{
 		m_nextCount = 2;
