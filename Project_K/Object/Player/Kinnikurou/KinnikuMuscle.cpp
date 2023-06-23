@@ -13,6 +13,10 @@ void KinnikuMuscle::Update(int& imagePosX, int& imagePosY)
 	{
 		m_nextCount = 15;
 	}
+	else if(imagePosX == 3 && imagePosY == 0)
+	{
+		m_nextCount = 1;
+	}
 	else
 	{
 		m_nextCount = 2;

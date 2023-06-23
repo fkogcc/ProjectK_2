@@ -1,6 +1,7 @@
 ﻿#include "Kinnikurou.h"
 #include "../../condition.h"
 #include "../../Util/DrawFunctions.h"
+#include "../../../Util/Sound.h"
 #include "KinnikuIdle.h"
 #include "KinnikurouJab.h"
 #include "KinnikuMuscle.h"
@@ -331,11 +332,6 @@ void Kinnikurou::Draw()
 
 	AttackCol();
 
-	//DrawBox(static_cast<int> (m_pos.x) + m_sizeLeft, 
-	//	static_cast<int> (m_pos.y) + m_sizeTop,
-	//	static_cast<int> (m_pos.x) + m_sizeRight, 
-	//	static_cast<int> (m_pos.y) + m_sizeBottom,
-	//	0xffffff, false);
 }
 
 void Kinnikurou::ImgposInit()
@@ -366,18 +362,22 @@ void Kinnikurou::AttackCol()
 		if (m_moveType == static_cast<int>(moveType::Attack1))
 		{
 			m_damage = 1;
+			Sound::play(Sound::KinnikuAttack1);
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack2))
 		{
-			m_damage = 10;
+			m_damage = 20;
+			Sound::play(Sound::KinnikuAttack2);
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack3))
 		{
 			m_damage = 2;
+			Sound::play(Sound::KinnikuAttack3);
 		}
 		if (m_moveType == static_cast<int>(moveType::Attack4))
 		{
-			m_damage = 20;
+			m_damage = 30;
+			Sound::play(Sound::KinnikuAttack4);
 		}
 	}
 	else
@@ -453,7 +453,7 @@ void Kinnikurou::UpdateAttack()
 	{
 		m_moveType = static_cast<int>(moveType::Attack2);// マッスル攻撃状態
 		ImgposInit();
-		m_motionCount = 2 * 4 + 15 * 3;
+		m_motionCount = 2 * 3 + 15 * 3 + 1;
 	}
 	if (Pad::IsTrigger(PAD_INPUT_3, m_padNum))
 	{
@@ -465,7 +465,7 @@ void Kinnikurou::UpdateAttack()
 	{
 		m_moveType = static_cast<int>(moveType::Attack4);// みぞおち攻撃状態
 		ImgposInit();
-		m_motionCount = 70 + 2 * 2 + 40;
+		m_motionCount = 70 + 2 * 2 + 40 -1;
 	}
 }
 

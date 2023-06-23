@@ -22,10 +22,10 @@ namespace
 		// ƒGƒ‹ƒt
 
 		// ‚«‚ñ‚É‚­‚ñ
-		"Data/Sound/SE/Attack1.mp3",
-		"Data/Sound/SE/Attack2.mp3",
-		"Data/Sound/SE/Attack3.mp3",
-		"Data/Sound/SE/Attack4.mp3",
+		"Data/Sound/SE/Kinnikurou/Attack1.mp3",
+		"Data/Sound/SE/Kinnikurou/Attack2.mp3",
+		"Data/Sound/SE/Kinnikurou/Attack3.mp3",
+		"Data/Sound/SE/Kinnikurou/Attack4.mp3",
 
 		// –‚—
 		"Data/Sound/SE/Witch/iceMagic.mp3",

@@ -108,6 +108,7 @@ SceneBase* SceneMain::Update()
 	if (m_pUi->GetTime() <= 0)
 	{
 		m_timeUpDrawCount--;
+		
 	}
 
 	// フェードインアウトしていない時
@@ -116,6 +117,7 @@ SceneBase* SceneMain::Update()
 		// デバッグ用シーン遷移
 		if (m_pPlayer[0]->GetHp() <= 0 || m_pPlayer[1]->GetHp() <= 0 || m_timeUpDrawCount <= 0)
 		{
+			m_pUi->Update();
 			StartFadeOut();
 		}
 	}
