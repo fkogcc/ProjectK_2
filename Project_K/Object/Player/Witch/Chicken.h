@@ -27,6 +27,6 @@ private:
 	int m_animeWidth;// アニメーションのいち
 	int m_animeHight;// アニメーションの地位
 	bool m_exist;// 存在
-	int m_countFrame;// なんだろこれ
+	int m_countFrame;//	時間経過で消すので時間を数える関数
 };
 

@@ -5,7 +5,7 @@ class UI
 {
 public:
 	UI(int Hp1, int Hp2);
-	~UI() {};
+	virtual ~UI();
 
 	void Init() {}// 初期化
 	void Update();// 更新処理

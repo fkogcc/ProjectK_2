@@ -1,6 +1,7 @@
 #include "Chicken.h"
 #include"../../Util/game.h"
 #include "../../Util/DrawFunctions.h"
+#include"../../Util/Sound.h"
 namespace
 {
 	const char* const kFilmName = "Data/Image/Player/Witch/Niwatori.png";
@@ -39,6 +40,7 @@ void Chicken::Update()
 {
 	if (m_exist)
 	{
+		Sound::loopBgm(Sound::WitchAttack3);// SE‚ð‚È‚ç‚·
 		m_animeFrame++;
 		if (m_reversal && m_movePos == 40)
 		{

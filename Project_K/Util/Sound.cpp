@@ -18,16 +18,25 @@ namespace
 
 		// SE
 		// ÇæÇ¢Ç»ÇªÅ[
+		"Data/Sound/SE/Dinosaur/Bite.mp3",
+		"Data/Sound/SE/Dinosaur/Pounce.mp3",
+		"Data/Sound/SE/Dinosaur/Scratch.mp3",
+		"Data/Sound/SE/Dinosaur/Shot.mp3",
 
 		// ÉGÉãÉt
 
 		// Ç´ÇÒÇ…Ç≠ÇÒ
-		"Data/Sound/SE/Attack1.mp3",
-		"Data/Sound/SE/Attack2.mp3",
-		"Data/Sound/SE/Attack3.mp3",
-		"Data/Sound/SE/Attack4.mp3",
+		"Data/Sound/SE/Kinnikurou/Attack1.mp3",
+		"Data/Sound/SE/Kinnikurou/Attack2.mp3",
+		"Data/Sound/SE/Kinnikurou/Attack3.mp3",
+		"Data/Sound/SE/Kinnikurou/Attack4.mp3",
 
 		// ñÇèó
+		"Data/Sound/SE/Witch/iceMagic.mp3",
+		"Data/Sound/SE/Witch/iceAttack.mp3",
+		"Data/Sound/SE/Witch/chickenwalk.mp3",
+		"Data/Sound/SE/Witch/knife.mp3",
+		"Data/Sound/SE/Witch/charge.mp3",
 	};
 }
 

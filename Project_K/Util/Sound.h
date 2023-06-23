@@ -13,6 +13,10 @@ namespace Sound
 
 		// SE
 		// ÇæÇ¢Ç»ÇªÅ[
+		DinoAttack1,
+		DinoAttack2,
+		DinoAttack3,
+		DinoAttack4,
 
 		// ÉGÉãÉt
 
@@ -23,6 +27,11 @@ namespace Sound
 		KinnikuAttack4,
 
 		// ñÇèó
+		WitchAttack1,
+		WitchAttack2,
+		WitchAttack3,
+		WitchAttack4,
+		WitchCharge,
 
 		SoundId_Num
 	}SoundId;

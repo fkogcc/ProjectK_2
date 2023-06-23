@@ -52,6 +52,7 @@ namespace AttackSetting
 
 Elf::Elf() :
 	m_handle(0),
+	m_gapTime(0),
 	m_imageX(0), m_imageY(0),
 	m_isAttack(false),
 	m_isDirection(false),

@@ -1,5 +1,7 @@
 #pragma once
 #include "DinosaurStateBase.h"
+#include"../.././Util/Sound.h"
+
 class DinosaurAttackShot : public DinosaurStateBase
 {
 public:
@@ -19,6 +21,8 @@ public:
 		m_attackSizeRight = -10000;
 		m_attackSizeBottom = -10000;
 		m_attackMotion = false;
+
+		Sound::play(Sound::DinoAttack4);
 	}
 	virtual ~DinosaurAttackShot();
 
