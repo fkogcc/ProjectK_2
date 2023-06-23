@@ -18,6 +18,10 @@ namespace
 
 		// SE
 		// ‚¾‚¢‚È‚»[
+		"Data/Sound/SE/Dinosaur/Bite.mp3",
+		"Data/Sound/SE/Dinosaur/Pounce.mp3",
+		"Data/Sound/SE/Dinosaur/Scratch.mp3",
+		"Data/Sound/SE/Dinosaur/Shot.mp3",
 
 		// ƒGƒ‹ƒt
 

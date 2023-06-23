@@ -13,6 +13,10 @@ namespace Sound
 
 		// SE
 		// ‚¾‚¢‚È‚»[
+		DinoAttack1,
+		DinoAttack2,
+		DinoAttack3,
+		DinoAttack4,
 
 		// ƒGƒ‹ƒt
 

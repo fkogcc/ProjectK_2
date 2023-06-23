@@ -1,6 +1,7 @@
 #include "DinosaurAttackBite.h"
 #include"DinosaurIdle.h"
 
+
 namespace
 {
 	//画像が入れ替わるスピード
