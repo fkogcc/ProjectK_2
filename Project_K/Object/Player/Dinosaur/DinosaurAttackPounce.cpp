@@ -1,5 +1,6 @@
 #include "DinosaurAttackPounce.h"
 #include "DinosaurIdle.h"
+#include"../.././Util/Sound.h"
 
 namespace
 {
@@ -39,6 +40,8 @@ DinosaurAttackPounce::DinosaurAttackPounce(Vec2 vec, bool lookLeft)
 	{
 		m_vec.x = kMoveSpeed;
 	}
+
+	Sound::play(Sound::DinoAttack2);
 }
 
 DinosaurAttackPounce::~DinosaurAttackPounce()
