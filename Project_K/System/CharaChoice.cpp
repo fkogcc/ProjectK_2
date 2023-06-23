@@ -98,12 +98,12 @@ void CharaChoice::UpdateChara(int padNum, int& charaNum, bool& decision)
 
 void CharaChoice::DrawDecision1P(int color)
 {
-	DrawFormatString(300, 400, color,
-		"%d", m_charaNumber1);
+	//DrawFormatString(300, 400, color,
+	//	"%d", m_charaNumber1);
 }
 
 void CharaChoice::DrawDecision2P(int color)
 {
-	DrawFormatString(600, 400, color,
-		"%d", m_charaNumber2);
+	//DrawFormatString(600, 400, color,
+	//	"%d", m_charaNumber2);
 }
