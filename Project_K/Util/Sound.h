@@ -23,6 +23,11 @@ namespace Sound
 		KinnikuAttack4,
 
 		// ñÇèó
+		WitchAttack1,
+		WitchAttack2,
+		WitchAttack3,
+		WitchAttack4,
+		WitchCharge,
 
 		SoundId_Num
 	}SoundId;
