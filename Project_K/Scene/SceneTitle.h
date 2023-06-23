@@ -4,6 +4,7 @@
 #include "../Util/Vec2.h"
 
 class LogoRotation;
+class UIAnimation;
 class SceneTitle : public SceneBase
 {
 public:
@@ -18,5 +19,6 @@ public:
 
 private:
 	LogoRotation* m_pLogo;
+	UIAnimation* m_pUiAnim;
 };
 

@@ -51,7 +51,14 @@ private:
 	int m_size;// 大きさ
 	int m_animSpeed;// アニメーションスピード
 	ButtonNo m_buttomNo;// どのボタンを描画させるか
-	int m_imgX;
-	int m_imgY;
+	int m_imgX;// 画像の左上
+	int m_imgY;// 画像の左上
+	int m_imgBottomX;
+	int m_imgBottomY;
 	int m_frameCount;
+
+	// ごり押し処理用
+	// 縦に画像を読み込むか
+	// 横に読み込むか
+	bool m_isAnimXY;
 };

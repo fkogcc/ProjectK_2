@@ -2,12 +2,15 @@
 #include "SceneMapSelect.h"
 #include "../LogoRotation.h"
 #include "../Util/Sound.h"
+#include "../UIAnimation.h"
+#include "../ButtonNo.h"
 
 SceneTitle::SceneTitle():
 	m_pLogo(nullptr)
 {
 	// ロゴ回転用だが後回しなのでまだ出来ていない。
 	m_pLogo = new LogoRotation;
+	m_pUiAnim = new UIAnimation;
 }
 
 SceneTitle::~SceneTitle()
@@ -21,13 +24,16 @@ void SceneTitle::Init()
 
 	m_isFadeOut = IsFadingOut();
 	m_pLogo->Init();
+
+	m_pUiAnim->AddButton(Game::kScreenWidth/2, Game::kScreenHeight - 150, 10, 3, ButtonNo::A);
+	m_pUiAnim->Init();
 }
 
 void SceneTitle::End()
 {
 	// BGM 停止
 	Sound::stopBgm(Sound::TitleBgm);
-
+	m_pUiAnim->End();
 	delete m_pLogo;
 }
 
@@ -35,6 +41,7 @@ SceneBase* SceneTitle::Update()
 {
 	Sound::loopBgm(Sound::TitleBgm);
 	m_pLogo->Update();
+	m_pUiAnim->Update();
 
 	// フェードインアウトしている
 	if (IsFading())
@@ -67,6 +74,7 @@ void SceneTitle::Draw()
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xffffff, true);
 
 	m_pLogo->Draw();
+	m_pUiAnim->Draw();
 
 	SceneBase::DrawFade();
 }
