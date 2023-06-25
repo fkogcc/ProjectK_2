@@ -1,6 +1,8 @@
 ﻿#include "Elf.h"
 #include "../../../Util/DrawFunctions.h"
 #include "../../condition.h"
+#include "../../../Util/Sound.h"
+
 #include "ElfIdle.h"
 #include "ElfRun.h"
 #include "ElfJump.h"
@@ -202,12 +204,14 @@ void Elf::UpdateControl()
 		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum) && m_moveType != static_cast<int>(moveType::Attack1))// XBOX A
 		{
 			m_moveType = static_cast<int>(moveType::Attack1);
+			Sound::play(Sound::ElfAttack1);
 			m_attackFlag = true;
 		}
 		// 攻撃
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && m_moveType != static_cast<int>(moveType::Attack2))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);
+			Sound::play(Sound::ElfAttack3);
 			m_attackFlag = true;
 
 			for (int i = 0; i < kShotMax; i++)
@@ -233,11 +237,13 @@ void Elf::UpdateControl()
 		if (Pad::IsTrigger(PAD_INPUT_5, m_padNum) && m_moveType != static_cast<int>(moveType::Attack3))// XBOX X or Y
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);// 攻撃
+			Sound::play(Sound::ElfAttack4);
 			m_attackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_6, m_padNum) && m_moveType != static_cast<int>(moveType::Attack4))// XBOX X or Y
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
+			Sound::play(Sound::ElfAttack2);
 			m_attackFlag = true;
 
 		}
