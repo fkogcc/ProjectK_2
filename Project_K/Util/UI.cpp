@@ -46,6 +46,7 @@ UI::UI(int Hp1, int Hp2) :
 UI::~UI()
 {
 	DeleteFontToHandle(m_font);
+	DeleteFontToHandle(kTextFont);
 
 	DeleteGraph(playerCursorHandle1);
 	DeleteGraph(playerCursorHandle2);

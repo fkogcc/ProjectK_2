@@ -23,6 +23,11 @@ namespace
 	constexpr int kWinNameFontPosX = 100;
 	constexpr int kWinNameFontPosY = 100;
 	constexpr int kColor = 0x000000;
+
+	// フォントデータ
+	const char* kFontName = "Valentina";
+	const char* kFontName2 = "851レトロゴ";
+
 }
 
 SceneResult::SceneResult(bool isVictory1P, bool isVictory2P, PlayerBase* player1P, PlayerBase* player2P) :
@@ -37,8 +42,11 @@ SceneResult::SceneResult(bool isVictory1P, bool isVictory2P, PlayerBase* player1
 	m_pPlayer[1] = player2P;
 
 	m_pString = new StringFunction;
-
 	m_pAnimUI = new UIAnimation;
+
+	m_font1 = LoadFontDataToHandle(kFontName, 100);
+	m_font2 = LoadFontDataToHandle(kFontName2, 200);
+	m_font3 = LoadFontDataToHandle(kFontName2, 250);
 }
 
 SceneResult::~SceneResult()
@@ -47,6 +55,10 @@ SceneResult::~SceneResult()
 	delete m_pPlayer[1];
 	delete m_pString;
 	delete m_pAnimUI;
+
+	DeleteFontToHandle(m_font1);
+	DeleteFontToHandle(m_font2);
+	DeleteFontToHandle(m_font3);
 }
 
 void SceneResult::Init()

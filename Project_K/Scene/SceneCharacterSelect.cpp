@@ -21,6 +21,8 @@ SceneCharacterSelect::SceneCharacterSelect(int StageNo) :
 
 SceneCharacterSelect::~SceneCharacterSelect()
 {
+	delete m_CharaChoice;
+	delete m_pUi;
 }
 
 void SceneCharacterSelect::Init()

@@ -5,6 +5,7 @@
 class PlayerBase;
 class StringFunction;
 class UIAnimation;
+
 class SceneResult : public SceneBase
 {
 public:
@@ -25,6 +26,11 @@ private:
 	PlayerBase* m_pPlayer[2];// プレイヤーベース
 	StringFunction* m_pString;
 	UIAnimation* m_pAnimUI;
+
+	// テストフォントハンドル
+	int m_font1;
+	int m_font2;
+	int m_font3;
 
 	bool m_isTitle;// タイトルへ
 	bool m_isRetry;// リトライ
