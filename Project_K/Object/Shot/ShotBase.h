@@ -27,6 +27,8 @@ protected:
 	Vec2 m_imageSize;//画像サイズ
 	int m_changeSpeed = 0; //画像変更スピード
 	int m_changeFrame;//画像変更フレーム
+	int m_imageScale = 1;// 画像全体の大きさ
+	bool m_isTrans = true;// 画像の反転
 
 	void ChangeImage();//画像変更
 
@@ -55,6 +57,7 @@ public:
 	virtual bool GetNullShot() { return m_NullShot; }
 
 	void SetHandle(int handle) { m_handle = handle; }
+	void IsSetDir(bool isTrans) { m_isTrans = isTrans; }
 
 
 };

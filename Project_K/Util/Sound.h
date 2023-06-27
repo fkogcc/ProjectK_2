@@ -19,6 +19,10 @@ namespace Sound
 		DinoAttack4,
 
 		// ƒGƒ‹ƒt
+		ElfAttack1,
+		ElfAttack2,
+		ElfAttack3,
+		ElfAttack4,
 
 		// ‚«‚ñ‚É‚­‚ñ
 		KinnikuAttack1,

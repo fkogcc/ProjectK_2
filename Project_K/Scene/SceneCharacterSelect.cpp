@@ -62,7 +62,9 @@ SceneBase* SceneCharacterSelect::Update()
 
 		return(new SceneMain(m_Player[0], m_Player[1], m_stageNo));// 1ステージ切り替え
 	}
-
+	m_Player[0] = new Elf;
+	m_Player[1] = new Dinosaur;
+	return(new SceneMain(m_Player[0], m_Player[1], m_stageNo));// 1ステージ切り替え
 	if (Pad::IsTrigger(PAD_INPUT_2, 1) || Pad::IsTrigger(PAD_INPUT_2, 2))
 	{
 		m_isBackScene = true;

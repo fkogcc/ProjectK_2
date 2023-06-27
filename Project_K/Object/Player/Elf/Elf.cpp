@@ -1,6 +1,8 @@
 ﻿#include "Elf.h"
 #include "../../../Util/DrawFunctions.h"
 #include "../../condition.h"
+#include "../../../Util/Sound.h"
+
 #include "ElfIdle.h"
 #include "ElfRun.h"
 #include "ElfJump.h"
@@ -18,7 +20,11 @@
 
 namespace
 {
+	// プレイヤーパス
 	const char* const kFilmName = "Data/Image/Player/Elf/Elf.png";
+	// ショットパス
+	const char* const kFilmShotName = "Data/Image/Player/Elf/Attack.png";
+
 	constexpr float kSpeed = 10.0f;
 
 	constexpr float kGravity = 2.0f;
@@ -88,6 +94,7 @@ Elf::~Elf()
 void Elf::Init()
 {
 	m_handle = my::MyLoadGraph(kFilmName);
+	m_shotHandle = my::MyLoadGraph(kFilmShotName);
 	m_pos = { 0.0f, 0.0f };
 
 	
@@ -96,7 +103,8 @@ void Elf::Init()
 
 void Elf::End()
 {
-//	my::MyDeleteGraph(m_handle);
+	my::MyDeleteGraph(m_handle);
+	my::MyDeleteGraph(m_shotHandle);
 }
 
 void Elf::Update()
@@ -151,6 +159,7 @@ void Elf::Draw()
 	{
 		m_pShot[i]->Draw();
 	}
+
 	// プレイヤーの描画
 	my::MyDrawRectRotaGraph(
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
@@ -202,12 +211,14 @@ void Elf::UpdateControl()
 		if (Pad::IsTrigger(PAD_INPUT_1, m_padNum) && m_moveType != static_cast<int>(moveType::Attack1))// XBOX A
 		{
 			m_moveType = static_cast<int>(moveType::Attack1);
+			Sound::play(Sound::ElfAttack1);
 			m_attackFlag = true;
 		}
 		// 攻撃
 		if (Pad::IsTrigger(PAD_INPUT_2, m_padNum) && m_moveType != static_cast<int>(moveType::Attack2))// XBOX B
 		{
 			m_moveType = static_cast<int>(moveType::Attack2);
+			Sound::play(Sound::ElfAttack3);
 			m_attackFlag = true;
 
 			for (int i = 0; i < kShotMax; i++)
@@ -225,6 +236,8 @@ void Elf::UpdateControl()
 					{
 						m_pShot[i] = new ElfShot(shotPos, { 15,0 });
 					}
+					m_pShot[i]->IsSetDir(m_isDirection);
+					m_pShot[i]->SetHandle(m_shotHandle);
 					break; //ループ抜ける
 				}
 			}
@@ -233,11 +246,13 @@ void Elf::UpdateControl()
 		if (Pad::IsTrigger(PAD_INPUT_5, m_padNum) && m_moveType != static_cast<int>(moveType::Attack3))// XBOX X or Y
 		{
 			m_moveType = static_cast<int>(moveType::Attack3);// 攻撃
+			Sound::play(Sound::ElfAttack4);
 			m_attackFlag = true;
 		}
 		if (Pad::IsTrigger(PAD_INPUT_6, m_padNum) && m_moveType != static_cast<int>(moveType::Attack4))// XBOX X or Y
 		{
 			m_moveType = static_cast<int>(moveType::Attack4);// 攻撃
+			Sound::play(Sound::ElfAttack2);
 			m_attackFlag = true;
 
 		}

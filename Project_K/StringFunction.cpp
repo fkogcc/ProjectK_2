@@ -57,7 +57,7 @@ AddString::AddString(int x, int y, const char* text, int color, int size, const 
 
 AddString::~AddString()
 {
-	// フォントハンドルデータメモリ解放
+	// フォントハンドルデータのメモリ解放
 	DeleteFontToHandle(m_fontHandle);
 }
 

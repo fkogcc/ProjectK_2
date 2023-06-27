@@ -10,3 +10,4 @@ void ElfShot::Update()
 
 	ShotBase::Update();
 }
+

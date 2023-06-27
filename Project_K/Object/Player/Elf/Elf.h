@@ -46,6 +46,7 @@ private:
 
 private:
 	int m_handle;// 画像ハンドル
+	int m_shotHandle;//ショットハンドル
 
 	int m_imageX, m_imageY;// 画像描画位置
 

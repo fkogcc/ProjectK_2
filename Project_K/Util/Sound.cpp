@@ -24,6 +24,10 @@ namespace
 		"Data/Sound/SE/Dinosaur/Shot.mp3",
 
 		// ƒGƒ‹ƒt
+		"Data/Sound/SE/Elf/61_Hit_03.wav",
+		"Data/Sound/SE/Elf/27_sword_miss_1.wav",
+		"Data/Sound/SE/Elf/17_orc_atk_sword_2.wav",
+		"Data/Sound/SE/Elf/05_door_open_2.mp3",
 
 		// ‚«‚ñ‚É‚­‚ñ
 		"Data/Sound/SE/Kinnikurou/Attack1.mp3",

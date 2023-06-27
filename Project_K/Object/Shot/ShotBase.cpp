@@ -48,7 +48,7 @@ void ShotBase::Draw()
 	my::MyDrawRectRotaGraph(static_cast<int>(m_Shot.Pos.x), static_cast<int>(m_Shot.Pos.y),
 		m_imageNum * static_cast<int>(m_imageSize.x), 0,
 		static_cast<int>(m_imageSize.x),
-			static_cast<int>(m_imageSize.y), 1, 0, m_handle, true, true);
+			static_cast<int>(m_imageSize.y), m_imageScale, 0, m_handle, true, m_isTrans);
 }
 
 
