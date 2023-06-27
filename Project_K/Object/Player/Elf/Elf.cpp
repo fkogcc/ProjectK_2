@@ -20,7 +20,11 @@
 
 namespace
 {
+	// プレイヤーパス
 	const char* const kFilmName = "Data/Image/Player/Elf/Elf.png";
+	// ショットパス
+	const char* const kFilmShotName = "Data/Image/Player/Elf/Attack.png";
+
 	constexpr float kSpeed = 10.0f;
 
 	constexpr float kGravity = 2.0f;
@@ -90,6 +94,7 @@ Elf::~Elf()
 void Elf::Init()
 {
 	m_handle = my::MyLoadGraph(kFilmName);
+	m_shotHandle = my::MyLoadGraph(kFilmShotName);
 	m_pos = { 0.0f, 0.0f };
 
 	
@@ -98,7 +103,8 @@ void Elf::Init()
 
 void Elf::End()
 {
-//	my::MyDeleteGraph(m_handle);
+	my::MyDeleteGraph(m_handle);
+	my::MyDeleteGraph(m_shotHandle);
 }
 
 void Elf::Update()
@@ -153,6 +159,7 @@ void Elf::Draw()
 	{
 		m_pShot[i]->Draw();
 	}
+
 	// プレイヤーの描画
 	my::MyDrawRectRotaGraph(
 		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
@@ -229,6 +236,8 @@ void Elf::UpdateControl()
 					{
 						m_pShot[i] = new ElfShot(shotPos, { 15,0 });
 					}
+					m_pShot[i]->IsSetDir(m_isDirection);
+					m_pShot[i]->SetHandle(m_shotHandle);
 					break; //ループ抜ける
 				}
 			}

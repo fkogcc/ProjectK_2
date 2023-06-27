@@ -17,6 +17,11 @@ public:
 
 		m_Exist = true;
 		m_NullShot = false;
+		m_isTrans = false;
+
+		m_imageMaxNum = 5;
+		m_imageScale = 3;
+		m_imageSize = { 288.0f ,128.0f };
 	}
 	virtual ~ElfShot();
 
