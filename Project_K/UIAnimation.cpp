@@ -58,13 +58,21 @@ ImageAnimation::ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo b
 	m_buttomNo(buttonNo),
 	m_imgX(0),
 	m_imgY(0),
-	m_frameCount(0)
+	m_imgBottomX(0),
+	m_imgBottomY(0),
+	m_frameCount(0),
+	m_isAnimXY(false)
 {
 	m_hButton = my::MyLoadGraph("Data/Image/UI/button.png");
 	if (m_buttomNo == ButtonNo::Up)
 	{
 		m_hButton = my::MyLoadGraph("Data/Image/UI/AllButtons.png");
 	}
+}
+
+ImageAnimation::~ImageAnimation()
+{
+	DeleteGraph(m_hButton);
 }
 
 void ImageAnimation::Init()

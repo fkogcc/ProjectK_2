@@ -23,6 +23,11 @@ namespace
 	constexpr int kWinNameFontPosX = 100;
 	constexpr int kWinNameFontPosY = 100;
 	constexpr int kColor = 0x000000;
+
+	// フォントデータ
+	const char* kFontName = "Valentina";
+	const char* kFontName2 = "851レトロゴ";
+
 }
 
 SceneResult::SceneResult(bool isVictory1P, bool isVictory2P, PlayerBase* player1P, PlayerBase* player2P) :
@@ -37,8 +42,11 @@ SceneResult::SceneResult(bool isVictory1P, bool isVictory2P, PlayerBase* player1
 	m_pPlayer[1] = player2P;
 
 	m_pString = new StringFunction;
-
 	m_pAnimUI = new UIAnimation;
+
+	m_font1 = LoadFontDataToHandle(kFontName, 100);
+	m_font2 = LoadFontDataToHandle(kFontName2, 200);
+	m_font3 = LoadFontDataToHandle(kFontName2, 250);
 }
 
 SceneResult::~SceneResult()
@@ -47,6 +55,10 @@ SceneResult::~SceneResult()
 	delete m_pPlayer[1];
 	delete m_pString;
 	delete m_pAnimUI;
+
+	DeleteFontToHandle(m_font1);
+	DeleteFontToHandle(m_font2);
+	DeleteFontToHandle(m_font3);
 }
 
 void SceneResult::Init()
@@ -201,32 +213,25 @@ void SceneResult::Draw()
 {
 
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xaaaaaa, true);
-
-	DrawString(0, 0, "Result", Color::kWhite);
-	DrawString(0, 20, "PAD_INPUT_1→Title", Color::kWhite);
-	DrawString(0, 40, "PAD_INPUT_2→MapSelect", Color::kWhite);
-
+	
 	m_pString->Draw();
 
 	// 勝利状況
 	// 引き分け
 	if ((m_isVictory1P && m_isVictory2P) || (!m_isVictory1P && !m_isVictory2P))
 	{
-		DrawString(100, 100, "Draw", Color::kRed);
 		m_pPlayer[0]->Draw();
 		m_pPlayer[1]->Draw();
 	}
 	// 1Pの勝利
 	else if (m_isVictory1P)
 	{
-		DrawString(100, 100, "1P:Victory", Color::kRed);
 		m_pPlayer[0]->Draw();
 		
 	}
 	// 2Pの勝利
 	else if(m_isVictory2P)
 	{
-		DrawString(100, 100, "2P:Victory", Color::kRed);
 		m_pPlayer[1]->Draw();
 	}
 	

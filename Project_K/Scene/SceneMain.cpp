@@ -125,6 +125,7 @@ SceneBase* SceneMain::Update()
 	}
 
 	return this;
+	//return(new SceneResult(true, m_isVictory2P, m_pPlayer[0], m_pPlayer[1]));// 1ステージ切り替え
 }
 
 void SceneMain::Draw()

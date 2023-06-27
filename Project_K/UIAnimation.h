@@ -37,7 +37,7 @@ class ImageAnimation
 {
 public:
 	ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo buttonNo);
-	virtual ~ImageAnimation(){};
+	virtual ~ImageAnimation();
 
 	void Init();
 	void End();

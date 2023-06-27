@@ -3,6 +3,7 @@
 #include "SceneTitle.h"
 #include "../Object/Stage/StageBase.h"
 #include "../Util/Sound.h"
+#include "../Util/DrawFunctions.h"
 
 namespace
 {
@@ -23,6 +24,7 @@ namespace
 
 SceneMapSelect::SceneMapSelect() :
 	// コンストラクタ初期化
+	m_stageHandle(-1),
 	m_bgHandle(-1),
 	m_font(-1),
 	m_mapNum(0)
@@ -40,13 +42,11 @@ SceneMapSelect::SceneMapSelect() :
 SceneMapSelect::~SceneMapSelect()
 {
 	// グラフィックハンドルの削除
-	DeleteGraph(m_stageHandle);
-	DeleteGraph(m_bgHandle);
+	/*DeleteGraph(m_stageHandle);
+	DeleteGraph(m_bgHandle);*/
 
-	for (int i = 0; i < 5; i++)
-	{
-		DeleteGraph(m_handle[i]);
-	}
+	
+	DeleteFontToHandle(m_font);
 }
 
 void SceneMapSelect::Init()
@@ -54,19 +54,28 @@ void SceneMapSelect::Init()
 	// グラフィックハンドルのロード
 	m_stageHandle = LoadGraph("Data/Image/UI/StageSelect/ManyStage.png");
 	m_bgHandle = LoadGraph("Data/Image/UI/StageSelect/Bg.png");
-	// BGM Ä¶
+	// BGM開始
 	Sound::startBgm(Sound::SelectBgm, 200);
 }
 
 void SceneMapSelect::End()
 {
-	// BGM ’âŽ~
+	// BGMを止める
 	Sound::stopBgm(Sound::SelectBgm);
+
+	// ハンドルのデリート
+	for (int i = 0; i < 5; i++)
+	{
+		my::MyDeleteGraph(m_handle[i]);
+	}
+
+	my::MyDeleteGraph(m_stageHandle);
+	my::MyDeleteGraph(m_bgHandle);
 }
 
 SceneBase* SceneMapSelect::Update()
 {
-	// BGM ƒ‹[ƒv
+	// BGMループ
 	Sound::loopBgm(Sound::SelectBgm);
 
 	if (IsFading())
@@ -85,10 +94,10 @@ SceneBase* SceneMapSelect::Update()
 		}
 	}
 
-	// 
+	// 次のシーンへ
 	if (!IsFading())
 	{
-		if (Pad::IsTrigger(PAD_INPUT_1, 1))
+		if (Pad::IsTrigger(PAD_INPUT_1, 1) || Pad::IsTrigger(PAD_INPUT_1, 2))
 		{
 			StartFadeOut();
 		}
