@@ -165,7 +165,7 @@ void ImageAnimation::Draw()
 	my::MyDrawRectRotaGraph(m_x, m_y,// 位置
 		m_imgX, m_imgY,// 画像の左上
 		m_imgBottomX, m_imgBottomY,// 画像の右下
-		m_size,// 大きさ
+		static_cast<int>(m_size),// 大きさ
 		DX_PI_F / 180.0f,// 角度
 		m_hButton,// ハンドル
 		true,// 透過
