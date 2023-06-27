@@ -141,8 +141,8 @@ void SceneMain::Draw()
 	m_pPlayer[1]->Draw();
 
 	// デバッグ用当たり判定描画
-	m_pPlayer[0]->DebugDrawCollision();
-	m_pPlayer[1]->DebugDrawCollision();
+	/*m_pPlayer[0]->DebugDrawCollision();
+	m_pPlayer[1]->DebugDrawCollision();*/
 
 	DrawBox(0, 0, Game::kScreenWidth, 652, 0xffffff, false);
 
@@ -300,8 +300,8 @@ void SceneMain::UpdateDead()
 	m_pPlayer[1]->Draw();
 
 	// デバッグ用当たり判定描画
-	m_pPlayer[0]->DebugDrawCollision();
-	m_pPlayer[1]->DebugDrawCollision();
+	/*m_pPlayer[0]->DebugDrawCollision();
+	m_pPlayer[1]->DebugDrawCollision();*/
 
 	SceneBase::DrawFade();
 }
