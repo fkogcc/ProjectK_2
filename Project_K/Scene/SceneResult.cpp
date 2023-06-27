@@ -201,32 +201,25 @@ void SceneResult::Draw()
 {
 
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xaaaaaa, true);
-
-	DrawString(0, 0, "Result", Color::kWhite);
-	DrawString(0, 20, "PAD_INPUT_1→Title", Color::kWhite);
-	DrawString(0, 40, "PAD_INPUT_2→MapSelect", Color::kWhite);
-
+	
 	m_pString->Draw();
 
 	// 勝利状況
 	// 引き分け
 	if ((m_isVictory1P && m_isVictory2P) || (!m_isVictory1P && !m_isVictory2P))
 	{
-		DrawString(100, 100, "Draw", Color::kRed);
 		m_pPlayer[0]->Draw();
 		m_pPlayer[1]->Draw();
 	}
 	// 1Pの勝利
 	else if (m_isVictory1P)
 	{
-		DrawString(100, 100, "1P:Victory", Color::kRed);
 		m_pPlayer[0]->Draw();
 		
 	}
 	// 2Pの勝利
 	else if(m_isVictory2P)
 	{
-		DrawString(100, 100, "2P:Victory", Color::kRed);
 		m_pPlayer[1]->Draw();
 	}
 	
