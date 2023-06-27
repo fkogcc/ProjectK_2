@@ -26,6 +26,8 @@ namespace
 	const int kTimeUpFontPosY = Game::kScreenHeight / 2 - 100;
 
 	const char* kFont = "HGP行書体";// フォント
+
+	constexpr int kShotDamage = 7; //ショットダメージ
 }
 
 SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo) :
@@ -235,7 +237,7 @@ void SceneMain::UpdateMain()
 
 	if (m_pColl->ShotColl1())
 	{
-		m_pPlayer[0]->OnDamage(1);
+		m_pPlayer[0]->OnDamage(kShotDamage);
 		m_pPlayer[0]->SetOnDamageFrame();
 		m_pPlayer[0]->SetKnockBack(toPlayer1);
 		m_pPlayer[1]->SetAttackFlag(false);
@@ -244,7 +246,7 @@ void SceneMain::UpdateMain()
 
 	if (m_pColl->ShotColl2())
 	{
-		m_pPlayer[1]->OnDamage(1);
+		m_pPlayer[1]->OnDamage(kShotDamage);
 		m_pPlayer[1]->SetOnDamageFrame();
 		m_pPlayer[1]->SetKnockBack(toPlayer2);
 		m_pPlayer[1]->SetAttackFlag(false);
