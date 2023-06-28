@@ -7,7 +7,7 @@ namespace
 	constexpr float kAccX = 0.5f; //X軸のノックバック減少量
 	constexpr float kAccY = 1.0f;//Y軸のノックバック減少量
 
-	constexpr float kKnockBackX = 10.0f;//X軸のノックバック量
+	constexpr float kKnockBackX = 8.0f;//X軸のノックバック量
 	constexpr float kKnockBackY = -5.0f;//Y軸のノックバック量
 }
 
@@ -54,7 +54,7 @@ void PlayerBase::KnockBack()
 	//m_onDamageFrameが0になるまで何もしない
 	if (m_onDamageFrame > 0)
 	{
-		m_onDamageFrame--;
+		m_onDamageFrame-=2;
 		damageMove();
 	}
 }

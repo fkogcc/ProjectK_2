@@ -6,41 +6,54 @@
 class DinosaurStateBase
 {
 public:
+	//デストラクタ
 	virtual ~DinosaurStateBase() {};
 
+	//初期化
 	virtual void Init(int Handle);
 
+	//アップデート
 	virtual DinosaurStateBase* Update(int padNum) { return this; }
 
+	//画像表示
 	virtual void Draw(int handle, bool lookRight,Vec2 pos,int size);
 
+	//毎フレームごとに表示する画像を変更
 	virtual void ChangeGraph(int ChangeSpeed, int GraphNum, bool ChangeY);
 
+	//移動ベクトル取得
 	virtual Vec2 GetVec() { return m_vec; }
-
+	
+	//ショットを撃ったかどうかのフラグ
 	virtual bool GetshotFlag() { return m_shotFlag; }
 
+	//攻撃しているかどうかフラグ取得
 	virtual bool GetAttackFlag() { return m_attackFlag; }
+	//攻撃が当たった時にフラグをセット(falseにする)
 	virtual bool SetAttackFlag(bool attackFlag) { return m_attackFlag = attackFlag; }
 
+	// キャラクターが死んでいるかどうか
 	virtual void SetDeadFlag() { m_deadFlag = true; }
 
+	//キャラクターが向いている方向
 	virtual void SetLookFlag(bool RightFlag) { m_lookLeft = RightFlag; }
 
+	//キャラクターのサイズを取得
 	int GetAttackSizeLeft() { return m_attakSizeLeft; }
-
 	int GetAttackSizeTop() { return m_attackSizeTop; }
 	int GetAttackSizeRight() { return m_attackSizeRight; }
 	int GetAttackSizeBottom() { return m_attackSizeBottom; }
 
+	//攻撃力取得
 	int GetAttackDamage() { return m_attackDamage; }
-
+	
+	//攻撃モーションかどうか取得
 	bool GetAttackMotion() { return m_attackMotion; }
 
 protected:
 	int m_handle;
 
-	bool m_shotFlag = false;
+	bool m_shotFlag = false;	//ショットフラグ
 	bool m_lookLeft = false;	// 左を向いているか
 	bool m_deadFlag = false; //死んでいるかどうか
 
