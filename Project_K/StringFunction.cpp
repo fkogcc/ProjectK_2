@@ -21,7 +21,6 @@ StringFunction::~StringFunction()
 		{
 		}*/
 	}
-	printfDx("グロイナー\n");
 }
 
 void StringFunction::Add(int x, int y, const char* text, int color, int size, const char* font)
