@@ -45,7 +45,7 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo) :
 	m_pPlayer[0] = Player1;
 	m_pPlayer[1] = Player2;
 	m_pColl = new Collision(m_pPlayer[0], m_pPlayer[1]);
-	m_pUi = new UI(m_pPlayer[0]->GetHp(), m_pPlayer[1]->GetHp());
+	m_pUi = new UI(m_pPlayer[0]->GetHp(), m_pPlayer[1]->GetHp(), m_pPlayer[0], m_pPlayer[1]);
 
 	m_updateFunc = &SceneMain::UpdateCountDown;
 }
