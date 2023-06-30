@@ -58,8 +58,15 @@ ImageAnimation::ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo b
 	m_buttomNo(buttonNo),
 	m_imgX(0),
 	m_imgY(0),
+<<<<<<< HEAD
 	m_frameCount(0),
 	m_isNoMove(false)
+=======
+	m_imgBottomX(0),
+	m_imgBottomY(0),
+	m_frameCount(0),
+	m_isAnimXY(false)
+>>>>>>> 072510f343af0df890618fafb9b7f29333251e3d
 {
 	// Ç±Ç±ÇÕä÷êîâª //
 	if (m_buttomNo == ButtonNo::X ||
@@ -103,6 +110,11 @@ ImageAnimation::ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo b
 ImageAnimation::~ImageAnimation()
 {
 	my::MyDeleteGraph(m_handle);
+}
+
+ImageAnimation::~ImageAnimation()
+{
+	DeleteGraph(m_hButton);
 }
 
 void ImageAnimation::Init()

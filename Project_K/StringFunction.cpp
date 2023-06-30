@@ -11,6 +11,17 @@ StringFunction::StringFunction()
 
 StringFunction::~StringFunction()
 {
+	//m_pAddString.reset();
+
+	for (auto& test : m_pAddString)
+	{
+		test.reset();
+
+		/*if (test == nullptr)
+		{
+		}*/
+	}
+	printfDx("グロイナー\n");
 }
 
 void StringFunction::Add(int x, int y, const char* text, int color, int size, const char* font)
