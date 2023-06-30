@@ -37,15 +37,19 @@ class ImageAnimation
 {
 public:
 	ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo buttonNo);
-	virtual ~ImageAnimation(){};
+	virtual ~ImageAnimation();
 
 	void Init();
 	void End();
 	void Update();
 	void Draw();
+	int ImageCut(int cutLeftUpX, int cutLeftUpY,
+		int cutRightDownX, int cutRightDownY,
+		const char* handle);
 
 private:
-	int m_hButton;// ボタン画像ハンドル
+	int m_handle;// ボタン画像ハンドル
+	const char* m_filmName;
 	int m_x;// 位置
 	int m_y;// 位置
 	int m_size;// 大きさ
@@ -61,4 +65,5 @@ private:
 	// 縦に画像を読み込むか
 	// 横に読み込むか
 	bool m_isAnimXY;
+	bool m_isNoMove;
 };
