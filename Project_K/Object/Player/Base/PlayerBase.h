@@ -69,7 +69,7 @@ public:
 	//ノックバックの処理(toPlayerはプレイヤーとプレイヤーの距離を求めるためのもの)
 	void SetKnockBack(float toPlayer);
 
-	void SetSize(int size) { m_sizeUp = size; }
+	void SetSize(float size) { m_sizeUp = size; }
 
 	//ポジション取得
 	Vec2 GetPos() { return m_pos; }
@@ -126,7 +126,7 @@ protected:
 	int m_hp = 100;	// プレイヤーの体力量(100が標準)
 	int m_damage = 0;		// プレイヤーが受けるダメージ
 
-	int m_sizeUp = 1;// プレイヤーのサイズの倍率
+	float m_sizeUp = 1;// プレイヤーのサイズの倍率
 
 	bool m_attackFlag = false;	// 攻撃中かどうか
 

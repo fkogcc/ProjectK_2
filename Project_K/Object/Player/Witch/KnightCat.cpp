@@ -67,7 +67,7 @@ void KnightCat::Update()
 	}
 }
 
-void KnightCat::Draw(int sizeup)
+void KnightCat::Draw(float sizeup)
 {
 	if (m_exist)
 	{

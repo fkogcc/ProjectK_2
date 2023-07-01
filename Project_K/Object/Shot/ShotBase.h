@@ -27,7 +27,7 @@ protected:
 	Vec2 m_imageSize;//画像サイズ
 	int m_changeSpeed = 0; //画像変更スピード
 	int m_changeFrame;//画像変更フレーム
-	int m_imageScale = 1;// 画像全体の大きさ
+	float m_imageScale = 1.0f;// 画像全体の大きさ
 	bool m_isTrans = true;// 画像の反転
 
 	void ChangeImage();//画像変更

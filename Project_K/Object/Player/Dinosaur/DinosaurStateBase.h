@@ -16,7 +16,7 @@ public:
 	virtual DinosaurStateBase* Update(int padNum) { return this; }
 
 	//画像表示
-	virtual void Draw(int handle, bool lookRight,Vec2 pos,int size);
+	virtual void Draw(int handle, bool lookRight,Vec2 pos,float size);
 
 	//毎フレームごとに表示する画像を変更
 	virtual void ChangeGraph(int ChangeSpeed, int GraphNum, bool ChangeY);

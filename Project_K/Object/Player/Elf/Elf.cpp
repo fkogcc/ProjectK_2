@@ -162,7 +162,7 @@ void Elf::Draw()
 
 	// プレイヤーの描画
 	my::MyDrawRectRotaGraph(
-		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y) - 176.0f,//プレイヤーの位置
+		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y) - 176,//プレイヤーの位置
 		m_imageX, m_imageY,// 画像の左上
 		kSizeX, kSizeY,    // 画像の右下
 		kSize * m_sizeUp,	   // サイズ

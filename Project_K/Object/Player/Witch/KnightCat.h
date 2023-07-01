@@ -8,7 +8,7 @@ public:
 	virtual ~KnightCat();// デストラクタ
 	void Init();// 初期化
 	void Update();// 更新処理
-	void Draw(int sizeup);// 描画処理
+	void Draw(float sizeup);// 描画処理
 
 	void SetReversal(bool reversal) { m_reversal = reversal; }// 反転しているか
 	void SetPos(Vec2 pos) { m_pos = pos; }// プレイヤーの位置

@@ -21,7 +21,7 @@ public:
 	/// <param name="size">大きさ</param>
 	/// <param name="animSpeedint">アニメーションの再生スピード</param>
 	/// <param name="buttonNo">どのボタンをアニメーションさせるか</param>
-	void AddButton(int x,int y,int size,int animSpeedint , ButtonNo buttonNo);
+	void AddButton(int x,int y, float size,int animSpeedint , ButtonNo buttonNo);
 	void Init();
 	void End();
 	void Update();
@@ -36,7 +36,7 @@ private:
 class ImageAnimation
 {
 public:
-	ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo buttonNo);
+	ImageAnimation(int x, int y, float size, int animSpeed, ButtonNo buttonNo);
 	virtual ~ImageAnimation();
 
 	void Init();
@@ -48,7 +48,7 @@ private:
 	int m_hButton;// ボタン画像ハンドル
 	int m_x;// 位置
 	int m_y;// 位置
-	int m_size;// 大きさ
+	float m_size;// 大きさ
 	int m_animSpeed;// アニメーションスピード
 	ButtonNo m_buttomNo;// どのボタンを描画させるか
 	int m_imgX;// 画像の左上

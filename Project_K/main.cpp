@@ -6,7 +6,7 @@
 // プログラムは WinMain から始まります
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
-	ChangeWindowMode             (Game::kWindowMode                                         );// windowモード設定
+	ChangeWindowMode             (Game::kWindowModo											  );// windowモード設定
 	SetMainWindowText            (Game::kTitleText                                          );// ウインドウ名設定
 	SetGraphMode                 (Game::kScreenWidth, Game::kScreenHeight, Game::kColorDepth);// 画面サイズの設定
 	SetWindowSizeChangeEnableFlag(true                                                      );// ウインドウモードの時にウインドウのサイズ変更できる

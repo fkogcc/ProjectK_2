@@ -74,7 +74,7 @@ void Chicken::Update()
 	}
 }
 
-void Chicken::Draw(int sizeup)
+void Chicken::Draw(float sizeup)
 {
 	if (m_exist)
 	{

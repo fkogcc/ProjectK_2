@@ -9,7 +9,7 @@ UIAnimation::UIAnimation()
 {
 }
 
-void UIAnimation::AddButton(int x, int y, int size, int animSpeed, ButtonNo buttonNo)
+void UIAnimation::AddButton(int x, int y, float size, int animSpeed, ButtonNo buttonNo)
 {
 	m_pAnimUi.push_back(std::make_shared<ImageAnimation>(x,y,size, animSpeed,buttonNo));
 }
@@ -49,7 +49,7 @@ void UIAnimation::Draw()
 /////////////////////////////////////////////
 // UI画像を複製してアニメーションするクラス //
 //////////////////////////////////////////////
-ImageAnimation::ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo buttonNo):
+ImageAnimation::ImageAnimation(int x, int y, float size, int animSpeed, ButtonNo buttonNo):
 	m_hButton(-1),
 	m_x(x),
 	m_y(y),
@@ -165,7 +165,7 @@ void ImageAnimation::Draw()
 	my::MyDrawRectRotaGraph(m_x, m_y,// 位置
 		m_imgX, m_imgY,// 画像の左上
 		m_imgBottomX, m_imgBottomY,// 画像の右下
-		static_cast<int>(m_size),// 大きさ
+		m_size,// 大きさ
 		DX_PI_F / 180.0f,// 角度
 		m_hButton,// ハンドル
 		true,// 透過
