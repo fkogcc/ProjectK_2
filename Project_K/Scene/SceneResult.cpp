@@ -41,6 +41,11 @@ SceneResult::SceneResult(bool isVictory1P, bool isVictory2P, PlayerBase* player1
 	m_pPlayer[0] = player1P;
 	m_pPlayer[1] = player2P;
 
+	m_pDino = new Dinosaur;
+	m_pElf = new Elf;
+	m_pKin = new Kinnikurou;
+	m_pWitch = new Witch;
+
 	m_pString = new StringFunction;
 	m_pAnimUI = new UIAnimation;
 
@@ -87,7 +92,8 @@ void SceneResult::Init()
 			// 魔女が消えるためUpdate関数を呼び出し応急処置
 		//	m_pPlayer[i]->Update();
 			// どのキャラクターが勝利したか
-			if (dynamic_cast<Dinosaur*>(m_pPlayer[i]))
+			//if (dynamic_cast<Dinosaur*>(m_pPlayer[i]))
+			if (m_pPlayer[i] == m_pDino)
 			{
 				// 文字の左上座標
 				Vec2 winPos = { static_cast<float>(Game::kScreenWidth) / 2.0f,
@@ -102,7 +108,8 @@ void SceneResult::Init()
 				m_pString->Add(kWinNameFontPosX, kWinNameFontPosY, WinDino, kColor, kFonstSize, fontName2);
 			}
 			// どのキャラクターが勝利したか
-			else if (dynamic_cast<Elf*>(m_pPlayer[i]))
+			//else if (dynamic_cast<Elf*>(m_pPlayer[i]))
+			else if (m_pPlayer[i] == m_pElf)
 			{
 				// 文字の左上座標
 				Vec2 winPos = { static_cast<float>(Game::kScreenWidth) / 2.0f,
@@ -117,7 +124,8 @@ void SceneResult::Init()
 				m_pString->Add(kWinNameFontPosX, kWinNameFontPosY, WinEfl, kColor, kFonstSize, fontName);
 			}
 			// どのキャラクターが勝利したか
-			else if (dynamic_cast<Kinnikurou*>(m_pPlayer[i]))
+			//else if (dynamic_cast<Kinnikurou*>(m_pPlayer[i]))
+			else if (m_pPlayer[i] == m_pKin)
 			{
 				// 文字の左上座標
 				Vec2 winPos = { static_cast<float>(Game::kScreenWidth) / 2.0f,
@@ -132,7 +140,8 @@ void SceneResult::Init()
 				m_pString->Add(kWinNameFontPosX, kWinNameFontPosY, WinKinniKun, kColor, kFonstSize, fontName2);
 			}
 			// どのキャラクターが勝利したか
-			else if (dynamic_cast<Witch*>(m_pPlayer[i]))
+			//else if (dynamic_cast<Kinnikurou*>(m_pPlayer[i]))
+			else if (m_pPlayer[i] == m_pWitch)
 			{
 				// 文字の左上座標
 				Vec2 winPos = { static_cast<float>(Game::kScreenWidth) / 2.0f,

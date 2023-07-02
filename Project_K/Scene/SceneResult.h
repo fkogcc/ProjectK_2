@@ -24,6 +24,10 @@ public:
 private:
 	// ポインタ
 	PlayerBase* m_pPlayer[2];// プレイヤーベース
+	PlayerBase* m_pDino;
+	PlayerBase* m_pElf;
+	PlayerBase* m_pKin;
+	PlayerBase* m_pWitch;
 	StringFunction* m_pString;
 	UIAnimation* m_pAnimUI;
 
