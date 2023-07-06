@@ -54,9 +54,6 @@ UI::UI(int Hp1, int Hp2, PlayerBase* player1P, PlayerBase* player2P) :
 
 UI::~UI()
 {
-	delete m_pPlayer[0];
-	delete m_pPlayer[1];
-
 	DeleteFontToHandle(m_font);
 	DeleteFontToHandle(kTextFont);
 
