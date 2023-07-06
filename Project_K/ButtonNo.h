@@ -6,5 +6,9 @@ enum class ButtonNo
 	X,
 	Y,
 	Up,
-	Down
+	Down,
+	Dinosaur,
+	Elf,
+	Kinnikurou,
+	Witch
 };

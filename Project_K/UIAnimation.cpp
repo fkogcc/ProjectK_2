@@ -50,7 +50,7 @@ void UIAnimation::Draw()
 // UI画像を複製してアニメーションするクラス //
 //////////////////////////////////////////////
 ImageAnimation::ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo buttonNo):
-	m_hButton(-1),
+	m_handle(-1),
 	m_x(x),
 	m_y(y),
 	m_size(size),
@@ -58,20 +58,54 @@ ImageAnimation::ImageAnimation(int x, int y, int size, int animSpeed, ButtonNo b
 	m_buttomNo(buttonNo),
 	m_imgX(0),
 	m_imgY(0),
+	m_frameCount(0),
+	m_isNoMove(false),
 	m_imgBottomX(0),
 	m_imgBottomY(0),
-	m_frameCount(0),
 	m_isAnimXY(false)
 {
-	m_hButton = my::MyLoadGraph("Data/Image/UI/button.png");
-	if (m_buttomNo == ButtonNo::Up)
+	// ここは関数化 //
+	if (m_buttomNo == ButtonNo::X ||
+		m_buttomNo == ButtonNo::Y || 
+		m_buttomNo == ButtonNo::A || 
+		m_buttomNo == ButtonNo::B )
 	{
-		m_hButton = my::MyLoadGraph("Data/Image/UI/AllButtons.png");
+		m_handle = my::MyLoadGraph("Data/Image/UI/button.png");
+	}
+	else if (m_buttomNo == ButtonNo::Up)
+	{
+		m_handle = my::MyLoadGraph("Data/Image/UI/AllButtons.png");
+	}
+	else if (m_buttomNo == ButtonNo::Dinosaur)
+	{
+		int tempHandle = my::MyLoadGraph("Data/Image/Player/kyouryuu/Enemy.png");
+		m_handle = DerivationGraph(320, 0, 450, 180, tempHandle);
+		m_isNoMove = true;
+	}
+	else if (m_buttomNo == ButtonNo::Elf)
+	{
+		int tempHandle = my::MyLoadGraph("Data/Image/Player/Elf/Elf.png");
+		m_handle = DerivationGraph(0, 0, 280, 100, tempHandle);
+		m_isNoMove = true;
+		/*m_handle = ImageCut(0, 0, 280, 100, "Data/Image/Player/Elf/Elf.png");*/
+	}
+	else if (m_buttomNo == ButtonNo::Kinnikurou)
+	{
+		int tempHandle = my::MyLoadGraph("Data/Image/Player/Kinnikurou/Idle.png");
+		m_handle = DerivationGraph(0, 0, 18, 18, tempHandle);
+		m_isNoMove = true;
+	}
+	else if (m_buttomNo == ButtonNo::Witch)
+	{
+		int tempHandle = my::MyLoadGraph("Data/Image/Player/Witch/Witch.png");
+		m_handle = DerivationGraph(0, 0, 48, 30, tempHandle);
+		m_isNoMove = true;
 	}
 }
 
 ImageAnimation::~ImageAnimation()
 {
+	my::MyDeleteGraph(m_handle);
 	DeleteGraph(m_hButton);
 }
 
@@ -114,7 +148,32 @@ void ImageAnimation::Init()
 		m_imgBottomY = 16;
 		m_isAnimXY = false;
 		break;
+	case ButtonNo::Dinosaur:
+		m_imgX = 0;
+		m_imgY = 0;
+		m_imgBottomX = 130;//450;
+		m_imgBottomY = 180;
+		break;
+	case ButtonNo::Elf:
+		m_imgX = 0;
+		m_imgY = 0;
+		m_imgBottomX = 280;
+		m_imgBottomY = 120;
+		break;
+	case ButtonNo::Kinnikurou:
+		m_imgX = 0;
+		m_imgY = 0;
+		m_imgBottomX = 18;
+		m_imgBottomY = 18;
+		break;
+	case ButtonNo::Witch:
+		m_imgX = 0;
+		m_imgY = 0;
+		m_imgBottomX = 48;
+		m_imgBottomY = 30;
+		break;
 	default:
+		// 何もしない。
 		break;
 	}
 }
@@ -126,38 +185,40 @@ void ImageAnimation::End()
 void ImageAnimation::Update()
 {
 	m_frameCount++;
-
-	if (m_isAnimXY)
+	if (!m_isNoMove)
 	{
-		if (m_frameCount > m_animSpeed)
+		if (m_isAnimXY)
 		{
-			m_frameCount = 0;
-			if (m_imgX < 16 * 5)//画像が右に続いていたら右にずらす
+			if (m_frameCount > m_animSpeed)
 			{
-				m_imgX += 16;//X軸を右にずらす
-			}
-			else
-			{
-				m_imgX = 16 * 2;// 画像の描画させる位置を初期値に戻す
+				m_frameCount = 0;
+				if (m_imgX < 16 * 5)//画像が右に続いていたら右にずらす
+				{
+					m_imgX += 16;//X軸を右にずらす
+				}
+				else
+				{
+					m_imgX = 16 * 2;// 画像の描画させる位置を初期値に戻す
+				}
 			}
 		}
-	}
-	else
-	{
-		if (m_frameCount > m_animSpeed)
+		else
 		{
-			m_frameCount = 0;
-			if (m_imgX == 16 * 10)
+			if (m_frameCount > m_animSpeed)
 			{
-				m_imgX = 16 * 8;
-			}
-			else
-			{
-				m_imgX = 16 * 10;
+				m_frameCount = 0;
+				if (m_imgX == 16 * 10)
+				{
+					m_imgX = 16 * 8;
+				}
+				else
+				{
+					m_imgX = 16 * 10;
 				
+				}
 			}
-		}
-	}	
+		}	
+	}
 }
 
 void ImageAnimation::Draw()
@@ -167,7 +228,13 @@ void ImageAnimation::Draw()
 		m_imgBottomX, m_imgBottomY,// 画像の右下
 		static_cast<int>(m_size),// 大きさ
 		DX_PI_F / 180.0f,// 角度
-		m_hButton,// ハンドル
+		m_handle,// ハンドル
 		true,// 透過
 		false);// 反転
+}
+
+int ImageAnimation::ImageCut(int cutLeftUpX, int cutLeftUpY, int cutRightDownX, int cutRightDownY, const char* handle)
+{
+
+	return 0;
 }

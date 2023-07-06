@@ -11,15 +11,9 @@ StringFunction::StringFunction()
 
 StringFunction::~StringFunction()
 {
-	//m_pAddString.reset();
-
 	for (auto& test : m_pAddString)
 	{
 		test.reset();
-
-		/*if (test == nullptr)
-		{
-		}*/
 	}
 }
 
