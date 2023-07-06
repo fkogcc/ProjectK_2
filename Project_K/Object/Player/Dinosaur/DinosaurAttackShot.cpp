@@ -1,19 +1,26 @@
 #include "DinosaurAttackShot.h"
 #include "DinosaurIdle.h"
 
+namespace
+{
+	constexpr int kImageNum = 5;
+
+	constexpr int k = 5;
+}
+
 DinosaurAttackShot::~DinosaurAttackShot()
 {
 }
 
 DinosaurStateBase* DinosaurAttackShot::Update(int padNum)
 {
-	if (m_imagePosX < 5)
+	if (m_imagePosX < kImageNum)
 	{
-		ChangeGraph(12, 6, false);
+		ChangeGraph(8, 6, false);
 	}
 	else
 	{
-		m_imagePosX = 5;
+		m_imagePosX = kImageNum;
 		m_gapTime++;
 	}
 

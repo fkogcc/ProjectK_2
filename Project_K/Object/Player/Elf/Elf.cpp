@@ -162,7 +162,7 @@ void Elf::Draw()
 
 	// プレイヤーの描画
 	my::MyDrawRectRotaGraph(
-		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),//プレイヤーの位置
+		static_cast<int>(m_pos.x), static_cast<int>(m_pos.y) - 176.0f,//プレイヤーの位置
 		m_imageX, m_imageY,// 画像の左上
 		kSizeX, kSizeY,    // 画像の右下
 		kSize * m_sizeUp,	   // サイズ
@@ -358,7 +358,7 @@ void Elf::UpdateHitColl()
 void Elf::UpdateGravity()
 {
 	// 重力
-	float posY = 600.0f - 176.0f;
+	float posY = 600.0f;
 	if (m_pos.y > posY)
 	{
 		m_pos.y = posY;

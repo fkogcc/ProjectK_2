@@ -1,5 +1,9 @@
 #include "UI.h"
 #include "DxLib.h"
+#include "../Object/Player/Dinosaur/Dinosaur.h"
+#include "../Object/Player/Elf/Elf.h"
+#include "../Object/Player/Kinnikurou/Kinnikurou.h"
+#include "../Object/Player/Witch/Witch.h"
 #include"game.h"
 
 namespace
@@ -15,12 +19,17 @@ namespace
 	const char* kPlayerCursorHandle2 = "Data/Image/UI/2P.png";
 }
 
-UI::UI(int Hp1, int Hp2) :
+UI::UI(int Hp1, int Hp2, PlayerBase* player1P, PlayerBase* player2P) :
 	m_boxPos(kCenter, 90),	// 時間を表示するボックスの初期化
 	m_timeCount(99 * 60),// 時間を図るタイマー
 	m_time(0),// 表示する時間
 	m_letter("%d")// 文字
 {
+	m_pPlayer[0] = nullptr;
+	m_pPlayer[1] = nullptr;
+	m_pPlayer[0] = player1P;
+	m_pPlayer[1] = player2P;
+
 	m_font = CreateFontToHandle(kFont, 70, -1, -1);// 使用するフォント、サイズ
 	kTextFont = CreateFontToHandle(kFont, 40, -1, -1);// 使用するフォント、サイズ
 	// 1Pの初期化
@@ -62,6 +71,8 @@ void UI::Draw()
 {
 	HpDraw();
 	FontDraw();
+
+	m_pPlayer[0]->Draw();
 }
 
 void UI::HpUpdate()
@@ -145,6 +156,21 @@ void UI::HpDraw()
 
 	DrawBox(static_cast<int>(m_boxPos.x) - kTimeBoxSize, static_cast<int>(m_boxPos.y) - kTimeBoxSize,
 		static_cast<int>(m_boxPos.x) + kTimeBoxSize, static_cast<int>(m_boxPos.y) + kTimeBoxSize, 0x000000, false);
+
+	// HPの横にプレイヤーの表示
+	DrawRectRotaGraph(static_cast<int>(m_ui1.m_pos.x - 500) + 20, 
+		static_cast<int>(m_ui1.m_pos.y) - 25,
+		0,0,
+		100,50,
+		1.0f,0.0f,
+		playerCursorHandle1, true);
+	DrawRectRotaGraph(static_cast<int>(m_ui2.m_pos.x + 500) + 5, 
+		static_cast<int>(m_ui2.m_pos.y) - 25 ,
+		0,0,
+		100,50,
+		1.0f,0.0f,
+		playerCursorHandle2, true);
+	
 }
 
 void UI::FontUpdate()

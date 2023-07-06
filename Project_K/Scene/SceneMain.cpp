@@ -45,7 +45,7 @@ SceneMain::SceneMain(PlayerBase* Player1, PlayerBase* Player2, int StageNo) :
 	m_pPlayer[0] = Player1;
 	m_pPlayer[1] = Player2;
 	m_pColl = new Collision(m_pPlayer[0], m_pPlayer[1]);
-	m_pUi = new UI(m_pPlayer[0]->GetHp(), m_pPlayer[1]->GetHp());
+	m_pUi = new UI(m_pPlayer[0]->GetHp(), m_pPlayer[1]->GetHp(), m_pPlayer[0], m_pPlayer[1]);
 
 	m_updateFunc = &SceneMain::UpdateCountDown;
 }
@@ -139,10 +139,6 @@ void SceneMain::Draw()
 	// プレイヤーの描画
 	m_pPlayer[0]->Draw();
 	m_pPlayer[1]->Draw();
-
-	// デバッグ用当たり判定描画
-	m_pPlayer[0]->DebugDrawCollision();
-	m_pPlayer[1]->DebugDrawCollision();
 
 	DrawBox(0, 0, Game::kScreenWidth, 652, 0xffffff, false);
 

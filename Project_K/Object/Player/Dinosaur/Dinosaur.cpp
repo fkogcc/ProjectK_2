@@ -90,6 +90,11 @@ void Dinosaur::Update()
 	// m_posの値を取得
 	m_pos += m_pStateManager->GetVec();
 
+	if (m_pStateManager->GetVec().y == 0)
+	{
+		m_pos.y += 5;
+	}
+
 	if (m_pos.y > 550)
 	{
 		m_pos.y = 550;

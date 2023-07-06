@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include"Vec2.h"
+class PlayerBase;
 
 class UI
 {
 public:
-	UI(int Hp1, int Hp2);
+	UI(int Hp1, int Hp2, PlayerBase* player1P, PlayerBase* player2P);
 	virtual ~UI();
 
 	void Init() {}// 初期化
@@ -31,7 +32,8 @@ public:
 private:
 
 	Vec2 m_boxPos;
-
+	// ポインタ
+	PlayerBase* m_pPlayer[2];// プレイヤーベース
 	struct  UIData
 	{
 		Vec2 m_pos = { 0,0 };// HPバーの位置
