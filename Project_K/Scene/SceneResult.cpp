@@ -132,7 +132,7 @@ void SceneResult::Init()
 				m_pString->Add(kWinNameFontPosX, kWinNameFontPosY, WinKinniKun, kColor, kFonstSize, fontName2);
 			}
 			// どのキャラクターが勝利したか
-			else if (dynamic_cast<Witch*>(m_pPlayer[i]))
+			else if (dynamic_cast<Witch*>(m_pPlayer[i]))			
 			{
 				// 文字の左上座標
 				Vec2 winPos = { static_cast<float>(Game::kScreenWidth) / 2.0f,

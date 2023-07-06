@@ -95,7 +95,7 @@ void Elf::Init()
 {
 	m_handle = my::MyLoadGraph(kFilmName);
 	m_shotHandle = my::MyLoadGraph(kFilmShotName);
-	m_pos = { 0.0f, 0.0f };
+	m_pos = { 0.0f,	0.0f };
 
 	
 	CharDefaultPos(m_isDirection);
@@ -227,7 +227,7 @@ void Elf::UpdateControl()
 				if (!m_pShot[i]->GetExist())
 				{
 					// shot発射時の位置を修正
-					Vec2 shotPos = { m_pos.x, m_pos.y + 110.0f };
+					Vec2 shotPos = { m_pos.x, m_pos.y + 115.0f };
 					if (m_isDirection)
 					{
 						m_pShot[i] = new ElfShot(shotPos, { -15,0 });

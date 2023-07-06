@@ -60,7 +60,7 @@ private:
 	int m_imgBottomX;
 	int m_imgBottomY;
 	int m_frameCount;
-
+	int m_hButton;
 	// ‚²‚è‰Ÿ‚µˆ——p
 	// c‚É‰æ‘œ‚ğ“Ç‚İ‚Ş‚©
 	// ‰¡‚É“Ç‚İ‚Ş‚©
