@@ -103,7 +103,7 @@ SceneBase* SceneMain::Update()
 			// trueの場合
 			// m_isVictory1P = 1Pの勝利
 			// m_isVictory2P = 2Pの勝利
-			return(new SceneResult(m_isVictory1P, m_isVictory2P, m_pPlayer[0], m_pPlayer[1]));// 1ステージ切り替え
+			return(new SceneResult(true, m_isVictory2P, m_pPlayer[0], m_pPlayer[1]));// 1ステージ切り替え
 		}
 	}
 
