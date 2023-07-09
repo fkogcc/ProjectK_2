@@ -227,7 +227,7 @@ void Elf::UpdateControl()
 				if (!m_pShot[i]->GetExist())
 				{
 					// shot発射時の位置を修正
-					Vec2 shotPos = { m_pos.x, m_pos.y + 115.0f };
+					Vec2 shotPos = { m_pos.x, m_pos.y - 60.0f };
 					if (m_isDirection)
 					{
 						m_pShot[i] = new ElfShot(shotPos, { -15,0 });
@@ -349,7 +349,7 @@ void Elf::UpdateHitColl()
 {
 	// プレイヤーの当たり判定用位置
 	m_sizeLeft = -30;
-	m_sizeTop = 75;
+	m_sizeTop = -75;
 	m_sizeRight = m_sizeLeft + 60;
 	m_sizeBottom = m_sizeTop + 176;
 }
@@ -432,14 +432,14 @@ void Elf::AnimAttackPunch()
 	if (m_isDirection)
 	{
 		m_attackSizeLeft = -230 - 90;
-		m_attackSizeTop = 100;
+		m_attackSizeTop = -50;
 		m_attackSizeRight = static_cast<int>(m_sizeLeft) - 50;
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
 	}
 	else
 	{
 		m_attackSizeLeft = 90;
-		m_attackSizeTop = 100;
+		m_attackSizeTop = -50;
 		m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 230;
 		m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 50;
 	}
@@ -478,7 +478,7 @@ void Elf::AnimAttackChargeShit()
 		if (m_isDirection)
 		{	
 			m_attackSizeLeft = m_chargeHitPos;
-			m_attackSizeTop = 100;
+			m_attackSizeTop = -50;
 			m_attackSizeRight = static_cast<int>(m_sizeLeft);
 			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
 
@@ -490,7 +490,7 @@ void Elf::AnimAttackChargeShit()
 		else
 		{	
 			m_attackSizeLeft = 10;
-			m_attackSizeTop = 100;
+			m_attackSizeTop = -50;
 			m_attackSizeRight = m_chargeHitPos;
 			m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 80;
 
@@ -514,9 +514,9 @@ void Elf::AnimAttackUpShit()
 	m_imageY = m_pUp->SetPosImageY();
 	// 攻撃範囲を指定
 	m_attackSizeLeft = -130;
-	m_attackSizeTop = -130;
+	m_attackSizeTop = -200;
 	m_attackSizeRight = static_cast<int>(m_attackSizeLeft) + 280;
-	m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 180;
+	m_attackSizeBottom = static_cast<int>(m_attackSizeTop) + 100;
 
 	// 攻撃力
 	m_damage = AttackSetting::kDamageUp;
